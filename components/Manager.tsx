@@ -24,9 +24,10 @@ import {
   Database,
   Globe,
   ExternalLink,
-  Save
+  Save,
+  Palette
 } from 'lucide-react';
-import { GameRecapData, Team } from '../types';
+import { GameRecapData, Team, GameEvent } from '../types';
 
 const COLORS = [
   '#ef4444', '#f97316', '#f59e0b', '#eab308', '#84cc16', '#22c55e', '#10b981', '#14b8a6', 
@@ -49,7 +50,7 @@ const Manager: React.FC = () => {
     resetData 
   } = useLeagueData();
   
-  const [activeTab, setActiveTab] = useState<'teams' | 'schedule' | 'players' | 'goalies' | 'deployment'>('schedule');
+  const [activeTab, setActiveTab] = useState<'schedule' | 'teams' | 'players' | 'goalies' | 'deployment'>('schedule');
   const [editingRecapId, setEditingRecapId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [passcode, setPasscode] = useState('');
@@ -139,7 +140,14 @@ const Manager: React.FC = () => {
 
   const startEditingRecap = (gameId: string) => {
     if (!gameRecaps[gameId]) {
-      const newRecap: GameRecapData = { gameId, events: [], goalieStats: { homeGoalie: { name: '', shotsFaced: 0, saves: 0, goalsAgainst: 0 }, awayGoalie: { name: '', shotsFaced: 0, saves: 0, goalsAgainst: 0 } } };
+      const newRecap: GameRecapData = { 
+        gameId, 
+        events: [], 
+        goalieStats: { 
+          homeGoalie: { name: '', shotsFaced: 0, saves: 0, goalsAgainst: 0 }, 
+          awayGoalie: { name: '', shotsFaced: 0, saves: 0, goalsAgainst: 0 } 
+        } 
+      };
       setGameRecaps({ ...gameRecaps, [gameId]: newRecap });
     }
     setEditingRecapId(gameId);
@@ -153,8 +161,8 @@ const Manager: React.FC = () => {
       const awayTeam = newTeams.find(t => t.id === game.awayTeamId);
       if (homeTeam && awayTeam) {
         homeTeam.gp++; awayTeam.gp++;
-        homeTeam.goalsFor += game.homeScore!; homeTeam.goalsAgainst += game.awayScore!;
-        awayTeam.goalsFor += game.awayScore!; awayTeam.goalsAgainst += game.homeScore!;
+        homeTeam.goalsFor += Number(game.homeScore) || 0; homeTeam.goalsAgainst += Number(game.awayScore) || 0;
+        awayTeam.goalsFor += Number(game.awayScore) || 0; awayTeam.goalsAgainst += Number(game.homeScore) || 0;
         if (game.homeScore! > game.awayScore!) { homeTeam.wins++; homeTeam.points += 2; awayTeam.losses++; }
         else if (game.homeScore! < game.awayScore!) { awayTeam.wins++; awayTeam.points += 2; homeTeam.losses++; }
         else { homeTeam.ties++; homeTeam.points += 1; awayTeam.ties++; awayTeam.points += 1; }
@@ -189,8 +197,26 @@ const Manager: React.FC = () => {
 
   const generateExport = () => {
     const data = { TEAMS: teams, SCHEDULE: schedule, ALL_PLAYERS: players, GOALIE_STATS: goalies, GAME_RECAPS: gameRecaps };
-    navigator.clipboard.writeText(`Please update constants.ts with:\n\n${JSON.stringify(data, null, 2)}`);
+    navigator.clipboard.writeText(`import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from './types';\n\nexport const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };\n\nexport const TEAMS: Team[] = ${JSON.stringify(teams, null, 2)};\n\nexport const SCHEDULE: Game[] = ${JSON.stringify(schedule, null, 2)};\n\nexport const ALL_PLAYERS: PlayerStats[] = ${JSON.stringify(players, null, 2)};\n\nexport const GOALIE_STATS: GoalieStats[] = ${JSON.stringify(goalies, null, 2)};\n\nexport const GAME_RECAPS: Record<string, GameRecapData> = ${JSON.stringify(gameRecaps, null, 2)};\n\nexport const SYSTEM_INSTRUCTION = \`You are the "League Assistant" for Next Gen Hockey...\`;`);
     setCopied(true); setTimeout(() => setCopied(false), 2000);
+  };
+
+  const updateRecap = (field: string, subField: string, value: any) => {
+    if (!editingRecapId) return;
+    const current = gameRecaps[editingRecapId];
+    const updated = { ...current };
+    if (field === 'goalieStats') {
+        // @ts-ignore
+        updated.goalieStats[subField] = { ...updated.goalieStats[subField], ...value };
+    }
+    setGameRecaps({ ...gameRecaps, [editingRecapId]: updated });
+  };
+
+  const addEvent = () => {
+    if (!editingRecapId) return;
+    const current = gameRecaps[editingRecapId];
+    const newEvent: GameEvent = { id: `e_${Date.now()}`, type: 'goal', period: 1, time: '0:00', teamId: teams[0].id, player: '', assist: '' };
+    setGameRecaps({ ...gameRecaps, [editingRecapId]: { ...current, events: [...current.events, newEvent] } });
   };
 
   return (
@@ -207,13 +233,13 @@ const Manager: React.FC = () => {
             </p>
             <p className="text-xs text-gray-500">
               {isUsingLocalData 
-                ? 'Your changes are saved locally but NOT yet live for players. Export and update code to publish.' 
+                ? 'Your changes are saved locally. Export and update constants.ts to publish.' 
                 : 'Any changes you make now will be saved to your local draft.'}
             </p>
           </div>
         </div>
         <div className="flex gap-2 w-full md:w-auto">
-          <button onClick={() => setShowImportModal(true)} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold py-2 px-4 rounded-lg border border-gray-600 transition-all uppercase tracking-widest"><Upload size={14} /> Import</button>
+          <button onClick={() => setShowImportModal(true)} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold py-2 px-4 rounded-lg border border-gray-600 transition-all uppercase tracking-widest"><Upload size={14} /> Import State</button>
           <button onClick={generateExport} className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-ng-light-blue hover:bg-ng-accent text-ng-navy text-xs font-black py-2 px-6 rounded-lg transition-all uppercase tracking-widest shadow-lg italic">
             {copied ? <Check size={14} /> : <Download size={14} />} {copied ? 'Copied' : 'Export & Publish'}
           </button>
@@ -225,24 +251,69 @@ const Manager: React.FC = () => {
           <h1 className="text-3xl font-black text-white uppercase tracking-tighter italic">League Control Center</h1>
           <p className="text-gray-400">Manage fixtures, teams, and player metrics for the Next Gen Hockey League.</p>
         </div>
-        <button onClick={() => { if(window.confirm('Discard local draft and sync with project defaults?')) resetData(); }} className="flex items-center bg-gray-900 hover:bg-red-900/20 text-gray-500 hover:text-red-400 py-2 px-4 rounded-lg transition-all border border-gray-800 text-xs font-bold uppercase tracking-widest"><RefreshCcw size={14} className="mr-2" /> Sync to Production</button>
+        <button onClick={() => { if(window.confirm('Discard local draft and sync with project defaults?')) resetData(); }} className="flex items-center bg-gray-900 hover:bg-red-900/20 text-gray-500 hover:text-red-400 py-2 px-4 rounded-lg transition-all border border-gray-800 text-xs font-bold uppercase tracking-widest"><RefreshCcw size={14} className="mr-2" /> Reset Local Draft</button>
       </div>
 
       {editingRecapId ? (
         <div className="bg-ng-blue/30 rounded-xl border border-ng-light-blue p-6 animate-in slide-in-from-right duration-300">
-          <button onClick={() => setEditingRecapId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 font-bold uppercase tracking-widest text-xs transition-colors"><ArrowLeft size={18} className="mr-2" /> Exit Recap Editor</button>
-          <div className="bg-ng-navy/80 p-6 rounded-xl border border-gray-700 mb-8 flex justify-center items-center gap-12 text-white font-black uppercase tracking-widest italic text-xl shadow-inner">
-            <div className="flex items-center gap-4">
-               <div className="w-4 h-4 rounded-full" style={{ backgroundColor: teams.find(t => t.id === schedule.find(g => g.id === editingRecapId)?.homeTeamId)?.logoColor }}></div>
-               {teams.find(t => t.id === schedule.find(g => g.id === editingRecapId)?.homeTeamId)?.name}
-            </div>
-            <div className="text-ng-light-blue text-4xl">VS</div>
-            <div className="flex items-center gap-4">
-               {teams.find(t => t.id === schedule.find(g => g.id === editingRecapId)?.awayTeamId)?.name}
-               <div className="w-4 h-4 rounded-full" style={{ backgroundColor: teams.find(t => t.id === schedule.find(g => g.id === editingRecapId)?.awayTeamId)?.logoColor }}></div>
-            </div>
+          <div className="flex justify-between items-center mb-6">
+            <button onClick={() => setEditingRecapId(null)} className="flex items-center text-ng-light-blue hover:text-white font-bold uppercase tracking-widest text-xs transition-colors"><ArrowLeft size={18} className="mr-2" /> Exit Recap Editor</button>
+            <h2 className="text-white font-black italic uppercase">Game Recap Details</h2>
           </div>
-          {/* Edit Recap content removed for brevity as it is identical to previous version */}
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+             {/* Scoring Events */}
+             <div className="bg-ng-navy/50 p-6 rounded-xl border border-gray-700">
+                <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-white font-bold uppercase text-sm tracking-widest">Scoring Summary</h3>
+                    <button onClick={addEvent} className="bg-ng-light-blue text-ng-navy p-1 px-3 rounded text-[10px] font-black">+ ADD GOAL</button>
+                </div>
+                <div className="space-y-3">
+                    {gameRecaps[editingRecapId]?.events.map((event, idx) => (
+                        <div key={event.id} className="grid grid-cols-4 gap-2 bg-gray-800 p-2 rounded items-center">
+                            <input type="text" placeholder="Time" value={event.time} onChange={(e) => {
+                                const evs = [...gameRecaps[editingRecapId].events];
+                                evs[idx].time = e.target.value;
+                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                            }} className="bg-gray-900 text-white text-xs p-1 rounded" />
+                            <select value={event.teamId} onChange={(e) => {
+                                const evs = [...gameRecaps[editingRecapId].events];
+                                evs[idx].teamId = e.target.value;
+                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                            }} className="bg-gray-900 text-white text-xs p-1 rounded">
+                                {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                            </select>
+                            <input type="text" placeholder="Scorer" value={event.player} onChange={(e) => {
+                                const evs = [...gameRecaps[editingRecapId].events];
+                                evs[idx].player = e.target.value;
+                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                            }} className="bg-gray-900 text-white text-xs p-1 rounded" />
+                            <button onClick={() => {
+                                const evs = gameRecaps[editingRecapId].events.filter((_, i) => i !== idx);
+                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                            }} className="text-red-500 text-xs">DEL</button>
+                        </div>
+                    ))}
+                </div>
+             </div>
+
+             {/* Goalie Stats for Recap */}
+             <div className="bg-ng-navy/50 p-6 rounded-xl border border-gray-700">
+                <h3 className="text-white font-bold uppercase text-sm tracking-widest mb-4 text-center">Goalie Performances</h3>
+                <div className="grid grid-cols-2 gap-4">
+                    {['homeGoalie', 'awayGoalie'].map((side) => (
+                        <div key={side} className="space-y-3 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
+                            <p className="text-[10px] font-black text-gray-500 uppercase">{side === 'homeGoalie' ? 'Home Netminder' : 'Away Netminder'}</p>
+                            <input type="text" placeholder="Name" value={(gameRecaps[editingRecapId].goalieStats as any)[side].name} onChange={(e) => updateRecap('goalieStats', side, { name: e.target.value })} className="w-full bg-gray-900 text-white text-xs p-2 rounded" />
+                            <div className="grid grid-cols-2 gap-2">
+                                <div><label className="text-[8px] text-gray-500 uppercase">Shots</label><input type="number" value={(gameRecaps[editingRecapId].goalieStats as any)[side].shotsFaced} onChange={(e) => updateRecap('goalieStats', side, { shotsFaced: parseInt(e.target.value) || 0 })} className="w-full bg-gray-900 text-white text-xs p-2 rounded" /></div>
+                                <div><label className="text-[8px] text-gray-500 uppercase">Saves</label><input type="number" value={(gameRecaps[editingRecapId].goalieStats as any)[side].saves} onChange={(e) => updateRecap('goalieStats', side, { saves: parseInt(e.target.value) || 0 })} className="w-full bg-gray-900 text-white text-xs p-2 rounded" /></div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+             </div>
+          </div>
         </div>
       ) : (
         <div className="bg-ng-blue/30 rounded-xl border border-gray-700 overflow-hidden shadow-2xl flex flex-col min-h-[500px]">
@@ -288,12 +359,122 @@ const Manager: React.FC = () => {
                   <span className="text-xs font-bold text-gray-400 uppercase tracking-widest italic">Standings Logic</span>
                   <button onClick={syncStandingsFromGames} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 transition-all active:scale-95"><RefreshCcw size={16} /> Auto-Sync Results</button>
                 </div>
-                {/* Team table removed for brevity, remains functional */}
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="text-[10px] font-black uppercase text-gray-500 border-b border-gray-700">
+                                <th className="p-3">Team Name</th>
+                                <th className="p-3">Color</th>
+                                <th className="p-3 text-center">W</th>
+                                <th className="p-3 text-center">L</th>
+                                <th className="p-3 text-center">T</th>
+                                <th className="p-3 text-center">PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-800">
+                            {teams.map(team => (
+                                <tr key={team.id} className="hover:bg-white/5">
+                                    <td className="p-3"><input type="text" value={team.name} onChange={(e) => handleTeamUpdate(team.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs focus:ring-1 focus:ring-ng-light-blue rounded p-1" /></td>
+                                    <td className="p-3">
+                                        <div className="flex gap-1 flex-wrap w-24">
+                                            {COLORS.slice(0, 8).map(c => (
+                                                <button key={c} onClick={() => handleTeamUpdate(team.id, 'logoColor', c)} className={`w-4 h-4 rounded-full border border-black ${team.logoColor === c ? 'ring-2 ring-white' : ''}`} style={{ backgroundColor: c }} />
+                                            ))}
+                                        </div>
+                                    </td>
+                                    <td className="p-3 text-center"><input type="number" value={team.wins} onChange={(e) => handleTeamUpdate(team.id, 'wins', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={team.losses} onChange={(e) => handleTeamUpdate(team.id, 'losses', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={team.ties} onChange={(e) => handleTeamUpdate(team.id, 'ties', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={team.points} onChange={(e) => handleTeamUpdate(team.id, 'points', parseInt(e.target.value))} className="w-10 bg-ng-light-blue/20 border-none text-ng-light-blue font-bold text-xs text-center rounded" /></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
               </div>
             )}
             {activeTab === 'players' && (
               <div className="space-y-6">
-                {/* Player list removed for brevity, remains functional */}
+                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
+                  <div className="relative flex-1 max-w-xs">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
+                    <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search players..." className="w-full bg-gray-900 border-gray-700 rounded-lg pl-10 pr-4 py-2 text-xs text-white" />
+                  </div>
+                  <button onClick={addPlayer} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 uppercase italic"><UserPlus size={16} /> New Player</button>
+                </div>
+                <div className="overflow-x-auto max-h-[600px]">
+                    <table className="w-full text-left">
+                        <thead className="sticky top-0 bg-ng-navy z-10">
+                            <tr className="text-[10px] font-black uppercase text-gray-500 border-b border-gray-700">
+                                <th className="p-3">Player Name</th>
+                                <th className="p-3">Team</th>
+                                <th className="p-3 text-center">G</th>
+                                <th className="p-3 text-center">A</th>
+                                <th className="p-3 text-center">PTS</th>
+                                <th className="p-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-800">
+                            {filteredPlayers.map(p => (
+                                <tr key={p.id} className="hover:bg-white/5">
+                                    <td className="p-3"><input type="text" value={p.name} onChange={(e) => handlePlayerUpdate(p.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs p-1 rounded" /></td>
+                                    <td className="p-3">
+                                        <select value={p.teamId} onChange={(e) => handlePlayerUpdate(p.id, 'teamId', e.target.value)} className="bg-gray-900 border-none text-gray-300 text-[10px] rounded p-1">
+                                            {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                                        </select>
+                                    </td>
+                                    <td className="p-3 text-center"><input type="number" value={p.goals} onChange={(e) => handlePlayerUpdate(p.id, 'goals', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{p.points}</td>
+                                    <td className="p-3 text-right">
+                                        <button onClick={() => setPlayers(players.filter(x => x.id !== p.id))} className="text-gray-700 hover:text-red-500"><Trash2 size={14} /></button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+            )}
+            {activeTab === 'goalies' && (
+              <div className="space-y-6">
+                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
+                  <span className="text-xs font-black text-gray-500 uppercase tracking-widest italic">Goalie Matrix</span>
+                  <button onClick={addGoalie} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 uppercase italic"><Shield size={16} /> New Goalie</button>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="text-[10px] font-black uppercase text-gray-500 border-b border-gray-700">
+                                <th className="p-3">Name</th>
+                                <th className="p-3">Team</th>
+                                <th className="p-3 text-center">W</th>
+                                <th className="p-3 text-center">SA</th>
+                                <th className="p-3 text-center">GA</th>
+                                <th className="p-3 text-center">SV%</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-800">
+                            {filteredGoalies.map(g => {
+                                const svPct = g.shotsAgainst > 0 ? ((g.shotsAgainst - g.goalsAgainst) / g.shotsAgainst).toFixed(3) : '.000';
+                                return (
+                                    <tr key={g.id} className="hover:bg-white/5">
+                                        <td className="p-3"><input type="text" value={g.name} onChange={(e) => handleGoalieUpdate(g.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs p-1 rounded" /></td>
+                                        <td className="p-3">
+                                            <select value={g.teamId} onChange={(e) => handleGoalieUpdate(g.id, 'teamId', e.target.value)} className="bg-gray-900 border-none text-gray-300 text-[10px] rounded p-1">
+                                                {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                                            </select>
+                                        </td>
+                                        <td className="p-3 text-center"><input type="number" value={g.wins} onChange={(e) => handleGoalieUpdate(g.id, 'wins', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
               </div>
             )}
             {activeTab === 'deployment' && (
@@ -309,49 +490,45 @@ const Manager: React.FC = () => {
                         <div className="bg-ng-light-blue/20 w-10 h-10 rounded-xl flex items-center justify-center font-black text-ng-light-blue shrink-0">1</div>
                         <div>
                           <h4 className="text-white font-bold mb-1">Upload Code to GitHub</h4>
-                          <p className="text-gray-400 text-sm">Download your project folder and push it to a private or public GitHub repository. This will be the "Engine Room" of your website.</p>
+                          <p className="text-gray-400 text-sm">Download your project folder and push it to a private or public GitHub repository. This is the "Source of Truth" for your website.</p>
                         </div>
                       </div>
                       
                       <div className="flex gap-4">
                         <div className="bg-ng-light-blue/20 w-10 h-10 rounded-xl flex items-center justify-center font-black text-ng-light-blue shrink-0">2</div>
                         <div>
-                          <h4 className="text-white font-bold mb-1">Connect to Vercel/Netlify</h4>
-                          <p className="text-gray-400 text-sm">Go to <a href="https://vercel.com" target="_blank" className="text-ng-light-blue underline">Vercel</a> or <a href="https://netlify.com" target="_blank" className="text-ng-light-blue underline">Netlify</a>, create a free account, and click "New Project" to connect your GitHub repo.</p>
+                          <h4 className="text-white font-bold mb-1">Connect to Vercel</h4>
+                          <p className="text-gray-400 text-sm">Go to <a href="https://vercel.com" target="_blank" className="text-ng-light-blue underline">Vercel</a>, create an account, and connect your GitHub repo. It will build automatically.</p>
                         </div>
                       </div>
 
                       <div className="flex gap-4">
                         <div className="bg-ng-light-blue/20 w-10 h-10 rounded-xl flex items-center justify-center font-black text-ng-light-blue shrink-0">3</div>
                         <div>
-                          <h4 className="text-white font-bold mb-1">Configure Environment</h4>
-                          <p className="text-gray-400 text-sm">In your hosting dashboard, add your <span className="text-white font-mono bg-gray-800 px-1">API_KEY</span> as an Environment Variable. This ensures the AI Assistant works on the live site.</p>
+                          <h4 className="text-white font-bold mb-1">Add AI API Key</h4>
+                          <p className="text-gray-400 text-sm">In Vercel Settings, add <span className="text-white font-mono bg-gray-800 px-1">API_KEY</span> as an Environment Variable for the Gemini Assistant.</p>
                         </div>
                       </div>
                     </div>
 
                     <div className="bg-ng-blue/30 p-6 rounded-xl border border-ng-light-blue/20">
-                       <h4 className="text-ng-light-blue font-black uppercase text-xs mb-4 flex items-center gap-2"><Save size={14} /> Daily Management Workflow</h4>
+                       <h4 className="text-ng-light-blue font-black uppercase text-xs mb-4 flex items-center gap-2"><Save size={14} /> Publication Workflow</h4>
                        <ul className="space-y-4">
                          <li className="flex items-start gap-3">
                            <Check className="text-green-500 shrink-0 mt-1" size={16} />
-                           <p className="text-xs text-gray-300">Login to this Manager on your device.</p>
+                           <p className="text-xs text-gray-300">Open this Manager on your live URL.</p>
                          </li>
                          <li className="flex items-start gap-3">
                            <Check className="text-green-500 shrink-0 mt-1" size={16} />
-                           <p className="text-xs text-gray-300">Enter game scores and click <span className="text-white font-bold">Auto-Sync Results</span>.</p>
+                           <p className="text-xs text-gray-300">Update scores and click <span className="text-white font-bold">Auto-Sync Results</span>.</p>
                          </li>
                          <li className="flex items-start gap-3">
                            <Check className="text-green-500 shrink-0 mt-1" size={16} />
-                           <p className="text-xs text-gray-300">Click <span className="text-white font-bold">Export & Publish</span> to copy the update code.</p>
+                           <p className="text-xs text-gray-300">Click <span className="text-white font-bold">Export & Publish</span>.</p>
                          </li>
                          <li className="flex items-start gap-3">
                            <Check className="text-green-500 shrink-0 mt-1" size={16} />
-                           <p className="text-xs text-gray-300">Paste that code into your <span className="text-white font-mono">constants.ts</span> file and push to GitHub.</p>
-                         </li>
-                         <li className="bg-ng-navy p-3 rounded border border-gray-600">
-                           <p className="text-[10px] text-gray-500 font-bold uppercase mb-1">Why this way?</p>
-                           <p className="text-[10px] text-gray-400">This manual export/save method saves you $20-$50/month in database hosting costs while keeping your league data permanently archived in your code history.</p>
+                           <p className="text-xs text-gray-300">Paste the copied code into your <span className="text-white font-mono italic">constants.ts</span> file and push to GitHub.</p>
                          </li>
                        </ul>
                     </div>
@@ -371,7 +548,7 @@ const Manager: React.FC = () => {
               <textarea 
                 value={importValue}
                 onChange={(e) => setImportValue(e.target.value)}
-                placeholder="Paste code here..."
+                placeholder="Paste code from constants.ts or a previous export..."
                 className="w-full h-64 bg-gray-800 border border-gray-600 rounded-xl p-4 text-xs font-mono text-gray-300 outline-none resize-none mb-6"
               />
               <div className="flex gap-4">
