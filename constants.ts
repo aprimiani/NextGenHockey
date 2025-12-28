@@ -1,18 +1,6 @@
 import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from './types';
 
-// ---------------------------
-// 📧 EMAIL CONFIGURATION
-// ---------------------------
-export const EMAILJS_CONFIG = {
-  SERVICE_ID: 'service_o7zd8ri', 
-  PUBLIC_KEY: 'HViFUqA9NIBXgSDaO',
-  CONTACT_TEMPLATE_ID: 'template_ysbjhgn',
-  REGISTRATION_TEMPLATE_ID: 'template_efmg0t4', 
-};
-
-// ---------------------------
-// 🏆 LEAGUE MASTER DATA (Update this file to update the app)
-// ---------------------------
+export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
 
 export const TEAMS: Team[] = [
   {
@@ -65,26 +53,7 @@ export const TEAMS: Team[] = [
   }
 ];
 
-export const SCHEDULE: Game[] = [
-  {
-    "id": "g_1766956083939",
-    "date": "2026-05-24",
-    "time": "17:00",
-    "homeTeamId": "1",
-    "awayTeamId": "2",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1766956115537",
-    "date": "2025-05-24",
-    "time": "18:00",
-    "homeTeamId": "3",
-    "awayTeamId": "4",
-    "location": "Sportium",
-    "status": "scheduled"
-  }
-];
+export const SCHEDULE: Game[] = [];
 
 export const ALL_PLAYERS: PlayerStats[] = [
   {
@@ -234,13 +203,4 @@ export const GOALIE_STATS: GoalieStats[] = [
 
 export const GAME_RECAPS: Record<string, GameRecapData> = {};
 
-export const SYSTEM_INSTRUCTION = `
-You are the "League Assistant" for Next Gen Hockey.
-Our Mission: To provide a safer, cheaper, and more inclusive hockey experience while supporting the local Children's Hospital.
-Key Information:
-- **Safety**: Strict non-contact enforcement.
-- **Location**: All games played at the City Center Ice Complex.
-- **Schedule**: Games are on Tuesday and Thursday nights.
-- **Format**: Three 15-minute running-time periods.
-Tone: Helpful, enthusiastic, and concise.
-`;
+export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey...`;
