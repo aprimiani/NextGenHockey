@@ -34,6 +34,7 @@ export interface PlayerStats {
   id: string;
   name: string;
   teamId: string;
+  gp: number; // Added manual GP
   goals: number;
   assists: number;
   points: number;
@@ -43,12 +44,13 @@ export interface GoalieStats {
   id: string;
   name: string;
   teamId: string;
+  gp: number; // Added manual GP
   wins: number;
   losses: number;
   draws: number;
   saves: number; // Calculated: shotsAgainst - goalsAgainst
   shotsAgainst: number;
-  goalsAgainst: number; // New field for manual entry
+  goalsAgainst: number;
 }
 
 export interface GameEvent {

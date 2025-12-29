@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useLeagueData } from '../contexts/LeagueDataContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { 
   RefreshCcw, 
   Trophy, 
@@ -36,6 +37,7 @@ const COLORS = [
 ];
 
 const Manager: React.FC = () => {
+  const { t } = useLanguage();
   const { 
     teams, 
     schedule, 
@@ -129,12 +131,12 @@ const Manager: React.FC = () => {
   const removeGame = (id: string) => { if (window.confirm('Remove this game fixture?')) setSchedule(schedule.filter(g => g.id !== id)); };
 
   const addPlayer = () => {
-    const newPlayer = { id: `p_${Date.now()}`, name: 'New Skater', teamId: teams[0]?.id || '1', goals: 0, assists: 0, points: 0 };
+    const newPlayer = { id: `p_${Date.now()}`, name: 'New Skater', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
     setPlayers([...players, newPlayer]);
   };
 
   const addGoalie = () => {
-    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Netminder', teamId: teams[0]?.id || '1', wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
+    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Netminder', teamId: teams[0]?.id || '1', gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
     setGoalies([...goalies, newGoalie]);
   };
 
@@ -188,7 +190,10 @@ const Manager: React.FC = () => {
     setGoalies(goalies.map(g => {
       if (g.id === goalieId) {
         const updated = { ...g, [field]: value };
-        updated.saves = (Number(updated.shotsAgainst) || 0) - (Number(updated.goalsAgainst) || 0);
+        // Sync calculated saves field automatically for data integrity
+        const sa = Number(updated.shotsAgainst) || 0;
+        const ga = Number(updated.goalsAgainst) || 0;
+        updated.saves = sa - ga;
         return updated;
       }
       return g;
@@ -408,6 +413,7 @@ const Manager: React.FC = () => {
                             <tr className="text-[10px] font-black uppercase text-gray-500 border-b border-gray-700">
                                 <th className="p-3">Player Name</th>
                                 <th className="p-3">Team</th>
+                                <th className="p-3 text-center">GP</th>
                                 <th className="p-3 text-center">G</th>
                                 <th className="p-3 text-center">A</th>
                                 <th className="p-3 text-center">PTS</th>
@@ -423,6 +429,7 @@ const Manager: React.FC = () => {
                                             {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                         </select>
                                     </td>
+                                    <td className="p-3 text-center"><input type="number" value={p.gp} onChange={(e) => handlePlayerUpdate(p.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={p.goals} onChange={(e) => handlePlayerUpdate(p.id, 'goals', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{p.points}</td>
@@ -448,15 +455,19 @@ const Manager: React.FC = () => {
                             <tr className="text-[10px] font-black uppercase text-gray-500 border-b border-gray-700">
                                 <th className="p-3">Name</th>
                                 <th className="p-3">Team</th>
-                                <th className="p-3 text-center">W</th>
-                                <th className="p-3 text-center">SA</th>
-                                <th className="p-3 text-center">GA</th>
-                                <th className="p-3 text-center">SV%</th>
+                                <th className="p-3 text-center">{t.standings.gp}</th>
+                                <th className="p-3 text-center">{t.standings.record}</th>
+                                <th className="p-3 text-center">{t.standings.gaa}</th>
+                                <th className="p-3 text-center">{t.standings.svPct}</th>
+                                <th className="p-3 text-center text-gray-500">{t.standings.shotsAgainst}</th>
+                                <th className="p-3 text-center text-gray-500">{t.standings.goalsAgainstShort}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-800">
                             {filteredGoalies.map(g => {
                                 const svPct = g.shotsAgainst > 0 ? ((g.shotsAgainst - g.goalsAgainst) / g.shotsAgainst).toFixed(3) : '.000';
+                                // GAA calculation based on Goals / GP
+                                const gaa = g.gp > 0 ? (g.goalsAgainst / g.gp).toFixed(2) : '0.00';
                                 return (
                                     <tr key={g.id} className="hover:bg-white/5">
                                         <td className="p-3"><input type="text" value={g.name} onChange={(e) => handleGoalieUpdate(g.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs p-1 rounded" /></td>
@@ -465,21 +476,27 @@ const Manager: React.FC = () => {
                                                 {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                             </select>
                                         </td>
-                                        <td className="p-3 text-center"><input type="number" value={g.wins} onChange={(e) => handleGoalieUpdate(g.id, 'wins', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={g.gp} onChange={(e) => handleGoalieUpdate(g.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center text-xs text-gray-500 font-mono">{g.wins}-{g.losses}-{g.draws}</td>
+                                        <td className="p-3 text-center text-gray-400 font-mono text-xs italic">{gaa}</td>
+                                        <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
                                         <td className="p-3 text-center"><input type="number" value={g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center"><input type="number" value={g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                        <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
                                     </tr>
                                 )
                             })}
                         </tbody>
                     </table>
                 </div>
+                <div className="mt-4 p-3 bg-ng-navy/30 rounded border border-gray-700 flex items-center gap-2 text-gray-500 text-[10px] italic">
+                   <Shield size={12} />
+                   <span>{t.standings.gaaExplanation}</span>
+                </div>
               </div>
             )}
             {activeTab === 'deployment' && (
               <div className="space-y-8 animate-in fade-in slide-in-from-bottom duration-500">
-                <div className="bg-ng-navy/50 p-8 rounded-2xl border border-gray-700 shadow-xl">
+                <div className="bg-ng-navy/50 p-8 rounded-2xl border border-gray-700 shadow-xl text-gray-300">
                   <h3 className="text-2xl font-black text-white uppercase italic mb-6 flex items-center gap-3">
                     <Globe className="text-ng-light-blue" /> Hosting & Deployment Guide
                   </h3>
