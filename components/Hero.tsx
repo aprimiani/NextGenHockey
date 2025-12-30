@@ -47,7 +47,23 @@ const Hero: React.FC = () => {
                     </NavLink>
                 </div>
             </div>
+
+            {/* Charity Mission Banner */}
+            <div className="mt-8 p-4 bg-pink-500/10 border border-pink-500/30 rounded-xl flex items-start gap-4 animate-in fade-in slide-in-from-left duration-700">
+               <div className="bg-pink-500 p-2 rounded-lg text-white shadow-lg shadow-pink-500/20 shrink-0">
+                 <Heart size={20} fill="currentColor" />
+               </div>
+               <div>
+                 <h4 className="text-pink-500 font-black uppercase text-[10px] tracking-[0.2em] mb-1 italic">
+                   {t.hero.missionTitle}
+                 </h4>
+                 <p className="text-gray-400 text-sm leading-snug">
+                   {t.hero.missionText}
+                 </p>
+               </div>
+            </div>
           </div>
+          
           <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
             <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
                 <h3 className="text-center text-ng-light-blue font-bold text-lg uppercase tracking-wider mb-6">
@@ -76,10 +92,10 @@ const Hero: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                     <div className="bg-ng-blue/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-red-500/50 transition-colors">
+                     <div className="bg-ng-blue/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-pink-500/50 transition-colors">
                         <div className="flex items-center space-x-4">
-                            <div className="bg-red-500/20 p-3 rounded-lg">
-                                <Heart className="text-red-400 w-8 h-8"/>
+                            <div className="bg-pink-500/20 p-3 rounded-lg">
+                                <Heart className="text-pink-500 w-8 h-8"/>
                             </div>
                             <div>
                                 <h3 className="text-xl font-bold text-white">{t.hero.community}</h3>

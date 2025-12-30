@@ -3,30 +3,23 @@ import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { 
   RefreshCcw, 
-  Trophy, 
-  Calendar, 
-  Copy, 
-  Check, 
   Plus, 
   Trash2, 
   Lock, 
   ShieldCheck, 
   UserPlus, 
-  Zap,
   Shield,
   ArrowLeft,
   ToggleLeft,
   ToggleRight,
   Search,
-  Calculator,
   Download,
   Upload,
   AlertCircle,
   Database,
   Globe,
-  ExternalLink,
-  Save,
-  Palette
+  Check,
+  Save
 } from 'lucide-react';
 import { GameRecapData, Team, GameEvent } from '../types';
 
@@ -60,6 +53,7 @@ const Manager: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showImportModal, setShowImportModal] = useState(false);
   const [importValue, setImportValue] = useState('');
+  const [expandedColors, setExpandedColors] = useState<Record<string, boolean>>({});
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,7 +122,38 @@ const Manager: React.FC = () => {
     setSchedule([...schedule, newGame]);
   };
 
-  const removeGame = (id: string) => { if (window.confirm('Remove this game fixture?')) setSchedule(schedule.filter(g => g.id !== id)); };
+  const removeGame = (id: string) => { 
+    if (window.confirm('Remove this game fixture and its scoring recap?')) {
+      const updatedSchedule = schedule.filter(g => g.id !== id);
+      setSchedule(updatedSchedule);
+      if (gameRecaps[id]) {
+        const updatedRecaps = { ...gameRecaps };
+        delete updatedRecaps[id];
+        setGameRecaps(updatedRecaps);
+      }
+    } 
+  };
+
+  const removePlayer = (id: string) => {
+    if (window.confirm('Remove this player from the league database?')) {
+      setPlayers(players.filter(p => p.id !== id));
+    }
+  };
+
+  const removeGoalie = (id: string) => {
+    if (window.confirm('Remove this netminder from the league database?')) {
+      setGoalies(goalies.filter(g => g.id !== id));
+    }
+  };
+
+  const removeTeam = (id: string) => {
+    if (window.confirm('WARNING: Removing a team will also remove its associated players and goalies. Continue?')) {
+      setTeams(teams.filter(t => t.id !== id));
+      setPlayers(players.filter(p => p.teamId !== id));
+      setGoalies(goalies.filter(g => g.teamId !== id));
+      setSchedule(schedule.filter(s => s.homeTeamId !== id && s.awayTeamId !== id));
+    }
+  };
 
   const addPlayer = () => {
     const newPlayer = { id: `p_${Date.now()}`, name: 'New Skater', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
@@ -190,7 +215,6 @@ const Manager: React.FC = () => {
     setGoalies(goalies.map(g => {
       if (g.id === goalieId) {
         const updated = { ...g, [field]: value };
-        // Sync calculated saves field automatically for data integrity
         const sa = Number(updated.shotsAgainst) || 0;
         const ga = Number(updated.goalsAgainst) || 0;
         updated.saves = sa - ga;
@@ -211,7 +235,6 @@ const Manager: React.FC = () => {
     const current = gameRecaps[editingRecapId];
     const updated = { ...current };
     if (field === 'goalieStats') {
-        // @ts-ignore
         updated.goalieStats[subField] = { ...updated.goalieStats[subField], ...value };
     }
     setGameRecaps({ ...gameRecaps, [editingRecapId]: updated });
@@ -222,6 +245,10 @@ const Manager: React.FC = () => {
     const current = gameRecaps[editingRecapId];
     const newEvent: GameEvent = { id: `e_${Date.now()}`, type: 'goal', period: 1, time: '0:00', teamId: teams[0].id, player: '', assist: '' };
     setGameRecaps({ ...gameRecaps, [editingRecapId]: { ...current, events: [...current.events, newEvent] } });
+  };
+
+  const toggleColorExpansion = (teamId: string) => {
+    setExpandedColors(prev => ({ ...prev, [teamId]: !prev[teamId] }));
   };
 
   return (
@@ -267,7 +294,6 @@ const Manager: React.FC = () => {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-             {/* Scoring Events */}
              <div className="bg-ng-navy/50 p-6 rounded-xl border border-gray-700">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="text-white font-bold uppercase text-sm tracking-widest">Scoring Summary</h3>
@@ -302,7 +328,6 @@ const Manager: React.FC = () => {
                 </div>
              </div>
 
-             {/* Goalie Stats for Recap */}
              <div className="bg-ng-navy/50 p-6 rounded-xl border border-gray-700">
                 <h3 className="text-white font-bold uppercase text-sm tracking-widest mb-4 text-center">Goalie Performances</h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -349,7 +374,7 @@ const Manager: React.FC = () => {
                       <div className="flex flex-col gap-3 md:items-end">
                          <div className="flex items-center gap-2">
                            <button onClick={() => handleGameUpdate(game.id, 'status', game.status === 'played' ? 'scheduled' : 'played')} className={`flex items-center gap-2 px-5 py-2 rounded-lg border text-[10px] font-black uppercase transition-all ${game.status === 'played' ? 'bg-green-600 text-white border-green-500' : 'bg-gray-800 text-gray-400 border-gray-700'}`}>{game.status === 'played' ? <ToggleRight size={16} /> : <ToggleLeft size={16} />} {game.status === 'played' ? 'Played' : 'Draft'}</button>
-                           <button onClick={() => removeGame(game.id)} className="text-red-400 p-2 hover:bg-red-500/10 rounded-lg"><Trash2 size={18} /></button>
+                           <button onClick={() => removeGame(game.id)} className="text-red-400 p-2 hover:bg-red-500/10 rounded-lg transition-colors"><Trash2 size={18} /></button>
                          </div>
                          {game.status === 'played' && <button onClick={() => startEditingRecap(game.id)} className="bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-black px-4 py-2 rounded-lg text-[10px] uppercase italic">Scoring Details</button>}
                       </div>
@@ -374,25 +399,36 @@ const Manager: React.FC = () => {
                                 <th className="p-3 text-center">L</th>
                                 <th className="p-3 text-center">T</th>
                                 <th className="p-3 text-center">PTS</th>
+                                <th className="p-3"></th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-800">
-                            {teams.map(team => (
-                                <tr key={team.id} className="hover:bg-white/5">
+                            {teams.map(team => {
+                                const isExpanded = expandedColors[team.id];
+                                return (
+                                <tr key={team.id} className="hover:bg-white/5 group">
                                     <td className="p-3"><input type="text" value={team.name} onChange={(e) => handleTeamUpdate(team.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs focus:ring-1 focus:ring-ng-light-blue rounded p-1" /></td>
-                                    <td className="p-3">
-                                        <div className="flex gap-1 flex-wrap w-24">
-                                            {COLORS.slice(0, 8).map(c => (
-                                                <button key={c} onClick={() => handleTeamUpdate(team.id, 'logoColor', c)} className={`w-4 h-4 rounded-full border border-black ${team.logoColor === c ? 'ring-2 ring-white' : ''}`} style={{ backgroundColor: c }} />
+                                    <td className="p-3 min-w-[150px]">
+                                        <div className="flex gap-1 flex-wrap items-center">
+                                            {(isExpanded ? COLORS : COLORS.slice(0, 8)).map(c => (
+                                                <button key={c} onClick={() => handleTeamUpdate(team.id, 'logoColor', c)} className={`w-4 h-4 rounded-full border border-black transition-transform hover:scale-125 ${team.logoColor === c ? 'ring-2 ring-white scale-110 shadow-lg' : ''}`} style={{ backgroundColor: c }} />
                                             ))}
+                                            {!isExpanded && (
+                                                <button onClick={() => toggleColorExpansion(team.id)} className="w-4 h-4 rounded-full border border-gray-600 bg-gray-800 text-gray-400 flex items-center justify-center text-[10px] font-bold hover:bg-gray-700 hover:text-white transition-colors">
+                                                    +
+                                                </button>
+                                            )}
                                         </div>
                                     </td>
                                     <td className="p-3 text-center"><input type="number" value={team.wins} onChange={(e) => handleTeamUpdate(team.id, 'wins', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={team.losses} onChange={(e) => handleTeamUpdate(team.id, 'losses', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={team.ties} onChange={(e) => handleTeamUpdate(team.id, 'ties', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={team.points} onChange={(e) => handleTeamUpdate(team.id, 'points', parseInt(e.target.value))} className="w-10 bg-ng-light-blue/20 border-none text-ng-light-blue font-bold text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-right">
+                                        <button onClick={() => removeTeam(team.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
+                                    </td>
                                 </tr>
-                            ))}
+                            )})}
                         </tbody>
                     </table>
                 </div>
@@ -434,7 +470,7 @@ const Manager: React.FC = () => {
                                     <td className="p-3 text-center"><input type="number" value={p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{p.points}</td>
                                     <td className="p-3 text-right">
-                                        <button onClick={() => setPlayers(players.filter(x => x.id !== p.id))} className="text-gray-700 hover:text-red-500"><Trash2 size={14} /></button>
+                                        <button onClick={() => removePlayer(p.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
                                     </td>
                                 </tr>
                             ))}
@@ -461,12 +497,12 @@ const Manager: React.FC = () => {
                                 <th className="p-3 text-center">{t.standings.svPct}</th>
                                 <th className="p-3 text-center text-gray-500">{t.standings.shotsAgainst}</th>
                                 <th className="p-3 text-center text-gray-500">{t.standings.goalsAgainstShort}</th>
+                                <th className="p-3"></th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-800">
                             {filteredGoalies.map(g => {
                                 const svPct = g.shotsAgainst > 0 ? ((g.shotsAgainst - g.goalsAgainst) / g.shotsAgainst).toFixed(3) : '.000';
-                                // GAA calculation based on Goals / GP
                                 const gaa = g.gp > 0 ? (g.goalsAgainst / g.gp).toFixed(2) : '0.00';
                                 return (
                                     <tr key={g.id} className="hover:bg-white/5">
@@ -482,6 +518,9 @@ const Manager: React.FC = () => {
                                         <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
                                         <td className="p-3 text-center"><input type="number" value={g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center"><input type="number" value={g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-right">
+                                            <button onClick={() => removeGoalie(g.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
+                                        </td>
                                     </tr>
                                 )
                             })}

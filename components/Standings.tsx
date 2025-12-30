@@ -47,7 +47,6 @@ const Standings: React.FC = () => {
       )
   }
 
-  // CSS for hiding scrollbars while maintaining functionality
   const scrollbarHideStyle = {
     msOverflowStyle: 'none' as const,
     scrollbarWidth: 'none' as const,
@@ -69,8 +68,8 @@ const Standings: React.FC = () => {
         }
       `}</style>
       
-      <div className="mb-8 overflow-hidden">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4 whitespace-nowrap overflow-hidden text-ellipsis">
+      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <h2 className="text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4">
           {t.standings.title}
         </h2>
       </div>
@@ -234,8 +233,6 @@ const Standings: React.FC = () => {
       {selectedTeam && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
            <div className="bg-ng-navy border border-gray-700 w-full max-w-6xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300">
-              
-              {/* Header */}
               <div 
                 className="p-6 relative overflow-hidden flex items-center justify-between"
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
@@ -257,10 +254,7 @@ const Standings: React.FC = () => {
                 </button>
               </div>
 
-              {/* Modal Content Scrollable Area */}
               <div className="overflow-y-auto p-4 md:p-10 space-y-12 text-gray-300 hide-scrollbar" style={scrollbarHideStyle}>
-                
-                {/* Stats Summary Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={16} /> },
@@ -277,14 +271,12 @@ const Standings: React.FC = () => {
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
-                  {/* Roster Section */}
                   <div className="space-y-6 xl:col-span-8">
                     <div>
                       <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                         <Shield size={18} className="text-ng-light-blue" />
                         Netminders
                       </h3>
-                      {/* WRAPPER DIV ENABLES HORIZONTAL SCROLL WITH FADE */}
                       <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
                         <div 
                           className="overflow-x-auto hide-scrollbar" 
@@ -336,7 +328,6 @@ const Standings: React.FC = () => {
                         <User size={18} className="text-ng-light-blue" />
                         Skaters
                       </h3>
-                      {/* WRAPPER DIV ENABLES HORIZONTAL SCROLL WITH FADE */}
                       <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
                         <div 
                           className="overflow-x-auto hide-scrollbar" 
@@ -373,7 +364,6 @@ const Standings: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Team Schedule Section */}
                   <div className="xl:col-span-4">
                     <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                       <Calendar size={18} className="text-ng-light-blue" />
@@ -420,9 +410,7 @@ const Standings: React.FC = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
-
            </div>
         </div>
       )}

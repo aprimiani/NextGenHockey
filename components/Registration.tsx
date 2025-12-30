@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../constants';
+import { Heart, Sparkles } from 'lucide-react';
 
 const Registration: React.FC = () => {
   const { t } = useLanguage();
@@ -84,6 +85,13 @@ const Registration: React.FC = () => {
       </div>
 
       <div className="bg-ng-blue/30 backdrop-blur-sm shadow-xl rounded-lg border border-gray-700 overflow-hidden">
+        {/* Charity Badge Header */}
+        <div className="bg-pink-500/10 p-4 border-b border-pink-500/20 flex items-center justify-center gap-3">
+           <Heart className="text-pink-500" size={18} fill="currentColor" />
+           <span className="text-pink-500 text-xs font-black uppercase tracking-widest italic">{t.register.depositInfo}</span>
+           <Sparkles className="text-pink-400" size={14} />
+        </div>
+
         <div className="px-4 py-5 sm:p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             

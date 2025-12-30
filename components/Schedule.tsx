@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLeagueData } from '../contexts/LeagueDataContext';
-import { Calendar, MapPin, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowLeft, Construction } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Schedule: React.FC = () => {
@@ -22,6 +22,32 @@ const Schedule: React.FC = () => {
   };
 
   if (loading) return <div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-ng-light-blue"></div></div>;
+
+  // Handle TBD / Empty State
+  if (schedule.length === 0) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <div className="bg-ng-blue/30 rounded-3xl border border-gray-700 p-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-ng-light-blue animate-pulse"></div>
+          <div className="bg-ng-light-blue/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8">
+             <Calendar className="text-ng-light-blue" size={40} />
+          </div>
+          <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4">{t.schedule.tbdTitle}</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-2">
+            {t.schedule.tbdMessage}
+          </p>
+          <p className="text-gray-500 font-medium">
+            {t.schedule.tbdSubtitle}
+          </p>
+          <div className="mt-12 flex justify-center gap-2">
+             <div className="h-1 w-8 bg-gray-700 rounded-full"></div>
+             <div className="h-1 w-16 bg-ng-light-blue rounded-full"></div>
+             <div className="h-1 w-8 bg-gray-700 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (selectedGameId && selectedRecap) {
     const game = schedule.find(g => g.id === selectedGameId);
@@ -71,7 +97,12 @@ const Schedule: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex justify-between items-center mb-8"><h2 className="text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4">{t.schedule.title}</h2></div>
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4">
+          {t.schedule.title}
+        </h2>
+      </div>
+
       <div className="grid gap-6">
         {schedule.map((game) => (
           <div key={game.id} className="bg-ng-blue/30 rounded-lg border border-gray-700 p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 transition-colors">
@@ -90,8 +121,8 @@ const Schedule: React.FC = () => {
             </div>
             <div className="md:w-1/6 flex justify-end mt-4 md:mt-0">
                 {game.status === 'played' && gameRecaps[game.id] && (
-                 <button onClick={() => setSelectedGameId(game.id)} className="text-sm text-ng-light-blue border border-ng-light-blue hover:bg-ng-light-blue hover:text-ng-navy px-4 py-2 rounded transition-colors w-full md:w-auto">{t.schedule.viewRecap}</button>
-               )}
+                  <button onClick={() => setSelectedGameId(game.id)} className="text-sm text-ng-light-blue border border-ng-light-blue hover:bg-ng-light-blue hover:text-ng-navy px-4 py-2 rounded transition-colors w-full md:w-auto">{t.schedule.viewRecap}</button>
+                )}
             </div>
           </div>
         ))}
