@@ -150,7 +150,7 @@ const Manager: React.FC = () => {
   };
 
   const removeGoalie = (id: string) => {
-    if (window.confirm('Remove this netminder from the league database?')) {
+    if (window.confirm('Remove this goalie from the league database?')) {
       setGoalies(goalies.filter(g => g.id !== id));
     }
   };
@@ -165,12 +165,12 @@ const Manager: React.FC = () => {
   };
 
   const addPlayer = () => {
-    const newPlayer = { id: `p_${Date.now()}`, name: 'New Skater', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
+    const newPlayer = { id: `p_${Date.now()}`, name: 'New Player', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
     setPlayers([...players, newPlayer]);
   };
 
   const addGoalie = () => {
-    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Netminder', teamId: teams[0]?.id || '1', gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
+    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
     setGoalies([...goalies, newGoalie]);
   };
 
@@ -342,7 +342,7 @@ const Manager: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                     {['homeGoalie', 'awayGoalie'].map((side) => (
                         <div key={side} className="space-y-3 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-                            <p className="text-[10px] font-black text-gray-500 uppercase">{side === 'homeGoalie' ? 'Home Netminder' : 'Away Netminder'}</p>
+                            <p className="text-[10px] font-black text-gray-500 uppercase">{side === 'homeGoalie' ? 'Home Goalie' : 'Away Goalie'}</p>
                             <input type="text" placeholder="Name" value={(gameRecaps[editingRecapId].goalieStats as any)[side].name} onChange={(e) => updateRecap('goalieStats', side, { name: e.target.value })} className="w-full bg-gray-900 text-white text-xs p-2 rounded" />
                             <div className="grid grid-cols-2 gap-2">
                                 <div><label className="text-[8px] text-gray-500 uppercase">Shots</label><input type="number" value={(gameRecaps[editingRecapId].goalieStats as any)[side].shotsFaced} onChange={(e) => updateRecap('goalieStats', side, { shotsFaced: parseInt(e.target.value) || 0 })} className="w-full bg-gray-900 text-white text-xs p-2 rounded" /></div>

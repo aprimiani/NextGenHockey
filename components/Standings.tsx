@@ -275,7 +275,7 @@ const Standings: React.FC = () => {
                     <div>
                       <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                         <Shield size={18} className="text-ng-light-blue" />
-                        Netminders
+                        {t.standings.goalies}
                       </h3>
                       <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
                         <div 
@@ -326,7 +326,7 @@ const Standings: React.FC = () => {
                     <div>
                       <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                         <User size={18} className="text-ng-light-blue" />
-                        Skaters
+                        {t.standings.skaters}
                       </h3>
                       <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
                         <div 
