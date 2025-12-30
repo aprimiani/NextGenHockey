@@ -65,7 +65,6 @@ export const TEAMS: Team[] = [
   }
 ];
 
-// Master schedule is empty (removed game dated 2025-12-30)
 export const SCHEDULE: Game[] = [];
 
 export const ALL_PLAYERS: PlayerStats[] = [
@@ -99,6 +98,69 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p4",
     "name": "Michael-Joseph Primiani",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082286306",
+    "name": "Jérémy Dumont",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082302464",
+    "name": "Olivier St-Cyr",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082310061",
+    "name": "Gabriel Savard",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082317648",
+    "name": "Zachary Hébert",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082323831",
+    "name": "Xavier Lussier",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082324693",
+    "name": "Arnaud Gamelin",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082325178",
+    "name": "Alexandre Marchand",
     "teamId": "1",
     "gp": 0,
     "goals": 0,
