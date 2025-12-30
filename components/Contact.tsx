@@ -86,13 +86,6 @@ const Contact: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-br from-ng-light-blue/10 to-transparent p-8 rounded-2xl border border-ng-light-blue/20 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 text-ng-light-blue/10 rotate-12 transition-transform group-hover:scale-110">
-              <Mail size={120} />
-            </div>
-            <p className="text-gray-300 italic text-center text-lg relative z-10">{t.contact.commitmentMessage}</p>
-            <p className="text-center text-ng-light-blue font-black mt-4 uppercase tracking-tighter italic relative z-10">- Alessandro Primiani</p>
-          </div>
         </div>
       </div>
     </div>

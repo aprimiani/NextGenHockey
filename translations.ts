@@ -150,8 +150,7 @@ export const translations = {
       directorRole: 'League Director',
       emailLabel: 'Email',
       phoneLabel: 'Phone',
-      locationLabel: 'Location',
-      commitmentMessage: '"We are committed to responding to all player inquiries within 24 hours. Your feedback helps us build a better league."'
+      locationLabel: 'Location'
     },
     footer: {
       rights: '© 2026 Next Gen Hockey League. All rights reserved.',
@@ -306,8 +305,7 @@ export const translations = {
       directorRole: 'Directeur de la Ligue',
       emailLabel: 'Courriel',
       phoneLabel: 'Téléphone',
-      locationLabel: 'Lieu',
-      commitmentMessage: '"Nous nous engageons à répondre à toutes les demandes des joueurs dans les 24 heures. Vos commentaires nous aident à bâtir une meilleure ligue."'
+      locationLabel: 'Lieu'
     },
     footer: {
       rights: '© 2026 Ligue de Hockey Next Gen. Tous droits réservés.',
