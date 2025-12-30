@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
         <h2 className="text-3xl font-extrabold text-white sm:text-4xl">{t.contact.title}</h2>
         <div className="mt-4 max-w-2xl mx-auto"><p className="text-xl text-gray-300">{t.contact.subtitle}</p></div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 shadow-xl">
           {submitted ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-8 animate-in fade-in duration-500">
@@ -72,18 +72,17 @@ const Contact: React.FC = () => {
             </>
           )}
         </div>
-        <div className="flex flex-col justify-center space-y-8">
-          <div className="bg-ng-navy/50 p-6 rounded-xl border border-gray-700">
-            <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-2 flex items-center gap-2 italic uppercase tracking-tighter"><Mail size={20} className="text-ng-light-blue" />{t.contact.directInfo}</h3>
-            <div className="space-y-6">
-              <div className="flex items-start">
-                <div className="bg-ng-light-blue/10 p-3 rounded-lg mr-4 border border-ng-light-blue/20"><Mail className="w-6 h-6 text-ng-light-blue" /></div>
-                <div>
-                  <p className="text-xs text-gray-500 font-black uppercase tracking-widest">{t.contact.emailLabel}</p>
-                  <a href="mailto:nextgenhky@outlook.com" className="text-white text-xl font-black hover:text-ng-light-blue transition-colors">nextgenhky@outlook.com</a>
-                  <p className="text-xs text-gray-400 mt-1 uppercase font-bold tracking-tight">Alessandro Primiani, {t.contact.directorRole}</p>
-                </div>
-              </div>
+        
+        <div className="bg-ng-blue/30 p-8 rounded-xl border border-gray-700 shadow-xl self-start">
+          <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4 flex items-center gap-2 italic uppercase tracking-tighter"><Mail size={20} className="text-ng-light-blue" />{t.contact.directInfo}</h3>
+          <div className="flex items-start">
+            <div className="bg-ng-light-blue/10 p-4 rounded-lg mr-5 border border-ng-light-blue/20 shadow-inner"><Mail className="w-7 h-7 text-ng-light-blue" /></div>
+            <div>
+              <p className="text-[10px] text-ng-light-blue font-black uppercase tracking-[0.2em] mb-1">Direct Outreach</p>
+              <p className="text-xs text-gray-500 font-black uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
+              <a href="mailto:nextgenhky@outlook.com" className="text-white text-xl md:text-2xl font-black hover:text-ng-light-blue transition-colors">nextgenhky@outlook.com</a>
+              <p className="text-sm text-gray-400 mt-2 uppercase font-bold tracking-tight">Alessandro Primiani</p>
+              <p className="text-xs text-ng-light-blue/70 font-bold uppercase tracking-widest">{t.contact.directorRole}</p>
             </div>
           </div>
         </div>
