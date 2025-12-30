@@ -47,27 +47,52 @@ const Standings: React.FC = () => {
       )
   }
 
+  // CSS for hiding scrollbars while maintaining functionality
+  const scrollbarHideStyle = {
+    msOverflowStyle: 'none' as const,
+    scrollbarWidth: 'none' as const,
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4">{t.standings.title}</h2>
+      <style>{`
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .fade-right::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 40px;
+          background: linear-gradient(to right, transparent, rgba(15, 23, 42, 0.4));
+          pointer-events: none;
+        }
+      `}</style>
+      
+      <div className="mb-8 overflow-hidden">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4 whitespace-nowrap overflow-hidden text-ellipsis">
+          {t.standings.title}
+        </h2>
       </div>
       
       {/* Standings Table */}
-      <div className="bg-ng-blue/30 rounded-lg overflow-hidden border border-gray-700 shadow-xl mb-12">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-700">
+      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-12 relative fade-right overflow-hidden">
+        <div 
+          className="overflow-x-auto hide-scrollbar" 
+          style={scrollbarHideStyle}
+        >
+          <table className="min-w-[850px] w-full divide-y divide-gray-700">
             <thead className="bg-ng-blue">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.rank}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.team}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.gp}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.w}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.l}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.t}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.pts}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.gf}</th>
-                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider">{t.standings.ga}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.rank}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.team}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.gp}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.w}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.l}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.t}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.pts}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.gf}</th>
+                <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.ga}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
@@ -115,33 +140,33 @@ const Standings: React.FC = () => {
 
         <div className="p-6">
            {activeTab === 'players' ? (
-             <>
-               <div className="overflow-x-auto">
-                 <table className="min-w-full divide-y divide-gray-700">
+             <div className="relative fade-right overflow-hidden">
+               <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
+                 <table className="min-w-[650px] w-full divide-y divide-gray-700">
                    <thead>
                      <tr>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.rank}</th>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.player}</th>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.team}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.gp}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.goals}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.assists}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase">{t.standings.points}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.rank}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.player}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gp}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.goals}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.assists}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap">{t.standings.points}</th>
                      </tr>
                    </thead>
                    <tbody className="divide-y divide-gray-700">
                      {displayedPlayers.map((player, idx) => (
                        <tr key={player.id} className="hover:bg-ng-navy transition-colors">
-                         <td className="px-4 py-3 text-sm text-gray-500">{idx + 1}</td>
-                         <td className="px-4 py-3 text-sm font-bold text-white">{player.name}</td>
-                         <td className="px-4 py-3 text-sm text-gray-300 flex items-center gap-2">
+                         <td className="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">{idx + 1}</td>
+                         <td className="px-4 py-3 text-sm font-bold text-white whitespace-nowrap">{player.name}</td>
+                         <td className="px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
                             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getTeamColor(player.teamId) }}></div>
                             {getTeamName(player.teamId)}
                          </td>
-                         <td className="px-4 py-3 text-sm text-center text-gray-400">{player.gp}</td>
-                         <td className="px-4 py-3 text-sm text-center text-gray-300">{player.goals}</td>
-                         <td className="px-4 py-3 text-sm text-center text-gray-300">{player.assists}</td>
-                         <td className="px-4 py-3 text-sm text-center font-bold text-ng-light-blue">{player.points}</td>
+                         <td className="px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
+                         <td className="px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
+                         <td className="px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
+                         <td className="px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{player.points}</td>
                        </tr>
                      ))}
                    </tbody>
@@ -154,22 +179,22 @@ const Standings: React.FC = () => {
                    </button>
                  </div>
                )}
-             </>
+             </div>
            ) : (
-             <>
-                <div className="overflow-x-auto">
-                 <table className="min-w-full divide-y divide-gray-700">
+             <div className="relative fade-right overflow-hidden">
+                <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
+                 <table className="min-w-[850px] w-full divide-y divide-gray-700">
                    <thead>
                      <tr>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.rank}</th>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.player}</th>
-                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">{t.standings.team}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.gp}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.record}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">{t.standings.gaa}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase">{t.standings.svPct}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">{t.standings.shotsAgainst}</th>
-                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">{t.standings.goalsAgainstShort}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.rank}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.player}</th>
+                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gp}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.record}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gaa}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap">{t.standings.svPct}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap">{t.standings.shotsAgainst}</th>
+                       <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap">{t.standings.goalsAgainstShort}</th>
                      </tr>
                    </thead>
                    <tbody className="divide-y divide-gray-700">
@@ -178,18 +203,18 @@ const Standings: React.FC = () => {
                        const svPct = goalie.shotsAgainst > 0 ? ((goalie.shotsAgainst - goalie.goalsAgainst) / goalie.shotsAgainst).toFixed(3) : '.000';
                        return (
                         <tr key={goalie.id} className="hover:bg-ng-navy transition-colors">
-                          <td className="px-4 py-3 text-sm text-gray-500">{idx + 1}</td>
-                          <td className="px-4 py-3 text-sm font-bold text-white">{goalie.name}</td>
-                          <td className="px-4 py-3 text-sm text-gray-300 flex items-center gap-2">
+                          <td className="px-4 py-3 text-sm text-gray-500 whitespace-nowrap">{idx + 1}</td>
+                          <td className="px-4 py-3 text-sm font-bold text-white whitespace-nowrap">{goalie.name}</td>
+                          <td className="px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
                               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getTeamColor(goalie.teamId) }}></div>
                               {getTeamName(goalie.teamId)}
                           </td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-400">{goalie.gp}</td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px]">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{gaa}</td>
-                          <td className="px-4 py-3 text-sm text-center font-bold text-ng-light-blue">{svPct}</td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-500">{goalie.shotsAgainst}</td>
-                          <td className="px-4 py-3 text-sm text-center text-gray-500">{goalie.goalsAgainst}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
+                          <td className="px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{svPct}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.shotsAgainst}</td>
+                          <td className="px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.goalsAgainst}</td>
                         </tr>
                        );
                      })}
@@ -200,7 +225,7 @@ const Standings: React.FC = () => {
                  <Shield size={12} />
                  <span>{t.standings.gaaExplanation}</span>
                </div>
-             </>
+             </div>
            )}
         </div>
       </div>
@@ -216,37 +241,37 @@ const Standings: React.FC = () => {
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg" style={{ backgroundColor: selectedTeam.logoColor }}>
-                    <span className="text-white font-black text-2xl uppercase italic">{selectedTeam.name.substring(0, 1)}</span>
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center shadow-lg shrink-0" style={{ backgroundColor: selectedTeam.logoColor }}>
+                    <span className="text-white font-black text-xl md:text-2xl uppercase italic">{selectedTeam.name.substring(0, 1)}</span>
                   </div>
                   <div>
-                    <h2 className="text-3xl font-black text-white uppercase tracking-tighter italic">{selectedTeam.name}</h2>
-                    <div className="flex gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
+                    <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] sm:max-w-none">{selectedTeam.name}</h2>
+                    <div className="flex gap-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
                       <span>{selectedTeam.wins}W - {selectedTeam.losses}L - {selectedTeam.ties}D</span>
                       <span className="text-ng-light-blue">{selectedTeam.points} {t.standings.pts}</span>
                     </div>
                   </div>
                 </div>
-                <button onClick={() => setSelectedTeam(null)} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white">
+                <button onClick={() => setSelectedTeam(null)} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white shrink-0">
                   <X size={28} />
                 </button>
               </div>
 
               {/* Modal Content Scrollable Area */}
-              <div className="overflow-y-auto p-6 md:p-10 space-y-12 text-gray-300">
+              <div className="overflow-y-auto p-4 md:p-10 space-y-12 text-gray-300 hide-scrollbar" style={scrollbarHideStyle}>
                 
                 {/* Stats Summary Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
                     { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={16} /> },
-                    { label: t.standings.wins, val: selectedTeam.wins, icon: <Trophy size={16} /> },
+                    { label: t.standings.record, val: `${selectedTeam.wins}-${selectedTeam.losses}-${selectedTeam.ties}`, icon: <Trophy size={16} /> },
                     { label: t.standings.pts, val: selectedTeam.points, icon: <LayoutList size={16} /> },
-                    { label: t.standings.gf, val: selectedTeam.goalsFor, icon: <LayoutList size={16} /> },
+                    { label: t.standings.diff, val: (selectedTeam.goalsFor - selectedTeam.goalsAgainst > 0 ? '+' : '') + (selectedTeam.goalsFor - selectedTeam.goalsAgainst), icon: <LayoutList size={16} /> },
                   ].map((stat, i) => (
                     <div key={i} className="bg-ng-blue/30 border border-gray-700 p-4 rounded-xl text-center">
                       <div className="flex justify-center text-gray-500 mb-1">{stat.icon}</div>
-                      <div className="text-2xl font-black text-white">{stat.val}</div>
-                      <div className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">{stat.label}</div>
+                      <div className="text-xl md:text-2xl font-black text-white">{stat.val}</div>
+                      <div className="text-[9px] md:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -259,44 +284,50 @@ const Standings: React.FC = () => {
                         <Shield size={18} className="text-ng-light-blue" />
                         Netminders
                       </h3>
-                      <div className="bg-ng-navy/50 rounded-xl border border-gray-700 overflow-hidden">
-                        <table className="w-full text-left">
-                          <thead className="bg-gray-800/50">
-                            <tr className="text-[10px] uppercase text-gray-500 font-bold border-b border-gray-700">
-                              <th className="px-4 py-2">Name</th>
-                              <th className="px-4 py-2 text-center">{t.standings.gp}</th>
-                              <th className="px-4 py-2 text-center">{t.standings.record}</th>
-                              <th className="px-4 py-2 text-center">{t.standings.gaa}</th>
-                              <th className="px-4 py-2 text-center text-ng-light-blue">{t.standings.svPct}</th>
-                              <th className="px-4 py-2 text-center text-gray-500">{t.standings.shotsAgainst}</th>
-                              <th className="px-4 py-2 text-center text-gray-500">{t.standings.goalsAgainstShort}</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-800">
-                            {goalies.filter(g => g.teamId === selectedTeam.id).length > 0 ? (
-                              goalies.filter(g => g.teamId === selectedTeam.id).map(g => {
-                                const gaa = g.gp > 0 ? (g.goalsAgainst / g.gp).toFixed(2) : '0.00';
-                                const svPct = g.shotsAgainst > 0 ? ((g.shotsAgainst - g.goalsAgainst) / g.shotsAgainst).toFixed(3) : '.000';
-                                return (
-                                  <tr key={g.id} className="bg-ng-light-blue/5 hover:bg-ng-light-blue/10 transition-colors">
-                                    <td className="px-4 py-3 text-sm font-bold text-white flex items-center gap-2">
-                                      <span className="text-[8px] bg-ng-light-blue text-ng-navy px-1.5 py-0.5 rounded-sm font-black uppercase">G</span>
-                                      {g.name}
-                                    </td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-400">{g.gp}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px]">{g.wins}-{g.losses}-{g.draws}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono italic">{gaa}</td>
-                                    <td className="px-4 py-3 text-sm text-center font-black text-ng-light-blue">{svPct}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-500">{g.shotsAgainst}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-500">{g.goalsAgainst}</td>
-                                  </tr>
-                                )
-                              })
-                            ) : (
-                              <tr><td colSpan={7} className="p-4 text-center text-gray-500 italic text-xs">No goalies assigned.</td></tr>
-                            )}
-                          </tbody>
-                        </table>
+                      {/* WRAPPER DIV ENABLES HORIZONTAL SCROLL WITH FADE */}
+                      <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
+                        <div 
+                          className="overflow-x-auto hide-scrollbar" 
+                          style={scrollbarHideStyle}
+                        >
+                          <table className="w-full min-w-[780px] text-left">
+                            <thead className="bg-gray-800/50">
+                              <tr className="text-[10px] uppercase text-gray-500 font-bold border-b border-gray-700">
+                                <th className="px-4 py-2 whitespace-nowrap">Name</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.gp}</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.record}</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.gaa}</th>
+                                <th className="px-4 py-2 text-center text-ng-light-blue whitespace-nowrap">{t.standings.svPct}</th>
+                                <th className="px-4 py-2 text-center text-gray-500 whitespace-nowrap">{t.standings.shotsAgainst}</th>
+                                <th className="px-4 py-2 text-center text-gray-500 whitespace-nowrap">{t.standings.goalsAgainstShort}</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-800">
+                              {goalies.filter(g => g.teamId === selectedTeam.id).length > 0 ? (
+                                goalies.filter(g => g.teamId === selectedTeam.id).map(g => {
+                                  const gaa = g.gp > 0 ? (g.goalsAgainst / g.gp).toFixed(2) : '0.00';
+                                  const svPct = g.shotsAgainst > 0 ? ((g.shotsAgainst - g.goalsAgainst) / g.shotsAgainst).toFixed(3) : '.000';
+                                  return (
+                                    <tr key={g.id} className="bg-ng-light-blue/5 hover:bg-ng-light-blue/10 transition-colors">
+                                      <td className="px-4 py-3 text-sm font-bold text-white flex items-center gap-2 whitespace-nowrap">
+                                        <span className="text-[8px] bg-ng-light-blue text-ng-navy px-1.5 py-0.5 rounded-sm font-black uppercase">G</span>
+                                        {g.name}
+                                      </td>
+                                      <td className="px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{g.gp}</td>
+                                      <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{g.wins}-{g.losses}-{g.draws}</td>
+                                      <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono italic whitespace-nowrap">{gaa}</td>
+                                      <td className="px-4 py-3 text-sm text-center font-black text-ng-light-blue whitespace-nowrap">{svPct}</td>
+                                      <td className="px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{g.shotsAgainst}</td>
+                                      <td className="px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{g.goalsAgainst}</td>
+                                    </tr>
+                                  )
+                                })
+                              ) : (
+                                <tr><td colSpan={7} className="p-4 text-center text-gray-500 italic text-xs">No goalies assigned.</td></tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
 
@@ -305,33 +336,39 @@ const Standings: React.FC = () => {
                         <User size={18} className="text-ng-light-blue" />
                         Skaters
                       </h3>
-                      <div className="bg-ng-navy/50 rounded-xl border border-gray-700 overflow-hidden">
-                        <table className="w-full text-left">
-                          <thead className="bg-gray-800/50">
-                            <tr className="text-[10px] uppercase text-gray-500 font-bold border-b border-gray-700">
-                              <th className="px-4 py-2">{t.standings.player}</th>
-                              <th className="px-4 py-2 text-center">{t.standings.gp}</th>
-                              <th className="px-4 py-2 text-center">{t.standings.goals}</th>
-                              <th className="px-4 py-2 text-center">{t.standings.assists}</th>
-                              <th className="px-4 py-2 text-center text-ng-light-blue">{t.standings.pts}</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-gray-800">
-                            {players.filter(p => p.teamId === selectedTeam.id).length > 0 ? (
-                              players.filter(p => p.teamId === selectedTeam.id).map(p => (
-                                <tr key={p.id} className="hover:bg-white/5 transition-colors">
-                                  <td className="px-4 py-3 text-sm font-semibold text-white">{p.name}</td>
-                                  <td className="px-4 py-3 text-sm text-center text-gray-400">{p.gp}</td>
-                                  <td className="px-4 py-3 text-sm text-center text-gray-300">{p.goals}</td>
-                                  <td className="px-4 py-3 text-sm text-center text-gray-300">{p.assists}</td>
-                                  <td className="px-4 py-3 text-sm text-center font-black text-ng-light-blue">{p.points}</td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr><td colSpan={5} className="p-8 text-center text-gray-500 italic text-sm">{t.standings.noPlayers}</td></tr>
-                            )}
-                          </tbody>
-                        </table>
+                      {/* WRAPPER DIV ENABLES HORIZONTAL SCROLL WITH FADE */}
+                      <div className="bg-ng-navy/50 rounded-xl border border-gray-700 relative fade-right overflow-hidden">
+                        <div 
+                          className="overflow-x-auto hide-scrollbar" 
+                          style={scrollbarHideStyle}
+                        >
+                          <table className="w-full min-w-[550px] text-left">
+                            <thead className="bg-gray-800/50">
+                              <tr className="text-[10px] uppercase text-gray-500 font-bold border-b border-gray-700">
+                                <th className="px-4 py-2 whitespace-nowrap">{t.standings.player}</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.gp}</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.goals}</th>
+                                <th className="px-4 py-2 text-center whitespace-nowrap">{t.standings.assists}</th>
+                                <th className="px-4 py-2 text-center text-ng-light-blue whitespace-nowrap">{t.standings.pts}</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-800">
+                              {players.filter(p => p.teamId === selectedTeam.id).length > 0 ? (
+                                players.filter(p => p.teamId === selectedTeam.id).map(p => (
+                                  <tr key={p.id} className="hover:bg-white/5 transition-colors">
+                                    <td className="px-4 py-3 text-sm font-semibold text-white whitespace-nowrap">{p.name}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{p.gp}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{p.goals}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{p.assists}</td>
+                                    <td className="px-4 py-3 text-sm text-center font-black text-ng-light-blue whitespace-nowrap">{p.points}</td>
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr><td colSpan={5} className="p-8 text-center text-gray-500 italic text-sm">{t.standings.noPlayers}</td></tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -360,7 +397,7 @@ const Standings: React.FC = () => {
                                   <div className="text-[10px] text-gray-500 uppercase">{formatDate(g.date).split(',')[1]}</div>
                                 </div>
                                 <div>
-                                  <div className="text-xs text-gray-500 uppercase font-bold">{isHome ? 'VS' : '@'} {opponentName}</div>
+                                  <div className="text-xs text-gray-500 uppercase font-bold whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px] sm:max-w-none">{isHome ? 'VS' : '@'} {opponentName}</div>
                                   <div className="text-[10px] text-gray-600 font-medium">{g.time} - {g.location}</div>
                                 </div>
                               </div>
@@ -368,7 +405,7 @@ const Standings: React.FC = () => {
                                 {g.status === 'played' ? (
                                   <div className="flex items-center gap-2">
                                     <span className={`text-xs font-black px-2 py-0.5 rounded ${result === 'W' ? 'bg-green-500/20 text-green-400' : (result === 'L' ? 'bg-red-500/20 text-red-400' : 'bg-gray-500/20 text-gray-400')}`}>{result}</span>
-                                    <span className="text-sm font-mono font-bold text-white">{isHome ? `${g.homeScore}-${g.awayScore}` : `${g.awayScore}-${g.homeScore}`}</span>
+                                    <span className="text-sm font-mono font-bold text-white whitespace-nowrap">{isHome ? `${g.homeScore}-${g.awayScore}` : `${g.awayScore}-${g.homeScore}`}</span>
                                   </div>
                                 ) : (
                                   <span className="text-[10px] text-gray-500 uppercase font-bold">{t.schedule.scheduled}</span>

@@ -4,7 +4,7 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
-      standings: 'Standings',
+      standings: 'Statistics',
       schedule: 'Schedule',
       rules: 'Rules',
       assistant: 'AI Assistant',
@@ -27,7 +27,7 @@ export const translations = {
       communityDesc: "Proud partners with the Children's Hospital.",
     },
     standings: {
-      title: 'Season Standings',
+      title: 'Statistics',
       rank: 'Rank',
       team: 'Team',
       gp: 'GP',
@@ -37,6 +37,7 @@ export const translations = {
       pts: 'PTS',
       gf: 'GF',
       ga: 'GA',
+      diff: 'DIFF',
       offenseDefense: 'Team Offense vs Defense',
       goalsFor: 'Goals For',
       goalsAgainst: 'Goals Against',
@@ -76,8 +77,8 @@ export const translations = {
       period: 'Period',
       time: 'Time',
       team: 'Team',
-      scorer: 'Scorer',
-      assist: 'Assist',
+      scorer: 'Buteur',
+      assist: 'Passe',
       penalty: 'Penalty',
       shotsFaced: 'Shots Faced',
       saves: 'Saves',
@@ -152,7 +153,7 @@ export const translations = {
   fr: {
     nav: {
       home: 'Accueil',
-      standings: 'Classement',
+      standings: 'Statistiques',
       schedule: 'Calendrier',
       rules: 'Règlements',
       assistant: 'Assistant IA',
@@ -175,7 +176,7 @@ export const translations = {
       communityDesc: "Fiers partenaires de l'Hôpital pour Enfants.",
     },
     standings: {
-      title: 'Classement de la Saison',
+      title: 'Statistiques',
       rank: 'Rang',
       team: 'Équipe',
       gp: 'PJ',
@@ -185,6 +186,7 @@ export const translations = {
       pts: 'PTS',
       gf: 'BP',
       ga: 'BC',
+      diff: 'DIFF',
       offenseDefense: "Offensive vs Défensive d'Équipe",
       goalsFor: 'Buts Pour',
       goalsAgainst: 'Buts Contre',
