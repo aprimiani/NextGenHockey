@@ -66,6 +66,8 @@ export const translations = {
     },
     schedule: {
       title: 'Game Schedule',
+      filterUpcoming: 'Upcoming',
+      filterResults: 'Results',
       tbdTitle: 'Schedule TBD',
       tbdMessage: 'The Summer 2026 season schedule is currently being finalized.',
       tbdSubtitle: 'Check back soon for confirmed game times and locations.',
@@ -220,6 +222,8 @@ export const translations = {
     },
     schedule: {
       title: 'Calendrier des Matchs',
+      filterUpcoming: 'À venir',
+      filterResults: 'Résultats',
       tbdTitle: 'Calendrier à venir',
       tbdMessage: 'Le calendrier de la saison été 2026 est en cours de finalisation.',
       tbdSubtitle: 'Revenez bientôt pour les heures et lieux de match confirmés.',

@@ -19,7 +19,8 @@ import {
   Database,
   Globe,
   Check,
-  Save
+  Save,
+  Palette
 } from 'lucide-react';
 import { GameRecapData, Team, GameEvent } from '../types';
 
@@ -54,6 +55,7 @@ const Manager: React.FC = () => {
   const [showImportModal, setShowImportModal] = useState(false);
   const [importValue, setImportValue] = useState('');
   const [expandedColors, setExpandedColors] = useState<Record<string, boolean>>({});
+  const [scheduleFilter, setScheduleFilter] = useState<'scheduled' | 'played'>('scheduled');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +70,13 @@ const Manager: React.FC = () => {
   const filteredGoalies = useMemo(() => {
     return goalies.filter(g => g.name.toLowerCase().includes(searchTerm.toLowerCase()));
   }, [goalies, searchTerm]);
+
+  const filteredSchedule = useMemo(() => {
+    return schedule.filter(g => g.status === scheduleFilter).sort((a, b) => {
+        if (scheduleFilter === 'scheduled') return new Date(a.date).getTime() - new Date(b.date).getTime();
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+  }, [schedule, scheduleFilter]);
 
   const isUsingLocalData = localStorage.getItem('ng_teams') !== null;
 
@@ -123,7 +132,7 @@ const Manager: React.FC = () => {
   };
 
   const removeGame = (id: string) => { 
-    if (window.confirm('Remove this game fixture and its scoring recap?')) {
+    if (window.confirm('PERMANENT ACTION: Remove this game fixture and its scoring recap?')) {
       const updatedSchedule = schedule.filter(g => g.id !== id);
       setSchedule(updatedSchedule);
       if (gameRecaps[id]) {
@@ -355,13 +364,16 @@ const Manager: React.FC = () => {
           <div className="p-8 flex-1">
             {activeTab === 'schedule' && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
-                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Season Fixtures</span>
+                <div className="flex flex-col md:flex-row justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700 gap-4">
+                  <div className="flex bg-gray-800 p-1 rounded-lg border border-gray-700">
+                    <button onClick={() => setScheduleFilter('scheduled')} className={`px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest transition-all ${scheduleFilter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-500 hover:text-white'}`}>{t.schedule.filterUpcoming}</button>
+                    <button onClick={() => setScheduleFilter('played')} className={`px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest transition-all ${scheduleFilter === 'played' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-500 hover:text-white'}`}>{t.schedule.filterResults}</button>
+                  </div>
                   <button onClick={addGame} className="bg-green-600 hover:bg-green-500 text-white font-black py-2.5 px-6 rounded-lg text-xs flex items-center gap-2 transition-all shadow-lg active:scale-95"><Plus size={18} /> Schedule Match</button>
                 </div>
                 <div className="grid gap-4">
-                  {schedule.map(game => (
-                    <div key={game.id} className="bg-ng-navy/50 border border-gray-700 p-5 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 items-center hover:border-gray-500 transition-colors">
+                  {filteredSchedule.length > 0 ? filteredSchedule.map(game => (
+                    <div key={game.id} className="bg-ng-navy/50 border border-gray-700 p-5 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 items-center hover:border-gray-500 transition-colors animate-in fade-in duration-300">
                       <div className="space-y-2">
                          <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Date & Time</label>
                          <div className="flex gap-2"><input type="date" value={game.date} onChange={(e) => handleGameUpdate(game.id, 'date', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /><input type="time" value={game.time} onChange={(e) => handleGameUpdate(game.id, 'time', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /></div>
@@ -379,7 +391,9 @@ const Manager: React.FC = () => {
                          {game.status === 'played' && <button onClick={() => startEditingRecap(game.id)} className="bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-black px-4 py-2 rounded-lg text-[10px] uppercase italic">Scoring Details</button>}
                       </div>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="text-center py-12 text-gray-600 italic text-sm">No {scheduleFilter} games found.</div>
+                  )}
                 </div>
               </div>
             )}

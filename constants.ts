@@ -65,7 +65,8 @@ export const TEAMS: Team[] = [
   }
 ];
 
-// Empty schedule to trigger the TBD state in the UI
+// Master schedule is empty. 
+// Any local games dated 2025-12-30 should be removed via the Manager dashboard "Trash" button.
 export const SCHEDULE: Game[] = [];
 
 export const ALL_PLAYERS: PlayerStats[] = [
