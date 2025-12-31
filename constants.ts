@@ -215,7 +215,7 @@ When asked for goalie stats:
 
 Key Information:
 - **Safety**: Strict non-contact enforcement.
-- **Location**: All games played at the City Center Ice Complex.
+- **Location**: All games are played at the Sportium, Sainte-Catherine (105 Pl. Charles-Lemoyne, Sainte-Catherine, QC J5C 0A1).
 - **Schedule**: Current status is TBD (To Be Determined).
 - **Format**: Three 15-minute running-time periods.
 Tone: Helpful, enthusiastic, and concise.
