@@ -136,6 +136,197 @@ export const translations = {
       regsTitle: 'Rulebook',
       regsText: 'Detailed overview of league governance, equipment standards, and code of conduct. Click to view the full rulebook.',
     },
+    rulebook: {
+      modalTitle: 'Next Gen Hockey Rulebook',
+      sections: [
+        {
+          title: '1. League Overview',
+          text: 'Next Gen Hockey is a recreational 5-on-5 hockey league designed to provide a competitive, safe, and enjoyable environment for players of all skill levels. All participants are expected to demonstrate sportsmanship, respect, and fair play at all times.'
+        },
+        {
+          title: '2. League Governance',
+          subsections: [
+            {
+              title: '2.1 League Officials',
+              items: [
+                'The league is managed by the League Director and Game Operations Team.',
+                'Referees have full authority over gameplay, penalties, discipline decisions, and maintaining the safety of all players and staff.'
+              ]
+            },
+            {
+              title: '2.2 Communication',
+              items: [
+                'All schedules, league updates, and announcements will be posted on the official league website and/or sent by email.',
+                'Players are responsible for checking updates regularly.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '3. Player Eligibility & Registration',
+          subsections: [
+            {
+              title: '3.1 Eligibility',
+              items: ['Participants must be 18 years of age or older.']
+            },
+            {
+              title: '3.2 Waivers',
+              items: [
+                'All players must sign the official Player Waiver & Liability Release at the start of the season to participate.',
+                'The team captain is responsible for ensuring all players have signed their waivers before the first game.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '4. Equipment & Safety',
+          subsections: [
+            {
+              title: '4.1 Equipment Guidelines',
+              items: [
+                'Players may choose their equipment freely but must wear typical game equipment.',
+                'No harmful equipment is permitted.',
+                'Players are strongly encouraged to wear full cages and neck guards.'
+              ]
+            },
+            {
+              title: '4.2 Safety Expectations',
+              items: [
+                'The league is not responsible for injuries, lost equipment, or any damages that occur during gameplay.',
+                'Dangerous or reckless behaviour is not tolerated.',
+                'Referees reserve the right to remove any player whose actions compromise safety.',
+                'If damages occur to the arena, responsible players may be required to cover the costs.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '5. Ice Time & Game Format',
+          subsections: [
+            {
+              title: '5.0 Ice Rental Limitations',
+              items: [
+                'The league only rents the ice for the scheduled 1-hour game slot.',
+                'Games must run on schedule and cannot pause for extended stoppages.'
+              ]
+            },
+            {
+              title: '5.1 Warmup',
+              items: [
+                'A 3-minute warmup begins at the scheduled start time.',
+                'A buzzer sounds at the 1-minute mark to collect all pucks.'
+              ]
+            },
+            {
+              title: '5.2 Period Structure',
+              items: [
+                'Games consist of three (3) 15-minute periods, all running time.',
+                'The clock does not stop unless determined by the referee for safety reasons.'
+              ]
+            },
+            {
+              title: '5.3 Tie Games',
+              items: [
+                'Regular-season games ending in a tie are recorded as a draw.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '6. Game Play Rules',
+          subsections: [
+            {
+              title: '6.1 Format',
+              items: [
+                'All games are played 5-on-5 with goalies.',
+                'Standard penalties, icings, and offsides are in effect.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '7. Penalties & Discipline',
+          subsections: [
+            {
+              title: '7.1 Minor Penalties',
+              items: ['Minor infractions result in a 2-minute stop-time penalty.']
+            },
+            {
+              title: '7.2 Major Penalties',
+              items: [
+                'Major penalties result in potential game ejection.',
+                'Fighting results in automatic ejection and potential suspension.'
+              ]
+            },
+            {
+              title: '7.3 Authority of Referee',
+              items: [
+                'Referees have full authority to remove any player at their discretion if behaviour becomes unsafe.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '8. Sportsmanship Policy',
+          text: 'The league enforces a strict zero-tolerance policy for harassment, discrimination, violence, or intimidation. Respect for teammates, opponents, staff, and officials is mandatory.'
+        },
+        {
+          title: '9. League Operations',
+          subsections: [
+            {
+              title: '9.2 Attendance & Forfeits',
+              items: [
+                'Teams must be ready to begin at the scheduled time.',
+                'A team unable to field players within 5 minutes forfeits the game.',
+                'A $300 fee will be charged to any team failing to show without one week notice.'
+              ]
+            },
+            {
+              title: '9.3 Standings',
+              items: [
+                'Win: 2 points',
+                'Draw: 1 point',
+                'Loss: 0 points'
+              ]
+            }
+          ]
+        },
+        {
+          title: '10. Playoffs',
+          subsections: [
+            {
+              title: '10.2 Overtime',
+              items: [
+                '5-minute sudden-death overtime (running time)',
+                '3-player shootout',
+                'Sudden-death shootout'
+              ]
+            }
+          ]
+        },
+        {
+          title: '11. Refund Policy',
+          text: 'No refunds are provided once the season begins unless the league cancels multiple games with no rescheduling.'
+        },
+        {
+          title: '12. Payments & Registration',
+          text: 'All teams must complete the Next Gen Hockey Registration & Payment Agreement before the first game. Failure to pay on time may lead to removal from the league.'
+        },
+        {
+          title: '13. Code of Conduct',
+          items: [
+            'Demonstrate respect toward officials, players, and staff',
+            'Avoid dangerous or reckless play',
+            'Follow on-ice rules and referee instructions'
+          ],
+          footer: 'Violation of the Code of Conduct may result in removal from the league without refund.'
+        },
+        {
+          title: '14. Amendments',
+          text: 'The league reserves the right to modify rules at any time to improve fairness and safety.'
+        }
+      ]
+    },
     contact: {
       title: 'Contact Us',
       subtitle: 'Have questions or concerns? Reach out to the league director directly.',
@@ -292,6 +483,197 @@ export const translations = {
       formatText: 'Chaque match commence par un échauffement de 3 minutes, avec une sonnerie à 1 minute pour ramasser les rondelles. Les matchs se composent de trois périodes de 15 minutes à temps continu. Tous les matchs de saison régulière qui sont à égalité à la sonnerie finale se terminent par un match nul.',
       regsTitle: 'Règlements',
       regsText: 'Aperçu détaillé de la gouvernance, de l\'équipement et du code de conduite. Cliquez pour voir le règlement complet.',
+    },
+    rulebook: {
+      modalTitle: 'Règlements de la Ligue Next Gen Hockey',
+      sections: [
+        {
+          title: '1. Aperçu de la ligue',
+          text: 'Next Gen Hockey est une ligue de hockey récréative à 5 contre 5 conçue pour offrir un environnement compétitif, sécuritaire et agréable aux joueurs de tous les niveaux. Tous les participants sont tenus de faire preuve d\'esprit sportif, de respect et de fair-play en tout temps.'
+        },
+        {
+          title: '2. Gouvernance de la ligue',
+          subsections: [
+            {
+              title: '2.1 Officiels de la ligue',
+              items: [
+                'La ligue est gérée par le directeur de la ligue et l\'équipe des opérations de match.',
+                'Les arbitres ont toute autorité sur le déroulement du jeu, les pénalités, les décisions disciplinaires et le maintien de la sécurité de tous les joueurs et du personnel.'
+              ]
+            },
+            {
+              title: '2.2 Communication',
+              items: [
+                'Tous les horaires, mises à jour et annonces seront publiés sur le site web officiel de la ligue et/ou envoyés par courriel.',
+                'Les joueurs sont responsables de vérifier régulièrement les mises à jour.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '3. Éligibilité et inscription des joueurs',
+          subsections: [
+            {
+              title: '3.1 Éligibilité',
+              items: ['Les participants doivent être âgés de 18 ans ou plus.']
+            },
+            {
+              title: '3.2 Décharges',
+              items: [
+                'Tous les joueurs doivent signer la décharge officielle de responsabilité au début de la saison pour participer.',
+                'Le capitaine de l\'équipe est responsable de s\'assurer que tous les joueurs ont signé leur décharge avant le premier match.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '4. Équipement et sécurité',
+          subsections: [
+            {
+              title: '4.1 Directives sur l\'équipement',
+              items: [
+                'Les joueurs peuvent choisir leur équipement librement mais doivent porter l\'équipement de jeu typique.',
+                'Aucun équipement dangereux n\'est autorisé.',
+                'Les joueurs sont fortement encouragés à porter une grille complète et un protège-cou.'
+              ]
+            },
+            {
+              title: '4.2 Attentes en matière de sécurité',
+              items: [
+                'La ligue n\'est pas responsable des blessures, de la perte d\'équipement ou de tout dommage survenant pendant le jeu.',
+                'Les comportements dangereux ou téméraires ne sont pas tolérés.',
+                'Les arbitres se réservent le droit d\'expulser tout joueur dont les actions compromettent la sécurité.',
+                'En cas de dommages à l\'aréna, les joueurs responsables peuvent être tenus de couvrir les frais.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '5. Temps de glace et format des matchs',
+          subsections: [
+            {
+              title: '5.0 Limitations de location de glace',
+              items: [
+                'La ligue ne loue la glace que pour la période de match prévue de 1 heure.',
+                'Les matchs doivent se dérouler selon l\'horaire et ne peuvent être interrompus pour des arrêts prolongés.'
+              ]
+            },
+            {
+              title: '5.1 Échauffement',
+              items: [
+                'Un échauffement de 3 minutes commence à l\'heure de début prévue.',
+                'Une sonnerie retentit à la marque de 1 minute pour ramasser toutes les rondelles.'
+              ]
+            },
+            {
+              title: '5.2 Structure des périodes',
+              items: [
+                'Les matchs se composent de trois (3) périodes de 15 minutes, toutes à temps continu.',
+                'Le chrono ne s\'arrête pas, sauf décision de l\'arbitre pour des raisons de sécurité.'
+              ]
+            },
+            {
+              title: '5.3 Matchs nuls',
+              items: [
+                'Les matchs de saison régulière se terminant par une égalité sont enregistrés comme nuls.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '6. Règles de jeu',
+          subsections: [
+            {
+              title: '6.1 Format',
+              items: [
+                'Tous les matchs se jouent à 5 contre 5 avec gardiens.',
+                'Les pénalités standard, les dégagements interdits (icings) et les hors-jeux sont en vigueur.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '7. Pénalités et discipline',
+          subsections: [
+            {
+              title: '7.1 Pénalités mineures',
+              items: ['Les infractions mineures entraînent une pénalité de 2 minutes à temps arrêté.']
+            },
+            {
+              title: '7.2 Pénalités majeures',
+              items: [
+                'Les pénalités majeures peuvent entraîner l\'expulsion du match.',
+                'Les bagarres entraînent une expulsion automatique et une suspension potentielle.'
+              ]
+            },
+            {
+              title: '7.3 Autorité de l\'arbitre',
+              items: [
+                'Les arbitres ont toute autorité pour expulser tout joueur à leur discrétion si le comportement devient dangereux.'
+              ]
+            }
+          ]
+        },
+        {
+          title: '8. Politique d\'esprit sportif',
+          text: 'La ligue applique une politique de tolérance zéro pour le harcèlement, la discrimination, la violence ou l\'intimidation. Le respect des coéquipiers, des adversaires, du personnel et des officiels est obligatoire.'
+        },
+        {
+          title: '9. Opérations de la ligue',
+          subsections: [
+            {
+              title: '9.2 Présence et forfaits',
+              items: [
+                'Les équipes doivent être prêtes à commencer à l\'heure prévue.',
+                'Une équipe incapable d\'aligner des joueurs dans les 5 minutes perd le match par forfait.',
+                'Des frais de 300 $ seront facturés à toute équipe ne se présentant pas sans préavis d\'une semaine.'
+              ]
+            },
+            {
+              title: '9.3 Classement',
+              items: [
+                'Victoire : 2 points',
+                'Nul : 1 point',
+                'Défaite : 0 point'
+              ]
+            }
+          ]
+        },
+        {
+          title: '10. Séries éliminatoires',
+          subsections: [
+            {
+              title: '10.2 Prolongation',
+              items: [
+                'Prolongation de 5 minutes à mort subite (temps continu)',
+                'Tirs de barrage à 3 joueurs',
+                'Tirs de barrage à mort subite'
+              ]
+            }
+          ]
+        },
+        {
+          title: '11. Politique de remboursement',
+          text: 'Aucun remboursement n\'est accordé une fois la saison commencée, sauf si la ligue annule plusieurs matchs sans reprogrammation.'
+        },
+        {
+          title: '12. Paiements et inscription',
+          text: 'Toutes les équipes doivent remplir l\'accord d\'inscription et de paiement avant le premier match. Le défaut de paiement à temps peut entraîner le retrait de la ligue.'
+        },
+        {
+          title: '13. Code de conduite',
+          items: [
+            'Faire preuve de respect envers les officiels, les joueurs et le personnel',
+            'Éviter les jeux dangereux ou téméraires',
+            'Suivre les règles sur glace et les instructions des arbitres'
+          ],
+          footer: 'La violation du code de conduite peut entraîner l\'expulsion de la ligue sans remboursement.'
+        },
+        {
+          title: '14. Amendements',
+          text: 'La ligue se réserve le droit de modifier les règles en tout temps pour améliorer l\'équité et la sécurité.'
+        }
+      ]
     },
     contact: {
       title: 'Contactez-nous',
