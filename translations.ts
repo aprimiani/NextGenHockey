@@ -7,6 +7,7 @@ export const translations = {
       standings: 'Statistics',
       schedule: 'Schedule',
       rules: 'Rules',
+      sponsors: 'Sponsors',
       assistant: 'AI Assistant',
       contact: 'Contact Us',
       register: 'REGISTER TEAM',
@@ -27,6 +28,22 @@ export const translations = {
       communityDesc: "Proud partners with the Montreal Children's Hospital.",
       missionTitle: 'Our Charity Mission',
       missionText: '30% of all league proceeds are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
+    },
+    sponsors: {
+      title: 'Our League Partners',
+      subtitle: 'Exclusive perks and discounts for Next Gen Hockey players.',
+      perkTitle: 'Player Perk',
+      viewAddress: 'Get Directions',
+      becomePartner: 'Become a Partner',
+      partners: [
+        {
+          name: 'Subway Delson',
+          description: 'Proud local partner of Next Gen Hockey. Fuel up with fresh ingredients before or after your game at the Delson location.',
+          perk: 'Exclusive Season Discount Card: Buy any 6-inch sub and a drink, get a second 6-inch sub for FREE! (Valid all season)',
+          category: 'Food & Drink',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
+        }
+      ]
     },
     standings: {
       title: 'Statistics',
@@ -355,6 +372,7 @@ export const translations = {
       standings: 'Statistiques',
       schedule: 'Calendrier',
       rules: 'Règlements',
+      sponsors: 'Commanditaires',
       assistant: 'Assistant IA',
       contact: 'Nous Contacter',
       register: 'INSCRIRE ÉQUIPE',
@@ -375,6 +393,22 @@ export const translations = {
       communityDesc: "Fiers partenaires de l'Hôpital de Montréal pour enfants.",
       missionTitle: 'Notre Mission Caritative',
       missionText: '30 % de tous les revenus de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
+    },
+    sponsors: {
+      title: 'Nos Partenaires',
+      subtitle: 'Avantages exclusifs et rabais pour les joueurs de Next Gen Hockey.',
+      perkTitle: 'Avantage Joueur',
+      viewAddress: 'Itinéraire',
+      becomePartner: 'Devenir partenaire',
+      partners: [
+        {
+          name: 'Subway Delson',
+          description: 'Fier partenaire local de Next Gen Hockey. Faites le plein d\'énergie avec des ingrédients frais avant ou après votre match à la succursale de Delson.',
+          perk: 'Carte de rabais exclusive pour la saison : Achetez un sous-marin de 6 pouces et une boisson, obtenez un deuxième sous-marin de 6 pouces GRATUITEMENT ! (Valide toute la saison)',
+          category: 'Restauration',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
+        }
+      ]
     },
     standings: {
       title: 'Statistiques',
@@ -670,8 +704,8 @@ export const translations = {
           footer: 'La violation du code de conduite peut entraîner l\'expulsion de la ligue sans remboursement.'
         },
         {
-          title: '14. Amendements',
-          text: 'La ligue se réserve le droit de modifier les règles en tout temps pour améliorer l\'équité et la sécurité.'
+          title: '14. Amendments',
+          text: 'The league reserves the right to modify rules at any time to improve fairness and safety.'
         }
       ]
     },

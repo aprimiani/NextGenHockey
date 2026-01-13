@@ -7,6 +7,7 @@ import Schedule from './components/Schedule';
 import LeagueAssistant from './components/LeagueAssistant';
 import Registration from './components/Registration';
 import Rules from './components/Rules';
+import Sponsors from './components/Sponsors';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Manager from './components/Manager';
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/standings" element={<Standings />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/rules" element={<Rules />} />
+                <Route path="/sponsors" element={<Sponsors />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/assistant" element={<LeagueAssistant />} />
                 <Route path="/register" element={<Registration />} />

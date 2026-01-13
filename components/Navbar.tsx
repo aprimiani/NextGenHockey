@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, BookOpen, Globe, Sparkles, Mail } from 'lucide-react';
+import { Menu, X, Globe, Sparkles } from 'lucide-react';
 import { Logo } from './Logo';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -18,8 +18,9 @@ const Navbar: React.FC = () => {
     { name: t.nav.home, path: '/' },
     { name: t.nav.standings, path: '/standings' },
     { name: t.nav.schedule, path: '/schedule' },
-    { name: t.nav.rules, path: '/rules', icon: <BookOpen size={16} className="mr-1 inline" /> },
-    { name: t.nav.contact, path: '/contact', icon: <Mail size={16} className="mr-1 inline" /> },
+    { name: t.nav.rules, path: '/rules' },
+    { name: t.nav.sponsors, path: '/sponsors' },
+    { name: t.nav.contact, path: '/contact' },
     { name: t.nav.assistant, path: '/assistant', icon: <Sparkles size={16} className="mr-1 inline" /> },
   ];
 
