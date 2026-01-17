@@ -35,6 +35,8 @@ export const translations = {
       perkTitle: 'Player Perk',
       viewAddress: 'Get Directions',
       becomePartner: 'Become a Partner',
+      ctaTitle: 'Want to reach our local community?',
+      ctaSubtitle: "Join us in supporting the Montreal Children's Hospital while growing your business. Become a Next Gen Hockey partner today.",
       partners: [
         {
           name: 'Subway Delson',
@@ -400,6 +402,8 @@ export const translations = {
       perkTitle: 'Avantage Joueur',
       viewAddress: 'Itinéraire',
       becomePartner: 'Devenir partenaire',
+      ctaTitle: 'Vous voulez rejoindre notre communauté locale ?',
+      ctaSubtitle: "Joignez-vous à nous pour soutenir l'Hôpital de Montréal pour enfants tout en développant votre entreprise. Devenez partenaire de Next Gen Hockey dès aujourd'hui.",
       partners: [
         {
           name: 'Subway Delson',

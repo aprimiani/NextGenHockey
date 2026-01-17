@@ -80,10 +80,10 @@ const Sponsors: React.FC = () => {
       <div className="bg-gradient-to-r from-ng-blue/50 to-ng-navy p-8 md:p-12 rounded-3xl border border-gray-700 text-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-ng-light-blue/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
         <h3 className="text-3xl font-black text-white uppercase italic mb-4 relative z-10">
-          Want to reach our local community?
+          {t.sponsors.ctaTitle}
         </h3>
         <p className="text-gray-400 max-w-2xl mx-auto mb-8 relative z-10">
-          Join us in supporting the Montreal Children's Hospital while growing your business. Become a Next Gen Hockey partner today.
+          {t.sponsors.ctaSubtitle}
         </p>
         <NavLink 
           to="/contact" 
