@@ -35,8 +35,10 @@ const Navbar: React.FC = () => {
                </div>
             </NavLink>
           </div>
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-4">
+          
+          <div className="flex items-center">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-4">
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
@@ -53,7 +55,7 @@ const Navbar: React.FC = () => {
                 </NavLink>
               ))}
               
-              {/* Language Toggle */}
+              {/* Desktop Language Toggle */}
               <button
                 onClick={toggleLanguage}
                 className="flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-ng-blue transition-colors border border-gray-600 ml-2"
@@ -69,15 +71,26 @@ const Navbar: React.FC = () => {
                 {t.nav.register}
               </NavLink>
             </div>
-          </div>
-          <div className="-mr-2 flex md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
-            >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+
+            {/* Mobile Actions (Language Toggle + Menu) */}
+            <div className="flex items-center md:hidden">
+              {/* Mobile Language Toggle - Visible next to hamburger */}
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center px-3 py-2 rounded-md text-xs font-bold text-gray-300 hover:text-white hover:bg-ng-blue transition-colors border border-gray-600 mr-2"
+              >
+                <Globe size={14} className="mr-1.5" />
+                {language === 'en' ? 'EN' : 'FR'}
+              </button>
+
+              <button
+                onClick={toggleMenu}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
+              >
+                <span className="sr-only">Open main menu</span>
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -105,16 +118,6 @@ const Navbar: React.FC = () => {
                  </div>
               </NavLink>
             ))}
-             <button
-                onClick={() => {
-                  toggleLanguage();
-                  setIsOpen(false);
-                }}
-                className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 flex items-center"
-              >
-                <Globe size={16} className="mr-2" />
-                {language === 'en' ? 'Switch to French' : 'Passer en Anglais'}
-              </button>
              <NavLink
                 to="/register"
                 onClick={() => setIsOpen(false)}
