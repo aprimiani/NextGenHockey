@@ -194,6 +194,15 @@ export const translations = {
                 'All players must sign the official Player Waiver & Liability Release at the start of the season to participate.',
                 'The team captain is responsible for ensuring all players have signed their waivers before the first game.'
               ]
+            },
+            {
+              title: '3.3 Substitute Players',
+              items: [
+                'Substitute players are permitted during the regular season.',
+                'To be eligible to participate in playoff games, a substitute player must have played in a minimum of four (4) regular-season games with the same team.',
+                'Any player who has not met this minimum requirement will be ineligible for playoffs, regardless of waiver status.',
+                'The league reserves the right to verify player participation and enforce eligibility rules at its discretion.'
+              ]
             }
           ]
         },
@@ -560,6 +569,15 @@ export const translations = {
               items: [
                 'Tous les joueurs doivent signer la décharge officielle de responsabilité au début de la saison pour participer.',
                 'Le capitaine de l\'équipe est responsable de s\'assurer que tous les joueurs ont signé leur décharge avant le premier match.'
+              ]
+            },
+            {
+              title: '3.3 Joueurs remplaçants',
+              items: [
+                'Les joueurs remplaçants sont autorisés pendant la saison régulière.',
+                'Pour être éligible à participer aux matchs de séries éliminatoires, un joueur remplaçant doit avoir disputé un minimum de quatre (4) matchs de saison régulière avec la même équipe.',
+                "Tout joueur n'ayant pas satisfait à cette exigence minimale sera inéligible pour les séries éliminatoires, quel que soit son statut de décharge.",
+                "La ligue se réserve le droit de vérifier la participation des joueurs et d'appliquer les règles d'éligibilité à sa discrétion."
               ]
             }
           ]
