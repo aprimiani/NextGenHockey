@@ -73,14 +73,19 @@ const Contact: React.FC = () => {
           )}
         </div>
         
-        <div className="bg-ng-blue/30 p-8 rounded-xl border border-gray-700 shadow-xl self-start">
+        <div className="bg-ng-blue/30 p-8 rounded-xl border border-gray-700 shadow-xl self-start overflow-hidden">
           <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4 flex items-center gap-2 italic uppercase tracking-tighter"><Mail size={20} className="text-ng-light-blue" />{t.contact.directInfo}</h3>
           <div className="flex items-start">
-            <div className="bg-ng-light-blue/10 p-4 rounded-lg mr-5 border border-ng-light-blue/20 shadow-inner"><Mail className="w-7 h-7 text-ng-light-blue" /></div>
-            <div>
+            <div className="bg-ng-light-blue/10 p-4 rounded-lg mr-4 sm:mr-5 border border-ng-light-blue/20 shadow-inner shrink-0"><Mail className="w-6 h-6 sm:w-7 sm:h-7 text-ng-light-blue" /></div>
+            <div className="min-w-0 flex-1">
               <p className="text-[10px] text-ng-light-blue font-black uppercase tracking-[0.2em] mb-1">Direct Outreach</p>
               <p className="text-xs text-gray-500 font-black uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
-              <a href="mailto:nextgenhky@outlook.com" className="text-white text-xl md:text-2xl font-black hover:text-ng-light-blue transition-colors">nextgenhky@outlook.com</a>
+              <a 
+                href="mailto:nextgenhky@outlook.com" 
+                className="text-white text-lg sm:text-xl md:text-2xl font-black hover:text-ng-light-blue transition-colors break-all block leading-tight"
+              >
+                nextgenhky@outlook.com
+              </a>
               <p className="text-sm text-gray-400 mt-2 uppercase font-bold tracking-tight">Alessandro Primiani</p>
               <p className="text-xs text-ng-light-blue/70 font-bold uppercase tracking-widest">{t.contact.directorRole}</p>
             </div>
