@@ -13,7 +13,7 @@ const Registration: React.FC = () => {
     phone_number: '',
     last_level_played: '',
     estimated_roster_size: '10',
-    preferred_language: 'en'
+    preferred_language: 'fr'
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);

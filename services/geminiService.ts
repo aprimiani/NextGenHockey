@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 export const sendMessageToGemini = async (
   history: { role: string; parts: { text: string }[] }[], 
   newMessage: string,
-  language: 'en' | 'fr' = 'en',
+  language: 'en' | 'fr' = 'fr',
   leagueContext?: string
 ): Promise<string> => {
   try {
