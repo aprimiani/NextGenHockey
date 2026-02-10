@@ -205,6 +205,14 @@ Our Mission: To provide a safer, cheaper, and more inclusive hockey experience f
 CHARITY PARTNERSHIP:
 We are proud partners with the Montreal Children's Hospital. 30% of all league proceeds are donated directly to them.
 
+SUBWAY DELSON SPONSORSHIP & PLAYER PERKS:
+We have an exclusive partnership with Subway at the Delson location (15, 41 Boulevard Georges-Gagné S, Delson).
+- Every player in the league receives a special "Next Gen Player Card."
+- THE DEAL: When a player shows their card at the Delson location and purchases any 6-inch sub and a drink, they get a second 6-inch sub for FREE!
+- IMPORTANT: This is valid for the ENTIRE season.
+- USAGE: Players must keep their card after every purchase to use it again next time. It is not a one-time coupon.
+- For any further questions regarding this promotion or other sponsorships, please advise the user to contact the League Director directly.
+
 GOALIE GAA RULE:
 Goalies play full 45-minute games (3x15min). 
 Calculate GAA (Goals Against Average) as: Goals Against ÷ Games Played.

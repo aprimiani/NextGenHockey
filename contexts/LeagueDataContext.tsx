@@ -8,6 +8,8 @@ import {
 } from '../constants';
 import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from '../types';
 
+type Setter<T> = (data: T | ((prev: T) => T)) => void;
+
 interface LeagueDataContextType {
   teams: Team[];
   schedule: Game[];
@@ -15,11 +17,11 @@ interface LeagueDataContextType {
   goalies: GoalieStats[];
   gameRecaps: Record<string, GameRecapData>;
   loading: boolean;
-  setTeams: (teams: Team[]) => void;
-  setSchedule: (schedule: Game[]) => void;
-  setPlayers: (players: PlayerStats[]) => void;
-  setGoalies: (goalies: GoalieStats[]) => void;
-  setGameRecaps: (recaps: Record<string, GameRecapData>) => void;
+  setTeams: Setter<Team[]>;
+  setSchedule: Setter<Game[]>;
+  setPlayers: Setter<PlayerStats[]>;
+  setGoalies: Setter<GoalieStats[]>;
+  setGameRecaps: Setter<Record<string, GameRecapData>>;
   resetData: () => void;
 }
 
@@ -49,30 +51,22 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     setLoading(false);
   }, []);
 
-  const setTeams = (data: Team[]) => {
-    setTeamsState(data);
-    localStorage.setItem('ng_teams', JSON.stringify(data));
+  const createSetter = <T,>(
+    setter: React.Dispatch<React.SetStateAction<T>>, 
+    storageKey: string
+  ): Setter<T> => (data) => {
+    setter(prev => {
+      const next = typeof data === 'function' ? (data as (p: T) => T)(prev) : data;
+      localStorage.setItem(storageKey, JSON.stringify(next));
+      return next;
+    });
   };
 
-  const setSchedule = (data: Game[]) => {
-    setScheduleState(data);
-    localStorage.setItem('ng_schedule', JSON.stringify(data));
-  };
-
-  const setPlayers = (data: PlayerStats[]) => {
-    setPlayersState(data);
-    localStorage.setItem('ng_players', JSON.stringify(data));
-  };
-
-  const setGoalies = (data: GoalieStats[]) => {
-    setGoaliesState(data);
-    localStorage.setItem('ng_goalies', JSON.stringify(data));
-  };
-
-  const setGameRecaps = (data: Record<string, GameRecapData>) => {
-    setGameRecapsState({...data});
-    localStorage.setItem('ng_recaps', JSON.stringify(data));
-  };
+  const setTeams = createSetter(setTeamsState, 'ng_teams');
+  const setSchedule = createSetter(setScheduleState, 'ng_schedule');
+  const setPlayers = createSetter(setPlayersState, 'ng_players');
+  const setGoalies = createSetter(setGoaliesState, 'ng_goalies');
+  const setGameRecaps = createSetter(setGameRecapsState, 'ng_recaps');
 
   const resetData = () => {
     localStorage.clear();

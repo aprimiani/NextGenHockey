@@ -19,8 +19,7 @@ import {
   Database,
   Globe,
   Check,
-  Save,
-  Palette
+  Save
 } from 'lucide-react';
 import { GameRecapData, Team, GameEvent } from '../types';
 
@@ -128,50 +127,49 @@ const Manager: React.FC = () => {
 
   const addGame = () => {
     const newGame = { id: `g_${Date.now()}`, date: new Date().toISOString().split('T')[0], time: '19:00', homeTeamId: teams[0]?.id || '1', awayTeamId: teams[1]?.id || '2', location: 'Sportium', status: 'scheduled' as const };
-    setSchedule([...schedule, newGame]);
+    setSchedule(prev => [...prev, newGame]);
   };
 
   const removeGame = (id: string) => { 
     if (window.confirm('PERMANENT ACTION: Remove this game fixture and its scoring recap?')) {
-      const updatedSchedule = schedule.filter(g => g.id !== id);
-      setSchedule(updatedSchedule);
-      if (gameRecaps[id]) {
-        const updatedRecaps = { ...gameRecaps };
-        delete updatedRecaps[id];
-        setGameRecaps(updatedRecaps);
-      }
+      setSchedule(prev => prev.filter(g => g.id !== id));
+      setGameRecaps(prev => {
+        const updated = { ...prev };
+        delete updated[id];
+        return updated;
+      });
     } 
   };
 
   const removePlayer = (id: string) => {
     if (window.confirm('Remove this player from the league database?')) {
-      setPlayers(players.filter(p => p.id !== id));
+      setPlayers(prev => prev.filter(p => p.id !== id));
     }
   };
 
   const removeGoalie = (id: string) => {
     if (window.confirm('Remove this goalie from the league database?')) {
-      setGoalies(goalies.filter(g => g.id !== id));
+      setGoalies(prev => prev.filter(g => g.id !== id));
     }
   };
 
   const removeTeam = (id: string) => {
     if (window.confirm('WARNING: Removing a team will also remove its associated players and goalies. Continue?')) {
-      setTeams(teams.filter(t => t.id !== id));
-      setPlayers(players.filter(p => p.teamId !== id));
-      setGoalies(goalies.filter(g => g.teamId !== id));
-      setSchedule(schedule.filter(s => s.homeTeamId !== id && s.awayTeamId !== id));
+      setTeams(prev => prev.filter(t => t.id !== id));
+      setPlayers(prev => prev.filter(p => p.teamId !== id));
+      setGoalies(prev => prev.filter(g => g.teamId !== id));
+      setSchedule(prev => prev.filter(s => s.homeTeamId !== id && s.awayTeamId !== id));
     }
   };
 
   const addPlayer = () => {
     const newPlayer = { id: `p_${Date.now()}`, name: 'New Player', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
-    setPlayers([...players, newPlayer]);
+    setPlayers(prev => [...prev, newPlayer]);
   };
 
   const addGoalie = () => {
     const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
-    setGoalies([...goalies, newGoalie]);
+    setGoalies(prev => [...prev, newGoalie]);
   };
 
   const startEditingRecap = (gameId: string) => {
@@ -184,7 +182,7 @@ const Manager: React.FC = () => {
           awayGoalie: { name: '', shotsFaced: 0, saves: 0, goalsAgainst: 0 } 
         } 
       };
-      setGameRecaps({ ...gameRecaps, [gameId]: newRecap });
+      setGameRecaps(prev => ({ ...prev, [gameId]: newRecap }));
     }
     setEditingRecapId(gameId);
   };
@@ -208,10 +206,10 @@ const Manager: React.FC = () => {
     alert('Standings Synchronized.');
   };
 
-  const handleGameUpdate = (gameId: string, field: string, value: any) => { setSchedule(schedule.map(g => g.id === gameId ? { ...g, [field]: value } : g)); };
-  const handleTeamUpdate = (teamId: string, field: string, value: any) => { setTeams(teams.map(t => t.id === teamId ? { ...t, [field]: value } : t)); };
+  const handleGameUpdate = (gameId: string, field: string, value: any) => { setSchedule(prev => prev.map(g => g.id === gameId ? { ...g, [field]: value } : g)); };
+  const handleTeamUpdate = (teamId: string, field: string, value: any) => { setTeams(prev => prev.map(t => t.id === teamId ? { ...t, [field]: value } : t)); };
   const handlePlayerUpdate = (playerId: string, field: string, value: any) => { 
-    setPlayers(players.map(p => {
+    setPlayers(prev => prev.map(p => {
       if (p.id === playerId) {
         const updated = { ...p, [field]: value };
         updated.points = (Number(updated.goals) || 0) + (Number(updated.assists) || 0);
@@ -221,7 +219,7 @@ const Manager: React.FC = () => {
     }));
   };
   const handleGoalieUpdate = (goalieId: string, field: string, value: any) => { 
-    setGoalies(goalies.map(g => {
+    setGoalies(prev => prev.map(g => {
       if (g.id === goalieId) {
         const updated = { ...g, [field]: value };
         const sa = Number(updated.shotsAgainst) || 0;
@@ -241,19 +239,20 @@ const Manager: React.FC = () => {
 
   const updateRecap = (field: string, subField: string, value: any) => {
     if (!editingRecapId) return;
-    const current = gameRecaps[editingRecapId];
-    const updated = { ...current };
-    if (field === 'goalieStats') {
-        updated.goalieStats[subField] = { ...updated.goalieStats[subField], ...value };
-    }
-    setGameRecaps({ ...gameRecaps, [editingRecapId]: updated });
+    setGameRecaps(prev => {
+      const current = prev[editingRecapId];
+      const updated = { ...current };
+      if (field === 'goalieStats') {
+        updated.goalieStats[subField as 'homeGoalie' | 'awayGoalie'] = { ...updated.goalieStats[subField as 'homeGoalie' | 'awayGoalie'], ...value };
+      }
+      return { ...prev, [editingRecapId]: updated };
+    });
   };
 
   const addEvent = () => {
     if (!editingRecapId) return;
-    const current = gameRecaps[editingRecapId];
     const newEvent: GameEvent = { id: `e_${Date.now()}`, type: 'goal', period: 1, time: '0:00', teamId: teams[0].id, player: '', assist: '' };
-    setGameRecaps({ ...gameRecaps, [editingRecapId]: { ...current, events: [...current.events, newEvent] } });
+    setGameRecaps(prev => ({ ...prev, [editingRecapId]: { ...prev[editingRecapId], events: [...prev[editingRecapId].events, newEvent] } }));
   };
 
   const toggleColorExpansion = (teamId: string) => {
@@ -312,25 +311,33 @@ const Manager: React.FC = () => {
                     {gameRecaps[editingRecapId]?.events.map((event, idx) => (
                         <div key={event.id} className="grid grid-cols-4 gap-2 bg-gray-800 p-2 rounded items-center">
                             <input type="text" placeholder="Time" value={event.time} onChange={(e) => {
-                                const evs = [...gameRecaps[editingRecapId].events];
-                                evs[idx].time = e.target.value;
-                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                                setGameRecaps(prev => {
+                                  const evs = [...prev[editingRecapId].events];
+                                  evs[idx].time = e.target.value;
+                                  return { ...prev, [editingRecapId]: { ...prev[editingRecapId], events: evs } };
+                                });
                             }} className="bg-gray-900 text-white text-xs p-1 rounded" />
                             <select value={event.teamId} onChange={(e) => {
-                                const evs = [...gameRecaps[editingRecapId].events];
-                                evs[idx].teamId = e.target.value;
-                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                                setGameRecaps(prev => {
+                                  const evs = [...prev[editingRecapId].events];
+                                  evs[idx].teamId = e.target.value;
+                                  return { ...prev, [editingRecapId]: { ...prev[editingRecapId], events: evs } };
+                                });
                             }} className="bg-gray-900 text-white text-xs p-1 rounded">
                                 {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                             </select>
                             <input type="text" placeholder="Scorer" value={event.player} onChange={(e) => {
-                                const evs = [...gameRecaps[editingRecapId].events];
-                                evs[idx].player = e.target.value;
-                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                                setGameRecaps(prev => {
+                                  const evs = [...prev[editingRecapId].events];
+                                  evs[idx].player = e.target.value;
+                                  return { ...prev, [editingRecapId]: { ...prev[editingRecapId], events: evs } };
+                                });
                             }} className="bg-gray-900 text-white text-xs p-1 rounded" />
                             <button onClick={() => {
-                                const evs = gameRecaps[editingRecapId].events.filter((_, i) => i !== idx);
-                                setGameRecaps({...gameRecaps, [editingRecapId]: {...gameRecaps[editingRecapId], events: evs}});
+                                setGameRecaps(prev => {
+                                  const evs = prev[editingRecapId].events.filter((_, i) => i !== idx);
+                                  return { ...prev, [editingRecapId]: { ...prev[editingRecapId], events: evs } };
+                                });
                             }} className="text-red-500 text-xs">DEL</button>
                         </div>
                     ))}
