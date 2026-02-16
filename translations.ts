@@ -130,8 +130,11 @@ export const translations = {
       earlyBird: 'Early Bird',
       regularRate: 'Regular Rate',
       perTeam: 'per team',
-      endsOn: '',
+      endsOn: 'Ends on',
       deadline: 'Final Deadline',
+      paymentPlan: 'Payment Plan Available',
+      installment1: 'First installment: $2,475 by May 1st, 2026',
+      installment2: 'Second installment: $1,650 by June 1st, 2026',
       whatsIncluded: 'What is included?',
       includedFeatures: [
         'Minimum 15 games guaranteed',
@@ -522,8 +525,11 @@ export const translations = {
       earlyBird: 'Paiement anticipé',
       regularRate: 'Tarif Régulier',
       perTeam: 'par équipe',
-      endsOn: '',
+      endsOn: 'Se termine le',
       deadline: 'Date Limite Finale',
+      paymentPlan: 'Plan de paiement disponible',
+      installment1: 'Premier versement : 2 475 $ d\'ici le 1er mai 2026',
+      installment2: 'Deuxième versement : 1 650 $ d\'ici le 1er juin 2026',
       whatsIncluded: 'Ce qui est inclus ?',
       includedFeatures: [
         'Minimum de 15 matchs garantis',
@@ -705,7 +711,7 @@ export const translations = {
           ]
         },
         {
-          title: '8. Politique d\'esprit sportif',
+          title: '8. Sportsmanship Policy',
           text: 'La ligue applique une politique de tolérance zéro pour le harcèlement, la discrimination, la violence ou l\'intimidation. Le respect des coéquipiers, des adversaires, du personnel et des officiels est obligatoire.'
         },
         {

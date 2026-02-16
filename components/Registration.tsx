@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG, PRICING_DATA } from '../constants';
-import { Heart, Sparkles, CheckCircle2, Calendar, DollarSign, Info } from 'lucide-react';
+import { Heart, Sparkles, CheckCircle2, Calendar, DollarSign, Info, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Registration: React.FC = () => {
   const { t, language } = useLanguage();
@@ -17,17 +17,17 @@ const Registration: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPaymentPlan, setShowPaymentPlan] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const getEarlyBirdDateLabel = () => {
-    return language === 'fr' ? 'Date à venir bientôt !' : 'Date Coming Soon!';
-  };
-
-  const getTBDLabel = () => {
-    return language === 'fr' ? 'À déterminer' : 'TBD';
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString + 'T12:00:00');
+      return date.toLocaleDateString(language === 'fr' ? 'fr-CA' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    } catch (e) { return dateString; }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -104,7 +104,7 @@ const Registration: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Early Bird Card */}
-          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue/40 rounded-2xl p-6 relative overflow-hidden group hover:border-ng-light-blue transition-colors">
+          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue/40 rounded-2xl p-6 relative overflow-hidden group hover:border-ng-light-blue transition-colors flex flex-col h-full">
             <div className="absolute top-0 right-0 bg-ng-light-blue text-ng-navy font-black text-[10px] uppercase px-4 py-1 italic shadow-lg">
                {t.register.earlyBird}
             </div>
@@ -113,9 +113,9 @@ const Registration: React.FC = () => {
             </div>
             <div className="flex items-center gap-2 text-ng-light-blue text-xs font-bold uppercase tracking-widest mb-4">
               <Calendar size={14} />
-              {getEarlyBirdDateLabel()}
+              {t.register.endsOn} {formatDate(PRICING_DATA.EARLY_BIRD.deadline)}
             </div>
-            <div className="pt-4 border-t border-ng-light-blue/20">
+            <div className="pt-4 border-t border-ng-light-blue/20 flex-grow">
                <ul className="space-y-2">
                   {t.register.includedFeatures.map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase">
@@ -127,22 +127,40 @@ const Registration: React.FC = () => {
           </div>
 
           {/* Regular Rate Card */}
-          <div className="bg-ng-blue/30 border border-gray-700 rounded-2xl p-6 hover:border-gray-500 transition-colors">
+          <div 
+            onClick={() => setShowPaymentPlan(!showPaymentPlan)}
+            className={`bg-ng-blue/30 border rounded-2xl p-6 transition-all duration-300 cursor-pointer flex flex-col h-full ${showPaymentPlan ? 'border-ng-light-blue bg-ng-light-blue/5' : 'border-gray-700 hover:border-gray-500'}`}
+          >
             <div className="text-4xl font-black text-white mb-1">
               ${PRICING_DATA.REGULAR.price.toLocaleString()}<span className="text-xs font-normal text-gray-500 ml-1">/{t.register.perTeam}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
               <Calendar size={14} />
-              {t.register.deadline}: {getTBDLabel()}
+              {t.register.deadline}: {formatDate(PRICING_DATA.REGULAR.deadline)}
             </div>
-            <div className="pt-4 border-t border-gray-700/50">
-               <ul className="space-y-2">
+            <div className="pt-4 border-t border-gray-700/50 flex-grow">
+               <ul className="space-y-2 mb-4">
                   {t.register.includedFeatures.map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase">
                       <CheckCircle2 size={12} className="text-gray-600" /> {item}
                     </li>
                   ))}
                </ul>
+               
+               {/* Payment Plan Section */}
+               <div className="mt-auto">
+                 <div className="flex items-center justify-between text-ng-light-blue text-[10px] font-black uppercase tracking-widest bg-ng-light-blue/10 p-2 rounded-lg border border-ng-light-blue/20">
+                    <span className="flex items-center gap-1"><Info size={12}/> {t.register.paymentPlan}</span>
+                    {showPaymentPlan ? <ChevronUp size={14}/> : <ChevronDown size={14}/>}
+                 </div>
+                 
+                 {showPaymentPlan && (
+                    <div className="mt-3 space-y-2 animate-in slide-in-from-top duration-300">
+                        <p className="text-[10px] font-bold text-white leading-snug">{t.register.installment1}</p>
+                        <p className="text-[10px] font-bold text-white leading-snug">{t.register.installment2}</p>
+                    </div>
+                 )}
+               </div>
             </div>
           </div>
         </div>

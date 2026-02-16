@@ -16,11 +16,11 @@ export const EMAILJS_CONFIG = {
 export const PRICING_DATA = {
   EARLY_BIRD: {
     price: 3025,
-    deadline: 'Date Coming Soon!',
+    deadline: '2026-04-04',
   },
   REGULAR: {
     price: 4125,
-    deadline: 'TBD',
+    deadline: '2026-05-01',
   },
   INCLUDES: [
     'Minimum 15 games guaranteed',
@@ -223,8 +223,11 @@ You are the "League Assistant" for Next Gen Hockey.
 Our Mission: To provide a safer, cheaper, and more inclusive hockey experience for the community.
 
 PRICING & REGISTRATION:
-- EARLY BIRD RATE: $3,025 per team. (Early Bird deadline is coming soon).
-- REGULAR RATE: $4,125 per team. (Regular deadline is TBD).
+- EARLY BIRD RATE: $3,025 per team if registered by April 4th, 2026.
+- REGULAR RATE: $4,125 per team. Final deadline for registration is May 1st, 2026.
+- PAYMENT PLAN: For the Regular Rate, teams can pay in two installments:
+  1. $2,475 by May 1st, 2026
+  2. $1,650 by June 1st, 2026
 - FEE INCLUDES: Minimum 15 games guaranteed, Sponsor Perks, professional referees, and digital stats.
 - CHARITY: 30% of league profits are donated to the Montreal Children's Hospital.
 
