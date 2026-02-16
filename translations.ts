@@ -27,7 +27,7 @@ export const translations = {
       community: 'Community First',
       communityDesc: "Proud partners with the Montreal Children's Hospital.",
       missionTitle: 'Our Charity Mission',
-      missionText: '30% of all league proceeds are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
+      missionText: '30% of all league profits are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
       earlyBird: 'Registration is Open — Prices Are Live!'
     },
     sponsors: {
@@ -148,7 +148,7 @@ export const translations = {
       preferredLanguage: 'Preferred Language',
       langEnglish: 'English',
       langFrench: 'French',
-      depositInfo: '30% of your registration proceeds go directly to the Montreal Children\'s Hospital.',
+      depositInfo: '30% of your registration profits go directly to the Montreal Children\'s Hospital.',
       submit: 'Submit Registration',
       successTitle: 'Registration Received!',
       successTextPart1: 'Thanks for registering',
@@ -419,7 +419,7 @@ export const translations = {
       community: 'Communauté',
       communityDesc: "Fiers partenaires de l'Hôpital de Montréal pour enfants.",
       missionTitle: 'Notre Mission Caritative',
-      missionText: '30 % de tous les revenus de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
+      missionText: '30 % de tous les profits de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
       earlyBird: 'Inscriptions ouvertes — Tarifs disponibles !'
     },
     sponsors: {
@@ -542,7 +542,7 @@ export const translations = {
       langFrench: 'Français',
       deadlineSoon: 'Date à venir bientôt !',
       tbd: 'À déterminer',
-      depositInfo: '30 % de vos frais d\'inscription sont reversés directement à l\'Hôpital de Montréal pour enfants.',
+      depositInfo: '30 % des profits de votre inscription sont reversés directement à l\'Hôpital de Montréal pour enfants.',
       submit: 'Soumettre Inscription',
       successTitle: 'Inscription Reçue!',
       successTextPart1: 'Merci d\'avoir inscrit',
@@ -690,7 +690,7 @@ export const translations = {
               items: ['Les infractions mineures entraînent une pénalité de 2 minutes à temps arrêté.']
             },
             {
-              title: '7.2 Pénalités majeures',
+              title: '7.2 Pénalités majeure',
               items: [
                 'Les pénalités majeures peuvent entraîner l\'expulsion du match.',
                 'Les bagarres entraînent une expulsion automatique et une suspension potentielle.'

@@ -226,10 +226,10 @@ PRICING & REGISTRATION:
 - EARLY BIRD RATE: $3,025 per team. (Early Bird deadline is coming soon).
 - REGULAR RATE: $4,125 per team. (Regular deadline is TBD).
 - FEE INCLUDES: Minimum 15 games guaranteed, Sponsor Perks, professional referees, and digital stats.
-- CHARITY: 30% of these fees are donated to the Montreal Children's Hospital.
+- CHARITY: 30% of league profits are donated to the Montreal Children's Hospital.
 
 CHARITY PARTNERSHIP:
-We are proud partners with the Montreal Children's Hospital. 30% of all league proceeds are donated directly to them.
+We are proud partners with the Montreal Children's Hospital. 30% of league profits are donated directly to them.
 
 SUBWAY DELSON SPONSORSHIP & PLAYER PERKS:
 We have an exclusive partnership with Subway at the Delson location (15, 41 Boulevard Georges-Gagné S, Delson).
