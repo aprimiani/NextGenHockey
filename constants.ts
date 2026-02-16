@@ -11,6 +11,26 @@ export const EMAILJS_CONFIG = {
 };
 
 // ---------------------------
+// 💰 PRICING & DEADLINES
+// ---------------------------
+export const PRICING_DATA = {
+  EARLY_BIRD: {
+    price: 3025,
+    deadline: 'Date Coming Soon!',
+  },
+  REGULAR: {
+    price: 4125,
+    deadline: 'TBD',
+  },
+  INCLUDES: [
+    'Minimum 15 games guaranteed',
+    'Sponsor Perks',
+    'Professional Refereeing',
+    'Full Digital Stats & Recaps'
+  ]
+};
+
+// ---------------------------
 // 🏆 LEAGUE MASTER DATA
 // ---------------------------
 
@@ -201,6 +221,12 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {};
 export const SYSTEM_INSTRUCTION = `
 You are the "League Assistant" for Next Gen Hockey.
 Our Mission: To provide a safer, cheaper, and more inclusive hockey experience for the community.
+
+PRICING & REGISTRATION:
+- EARLY BIRD RATE: $3,025 per team. (Early Bird deadline is coming soon).
+- REGULAR RATE: $4,125 per team. (Regular deadline is TBD).
+- FEE INCLUDES: Minimum 15 games guaranteed, Sponsor Perks, professional referees, and digital stats.
+- CHARITY: 30% of these fees are donated to the Montreal Children's Hospital.
 
 CHARITY PARTNERSHIP:
 We are proud partners with the Montreal Children's Hospital. 30% of all league proceeds are donated directly to them.

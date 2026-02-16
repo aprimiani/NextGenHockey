@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Shield, DollarSign, Heart } from 'lucide-react';
+import { Shield, DollarSign, Heart, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
@@ -13,13 +13,17 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-ng-navy via-ng-navy/80 to-transparent"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-32">
+        
+        {/* Early Bird Ribbon */}
+        <div className="flex justify-center lg:justify-start mb-8 animate-in fade-in slide-in-from-top duration-1000">
+           <NavLink to="/register" className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-ng-light-blue/20 hover:scale-105 transition-transform group italic">
+             <Sparkles size={12} className="group-hover:animate-pulse" />
+             {t.hero.earlyBird}
+           </NavLink>
+        </div>
+
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
-            <div className="flex flex-wrap items-center gap-3 mb-4 sm:justify-center lg:justify-start">
-              <span className="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-ng-light-blue/20 text-ng-light-blue border border-ng-light-blue/30 uppercase tracking-widest">
-                {t.hero.seasonMsg}
-              </span>
-            </div>
             
             <h1>
               <span className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">

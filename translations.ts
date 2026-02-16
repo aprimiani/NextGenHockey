@@ -28,6 +28,7 @@ export const translations = {
       communityDesc: "Proud partners with the Montreal Children's Hospital.",
       missionTitle: 'Our Charity Mission',
       missionText: '30% of all league proceeds are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
+      earlyBird: 'Registration is Open — Prices Are Live!'
     },
     sponsors: {
       title: 'Our League Partners',
@@ -123,6 +124,21 @@ export const translations = {
     register: {
       title: 'Team Registration',
       subtitle: 'Join the Summer 2026 season. Spots are limited.',
+      pricingTitle: 'Registration Fee',
+      pricingSubtitle: 'Transparent pricing with a community mission.',
+      formTitle: 'Registration Form',
+      earlyBird: 'Early Bird',
+      regularRate: 'Regular Rate',
+      perTeam: 'per team',
+      endsOn: '',
+      deadline: 'Final Deadline',
+      whatsIncluded: 'What is included?',
+      includedFeatures: [
+        'Minimum 15 games guaranteed',
+        'Sponsor Perks',
+        'Professional Refereeing',
+        'Full Digital Stats & Recaps'
+      ],
       teamName: 'Team Name',
       captainName: 'Captain\'s Name',
       rosterSize: 'Estimated Roster Size',
@@ -404,6 +420,7 @@ export const translations = {
       communityDesc: "Fiers partenaires de l'Hôpital de Montréal pour enfants.",
       missionTitle: 'Notre Mission Caritative',
       missionText: '30 % de tous les revenus de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
+      earlyBird: 'Inscriptions ouvertes — Tarifs disponibles !'
     },
     sponsors: {
       title: 'Nos Partenaires',
@@ -499,6 +516,21 @@ export const translations = {
     register: {
       title: 'Inscription d\'Équipe',
       subtitle: 'Rejoignez la saison Été 2026. Places limitées.',
+      pricingTitle: "Frais d'inscription",
+      pricingSubtitle: 'Des prix transparents avec une mission caritative.',
+      formTitle: "Formulaire d'inscription",
+      earlyBird: 'Paiement anticipé',
+      regularRate: 'Tarif Régulier',
+      perTeam: 'par équipe',
+      endsOn: '',
+      deadline: 'Date Limite Finale',
+      whatsIncluded: 'Ce qui est inclus ?',
+      includedFeatures: [
+        'Minimum de 15 matchs garantis',
+        'Avantages partenaires',
+        'Arbitrage professionnel',
+        'Statistiques et résumés numériques'
+      ],
       teamName: 'Nom de l\'Équipe',
       captainName: 'Nom du Capitaine',
       rosterSize: 'Taille Estimée de l\'Alignement',
@@ -508,6 +540,8 @@ export const translations = {
       preferredLanguage: 'Langue Préférée',
       langEnglish: 'Anglais',
       langFrench: 'Français',
+      deadlineSoon: 'Date à venir bientôt !',
+      tbd: 'À déterminer',
       depositInfo: '30 % de vos frais d\'inscription sont reversés directement à l\'Hôpital de Montréal pour enfants.',
       submit: 'Soumettre Inscription',
       successTitle: 'Inscription Reçue!',

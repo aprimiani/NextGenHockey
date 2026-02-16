@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG } from '../constants';
-import { Heart, Sparkles } from 'lucide-react';
+import { EMAILJS_CONFIG, PRICING_DATA } from '../constants';
+import { Heart, Sparkles, CheckCircle2, Calendar, DollarSign, Info } from 'lucide-react';
 
 const Registration: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     team_name: '',
     captain_name: '',
@@ -13,13 +13,21 @@ const Registration: React.FC = () => {
     phone_number: '',
     last_level_played: '',
     estimated_roster_size: '10',
-    preferred_language: 'fr'
+    preferred_language: language
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const getEarlyBirdDateLabel = () => {
+    return language === 'fr' ? 'Date à venir bientôt !' : 'Date Coming Soon!';
+  };
+
+  const getTBDLabel = () => {
+    return language === 'fr' ? 'À déterminer' : 'TBD';
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -80,19 +88,83 @@ const Registration: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-10 text-center">
-        <h2 className="text-3xl font-extrabold text-white">{t.register.title}</h2>
-        <p className="mt-2 text-gray-400">{t.register.subtitle}</p>
+        <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">{t.register.title}</h2>
+        <p className="mt-2 text-gray-400 font-medium">{t.register.subtitle}</p>
       </div>
 
-      <div className="bg-ng-blue/30 backdrop-blur-sm shadow-xl rounded-lg border border-gray-700 overflow-hidden">
+      {/* Pricing and Deadlines Section */}
+      <div className="mb-12">
+        <div className="flex items-center justify-between mb-6">
+           <h3 className="text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
+             <DollarSign className="text-ng-light-blue" size={24} />
+             {t.register.pricingTitle}
+           </h3>
+           <span className="hidden sm:block text-[10px] text-gray-500 uppercase font-black tracking-widest italic">{t.register.pricingSubtitle}</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Early Bird Card */}
+          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue/40 rounded-2xl p-6 relative overflow-hidden group hover:border-ng-light-blue transition-colors">
+            <div className="absolute top-0 right-0 bg-ng-light-blue text-ng-navy font-black text-[10px] uppercase px-4 py-1 italic shadow-lg">
+               {t.register.earlyBird}
+            </div>
+            <div className="text-4xl font-black text-white mb-1">
+              ${PRICING_DATA.EARLY_BIRD.price.toLocaleString()}<span className="text-xs font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
+            </div>
+            <div className="flex items-center gap-2 text-ng-light-blue text-xs font-bold uppercase tracking-widest mb-4">
+              <Calendar size={14} />
+              {getEarlyBirdDateLabel()}
+            </div>
+            <div className="pt-4 border-t border-ng-light-blue/20">
+               <ul className="space-y-2">
+                  {t.register.includedFeatures.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase">
+                      <CheckCircle2 size={12} className="text-ng-light-blue" /> {item}
+                    </li>
+                  ))}
+               </ul>
+            </div>
+          </div>
+
+          {/* Regular Rate Card */}
+          <div className="bg-ng-blue/30 border border-gray-700 rounded-2xl p-6 hover:border-gray-500 transition-colors">
+            <div className="text-4xl font-black text-white mb-1">
+              ${PRICING_DATA.REGULAR.price.toLocaleString()}<span className="text-xs font-normal text-gray-500 ml-1">/{t.register.perTeam}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
+              <Calendar size={14} />
+              {t.register.deadline}: {getTBDLabel()}
+            </div>
+            <div className="pt-4 border-t border-gray-700/50">
+               <ul className="space-y-2">
+                  {t.register.includedFeatures.map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase">
+                      <CheckCircle2 size={12} className="text-gray-600" /> {item}
+                    </li>
+                  ))}
+               </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-2">
+              <Sparkles className="text-ng-light-blue" size={24} />
+              {t.register.formTitle}
+          </h3>
+          <div className="w-12 h-1 bg-ng-light-blue mt-1"></div>
+      </div>
+
+      <div className="bg-ng-blue/30 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700 overflow-hidden">
         {/* Charity Badge Header */}
         <div className="bg-pink-500/10 p-4 border-b border-pink-500/20 flex items-center justify-center gap-3">
            <Heart className="text-pink-500" size={18} fill="currentColor" />
-           <span className="text-pink-500 text-xs font-black uppercase tracking-widest italic">{t.register.depositInfo}</span>
-           <Sparkles className="text-pink-400" size={14} />
+           <span className="text-pink-500 text-xs font-black uppercase tracking-widest italic text-center leading-tight">{t.register.depositInfo}</span>
+           <Sparkles className="text-pink-400 hidden sm:block" size={14} />
         </div>
 
-        <div className="px-4 py-5 sm:p-6">
+        <div className="px-6 py-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             
             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -226,7 +298,7 @@ const Registration: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="ml-3 inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-sm font-bold rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ng-light-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto inline-flex justify-center py-4 px-10 border border-transparent shadow-lg text-base font-black rounded-xl text-ng-navy bg-ng-light-blue hover:bg-ng-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ng-light-blue transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed italic uppercase tracking-widest"
                 >
                   {isSubmitting ? 'Submitting...' : t.register.submit}
                 </button>
