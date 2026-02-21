@@ -49,7 +49,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "2",
-    "name": "-",
+    "name": "Redlight",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -61,7 +61,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "3",
-    "name": "-",
+    "name": "Team 3",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -73,7 +73,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "4",
-    "name": "-",
+    "name": "Team 4",
     "gp": 0,
     "wins": 0,
     "losses": 0,

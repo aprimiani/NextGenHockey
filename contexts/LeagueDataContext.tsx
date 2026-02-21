@@ -39,6 +39,21 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Force a one-time reset to clear the old schedule data
+    const hasReset = localStorage.getItem('ng_force_reset_v2');
+    if (!hasReset) {
+      localStorage.clear();
+      localStorage.setItem('ng_force_reset_v2', 'true');
+      setTeamsState(TEAMS);
+      setScheduleState(SCHEDULE);
+      setPlayersState(ALL_PLAYERS);
+      setGoaliesState(GOALIE_STATS);
+      setGameRecapsState(GAME_RECAPS);
+      setGalleryState([]);
+      setLoading(false);
+      return;
+    }
+
     const savedTeams = localStorage.getItem('ng_teams');
     const savedSchedule = localStorage.getItem('ng_schedule');
     const savedPlayers = localStorage.getItem('ng_players');
@@ -46,8 +61,13 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     const savedRecaps = localStorage.getItem('ng_recaps');
     const savedGallery = localStorage.getItem('ng_gallery');
 
-    if (savedTeams) setTeamsState(JSON.parse(savedTeams));
+    if (savedTeams) {
+      const parsed = JSON.parse(savedTeams);
+      setTeamsState(parsed);
+    }
+    
     if (savedSchedule) setScheduleState(JSON.parse(savedSchedule));
+
     if (savedPlayers) setPlayersState(JSON.parse(savedPlayers));
     if (savedGoalies) setGoaliesState(JSON.parse(savedGoalies));
     if (savedRecaps) setGameRecapsState(JSON.parse(savedRecaps));
