@@ -36,18 +36,12 @@ const Hero: React.FC = () => {
             </p>
 
             <div className="mt-10 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                      <NavLink
                         to="/register"
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent md:py-4 md:text-lg transition-transform transform hover:scale-105"
                     >
                         {t.hero.registerNow}
-                    </NavLink>
-                     <NavLink
-                        to="/assistant"
-                        className="w-full flex items-center justify-center px-8 py-3 border border-gray-500 text-base font-medium rounded-md text-white bg-transparent hover:bg-gray-800 md:py-4 md:text-lg"
-                    >
-                        {t.hero.askAssistant}
                     </NavLink>
                 </div>
             </div>

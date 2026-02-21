@@ -578,14 +578,6 @@ const Manager: React.FC = () => {
                           <p className="text-gray-400 text-sm">Go to <a href="https://vercel.com" target="_blank" className="text-ng-light-blue underline">Vercel</a>, create an account, and connect your GitHub repo. It will build automatically.</p>
                         </div>
                       </div>
-
-                      <div className="flex gap-4">
-                        <div className="bg-ng-light-blue/20 w-10 h-10 rounded-xl flex items-center justify-center font-black text-ng-light-blue shrink-0">3</div>
-                        <div>
-                          <h4 className="text-white font-bold mb-1">Add AI API Key</h4>
-                          <p className="text-gray-400 text-sm">In Vercel Settings, add <span className="text-white font-mono bg-gray-800 px-1">GEMINI_API_KEY</span> as an Environment Variable for the Gemini Assistant.</p>
-                        </div>
-                      </div>
                     </div>
 
                     <div className="bg-ng-blue/30 p-6 rounded-xl border border-ng-light-blue/20">

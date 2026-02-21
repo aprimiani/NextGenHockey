@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, X, Globe, Sparkles } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { Logo } from './Logo';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -21,7 +21,6 @@ const Navbar: React.FC = () => {
     { name: t.nav.rules, path: '/rules' },
     { name: t.nav.sponsors, path: '/sponsors' },
     { name: t.nav.contact, path: '/contact' },
-    { name: t.nav.assistant, path: '/assistant', icon: <Sparkles size={16} className="mr-1 inline" /> },
   ];
 
   return (
@@ -51,7 +50,7 @@ const Navbar: React.FC = () => {
                     }`
                   }
                 >
-                  {item.icon}{item.name}
+                  {item.name}
                 </NavLink>
               ))}
               
@@ -113,7 +112,6 @@ const Navbar: React.FC = () => {
                 }
               >
                  <div className="flex items-center">
-                    {item.icon && <span className="mr-2">{item.icon}</span>}
                     {item.name}
                  </div>
               </NavLink>

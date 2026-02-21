@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Standings from './components/Standings';
 import Schedule from './components/Schedule';
-import LeagueAssistant from './components/LeagueAssistant';
 import Registration from './components/Registration';
 import Rules from './components/Rules';
 import Sponsors from './components/Sponsors';
@@ -31,7 +30,6 @@ function App() {
                 <Route path="/rules" element={<Rules />} />
                 <Route path="/sponsors" element={<Sponsors />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/assistant" element={<LeagueAssistant />} />
                 <Route path="/register" element={<Registration />} />
                 <Route path="/manager" element={<Manager />} />
               </Routes>
