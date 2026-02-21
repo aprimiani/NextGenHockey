@@ -1,7 +1,18 @@
 import { GoogleGenAI } from "@google/genai";
 import { SYSTEM_INSTRUCTION } from '../constants';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+
+const getAi = () => {
+  if (!aiInstance) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY is not defined. Please set it in your environment variables.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+};
 
 export const sendMessageToGemini = async (
   history: { role: string; parts: { text: string }[] }[], 
@@ -10,6 +21,7 @@ export const sendMessageToGemini = async (
   leagueContext?: string
 ): Promise<string> => {
   try {
+    const ai = getAi();
     const langInstruction = language === 'fr' 
       ? "IMPORTANT: Respond ONLY in French."
       : "Respond in English.";
