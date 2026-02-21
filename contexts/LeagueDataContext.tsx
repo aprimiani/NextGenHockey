@@ -6,7 +6,7 @@ import {
   GOALIE_STATS,
   GAME_RECAPS
 } from '../constants';
-import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from '../types';
+import { Team, Game, PlayerStats, GoalieStats, GameRecapData, GalleryImage } from '../types';
 
 type Setter<T> = (data: T | ((prev: T) => T)) => void;
 
@@ -16,12 +16,14 @@ interface LeagueDataContextType {
   players: PlayerStats[];
   goalies: GoalieStats[];
   gameRecaps: Record<string, GameRecapData>;
+  gallery: GalleryImage[];
   loading: boolean;
   setTeams: Setter<Team[]>;
   setSchedule: Setter<Game[]>;
   setPlayers: Setter<PlayerStats[]>;
   setGoalies: Setter<GoalieStats[]>;
   setGameRecaps: Setter<Record<string, GameRecapData>>;
+  setGallery: Setter<GalleryImage[]>;
   resetData: () => void;
 }
 
@@ -33,6 +35,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
   const [players, setPlayersState] = useState<PlayerStats[]>(ALL_PLAYERS);
   const [goalies, setGoaliesState] = useState<GoalieStats[]>(GOALIE_STATS);
   const [gameRecaps, setGameRecapsState] = useState<Record<string, GameRecapData>>(GAME_RECAPS);
+  const [gallery, setGalleryState] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,12 +44,14 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     const savedPlayers = localStorage.getItem('ng_players');
     const savedGoalies = localStorage.getItem('ng_goalies');
     const savedRecaps = localStorage.getItem('ng_recaps');
+    const savedGallery = localStorage.getItem('ng_gallery');
 
     if (savedTeams) setTeamsState(JSON.parse(savedTeams));
     if (savedSchedule) setScheduleState(JSON.parse(savedSchedule));
     if (savedPlayers) setPlayersState(JSON.parse(savedPlayers));
     if (savedGoalies) setGoaliesState(JSON.parse(savedGoalies));
     if (savedRecaps) setGameRecapsState(JSON.parse(savedRecaps));
+    if (savedGallery) setGalleryState(JSON.parse(savedGallery));
     
     setLoading(false);
   }, []);
@@ -67,6 +72,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
   const setPlayers = createSetter(setPlayersState, 'ng_players');
   const setGoalies = createSetter(setGoaliesState, 'ng_goalies');
   const setGameRecaps = createSetter(setGameRecapsState, 'ng_recaps');
+  const setGallery = createSetter(setGalleryState, 'ng_gallery');
 
   const resetData = () => {
     localStorage.clear();
@@ -75,6 +81,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     setPlayersState(ALL_PLAYERS);
     setGoaliesState(GOALIE_STATS);
     setGameRecapsState(GAME_RECAPS);
+    setGalleryState([]);
   };
 
   return (
@@ -84,12 +91,14 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       players, 
       goalies, 
       gameRecaps,
+      gallery,
       loading,
       setTeams,
       setSchedule,
       setPlayers,
       setGoalies,
       setGameRecaps,
+      setGallery,
       resetData
     }}>
       {children}

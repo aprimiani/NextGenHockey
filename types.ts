@@ -73,3 +73,9 @@ export interface GameRecapData {
     awayGoalie: { name: string; shotsFaced: number; saves: number; goalsAgainst: number };
   }
 }
+
+export interface GalleryImage {
+  id: string;
+  url: string;
+  caption?: string;
+}

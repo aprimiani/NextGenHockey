@@ -115,6 +115,11 @@ export const translations = {
       noEvents: 'No events recorded.',
       seasonStart: 'Season starts May 3rd!',
     },
+    gallery: {
+      title: 'League Gallery',
+      subtitle: 'Capturing the best moments of the season.',
+      noImages: 'No images in the gallery yet.',
+    },
     assistant: {
       title: 'AI Assistant',
       subtitle: 'Powered by AI to help you get in the game faster.',
@@ -511,6 +516,11 @@ export const translations = {
       goalsAgainst: 'BC',
       noEvents: 'Aucun événement enregistré.',
       seasonStart: 'La saison débute le 3 mai !',
+    },
+    gallery: {
+      title: 'Galerie de la Ligue',
+      subtitle: 'Capturer les meilleurs moments de la saison.',
+      noImages: 'Aucune image dans la galerie pour le moment.',
     },
     assistant: {
       title: 'Assistant IA',
