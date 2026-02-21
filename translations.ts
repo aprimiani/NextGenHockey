@@ -113,6 +113,7 @@ export const translations = {
       saves: 'Saves',
       goalsAgainst: 'GA',
       noEvents: 'No events recorded.',
+      seasonStart: 'Season starts May 3rd!',
     },
     assistant: {
       title: 'AI Assistant',
@@ -124,6 +125,7 @@ export const translations = {
     register: {
       title: 'Team Registration',
       subtitle: 'Join the Summer 2026 season. Spots are limited.',
+      seasonStart: 'Season starts May 3rd, 2026',
       pricingTitle: 'Registration Fee',
       pricingSubtitle: 'Transparent pricing with a community mission.',
       formTitle: 'Registration Form',
@@ -508,6 +510,7 @@ export const translations = {
       saves: 'Arrêts',
       goalsAgainst: 'BC',
       noEvents: 'Aucun événement enregistré.',
+      seasonStart: 'La saison débute le 3 mai !',
     },
     assistant: {
       title: 'Assistant IA',
@@ -519,6 +522,7 @@ export const translations = {
     register: {
       title: 'Inscription d\'Équipe',
       subtitle: 'Rejoignez la saison Été 2026. Places limitées.',
+      seasonStart: 'La saison débute le 3 mai 2026',
       pricingTitle: "Frais d'inscription",
       pricingSubtitle: 'Des prix transparents avec une mission caritative.',
       formTitle: "Formulaire d'inscription",

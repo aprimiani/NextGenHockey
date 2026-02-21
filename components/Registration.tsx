@@ -90,6 +90,10 @@ const Registration: React.FC = () => {
       <div className="mb-10 text-center">
         <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">{t.register.title}</h2>
         <p className="mt-2 text-gray-400 font-medium">{t.register.subtitle}</p>
+        <div className="mt-4 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic">
+          <Calendar size={14} />
+          {t.register.seasonStart}
+        </div>
       </div>
 
       {/* Pricing and Deadlines Section */}

@@ -583,7 +583,7 @@ const Manager: React.FC = () => {
                         <div className="bg-ng-light-blue/20 w-10 h-10 rounded-xl flex items-center justify-center font-black text-ng-light-blue shrink-0">3</div>
                         <div>
                           <h4 className="text-white font-bold mb-1">Add AI API Key</h4>
-                          <p className="text-gray-400 text-sm">In Vercel Settings, add <span className="text-white font-mono bg-gray-800 px-1">API_KEY</span> as an Environment Variable for the Gemini Assistant.</p>
+                          <p className="text-gray-400 text-sm">In Vercel Settings, add <span className="text-white font-mono bg-gray-800 px-1">GEMINI_API_KEY</span> as an Environment Variable for the Gemini Assistant.</p>
                         </div>
                       </div>
                     </div>

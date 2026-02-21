@@ -50,6 +50,9 @@ const Schedule: React.FC = () => {
              <Calendar className="text-ng-light-blue" size={40} />
           </div>
           <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-4">{t.schedule.tbdTitle}</h2>
+          <p className="text-ng-light-blue font-black uppercase tracking-widest mb-6">
+            {t.schedule.seasonStart}
+          </p>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-2">
             {t.schedule.tbdMessage}
           </p>
@@ -115,9 +118,14 @@ const Schedule: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-        <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter border-l-8 border-ng-light-blue pl-6">
-          {t.schedule.title}
-        </h2>
+        <div>
+          <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter border-l-8 border-ng-light-blue pl-6">
+            {t.schedule.title}
+          </h2>
+          <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-2 pl-6">
+            {t.schedule.seasonStart}
+          </p>
+        </div>
 
         {/* Filter Tabs */}
         <div className="flex bg-ng-blue/50 p-1.5 rounded-2xl border border-gray-700 shadow-xl self-start md:self-auto">
