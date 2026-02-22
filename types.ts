@@ -21,6 +21,7 @@ export interface Game {
   status: 'played' | 'scheduled';
   homeScore?: number;
   awayScore?: number;
+  isPlayoff?: boolean;
 }
 
 export interface Message {

@@ -131,11 +131,13 @@ const Manager: React.FC = () => {
   };
 
   const removeGame = (id: string) => { 
-    if (window.confirm('PERMANENT ACTION: Remove this game fixture and its scoring recap?')) {
+    if (window.confirm('PERMANENT ACTION: Remove this game fixture?')) {
       setSchedule(prev => prev.filter(g => g.id !== id));
       setGameRecaps(prev => {
         const updated = { ...prev };
-        delete updated[id];
+        if (updated[id]) {
+          delete updated[id];
+        }
         return updated;
       });
     } 
@@ -206,7 +208,17 @@ const Manager: React.FC = () => {
     alert('Standings Synchronized.');
   };
 
-  const handleGameUpdate = (gameId: string, field: string, value: any) => { setSchedule(prev => prev.map(g => g.id === gameId ? { ...g, [field]: value } : g)); };
+  const handleGameUpdate = (gameId: string, field: string, value: any) => { 
+    let finalValue = value;
+    if (field === 'date' && typeof value === 'string') {
+      // Auto-format 8 digits (YYYYMMDD) to YYYY-MM-DD
+      const digits = value.replace(/\D/g, '');
+      if (digits.length === 8 && !value.includes('-')) {
+        finalValue = `${digits.substring(0, 4)}-${digits.substring(4, 6)}-${digits.substring(6, 8)}`;
+      }
+    }
+    setSchedule(prev => prev.map(g => g.id === gameId ? { ...g, [field]: finalValue } : g)); 
+  };
   const handleTeamUpdate = (teamId: string, field: string, value: any) => { setTeams(prev => prev.map(t => t.id === teamId ? { ...t, [field]: value } : t)); };
   const handlePlayerUpdate = (playerId: string, field: string, value: any) => { 
     setPlayers(prev => prev.map(p => {
@@ -376,24 +388,56 @@ const Manager: React.FC = () => {
                     <button onClick={() => setScheduleFilter('scheduled')} className={`px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest transition-all ${scheduleFilter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-500 hover:text-white'}`}>{t.schedule.filterUpcoming}</button>
                     <button onClick={() => setScheduleFilter('played')} className={`px-4 py-1.5 rounded text-[10px] font-black uppercase tracking-widest transition-all ${scheduleFilter === 'played' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-500 hover:text-white'}`}>{t.schedule.filterResults}</button>
                   </div>
-                  <button onClick={addGame} className="bg-green-600 hover:bg-green-500 text-white font-black py-2.5 px-6 rounded-lg text-xs flex items-center gap-2 transition-all shadow-lg active:scale-95"><Plus size={18} /> Schedule Match</button>
+                  <div className="flex gap-3 w-full md:w-auto">
+                    <button 
+                      type="button"
+                      onClick={() => { if(window.confirm('DANGER: This will permanently delete ALL games in the schedule. Continue?')) setSchedule([]); }} 
+                      className="flex-1 md:flex-none bg-red-900/20 hover:bg-red-600 text-red-400 hover:text-white font-bold py-2.5 px-4 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all border border-red-900/50 shadow-lg"
+                    >
+                      <Trash2 size={14} /> Clear Schedule
+                    </button>
+                    <button onClick={addGame} className="flex-1 md:flex-none bg-green-600 hover:bg-green-500 text-white font-black py-2.5 px-6 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 italic"><Plus size={14} /> Schedule Match</button>
+                  </div>
                 </div>
                 <div className="grid gap-4">
                   {filteredSchedule.length > 0 ? filteredSchedule.map(game => (
                     <div key={game.id} className="bg-ng-navy/50 border border-gray-700 p-5 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-6 items-center hover:border-gray-500 transition-colors animate-in fade-in duration-300">
                       <div className="space-y-2">
                          <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Date & Time</label>
-                         <div className="flex gap-2"><input type="date" value={game.date} onChange={(e) => handleGameUpdate(game.id, 'date', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /><input type="time" value={game.time} onChange={(e) => handleGameUpdate(game.id, 'time', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /></div>
+                         <div className="flex gap-2"><input type="text" placeholder="YYYY-MM-DD" value={game.date} onChange={(e) => handleGameUpdate(game.id, 'date', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /><input type="time" value={game.time} onChange={(e) => handleGameUpdate(game.id, 'time', e.target.value)} className="bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white flex-1" /></div>
                       </div>
                       <div className="space-y-2">
-                         <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Scoreboard</label>
-                         <div className="flex items-center gap-2"><select value={game.homeTeamId} onChange={(e) => handleGameUpdate(game.id, 'homeTeamId', e.target.value)} className="flex-1 bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white">{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select><input type="number" placeholder="0" value={game.homeScore ?? ''} onChange={(e) => handleGameUpdate(game.id, 'homeScore', e.target.value === '' ? undefined : parseInt(e.target.value))} className="w-12 bg-gray-900 border-gray-700 rounded-lg p-2 text-center text-xs" /></div>
-                         <div className="flex items-center gap-2"><select value={game.awayTeamId} onChange={(e) => handleGameUpdate(game.id, 'awayTeamId', e.target.value)} className="flex-1 bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white">{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select><input type="number" placeholder="0" value={game.awayScore ?? ''} onChange={(e) => handleGameUpdate(game.id, 'awayScore', e.target.value === '' ? undefined : parseInt(e.target.value))} className="w-12 bg-gray-900 border-gray-700 rounded-lg p-2 text-center text-xs" /></div>
+                         <div className="flex justify-between items-center">
+                           <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Scoreboard</label>
+                           <label className="flex items-center gap-2 cursor-pointer group">
+                             <input 
+                               type="checkbox" 
+                               checked={game.isPlayoff || false} 
+                               onChange={(e) => handleGameUpdate(game.id, 'isPlayoff', e.target.checked)}
+                               className="w-3 h-3 rounded border-gray-700 bg-gray-800 text-ng-light-blue focus:ring-0 focus:ring-offset-0"
+                             />
+                             <span className="text-[9px] font-black uppercase text-gray-500 group-hover:text-ng-light-blue transition-colors tracking-tighter">Playoff</span>
+                           </label>
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <select value={game.homeTeamId} onChange={(e) => handleGameUpdate(game.id, 'homeTeamId', e.target.value)} className="flex-1 bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white">{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
+                           <input type="number" placeholder="0" value={game.homeScore ?? ''} onChange={(e) => handleGameUpdate(game.id, 'homeScore', e.target.value === '' ? undefined : parseInt(e.target.value))} className="w-12 bg-gray-900 border-gray-700 rounded-lg p-2 text-center text-xs" />
+                         </div>
+                         <div className="flex items-center gap-2">
+                           <select value={game.awayTeamId} onChange={(e) => handleGameUpdate(game.id, 'awayTeamId', e.target.value)} className="flex-1 bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white">{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
+                           <input type="number" placeholder="0" value={game.awayScore ?? ''} onChange={(e) => handleGameUpdate(game.id, 'awayScore', e.target.value === '' ? undefined : parseInt(e.target.value))} className="w-12 bg-gray-900 border-gray-700 rounded-lg p-2 text-center text-xs" />
+                         </div>
                       </div>
                       <div className="flex flex-col gap-3 md:items-end">
                          <div className="flex items-center gap-2">
                            <button onClick={() => handleGameUpdate(game.id, 'status', game.status === 'played' ? 'scheduled' : 'played')} className={`flex items-center gap-2 px-5 py-2 rounded-lg border text-[10px] font-black uppercase transition-all ${game.status === 'played' ? 'bg-green-600 text-white border-green-500' : 'bg-gray-800 text-gray-400 border-gray-700'}`}>{game.status === 'played' ? <ToggleRight size={16} /> : <ToggleLeft size={16} />} {game.status === 'played' ? 'Played' : 'Draft'}</button>
-                           <button onClick={() => removeGame(game.id)} className="text-red-400 p-2 hover:bg-red-500/10 rounded-lg transition-colors"><Trash2 size={18} /></button>
+                           <button 
+                             type="button"
+                             onClick={() => removeGame(game.id)} 
+                             className="text-red-400 p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+                           >
+                             <Trash2 size={18} />
+                           </button>
                          </div>
                          {game.status === 'played' && <button onClick={() => startEditingRecap(game.id)} className="bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-black px-4 py-2 rounded-lg text-[10px] uppercase italic">Scoring Details</button>}
                       </div>
@@ -446,7 +490,13 @@ const Manager: React.FC = () => {
                                     <td className="p-3 text-center"><input type="number" value={team.ties} onChange={(e) => handleTeamUpdate(team.id, 'ties', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={team.points} onChange={(e) => handleTeamUpdate(team.id, 'points', parseInt(e.target.value))} className="w-10 bg-ng-light-blue/20 border-none text-ng-light-blue font-bold text-xs text-center rounded" /></td>
                                     <td className="p-3 text-right">
-                                        <button onClick={() => removeTeam(team.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
+                                        <button 
+                                          type="button"
+                                          onClick={() => removeTeam(team.id)} 
+                                          className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"
+                                        >
+                                          <Trash2 size={16} />
+                                        </button>
                                     </td>
                                 </tr>
                             )})}
@@ -491,7 +541,13 @@ const Manager: React.FC = () => {
                                     <td className="p-3 text-center"><input type="number" value={p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{p.points}</td>
                                     <td className="p-3 text-right">
-                                        <button onClick={() => removePlayer(p.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
+                                        <button 
+                                          type="button"
+                                          onClick={() => removePlayer(p.id)} 
+                                          className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"
+                                        >
+                                          <Trash2 size={16} />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -540,7 +596,13 @@ const Manager: React.FC = () => {
                                         <td className="p-3 text-center"><input type="number" value={g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center"><input type="number" value={g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-right">
-                                            <button onClick={() => removeGoalie(g.id)} className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"><Trash2 size={16} /></button>
+                                            <button 
+                                              type="button"
+                                              onClick={() => removeGoalie(g.id)} 
+                                              className="text-gray-700 hover:text-red-500 transition-colors p-1 rounded-md hover:bg-red-500/10"
+                                            >
+                                              <Trash2 size={16} />
+                                            </button>
                                         </td>
                                     </tr>
                                 )

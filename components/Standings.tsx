@@ -371,7 +371,10 @@ const Standings: React.FC = () => {
                     </h3>
                     <div className="space-y-3">
                       {schedule.filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id).length > 0 ? (
-                        schedule.filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id).map(g => {
+                        [...schedule]
+                          .filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id)
+                          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                          .map(g => {
                           const isHome = g.homeTeamId === selectedTeam.id;
                           const opponentId = isHome ? g.awayTeamId : g.homeTeamId;
                           const opponentName = getTeamName(opponentId);
@@ -380,7 +383,12 @@ const Standings: React.FC = () => {
                             : null;
 
                           return (
-                            <div key={g.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700 flex items-center justify-between">
+                            <div key={g.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700 flex items-center justify-between relative overflow-hidden">
+                              {g.isPlayoff && (
+                                <div className="absolute top-0 right-0">
+                                  <div className="bg-ng-light-blue text-ng-navy text-[8px] font-black px-2 py-0.5 uppercase italic transform rotate-0">Playoffs</div>
+                                </div>
+                              )}
                               <div className="flex items-center gap-4">
                                 <div className="text-center w-12 border-r border-gray-700 pr-4">
                                   <div className="text-xs font-black text-white">{formatDate(g.date).split(',')[0]}</div>

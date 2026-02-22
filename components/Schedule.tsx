@@ -149,14 +149,24 @@ const Schedule: React.FC = () => {
           filteredGames.map((game) => (
             <div key={game.id} className="group bg-ng-blue/30 rounded-2xl border border-gray-700 p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg">
               <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-2">
-                <div className="flex items-center text-white font-black text-lg uppercase italic"><Calendar className="w-5 h-5 mr-3 text-ng-light-blue flex-shrink-0" /><span>{formatDate(game.date)}</span></div>
+                <div className="flex items-center text-white font-black text-lg uppercase italic">
+                  <Calendar className="w-5 h-5 mr-3 text-ng-light-blue flex-shrink-0" />
+                  <span>{formatDate(game.date)}</span>
+                </div>
+                {game.isPlayoff && (
+                  <div className="flex items-center pl-8">
+                    <span className="bg-ng-light-blue/20 text-ng-light-blue text-[10px] font-black px-2 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-widest italic">Playoffs</span>
+                  </div>
+                )}
                 <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest pl-8"><Clock className="w-4 h-4 mr-2" />{game.time}</div>
                 <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest pl-8"><MapPin className="w-4 h-4 mr-2" />{game.location}</div>
               </div>
               
               <div className="flex-1 flex items-center justify-center w-full px-4">
                 <div className="flex items-center justify-end w-2/5 space-x-3">
-                  <span className="text-white font-black text-right md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">{getTeamName(game.homeTeamId)}</span>
+                  <span className="text-white font-black text-right md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">
+                    {getTeamName(game.homeTeamId)}
+                  </span>
                   <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.homeTeamId) }}></div>
                 </div>
                 
@@ -174,7 +184,9 @@ const Schedule: React.FC = () => {
                 
                 <div className="flex items-center justify-start w-2/5 space-x-3">
                   <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.awayTeamId) }}></div>
-                  <span className="text-white font-black text-left md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">{getTeamName(game.awayTeamId)}</span>
+                  <span className="text-white font-black text-left md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">
+                    {getTeamName(game.awayTeamId)}
+                  </span>
                 </div>
               </div>
 
