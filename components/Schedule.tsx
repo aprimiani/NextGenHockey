@@ -163,8 +163,8 @@ const Schedule: React.FC = () => {
               </div>
               
               <div className="flex-1 flex items-center justify-center w-full px-4">
-                <div className="flex items-center justify-end w-2/5 space-x-3">
-                  <span className="text-white font-black text-right md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">
+                <div className="flex items-center justify-end flex-1 space-x-3">
+                  <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.homeTeamId)}
                   </span>
                   <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.homeTeamId) }}></div>
@@ -182,9 +182,9 @@ const Schedule: React.FC = () => {
                   )}
                 </div>
                 
-                <div className="flex items-center justify-start w-2/5 space-x-3">
+                <div className="flex items-center justify-start flex-1 space-x-3">
                   <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.awayTeamId) }}></div>
-                  <span className="text-white font-black text-left md:text-2xl uppercase italic tracking-tighter truncate max-w-[120px] md:max-w-none">
+                  <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.awayTeamId)}
                   </span>
                 </div>
