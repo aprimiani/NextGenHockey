@@ -34,7 +34,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "2",
-    "name": "2",
+    "name": "Jets",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -42,7 +42,7 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#ef4444"
+    "logoColor": "#14b8a6"
   },
   {
     "id": "3",
@@ -419,7 +419,79 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1767082325178",
     "name": "Alexandre Marchand",
-    "teamId": "1",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962869757",
+    "name": "Alexis Belleau",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962876661",
+    "name": "Liam Notebeart",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962890109",
+    "name": "Félix Dupuis",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962941457",
+    "name": "Kevin Croteau",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962942416",
+    "name": "Antoine Roy",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962943297",
+    "name": "Simon Roy",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962944635",
+    "name": "Félix Belleau",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962945887",
+    "name": "Micky Dunberry",
+    "teamId": "2",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -444,6 +516,18 @@ export const GOALIE_STATS: GoalieStats[] = [
     "id": "goalie_1767082104234",
     "name": "Massimo Garofalo",
     "teamId": "1",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "saves": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0
+  },
+  {
+    "id": "goalie_1771963002603",
+    "name": "William Dumont",
+    "teamId": "2",
     "gp": 0,
     "wins": 0,
     "losses": 0,
