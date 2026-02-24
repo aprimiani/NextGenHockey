@@ -43,6 +43,13 @@ export const translations = {
           perk: 'Exclusive Season Discount Card: Buy any 6-inch sub and a drink, get a second 6-inch sub for FREE! (Valid all season)',
           category: 'Food & Drink',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
+        },
+        {
+          name: 'Popeyes Delson',
+          description: 'Popeyes is a supplements store with the goal of helping athletes be their best physically. They offer a wide range of vitamins, proteins, and performance supplements.',
+          perk: '10% discount on every purchase in store + an extra 4% if you create an account (Total of 14% off). Valid starting now!',
+          category: 'Health & Supplements',
+          address: '66 QC-132, Delson, Quebec J5B 0A1'
         }
       ]
     },
@@ -436,6 +443,13 @@ export const translations = {
           perk: 'Carte de rabais exclusive pour la saison : Achetez un sous-marin de 6 pouces et une boisson, obtenez un deuxième sous-marin de 6 pouces GRATUITEMENT ! (Valide toute la saison)',
           category: 'Restauration',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
+        },
+        {
+          name: 'Popeyes Delson',
+          description: 'Popeyes est un magasin de suppléments dont l\'objectif est d\'aider les athlètes à donner le meilleur d\'eux-mêmes physiquement. Ils offrent une vaste gamme de vitamines, protéines et suppléments de performance.',
+          perk: 'Rabais de 10 % sur chaque achat en magasin + 4 % supplémentaire si vous créez un compte (Total de 14 % de rabais). Valide dès maintenant !',
+          category: 'Santé et Suppléments',
+          address: '66 QC-132, Delson, Quebec J5B 0A1'
         }
       ]
     },
