@@ -32,6 +32,24 @@ const Standings: React.FC = () => {
   const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || 'Unknown';
   const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
 
+  const getTeamOutlineStyle = (teamId: string) => {
+    const color = getTeamColor(teamId);
+    return {
+      color: 'white',
+      textShadow: `
+        -1px -1px 0 ${color},
+         1px -1px 0 ${color},
+        -1px  1px 0 ${color},
+         1px  1px 0 ${color},
+         0px  1px 0 ${color},
+         0px -1px 0 ${color},
+         1px  0px 0 ${color},
+        -1px  0px 0 ${color}
+      `,
+      paddingRight: '4px'
+    };
+  };
+
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString + 'T12:00:00');
@@ -103,8 +121,7 @@ const Standings: React.FC = () => {
                       onClick={() => setSelectedTeam(team)}
                       className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                     >
-                      <span className="mr-2 text-[11px] font-black italic shrink-0" style={{ color: team.logoColor }}>{team.name.substring(0, 1)}</span>
-                      <div className="text-sm font-bold text-white group-hover:text-ng-light-blue truncate max-w-[120px] sm:max-w-none">{team.name}</div>
+                      <div className="text-sm font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(team.id)}>{team.name}</div>
                     </button>
                   </td>
                   <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-bold">{team.gp}</td>
@@ -161,14 +178,13 @@ const Standings: React.FC = () => {
                             <div className="flex flex-col">
                               <span>{player.name}</span>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(player.teamId)}</span>
+                                <span className="text-[10px] font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(player.teamId)}>{getTeamName(player.teamId)}</span>
                               </div>
                             </div>
                          </td>
                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                            <span className="text-[11px] font-black italic" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
-                            {getTeamName(player.teamId)}
+                            <span className="text-[11px] font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(player.teamId)}>{getTeamName(player.teamId)}</span>
+
                          </td>
                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
@@ -215,14 +231,12 @@ const Standings: React.FC = () => {
                             <div className="flex flex-col">
                               <span>{goalie.name}</span>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(goalie.teamId)}</span>
+                                <span className="text-[10px] font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(goalie.teamId)}>{getTeamName(goalie.teamId)}</span>
                               </div>
                             </div>
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                              <span className="text-[11px] font-black italic" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
-                              {getTeamName(goalie.teamId)}
+                              <span className="text-[11px] font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(goalie.teamId)}>{getTeamName(goalie.teamId)}</span>
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
                           <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
@@ -254,11 +268,8 @@ const Standings: React.FC = () => {
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
               >
                 <div className="flex items-center gap-4">
-                  <span className="text-3xl md:text-4xl font-black italic shrink-0" style={{ color: selectedTeam.logoColor }}>
-                    {selectedTeam.name.substring(0, 1)}
-                  </span>
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic whitespace-nowrap overflow-hidden text-ellipsis max-w-[150px] sm:max-w-none">{selectedTeam.name}</h2>
+                    <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter italic whitespace-nowrap" style={getTeamOutlineStyle(selectedTeam.id)}>{selectedTeam.name}</h2>
                     <div className="flex gap-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
                       <span>{selectedTeam.wins}W - {selectedTeam.losses}L - {selectedTeam.ties}D</span>
                       <span className="text-ng-light-blue">{selectedTeam.points} {t.standings.pts}</span>

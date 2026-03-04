@@ -13,6 +13,24 @@ const Schedule: React.FC = () => {
   const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
   const getTeamLogo = (id: string) => teams.find(t => t.id === id)?.logoUrl;
 
+  const getTeamOutlineStyle = (teamId: string) => {
+    const color = getTeamColor(teamId);
+    return {
+      color: 'white',
+      textShadow: `
+        -1px -1px 0 ${color},
+         1px -1px 0 ${color},
+        -1px  1px 0 ${color},
+         1px  1px 0 ${color},
+         0px  1px 0 ${color},
+         0px -1px 0 ${color},
+         1px  0px 0 ${color},
+        -1px  0px 0 ${color}
+      `,
+      paddingRight: '4px'
+    };
+  };
+
   const filteredGames = useMemo(() => {
     return schedule.filter(g => g.status === filter).sort((a, b) => {
       // For upcoming: show nearest first
@@ -84,16 +102,14 @@ const Schedule: React.FC = () => {
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.homeScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.homeTeamId) }}>{getTeamName(game.homeTeamId).substring(0, 1)}</span>
-                          <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.homeTeamId)}</div>
+                        <div className="text-sm font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(game.homeTeamId)}>{getTeamName(game.homeTeamId)}</div>
                         </div>
                      </div>
                      <div className="text-gray-500 font-bold">VS</div>
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.awayScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.awayTeamId) }}>{getTeamName(game.awayTeamId).substring(0, 1)}</span>
-                          <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.awayTeamId)}</div>
+                        <div className="text-sm font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(game.awayTeamId)}>{getTeamName(game.awayTeamId)}</div>
                         </div>
                      </div>
                 </div>
@@ -107,9 +123,7 @@ const Schedule: React.FC = () => {
                                 <div className="flex items-center space-x-3">
                                     <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
                                     <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
-                                    <span className="text-[9px] font-black italic shrink-0" style={{ color: getTeamColor(event.teamId) }}>
-                                        {getTeamName(event.teamId).substring(0, 1)}
-                                    </span>
+                                    <span className="text-[10px] font-black italic uppercase tracking-tighter" style={getTeamOutlineStyle(event.teamId)}>{getTeamName(event.teamId)}</span>
                                     <span className="text-white font-bold">{event.player}</span>
                                 </div>
                                 <div className="text-xs text-gray-400 font-medium"><span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist || '-'}</div>
@@ -123,8 +137,8 @@ const Schedule: React.FC = () => {
                         <table className="min-w-full divide-y divide-gray-700">
                             <thead><tr className="bg-ng-navy/30"><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th></tr></thead>
                             <tbody className="divide-y divide-gray-700">
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.homeGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td></tr>
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.awayGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td></tr>
+                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold" style={getTeamOutlineStyle(game.homeTeamId)}>{getTeamName(game.homeTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.homeGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td></tr>
+                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold" style={getTeamOutlineStyle(game.awayTeamId)}>{getTeamName(game.awayTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.awayGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -184,10 +198,7 @@ const Schedule: React.FC = () => {
               
               <div className="flex-1 flex items-center justify-center w-full px-4">
                 <div className="flex items-center justify-end flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
-                    {getTeamName(game.homeTeamId).substring(0, 1)}
-                  </span>
-                  <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
+                  <span className="text-lg md:text-2xl font-black italic uppercase leading-tight text-right flex-1" style={getTeamOutlineStyle(game.homeTeamId)}>
                     {getTeamName(game.homeTeamId)}
                   </span>
                 </div>
@@ -205,10 +216,7 @@ const Schedule: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center justify-start flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
-                    {getTeamName(game.awayTeamId).substring(0, 1)}
-                  </span>
-                  <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
+                  <span className="text-lg md:text-2xl font-black italic uppercase leading-tight text-left flex-1" style={getTeamOutlineStyle(game.awayTeamId)}>
                     {getTeamName(game.awayTeamId)}
                   </span>
                 </div>
