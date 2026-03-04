@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { MapPin, Star, Gift, ArrowRight } from 'lucide-react';
+import { MapPin, Star, Gift, ArrowRight, Trophy } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const Sponsors: React.FC = () => {
@@ -27,14 +27,18 @@ const Sponsors: React.FC = () => {
         {t.sponsors.partners.map((partner: any, idx: number) => (
           <div 
             key={idx} 
-            className="group bg-ng-blue/30 rounded-2xl border border-gray-700 flex flex-col overflow-hidden hover:border-ng-light-blue transition-all duration-300 hover:shadow-2xl hover:shadow-ng-light-blue/10"
+            className={`group bg-ng-blue/30 rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl ${partner.isPrize ? 'border-yellow-500/50 hover:border-yellow-500 hover:shadow-yellow-500/10' : 'border-gray-700 hover:border-ng-light-blue hover:shadow-ng-light-blue/10'}`}
           >
             {/* Header / Category */}
-            <div className="bg-ng-navy p-4 flex justify-between items-center border-b border-gray-700">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ng-light-blue">
+            <div className={`p-4 flex justify-between items-center border-b ${partner.isPrize ? 'bg-yellow-500/10 border-yellow-500/20' : 'bg-ng-navy border-gray-700'}`}>
+              <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${partner.isPrize ? 'text-yellow-500' : 'text-ng-light-blue'}`}>
                 {partner.category}
               </span>
-              <Star size={14} className="text-yellow-500 fill-yellow-500" />
+              {partner.isPrize ? (
+                <Trophy size={14} className="text-yellow-500 fill-yellow-500" />
+              ) : (
+                <Star size={14} className="text-yellow-500 fill-yellow-500" />
+              )}
             </div>
 
             <div className="p-8 flex-grow">
@@ -46,9 +50,10 @@ const Sponsors: React.FC = () => {
               </p>
 
               {/* Perk Box */}
-              <div className="bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-xl p-5 relative group-hover:bg-ng-light-blue/20 transition-colors mb-6">
-                <div className="absolute -top-3 left-4 bg-ng-light-blue text-ng-navy text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1">
-                  <Gift size={10} /> {t.sponsors.perkTitle}
+              <div className={`border rounded-xl p-5 relative transition-colors mb-6 ${partner.isPrize ? 'bg-yellow-500/5 border-yellow-500/20 group-hover:bg-yellow-500/10' : 'bg-ng-light-blue/10 border-ng-light-blue/20 group-hover:bg-ng-light-blue/20'}`}>
+                <div className={`absolute -top-3 left-4 text-ng-navy text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1 ${partner.isPrize ? 'bg-yellow-500' : 'bg-ng-light-blue'}`}>
+                  {partner.isPrize ? <Trophy size={10} /> : <Gift size={10} />} 
+                  {partner.isPrize ? t.sponsors.prizeTitle : t.sponsors.perkTitle}
                 </div>
                 <p className="text-white font-bold text-sm">
                   {partner.perk}
@@ -58,7 +63,7 @@ const Sponsors: React.FC = () => {
               {/* Address Display */}
               {partner.address && (
                 <div className="flex items-start gap-2 text-gray-400 text-xs mt-auto">
-                   <MapPin size={14} className="text-ng-light-blue shrink-0 mt-0.5" />
+                   <MapPin size={14} className={`${partner.isPrize ? 'text-yellow-500' : 'text-ng-light-blue'} shrink-0 mt-0.5`} />
                    <span className="italic">{partner.address}</span>
                 </div>
               )}

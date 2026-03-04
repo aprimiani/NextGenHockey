@@ -9,6 +9,7 @@ export interface Team {
   goalsFor: number;
   goalsAgainst: number;
   logoColor: string;
+  logoUrl?: string;
 }
 
 export interface Game {

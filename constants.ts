@@ -30,7 +30,8 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#f59e0b"
+    "logoColor": "#f59e0b",
+    "logoUrl": "https://i.ibb.co/v6mXkXy/bots-logo.png"
   },
   {
     "id": "2",

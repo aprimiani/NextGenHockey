@@ -32,6 +32,7 @@ export const translations = {
       title: 'Our League Partners',
       subtitle: 'Exclusive perks and discounts for Next Gen Hockey players.',
       perkTitle: 'Player Perk',
+      prizeTitle: 'League Prize',
       viewAddress: 'Get Directions',
       becomePartner: 'Become a Partner',
       ctaTitle: 'Want to reach our local community?',
@@ -50,6 +51,30 @@ export const translations = {
           perk: '10% discount on every purchase in store + an extra 4% if you create an account (Total of 14% off). Valid starting now!',
           category: 'Health & Supplements',
           address: '66 QC-132, Delson, Quebec J5B 0A1'
+        },
+        {
+          name: 'Pasquier Delson',
+          description: 'A premier local grocery store supporting our league champions with quality food and service.',
+          perk: '$15 gift card for every member of the Championship team!',
+          category: 'Championship Prize',
+          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          isPrize: true
+        },
+        {
+          name: 'Royal Amusement',
+          description: 'The ultimate arcade and entertainment destination in Delson for teams and families.',
+          perk: '300 credits for the Finalist team to enjoy at the arcade!',
+          category: 'Finalist Prize',
+          address: '66 QC-132, Delson, Quebec J5B 0A1',
+          isPrize: true
+        },
+        {
+          name: 'Subway Delson (Prizes)',
+          description: 'Subway supports our top teams with fresh catering for their post-season celebrations.',
+          perk: '2 sandwich trays for the Champions and 2 sandwich trays for the Finalists!',
+          category: 'Championship/Finalist Prize',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
+          isPrize: true
         }
       ]
     },
@@ -432,6 +457,7 @@ export const translations = {
       title: 'Nos Partenaires',
       subtitle: 'Avantages exclusifs et rabais pour les joueurs de Next Gen Hockey.',
       perkTitle: 'Avantage Joueur',
+      prizeTitle: 'Prix de la Ligue',
       viewAddress: 'Directions',
       becomePartner: 'Devenir partenaire',
       ctaTitle: 'Vous voulez rejoindre notre communauté locale ?',
@@ -450,6 +476,30 @@ export const translations = {
           perk: 'Rabais de 10 % sur chaque achat en magasin + 4 % supplémentaire si vous créez un compte (Total de 14 % de rabais). Valide dès maintenant !',
           category: 'Santé et Suppléments',
           address: '66 QC-132, Delson, Quebec J5B 0A1'
+        },
+        {
+          name: 'Pasquier Delson',
+          description: 'Une épicerie locale de premier plan soutenant nos champions de ligue avec des produits et un service de qualité.',
+          perk: 'Une carte-cadeau de 15 $ pour chaque membre de l\'équipe championne des séries !',
+          category: 'Prix Championnat',
+          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          isPrize: true
+        },
+        {
+          name: 'Royal Amusement',
+          description: 'La destination ultime d\'arcade et de divertissement à Delson pour les équipes et les familles.',
+          perk: '300 crédits pour l\'équipe finaliste à utiliser à l\'arcade !',
+          category: 'Prix Finaliste',
+          address: '66 QC-132, Delson, Quebec J5B 0A1',
+          isPrize: true
+        },
+        {
+          name: 'Subway Delson (Prix)',
+          description: 'Subway soutient nos meilleures équipes avec un service de traiteur frais pour leurs célébrations de fin de saison.',
+          perk: '2 plateaux de sous-marins pour les champions et 2 plateaux pour les finalistes !',
+          category: 'Prix Championnat/Finaliste',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
+          isPrize: true
         }
       ]
     },

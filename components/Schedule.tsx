@@ -11,6 +11,7 @@ const Schedule: React.FC = () => {
 
   const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || t.schedule.unknown;
   const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
+  const getTeamLogo = (id: string) => teams.find(t => t.id === id)?.logoUrl;
 
   const filteredGames = useMemo(() => {
     return schedule.filter(g => g.status === filter).sort((a, b) => {
@@ -91,7 +92,18 @@ const Schedule: React.FC = () => {
                     <div className="space-y-3">
                         {selectedRecap.events.length > 0 ? selectedRecap.events.map(event => (
                             <div key={event.id} className="flex items-center justify-between bg-ng-navy/50 p-3 rounded border border-gray-700/50">
-                                <div className="flex items-center space-x-3"><span className="text-ng-light-blue font-mono font-bold">{event.time}</span><span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span><div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: getTeamColor(event.teamId) }}></div><span className="text-white font-bold">{event.player}</span></div>
+                                <div className="flex items-center space-x-3">
+                                    <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
+                                    <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
+                                    <div className="w-5 h-5 rounded shadow-sm overflow-hidden flex items-center justify-center shrink-0" style={{ backgroundColor: getTeamLogo(event.teamId) ? 'transparent' : getTeamColor(event.teamId) }}>
+                                        {getTeamLogo(event.teamId) ? (
+                                            <img src={getTeamLogo(event.teamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                                        ) : (
+                                            <div className="w-full h-full" style={{ backgroundColor: getTeamColor(event.teamId) }}></div>
+                                        )}
+                                    </div>
+                                    <span className="text-white font-bold">{event.player}</span>
+                                </div>
                                 <div className="text-xs text-gray-400 font-medium"><span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist || '-'}</div>
                             </div>
                         )) : <p className="text-gray-500 italic text-center py-4">{t.schedule.noEvents}</p>}
@@ -167,7 +179,13 @@ const Schedule: React.FC = () => {
                   <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.homeTeamId)}
                   </span>
-                  <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.homeTeamId) }}></div>
+                  <div className="w-8 h-8 rounded shadow-lg ring-1 ring-white/10 shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: getTeamLogo(game.homeTeamId) ? 'transparent' : getTeamColor(game.homeTeamId) }}>
+                    {getTeamLogo(game.homeTeamId) ? (
+                        <img src={getTeamLogo(game.homeTeamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    ) : (
+                        <div className="w-full h-full" style={{ backgroundColor: getTeamColor(game.homeTeamId) }}></div>
+                    )}
+                  </div>
                 </div>
                 
                 <div className="px-6 flex flex-col items-center">
@@ -183,7 +201,13 @@ const Schedule: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center justify-start flex-1 space-x-3">
-                  <div className="w-4 h-4 rounded-full shadow-lg ring-1 ring-white/10 shrink-0" style={{ backgroundColor: getTeamColor(game.awayTeamId) }}></div>
+                  <div className="w-8 h-8 rounded shadow-lg ring-1 ring-white/10 shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: getTeamLogo(game.awayTeamId) ? 'transparent' : getTeamColor(game.awayTeamId) }}>
+                    {getTeamLogo(game.awayTeamId) ? (
+                        <img src={getTeamLogo(game.awayTeamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
+                    ) : (
+                        <div className="w-full h-full" style={{ backgroundColor: getTeamColor(game.awayTeamId) }}></div>
+                    )}
+                  </div>
                   <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.awayTeamId)}
                   </span>
