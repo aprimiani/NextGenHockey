@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             
             <h1>
-              <span className="mt-1 block text-5xl tracking-tight font-normal sm:text-7xl xl:text-8xl font-display uppercase leading-[0.9]">
+              <span className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
                 <span className="block text-white">{t.hero.futureOf}</span>
                 <span className="block text-ng-light-blue">{t.hero.recHockey}</span>
               </span>
@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                      <NavLink
                         to="/register"
-                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-lg font-normal rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent md:py-4 md:text-2xl transition-transform transform hover:scale-105 font-display uppercase tracking-widest"
+                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent md:py-4 md:text-lg transition-transform transform hover:scale-105"
                     >
                         {t.hero.registerNow}
                     </NavLink>
@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
                  <Heart size={20} fill="currentColor" />
                </div>
                <div>
-                 <h4 className="text-pink-500 font-normal uppercase text-xs tracking-widest mb-1 italic font-display">
+                 <h4 className="text-pink-500 font-black uppercase text-[10px] tracking-[0.2em] mb-1 italic">
                    {t.hero.missionTitle}
                  </h4>
                  <p className="text-gray-400 text-sm leading-snug">
@@ -64,7 +64,7 @@ const Hero: React.FC = () => {
           
           <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
             <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
-                <h3 className="text-center text-ng-light-blue font-normal text-2xl uppercase tracking-widest mb-6 font-display">
+                <h3 className="text-center text-ng-light-blue font-bold text-lg uppercase tracking-wider mb-6">
                   {t.hero.principlesTitle}
                 </h3>
                 <div className="grid grid-cols-1 gap-6">
