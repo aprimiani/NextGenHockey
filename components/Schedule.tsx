@@ -81,9 +81,21 @@ const Schedule: React.FC = () => {
             <div className="bg-ng-navy p-6 border-b border-gray-700 text-center">
                 <h2 className="text-2xl font-bold text-white mb-2">{t.schedule.gameRecap}</h2>
                 <div className="flex items-center justify-center space-x-8">
-                     <div className="text-center"><div className="text-3xl font-bold text-white">{game.homeScore}</div><div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.homeTeamId)}</div></div>
+                     <div className="text-center">
+                        <div className="text-3xl font-bold text-white">{game.homeScore}</div>
+                        <div className="flex items-center justify-center gap-1">
+                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.homeTeamId) }}>{getTeamName(game.homeTeamId).substring(0, 1)}</span>
+                          <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.homeTeamId)}</div>
+                        </div>
+                     </div>
                      <div className="text-gray-500 font-bold">VS</div>
-                     <div className="text-center"><div className="text-3xl font-bold text-white">{game.awayScore}</div><div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.awayTeamId)}</div></div>
+                     <div className="text-center">
+                        <div className="text-3xl font-bold text-white">{game.awayScore}</div>
+                        <div className="flex items-center justify-center gap-1">
+                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.awayTeamId) }}>{getTeamName(game.awayTeamId).substring(0, 1)}</span>
+                          <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.awayTeamId)}</div>
+                        </div>
+                     </div>
                 </div>
             </div>
             <div className="p-6 space-y-8">
@@ -95,13 +107,9 @@ const Schedule: React.FC = () => {
                                 <div className="flex items-center space-x-3">
                                     <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
                                     <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
-                                    <div className="w-5 h-5 rounded shadow-sm overflow-hidden flex items-center justify-center shrink-0" style={{ backgroundColor: getTeamLogo(event.teamId) ? 'transparent' : getTeamColor(event.teamId) }}>
-                                        {getTeamLogo(event.teamId) ? (
-                                            <img src={getTeamLogo(event.teamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                                        ) : (
-                                            <div className="w-full h-full" style={{ backgroundColor: getTeamColor(event.teamId) }}></div>
-                                        )}
-                                    </div>
+                                    <span className="text-[9px] font-black italic shrink-0" style={{ color: getTeamColor(event.teamId) }}>
+                                        {getTeamName(event.teamId).substring(0, 1)}
+                                    </span>
                                     <span className="text-white font-bold">{event.player}</span>
                                 </div>
                                 <div className="text-xs text-gray-400 font-medium"><span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist || '-'}</div>
@@ -176,16 +184,12 @@ const Schedule: React.FC = () => {
               
               <div className="flex-1 flex items-center justify-center w-full px-4">
                 <div className="flex items-center justify-end flex-1 space-x-3">
+                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
+                    {getTeamName(game.homeTeamId).substring(0, 1)}
+                  </span>
                   <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.homeTeamId)}
                   </span>
-                  <div className="w-8 h-8 rounded shadow-lg ring-1 ring-white/10 shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: getTeamLogo(game.homeTeamId) ? 'transparent' : getTeamColor(game.homeTeamId) }}>
-                    {getTeamLogo(game.homeTeamId) ? (
-                        <img src={getTeamLogo(game.homeTeamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                    ) : (
-                        <div className="w-full h-full" style={{ backgroundColor: getTeamColor(game.homeTeamId) }}></div>
-                    )}
-                  </div>
                 </div>
                 
                 <div className="px-6 flex flex-col items-center">
@@ -201,13 +205,9 @@ const Schedule: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center justify-start flex-1 space-x-3">
-                  <div className="w-8 h-8 rounded shadow-lg ring-1 ring-white/10 shrink-0 overflow-hidden flex items-center justify-center" style={{ backgroundColor: getTeamLogo(game.awayTeamId) ? 'transparent' : getTeamColor(game.awayTeamId) }}>
-                    {getTeamLogo(game.awayTeamId) ? (
-                        <img src={getTeamLogo(game.awayTeamId)} alt="logo" className="w-full h-full object-contain" referrerPolicy="no-referrer" />
-                    ) : (
-                        <div className="w-full h-full" style={{ backgroundColor: getTeamColor(game.awayTeamId) }}></div>
-                    )}
-                  </div>
+                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
+                    {getTeamName(game.awayTeamId).substring(0, 1)}
+                  </span>
                   <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.awayTeamId)}
                   </span>
