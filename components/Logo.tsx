@@ -11,7 +11,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "h-10" }) =
     />
     
     {/* Text Group - Centered vertically and horizontally */}
-    <g fontFamily="'Anton', sans-serif" fontWeight="400" textAnchor="middle">
+    <g fontFamily="'Outfit', sans-serif" fontWeight="900" textAnchor="middle">
       {/* NEXT - White - Moved left to x="100" */}
       <text x="100" y="90" fontSize="64" fill="white">NEXT</text>
       
@@ -20,7 +20,7 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "h-10" }) =
     </g>
 
     {/* HOCKEY - Positioned with more breathing room */}
-    <text x="110" y="185" fontFamily="'Anton', sans-serif" fontWeight="400" fontSize="22" fill="white" letterSpacing="0.3em" textAnchor="middle">HOCKEY</text>
+    <text x="110" y="185" fontFamily="'Outfit', sans-serif" fontWeight="700" fontSize="22" fill="white" letterSpacing="0.3em" textAnchor="middle">HOCKEY</text>
 
     {/* Blue Curved Smile/Accent - Adjusted for new proportions */}
     <path 

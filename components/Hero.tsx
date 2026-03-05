@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             
             <h1>
-              <span className="mt-1 block text-5xl tracking-tight font-normal sm:text-7xl xl:text-8xl font-display uppercase leading-[0.9]">
+              <span className="mt-1 block text-5xl tracking-tight font-black sm:text-7xl xl:text-8xl font-display uppercase leading-[0.9]">
                 <span className="block text-white">{t.hero.futureOf}</span>
                 <span className="block text-ng-light-blue">{t.hero.recHockey}</span>
               </span>
