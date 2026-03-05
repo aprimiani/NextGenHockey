@@ -30,8 +30,7 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#f59e0b",
-    "logoUrl": "https://i.ibb.co/v6mXkXy/bots-logo.png"
+    "logoColor": "#f59e0b"
   },
   {
     "id": "2",
@@ -47,7 +46,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "3",
-    "name": "3",
+    "name": "Milf Hunters",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -55,11 +54,11 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#84cc16"
+    "logoColor": "#8b5cf6"
   },
   {
     "id": "4",
-    "name": "4",
+    "name": "Redlight",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -67,7 +66,7 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#a855f7"
+    "logoColor": "#ef4444"
   }
 ];
 
@@ -77,7 +76,7 @@ export const SCHEDULE: Game[] = [
     "date": "2026-05-03",
     "time": "14:00",
     "homeTeamId": "3",
-    "awayTeamId": "4",
+    "awayTeamId": "2",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -86,7 +85,7 @@ export const SCHEDULE: Game[] = [
     "date": "2026-05-03",
     "time": "18:30",
     "homeTeamId": "1",
-    "awayTeamId": "2",
+    "awayTeamId": "4",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -239,7 +238,7 @@ export const SCHEDULE: Game[] = [
     "date": "2026-07-12",
     "time": "14:00",
     "homeTeamId": "2",
-    "awayTeamId": "4",
+    "awayTeamId": "1",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -247,7 +246,7 @@ export const SCHEDULE: Game[] = [
     "id": "g_1771798334065",
     "date": "2026-07-12",
     "time": "18:30",
-    "homeTeamId": "1",
+    "homeTeamId": "4",
     "awayTeamId": "3",
     "location": "Sportium",
     "status": "scheduled"
@@ -541,4 +540,11 @@ export const GOALIE_STATS: GoalieStats[] = [
 
 export const GAME_RECAPS: Record<string, GameRecapData> = {};
 
-export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey...`;
+export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey. You provide information about the league, teams, players, schedule, and standings. You can also help with registration and rules.
+
+Current League Data:
+- Teams: Bots, Jets, Milf Hunters, Redlight
+- Location: Sportium
+- Season: Summer 2026
+
+When asked about specific stats or games, refer to the provided constants. Always be professional, encouraging, and helpful. If you don't know something, suggest contacting the league organizers.`;

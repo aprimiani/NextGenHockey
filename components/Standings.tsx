@@ -161,13 +161,13 @@ const Standings: React.FC = () => {
                             <div className="flex flex-col">
                               <span>{player.name}</span>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
+                                <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
                                 <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(player.teamId)}</span>
                               </div>
                             </div>
                          </td>
                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                            <span className="text-[11px] font-black italic" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
+                            <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
                             {getTeamName(player.teamId)}
                          </td>
                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
@@ -215,13 +215,13 @@ const Standings: React.FC = () => {
                             <div className="flex flex-col">
                               <span>{goalie.name}</span>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
+                                <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
                                 <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(goalie.teamId)}</span>
                               </div>
                             </div>
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                              <span className="text-[11px] font-black italic" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
+                              <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
                               {getTeamName(goalie.teamId)}
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>

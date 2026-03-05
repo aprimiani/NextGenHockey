@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
 
               <NavLink
                 to="/register"
-                className="bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-bold py-2 px-4 rounded-md transition-colors shadow-lg shadow-ng-light-blue/30 ml-2"
+                className="bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-normal py-2 px-4 rounded-md transition-colors shadow-lg shadow-ng-light-blue/30 ml-2 font-display uppercase tracking-widest"
               >
                 {t.nav.register}
               </NavLink>
@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
              <NavLink
                 to="/register"
                 onClick={() => setIsOpen(false)}
-                className="block w-full text-center mt-4 bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-bold py-3 px-4 rounded-md"
+                className="block w-full text-center mt-4 bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-normal py-3 px-4 rounded-md font-display uppercase tracking-widest text-lg"
               >
                 {t.nav.register}
               </NavLink>

@@ -11,16 +11,16 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "h-10" }) =
     />
     
     {/* Text Group - Centered vertically and horizontally */}
-    <g fontFamily="'Inter', sans-serif" fontWeight="900" fontStyle="italic" textAnchor="middle">
+    <g fontFamily="'Anton', sans-serif" fontWeight="400" textAnchor="middle">
       {/* NEXT - White - Moved left to x="100" */}
-      <text x="100" y="90" fontSize="58" fill="white" letterSpacing="-0.02em">NEXT</text>
+      <text x="100" y="90" fontSize="64" fill="white">NEXT</text>
       
       {/* GEN - Light Blue - Moved left to x="100" */}
-      <text x="100" y="140" fontSize="58" fill="#38bdf8" letterSpacing="-0.02em">GEN</text>
+      <text x="100" y="145" fontSize="64" fill="#38bdf8">GEN</text>
     </g>
 
     {/* HOCKEY - Positioned with more breathing room */}
-    <text x="110" y="180" fontFamily="'Inter', sans-serif" fontWeight="700" fontSize="20" fill="white" letterSpacing="0.4em" textAnchor="middle">HOCKEY</text>
+    <text x="110" y="185" fontFamily="'Anton', sans-serif" fontWeight="400" fontSize="22" fill="white" letterSpacing="0.3em" textAnchor="middle">HOCKEY</text>
 
     {/* Blue Curved Smile/Accent - Adjusted for new proportions */}
     <path 

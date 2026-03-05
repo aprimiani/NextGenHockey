@@ -84,7 +84,7 @@ const Schedule: React.FC = () => {
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.homeScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.homeTeamId) }}>{getTeamName(game.homeTeamId).substring(0, 1)}</span>
+                          <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(game.homeTeamId) }}>{getTeamName(game.homeTeamId).substring(0, 1)}</span>
                           <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.homeTeamId)}</div>
                         </div>
                      </div>
@@ -92,7 +92,7 @@ const Schedule: React.FC = () => {
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.awayScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic" style={{ color: getTeamColor(game.awayTeamId) }}>{getTeamName(game.awayTeamId).substring(0, 1)}</span>
+                          <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(game.awayTeamId) }}>{getTeamName(game.awayTeamId).substring(0, 1)}</span>
                           <div className="text-gray-400 text-sm font-bold uppercase">{getTeamName(game.awayTeamId)}</div>
                         </div>
                      </div>
@@ -107,7 +107,7 @@ const Schedule: React.FC = () => {
                                 <div className="flex items-center space-x-3">
                                     <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
                                     <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
-                                    <span className="text-[9px] font-black italic shrink-0" style={{ color: getTeamColor(event.teamId) }}>
+                                    <span className="text-[9px] font-black italic shrink-0 mr-1.5" style={{ color: getTeamColor(event.teamId) }}>
                                         {getTeamName(event.teamId).substring(0, 1)}
                                     </span>
                                     <span className="text-white font-bold">{event.player}</span>
@@ -184,7 +184,7 @@ const Schedule: React.FC = () => {
               
               <div className="flex-1 flex items-center justify-center w-full px-4">
                 <div className="flex items-center justify-end flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
+                  <span className="text-lg md:text-xl font-black italic shrink-0 mr-2" style={{ color: getTeamColor(game.homeTeamId) }}>
                     {getTeamName(game.homeTeamId).substring(0, 1)}
                   </span>
                   <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
@@ -205,7 +205,7 @@ const Schedule: React.FC = () => {
                 </div>
                 
                 <div className="flex items-center justify-start flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
+                  <span className="text-lg md:text-xl font-black italic shrink-0 mr-2" style={{ color: getTeamColor(game.awayTeamId) }}>
                     {getTeamName(game.awayTeamId).substring(0, 1)}
                   </span>
                   <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
