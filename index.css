@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -10,8 +11,13 @@
   --color-ng-white: #f8fafc;
 }
 
+:root {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   body {
     @apply font-sans bg-ng-navy text-ng-white m-0;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   }
 }
