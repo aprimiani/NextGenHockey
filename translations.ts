@@ -99,6 +99,7 @@ export const translations = {
       goaliesTab: 'Goalies',
       skaters: 'Skaters',
       goalies: 'Goalies',
+      goalie: 'Goalie',
       showMore: 'Show More',
       showLess: 'Show Less',
       player: 'Player',
@@ -114,7 +115,8 @@ export const translations = {
       roster: 'Roster',
       teamSchedule: 'Team Schedule',
       noPlayers: 'No players registered for this team yet.',
-      gaaExplanation: 'GAA (Goals Against Average) = Total Goals Against ÷ Games Played.'
+      gaaExplanation: 'GAA (Goals Against Average) = Total Goals Against ÷ Games Played.',
+      leagueRank: 'League Rank'
     },
     schedule: {
       title: 'Game Schedule',
@@ -524,6 +526,7 @@ export const translations = {
       goaliesTab: 'Gardiens',
       skaters: 'Joueurs',
       goalies: 'Gardiens',
+      goalie: 'Gardien',
       showMore: 'Voir Plus',
       showLess: 'Voir Moins',
       player: 'Joueur',
@@ -539,7 +542,8 @@ export const translations = {
       roster: 'Alignement',
       teamSchedule: "Calendrier de l'Équipe",
       noPlayers: 'Aucun joueur inscrit pour cette équipe.',
-      gaaExplanation: 'Moy. (Moyenne de buts alloués) = Total des buts alloués ÷ Parties jouées.'
+      gaaExplanation: 'Moy. (Moyenne de buts alloués) = Total des buts alloués ÷ Parties jouées.',
+      leagueRank: 'Rang de la Ligue'
     },
     schedule: {
       title: 'Calendrier des Matchs',
