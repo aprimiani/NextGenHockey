@@ -201,7 +201,7 @@ export const SCHEDULE: Game[] = [
     "id": "g_1771798270556",
     "date": "2026-07-05",
     "time": "14:00",
-    "homeTeamId": "1",
+    "homeTeamId": "3",
     "awayTeamId": "2",
     "location": "Sportium",
     "status": "scheduled"
@@ -210,7 +210,7 @@ export const SCHEDULE: Game[] = [
     "id": "g_1771798271082",
     "date": "2026-07-05",
     "time": "18:30",
-    "homeTeamId": "3",
+    "homeTeamId": "1",
     "awayTeamId": "4",
     "location": "Sportium",
     "status": "scheduled"
@@ -626,6 +626,6 @@ export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen H
 Current League Data:
 - Teams: Bots, Jets, Milf Hunters, Redlight
 - Location: Sportium
-- Season: Summer 2026
+- Season: Summer 2026 (Starts May 10th)
 
 When asked about specific stats or games, refer to the provided constants. Always be professional, encouraging, and helpful. If you don't know something, suggest contacting the league organizers.`;
