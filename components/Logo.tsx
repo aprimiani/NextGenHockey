@@ -12,11 +12,11 @@ export const Logo: React.FC<{ className?: string }> = ({ className = "h-10" }) =
     
     {/* Text Group - Centered vertically and horizontally */}
     <g fontFamily="'Outfit', sans-serif" fontWeight="900" textAnchor="middle">
-      {/* NEXT - White - Moved left to x="100" */}
-      <text x="100" y="90" fontSize="64" fill="white">NEXT</text>
+      {/* NEXT - White - Centered */}
+      <text x="110" y="90" fontSize="64" fill="white">NEXT</text>
       
-      {/* GEN - Light Blue - Moved left to x="100" */}
-      <text x="100" y="145" fontSize="64" fill="#38bdf8">GEN</text>
+      {/* GEN - Light Blue - Centered */}
+      <text x="110" y="145" fontSize="64" fill="#38bdf8">GEN</text>
     </g>
 
     {/* HOCKEY - Positioned with more breathing room */}

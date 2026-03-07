@@ -26,12 +26,12 @@ const Hero: React.FC = () => {
           <div className="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
             
             <h1>
-              <span className="mt-1 block text-5xl tracking-tight font-black sm:text-7xl xl:text-8xl font-display uppercase leading-[0.9]">
-                <span className="block text-white">{t.hero.futureOf}</span>
-                <span className="block text-ng-light-blue">{t.hero.recHockey}</span>
+              <span className="mt-1 block text-4xl tracking-tight font-bold sm:text-6xl xl:text-7xl font-display uppercase leading-[1.1]">
+                <span className="inline text-white">{t.hero.futureOf} </span>
+                <span className="inline text-ng-light-blue">{t.hero.recHockey}</span>
               </span>
             </h1>
-            <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+            <p className="mt-6 text-base text-gray-300 sm:mt-8 sm:text-xl lg:text-lg xl:text-xl">
               {t.hero.description}
             </p>
 
@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                      <NavLink
                         to="/register"
-                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-lg font-normal rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent md:py-4 md:text-2xl transition-transform transform hover:scale-105 font-display uppercase tracking-widest"
+                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-lg font-black rounded-md text-ng-navy bg-ng-light-blue hover:bg-ng-accent md:py-4 md:text-2xl transition-transform transform hover:scale-105 font-display uppercase tracking-widest"
                     >
                         {t.hero.registerNow}
                     </NavLink>

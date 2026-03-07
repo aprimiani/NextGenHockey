@@ -72,24 +72,6 @@ export const TEAMS: Team[] = [
 
 export const SCHEDULE: Game[] = [
   {
-    "id": "g_1771710337796",
-    "date": "2026-05-03",
-    "time": "14:00",
-    "homeTeamId": "3",
-    "awayTeamId": "2",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771710370090",
-    "date": "2026-05-03",
-    "time": "18:30",
-    "homeTeamId": "1",
-    "awayTeamId": "4",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
     "id": "g_1771797304880",
     "date": "2026-05-10",
     "time": "14:00",
@@ -492,6 +474,105 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1771962945887",
     "name": "Micky Dunberry",
     "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917065337",
+    "name": "Alexis Levesque",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917089084",
+    "name": "Justin Gerin lajoie",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917089971",
+    "name": "Eric Brunelle",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917090874",
+    "name": "Mathis Aubin",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917091771",
+    "name": "Danick Boissonneault",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917092637",
+    "name": "Mathis Sylvain",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917093420",
+    "name": "Simon Fleury",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917094310",
+    "name": "Félix Girard",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917204341",
+    "name": "Vincent Legros",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917204934",
+    "name": "Thomas Asselin",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917205487",
+    "name": "Frederic Brodeur",
+    "teamId": "3",
     "gp": 0,
     "goals": 0,
     "assists": 0,

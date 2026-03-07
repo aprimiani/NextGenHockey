@@ -249,8 +249,14 @@ const Standings: React.FC = () => {
 
       {/* Team Modal */}
       {selectedTeam && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-           <div className="bg-ng-navy border border-gray-700 w-full max-w-6xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300">
+        <div 
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setSelectedTeam(null)}
+        >
+           <div 
+             className="bg-ng-navy border border-gray-700 w-full max-w-6xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300"
+             onClick={(e) => e.stopPropagation()}
+           >
               <div 
                 className="p-6 relative overflow-hidden flex items-center justify-between"
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
@@ -454,8 +460,14 @@ const Standings: React.FC = () => {
       )}
       {/* Player Profile Modal */}
       {selectedPlayer && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-           <div className="bg-ng-navy border border-gray-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300">
+        <div 
+          className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setSelectedPlayer(null)}
+        >
+           <div 
+             className="bg-ng-navy border border-gray-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300"
+             onClick={(e) => e.stopPropagation()}
+           >
               <div 
                 className="p-8 relative overflow-hidden flex flex-col items-center text-center"
                 style={{ backgroundColor: `${getTeamColor(selectedPlayer.teamId)}20`, borderBottom: `2px solid ${getTeamColor(selectedPlayer.teamId)}` }}
@@ -508,8 +520,14 @@ const Standings: React.FC = () => {
 
       {/* Goalie Profile Modal */}
       {selectedGoalie && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-           <div className="bg-ng-navy border border-gray-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300">
+        <div 
+          className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setSelectedGoalie(null)}
+        >
+           <div 
+             className="bg-ng-navy border border-gray-700 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300"
+             onClick={(e) => e.stopPropagation()}
+           >
               <div 
                 className="p-8 relative overflow-hidden flex flex-col items-center text-center"
                 style={{ backgroundColor: `${getTeamColor(selectedGoalie.teamId)}20`, borderBottom: `2px solid ${getTeamColor(selectedGoalie.teamId)}` }}
