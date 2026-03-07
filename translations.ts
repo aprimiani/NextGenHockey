@@ -245,15 +245,6 @@ export const translations = {
                 'All players must sign the official Player Waiver & Liability Release at the start of the season to participate.',
                 'The team captain is responsible for ensuring all players have signed their waivers before the first game.'
               ]
-            },
-            {
-              title: '3.3 Substitute Players',
-              items: [
-                'Substitute players are permitted during the regular season.',
-                'To be eligible to participate in playoff games, a substitute player must have played in a minimum of four (4) regular-season games with the same team.',
-                'Any player who has not met this minimum requirement will be ineligible for playoffs, regardless of waiver status.',
-                'The league reserves the right to verify player participation and enforce eligibility rules at its discretion.'
-              ]
             }
           ]
         },
@@ -265,16 +256,17 @@ export const translations = {
               items: [
                 'Players may choose their equipment freely but must wear typical game equipment.',
                 'No harmful equipment is permitted.',
-                'Players are strongly encouraged to wear full cages and neck guards.'
+                'Players are responsible for wearing appropriate hockey protective equipment and for their own personal safety during participation. Arena and provincial safety regulations may recommend or require equipment such as helmets, facial protection, or neck guards. Players accept full responsibility for their equipment choices and any risks associated.'
               ]
             },
             {
               title: '4.2 Safety Expectations',
               items: [
-                'The league is not responsible for injuries, lost equipment, or any damages that occur during gameplay.',
+                'The league is not responsible for injuries, lost equipment, or any damages that occur during gameplay or while in the arena.',
                 'Dangerous or reckless behaviour is not tolerated.',
-                'Referees reserve the right to remove any player whose actions compromise safety.',
-                'If damages occur to the arena, responsible players may be required to cover the costs.'
+                'Referees and the league reserve the right to remove any player whose actions compromise the safety or integrity of the game.',
+                'If damages occur to the arena, the league may require the responsible player(s) to cover the costs.',
+                'Alcohol is strictly prohibited on the ice, benches, and in locker rooms. Any violation may result in ejection from the league and/or cancellation of ice time by arena staff and costs may be given out to player(s) responsible.'
               ]
             }
           ]
@@ -286,7 +278,8 @@ export const translations = {
               title: '5.0 Ice Rental Limitations',
               items: [
                 'The league only rents the ice for the scheduled 1-hour game slot.',
-                'Games must run on schedule and cannot pause for extended stoppages.'
+                'Due to limited rental time, games must run on schedule and cannot pause for delays, disputes, or extended stoppages.',
+                'Referees and staff will ensure games proceed efficiently to stay within allotted ice time.'
               ]
             },
             {
@@ -300,7 +293,7 @@ export const translations = {
               title: '5.2 Period Structure',
               items: [
                 'Games consist of three (3) 15-minute periods, all running time.',
-                'The clock does not stop unless determined by the referee for safety reasons.'
+                'The clock does not stop unless the referee determines otherwise for safety reasons.'
               ]
             },
             {
@@ -333,31 +326,62 @@ export const translations = {
             {
               title: '7.2 Major Penalties',
               items: [
-                'Major penalties result in potential game ejection.',
+                'Major penalties may be issued for dangerous or reckless actions.',
+                'Major penalties may also lead to game ejection.'
+              ]
+            },
+            {
+              title: '7.3 Misconduct',
+              items: [
+                'Abusive or disrespectful behaviour toward officials, players, or staff may result in a misconduct penalty or immediate removal.'
+              ]
+            },
+            {
+              title: '7.4 Fighting',
+              items: [
                 'Fighting results in automatic ejection and potential suspension.'
               ]
             },
             {
-              title: '7.3 Authority of Referee',
+              title: '7.5 Authority of Referee',
               items: [
-                'Referees have full authority to remove any player at their discretion if behaviour becomes unsafe.'
+                'The referee has full authority to make decisions in the interest of player and staff safety.',
+                'The referee may remove any player at their discretion if behaviour becomes unsafe, aggressive, or harmful to the flow of the game.'
+              ]
+            },
+            {
+              title: '7.6 League Implementation',
+              items: [
+                'The league reserves the right to review plays and impose additional disciplinary actions as necessary.'
               ]
             }
           ]
         },
         {
           title: '8. Sportsmanship Policy',
-          text: 'The league enforces a strict zero-tolerance policy for harassment, discrimination, violence, or intimidation. Respect for teammates, opponents, staff, and officials is mandatory.'
+          items: [
+            'The league enforces a strict zero-tolerance policy for harassment, discrimination, violence, or intimidation.',
+            'Respect for teammates, opponents, staff, and officials is mandatory.',
+            'Violations may result in suspension or removal.'
+          ]
         },
         {
           title: '9. League Operations',
           subsections: [
             {
+              title: '9.1 Schedule',
+              items: [
+                'Game schedules are posted before the season begins.',
+                'Rescheduling is not guaranteed due to limited ice availability.'
+              ]
+            },
+            {
               title: '9.2 Attendance & Forfeits',
               items: [
-                'Teams must be ready to begin at the scheduled time.',
-                'A team unable to field players within 5 minutes forfeits the game.',
-                'A $300 fee will be charged to any team failing to show without one week notice.'
+                'Teams must be ready to begin the game at the scheduled time.',
+                'A team unable to field enough players within 5 minutes of start time forfeits the game.',
+                'A $300 fee will be charged to any team that cannot play without providing at least one week’s notice.',
+                'Teams have official access to locker rooms 30 minutes before and after scheduled ice time. If rooms are free earlier, teams may use them; if not, they must wait until the official access window. Players are responsible for keeping locker rooms tidy.'
               ]
             },
             {
@@ -371,38 +395,53 @@ export const translations = {
           ]
         },
         {
-          title: '10. Playoffs',
+          title: '10. Playoffs (If Applicable)',
           subsections: [
+            {
+              title: '10.1 Qualification',
+              items: [
+                'Playoff format depends on the number of teams and season structure.'
+              ]
+            },
             {
               title: '10.2 Overtime',
               items: [
-                '5-minute sudden-death overtime (running time)',
-                '3-player shootout',
-                'Sudden-death shootout'
+                'If a playoff game ends tied:',
+                '1. 5-minute sudden-death overtime (running time)',
+                '2. If still tied → 3-player shootout',
+                '3. If still tied → sudden-death shootout'
               ]
             }
           ]
         },
         {
-          title: '11. Refund Policy',
-          text: 'No refunds are provided once the season begins unless the league cancels multiple games with no rescheduling.'
+          title: '11. Refund & Cancellation Policy',
+          items: [
+            'No refunds are provided once the season begins unless the league cancels multiple games with no rescheduling.',
+            'Arena-related cancellations (equipment failure, weather, etc.) are handled by rink policy, not the league.'
+          ]
         },
         {
           title: '12. Payments & Registration',
-          text: 'All teams must complete the Next Gen Hockey Registration & Payment Agreement before the first game. Failure to pay on time may lead to removal from the league.'
+          items: [
+            'All teams must complete the Next Gen Hockey Registration & Payment Agreement before the first game.',
+            'Registration fees, early payment discounts, installment plans, and deadlines are outlined in the agreement.',
+            'Teams failing to pay on time may be removed from the league without refund.'
+          ]
         },
         {
           title: '13. Code of Conduct',
           items: [
             'Demonstrate respect toward officials, players, and staff',
             'Avoid dangerous or reckless play',
-            'Follow on-ice rules and referee instructions'
+            'Follow on-ice rules and referee instructions',
+            'Maintain a positive environment for all participants'
           ],
           footer: 'Violation of the Code of Conduct may result in removal from the league without refund.'
         },
         {
           title: '14. Amendments',
-          text: 'The league reserves the right to modify rules at any time to improve fairness and safety.'
+          text: 'The league reserves the right to modify rules and policies at any time to improve fairness, safety, and league operations. All changes will be communicated to participants.'
         }
       ]
     },
@@ -674,15 +713,6 @@ export const translations = {
                 'Tous les joueurs doivent signer la décharge officielle de responsabilité au début de la saison pour participer.',
                 'Le capitaine de l\'équipe est responsable de s\'assurer que tous les joueurs ont signé leur décharge avant le premier match.'
               ]
-            },
-            {
-              title: '3.3 Joueurs remplaçants',
-              items: [
-                'Les joueurs remplaçants sont autorisés pendant la saison régulière.',
-                'Pour être éligible à participer aux matchs de séries éliminatoires, un joueur remplaçant doit avoir disputé un minimum de quatre (4) matchs de saison régulière avec la même équipe.',
-                "Tout joueur n'ayant pas satisfait à cette exigence minimale sera inéligible pour les séries éliminatoires, quel que soit son statut de décharge.",
-                "La ligue se réserve le droit de vérifier la participation des joueurs et d'appliquer les règles d'éligibilité à sa discrétion."
-              ]
             }
           ]
         },
@@ -694,16 +724,17 @@ export const translations = {
               items: [
                 'Les joueurs peuvent choisir leur équipement librement mais doivent porter l\'équipement de jeu typique.',
                 'Aucun équipement dangereux n\'est autorisé.',
-                'Les joueurs sont fortement encouragés à porter une grille complète et un protège-cou.'
+                'Les joueurs sont responsables de porter l\'équipement de protection de hockey approprié et de leur propre sécurité personnelle pendant la participation. Les règlements de l\'aréna et de la province peuvent recommander ou exiger des équipements tels que des casques, une protection faciale ou des protège-cous. Les joueurs acceptent l\'entière responsabilité de leurs choix d\'équipement et de tout risque associé.'
               ]
             },
             {
               title: '4.2 Attentes en matière de sécurité',
               items: [
-                'La ligue n\'est pas responsable des blessures, de la perte d\'équipement ou de tout dommage survenant pendant le jeu.',
+                'La ligue n\'est pas responsable des blessures, de la perte d\'équipement ou de tout dommage survenant pendant le jeu ou à l\'intérieur de l\'aréna.',
                 'Les comportements dangereux ou téméraires ne sont pas tolérés.',
-                'Les arbitres se réservent le droit d\'expulser tout joueur dont les actions compromettent la sécurité.',
-                'En cas de dommages à l\'aréna, les joueurs responsables peuvent être tenus de couvrir les frais.'
+                'Les arbitres et la ligue se réservent le droit d\'expulser tout joueur dont les actions compromettent la sécurité ou l\'intégrité du jeu.',
+                'En cas de dommages à l\'aréna, la ligue peut exiger que le(s) joueur(s) responsable(s) couvre(nt) les frais.',
+                'L\'alcool est strictement interdit sur la glace, les bancs et dans les vestiaires. Toute violation peut entraîner l\'expulsion de la ligue et/ou l\'annulation du temps de glace par le personnel de l\'aréna et des frais peuvent être facturés au(x) joueur(s) responsable(s).'
               ]
             }
           ]
@@ -715,7 +746,8 @@ export const translations = {
               title: '5.0 Limitations de location de glace',
               items: [
                 'La ligue ne loue la glace que pour la période de match prévue de 1 heure.',
-                'Les matchs doivent se dérouler selon l\'horaire et ne peuvent être interrompus pour des arrêts prolongés.'
+                'En raison du temps de location limité, les matchs doivent se dérouler selon l\'horaire et ne peuvent être interrompus pour des retards, des litiges ou des arrêts prolongés.',
+                'Les arbitres et le personnel veilleront à ce que les matchs se déroulent efficacement pour respecter le temps de glace alloué.'
               ]
             },
             {
@@ -760,33 +792,64 @@ export const translations = {
               items: ['Les infractions mineures entraînent une pénalité de 2 minutes à temps arrêté.']
             },
             {
-              title: '7.2 Pénalités majeure',
+              title: '7.2 Pénalités majeures',
               items: [
-                'Les pénalités majeures peuvent entraîner l\'expulsion du match.',
+                'Des pénalités majeures peuvent être imposées pour des actions dangereuses ou téméraires.',
+                'Les pénalités majeures peuvent également entraîner l\'expulsion du match.'
+              ]
+            },
+            {
+              title: '7.3 Inconduite',
+              items: [
+                'Un comportement abusif ou irrespectueux envers les officiels, les joueurs ou le personnel peut entraîner une pénalité d\'inconduite ou une expulsion immédiate.'
+              ]
+            },
+            {
+              title: '7.4 Bagarres',
+              items: [
                 'Les bagarres entraînent une expulsion automatique et une suspension potentielle.'
               ]
             },
             {
-              title: '7.3 Autorité de l\'arbitre',
+              title: '7.5 Autorité de l\'arbitre',
               items: [
-                'Les arbitres ont toute autorité pour expulser tout joueur à leur discrétion si le comportement devient dangereux.'
+                'L\'arbitre a toute autorité pour prendre des décisions dans l\'intérêt de la sécurité des joueurs et du personnel.',
+                'L\'arbitre peut expulser tout joueur à sa discrétion si le comportement devient dangereux, agressif ou nuisible au déroulement du match.'
+              ]
+            },
+            {
+              title: '7.6 Mise en œuvre de la ligue',
+              items: [
+                'La ligue se réserve le droit de réviser les jeux et d\'imposer des mesures disciplinaires supplémentaires si nécessaire.'
               ]
             }
           ]
         },
         {
-          title: '8. Sportsmanship Policy',
-          text: 'La ligue applique une politique de tolérance zéro pour le harcèlement, la discrimination, la violence ou l\'intimidation. Le respect des coéquipiers, des adversaires, du personnel et des officiels est obligatoire.'
+          title: '8. Politique d\'esprit sportif',
+          items: [
+            'La ligue applique une politique de tolérance zéro pour le harcèlement, la discrimination, la violence ou l\'intimidation.',
+            'Le respect des coéquipiers, des adversaires, du personnel et des officiels est obligatoire.',
+            'Les violations peuvent entraîner une suspension ou une expulsion.'
+          ]
         },
         {
           title: '9. Opérations de la ligue',
           subsections: [
             {
+              title: '9.1 Horaire',
+              items: [
+                'Les horaires des matchs sont publiés avant le début de la saison.',
+                'Le report de match n\'est pas garanti en raison de la disponibilité limitée de la glace.'
+              ]
+            },
+            {
               title: '9.2 Présence et forfaits',
               items: [
-                'Les équipes doivent être prêtes à commencer à l\'heure prévue.',
-                'Une équipe incapable d\'aligner des joueurs dans les 5 minutes perd le match par forfait.',
-                'Des frais de 300 $ seront facturés à toute équipe ne se présentant pas sans préavis d\'une semaine.'
+                'Les équipes doivent être prêtes à commencer le match à l\'heure prévue.',
+                'Une équipe incapable d\'aligner suffisamment de joueurs dans les 5 minutes suivant l\'heure de début perd le match par forfait.',
+                'Des frais de 300 $ seront facturés à toute équipe qui ne peut pas jouer sans donner un préavis d\'au moins une semaine.',
+                'Les équipes ont un accès officiel aux vestiaires 30 minutes avant et après le temps de glace prévu. Si les vestiaires sont libres plus tôt, les équipes peuvent les utiliser ; sinon, elles doivent attendre l\'ouverture officielle. Les joueurs sont responsables de garder les vestiaires propres.'
               ]
             },
             {
@@ -800,38 +863,53 @@ export const translations = {
           ]
         },
         {
-          title: '10. Séries éliminatoires',
+          title: '10. Séries éliminatoires (si applicable)',
           subsections: [
+            {
+              title: '10.1 Qualification',
+              items: [
+                'Le format des séries éliminatoires dépend du nombre d\'équipes et de la structure de la saison.'
+              ]
+            },
             {
               title: '10.2 Prolongation',
               items: [
-                'Prolongation de 5 minutes à mort subite (temps continu)',
-                'Tirs de barrage à 3 joueurs',
-                'Tirs de barrage à mort subite'
+                'Si un match de séries se termine par une égalité :',
+                '1. Prolongation de 5 minutes à mort subite (temps continu)',
+                '2. Si toujours l\'égalité → tirs de barrage à 3 joueurs',
+                '3. Si toujours l\'égalité → tirs de barrage à mort subite'
               ]
             }
           ]
         },
         {
-          title: '11. Politique de remboursement',
-          text: 'Aucun remboursement n\'est accordé une fois la saison commencée, sauf si la ligue annule plusieurs matchs sans reprogrammation.'
+          title: '11. Politique de remboursement et d\'annulation',
+          items: [
+            'Aucun remboursement n\'est accordé une fois la saison commencée, sauf si la ligue annule plusieurs matchs sans reprogrammation.',
+            'Les annulations liées à l\'aréna (défaillance de l\'équipement, météo, etc.) sont gérées par la politique de la patinoire, et non par la ligue.'
+          ]
         },
         {
           title: '12. Paiements et inscription',
-          text: 'Toutes les équipes doivent remplir l\'accord d\'inscription et de paiement avant le premier match. Le défaut de paiement à temps peut entraîner le retrait de la ligue.'
+          items: [
+            'Toutes les équipes doivent remplir l\'accord d\'inscription et de paiement de Next Gen Hockey avant le premier match.',
+            'Les frais d\'inscription, les rabais pour paiement anticipé, les plans de versement et les dates limites sont détaillés dans l\'accord.',
+            'Les équipes ne payant pas à temps peuvent être retirées de la ligue sans remboursement.'
+          ]
         },
         {
           title: '13. Code de conduite',
           items: [
             'Faire preuve de respect envers les officiels, les joueurs et le personnel',
             'Éviter les jeux dangereux ou téméraires',
-            'Suivre les règles sur glace et les instructions des arbitres'
+            'Suivre les règles sur glace et les instructions des arbitres',
+            'Maintenir un environnement positif pour tous les participants'
           ],
           footer: 'La violation du code de conduite peut entraîner l\'expulsion de la ligue sans remboursement.'
         },
         {
-          title: '14. Amendments',
-          text: 'The league reserves the right to modify rules at any time to improve fairness and safety.'
+          title: '14. Amendements',
+          text: 'La ligue se réserve le droit de modifier les règles et les politiques à tout moment pour améliorer l\'équité, la sécurité et les opérations de la ligue. Tous les changements seront communiqués aux participants.'
         }
       ]
     },

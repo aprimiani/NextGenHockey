@@ -15,6 +15,22 @@ const Rules: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* General Regulations - Clickable (NOW FIRST) */}
+        <div 
+          onClick={() => setShowRulebook(true)}
+          className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue transition-all cursor-pointer hover:shadow-lg hover:shadow-ng-light-blue/10 group"
+        >
+          <div className="flex items-center mb-6">
+            <div className="bg-green-500/20 p-3 rounded-lg group-hover:bg-green-500/30 transition-colors">
+              <FileText className="w-8 h-8 text-green-500" />
+            </div>
+            <h3 className="ml-4 text-2xl font-bold text-white group-hover:text-ng-light-blue transition-colors">{t.rules.regsTitle}</h3>
+          </div>
+          <p className="text-gray-300 leading-relaxed text-lg">
+            {t.rules.regsText}
+          </p>
+        </div>
+
         {/* Safety */}
         <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue/50 transition-colors">
           <div className="flex items-center mb-6">
@@ -51,22 +67,6 @@ const Rules: React.FC = () => {
           </div>
           <p className="text-gray-300 leading-relaxed text-lg">
             {t.rules.formatText}
-          </p>
-        </div>
-
-        {/* General Regulations - Clickable */}
-        <div 
-          onClick={() => setShowRulebook(true)}
-          className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue transition-all cursor-pointer hover:shadow-lg hover:shadow-ng-light-blue/10 group"
-        >
-          <div className="flex items-center mb-6">
-            <div className="bg-green-500/20 p-3 rounded-lg group-hover:bg-green-500/30 transition-colors">
-              <FileText className="w-8 h-8 text-green-500" />
-            </div>
-            <h3 className="ml-4 text-2xl font-bold text-white group-hover:text-ng-light-blue transition-colors">{t.rules.regsTitle}</h3>
-          </div>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {t.rules.regsText}
           </p>
         </div>
       </div>
