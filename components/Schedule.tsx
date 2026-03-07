@@ -137,12 +137,12 @@ const Schedule: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
-          <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter border-l-8 border-ng-light-blue pl-6">
+          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
             {t.schedule.title}
           </h2>
-          <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-2 pl-6">
+          <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-3 pl-8">
             {t.schedule.seasonStart}
           </p>
         </div>

@@ -44,9 +44,13 @@ const Contact: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-black text-white sm:text-7xl font-display uppercase tracking-tighter italic">{t.contact.title}</h2>
-        <div className="mt-4 max-w-2xl mx-auto"><p className="text-xl text-gray-300">{t.contact.subtitle}</p></div>
+      <div className="mb-16">
+        <h2 className="text-3xl sm:text-5xl font-black text-white font-display uppercase tracking-tight italic border-l-8 border-ng-light-blue pl-6">
+          {t.contact.title}
+        </h2>
+        <p className="mt-4 text-xl text-gray-300 pl-8 border-l-8 border-transparent">
+          {t.contact.subtitle}
+        </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 shadow-xl">

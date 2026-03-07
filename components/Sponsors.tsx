@@ -13,12 +13,11 @@ const Sponsors: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-16">
-        <h2 className="text-5xl font-black text-white sm:text-7xl uppercase italic tracking-tighter font-display">
+      <div className="mb-16">
+        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
           {t.sponsors.title}
         </h2>
-        <div className="mt-4 max-w-2xl mx-auto h-1 bg-ng-light-blue rounded"></div>
-        <p className="mt-6 text-xl text-gray-300">
+        <p className="mt-6 text-xl text-gray-300 pl-8 border-l-8 border-transparent">
           {t.sponsors.subtitle}
         </p>
       </div>

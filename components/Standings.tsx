@@ -70,8 +70,8 @@ const Standings: React.FC = () => {
         }
       `}</style>
       
-      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <h2 className="text-3xl font-extrabold text-white border-l-4 border-ng-light-blue pl-4">
+      <div className="mb-12">
+        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
           {t.standings.title}
         </h2>
       </div>

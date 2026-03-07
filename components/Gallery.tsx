@@ -18,12 +18,11 @@ const Gallery: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-black text-white uppercase italic tracking-tighter">
+      <div className="mb-12">
+        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
           {t.gallery.title}
         </h2>
-        <div className="mt-4 max-w-xs mx-auto h-1 bg-ng-light-blue rounded"></div>
-        <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+        <p className="mt-4 text-gray-400 max-w-2xl pl-8 border-l-8 border-transparent">
           {t.gallery.subtitle}
         </p>
       </div>

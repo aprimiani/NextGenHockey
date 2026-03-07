@@ -87,10 +87,14 @@ const Registration: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="mb-10 text-center">
-        <h2 className="text-5xl font-black text-white uppercase italic tracking-tighter font-display">{t.register.title}</h2>
-        <p className="mt-2 text-gray-400 font-medium">{t.register.subtitle}</p>
-        <div className="mt-4 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic">
+      <div className="mb-12">
+        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight font-display border-l-8 border-ng-light-blue pl-6">
+          {t.register.title}
+        </h2>
+        <p className="mt-4 text-gray-400 font-medium pl-8 border-l-8 border-transparent">
+          {t.register.subtitle}
+        </p>
+        <div className="mt-6 ml-8 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic">
           <Calendar size={14} />
           {t.register.seasonStart}
         </div>
