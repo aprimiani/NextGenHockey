@@ -182,33 +182,36 @@ const Schedule: React.FC = () => {
                 <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.location}</div>
               </div>
               
-              <div className="flex-1 flex items-center justify-center w-full px-0 sm:px-4 my-4 md:my-0">
-                <div className="flex items-center justify-end flex-1 space-x-2 sm:space-x-3">
-                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0 mr-1 sm:mr-2" style={{ color: getTeamColor(game.homeTeamId) }}>
-                    {getTeamName(game.homeTeamId).substring(0, 1)}
-                  </span>
-                  <span className="text-white font-black text-right text-sm sm:text-base md:text-2xl uppercase italic leading-tight">
+              <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center w-full px-0 sm:px-4 my-4 md:my-0">
+                {/* Home Team */}
+                <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
+                  <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
                     {getTeamName(game.homeTeamId)}
+                  </span>
+                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
+                    {getTeamName(game.homeTeamId).substring(0, 1)}
                   </span>
                 </div>
                 
-                <div className="px-3 sm:px-6 flex flex-col items-center shrink-0">
+                {/* VS / Score */}
+                <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
                   {game.status === 'played' ? (
-                    <div className="bg-ng-navy px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl border border-ng-light-blue/30 text-xl sm:text-3xl font-black text-white tracking-widest shadow-2xl group-hover:scale-110 transition-transform">
+                    <div className="bg-ng-navy px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl border border-ng-light-blue/30 text-lg sm:text-3xl font-black text-white tracking-widest shadow-2xl group-hover:scale-110 transition-transform">
                       {game.homeScore}-{game.awayScore}
                     </div>
                   ) : (
-                    <div className="bg-gray-800 px-4 sm:px-6 py-1.5 sm:py-2 rounded-xl border border-gray-700 text-[10px] sm:text-sm font-black text-gray-400 uppercase tracking-widest">
+                    <div className="bg-gray-800 px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl border border-gray-700 text-[8px] sm:text-sm font-black text-gray-400 uppercase tracking-widest">
                       VS
                     </div>
                   )}
                 </div>
                 
-                <div className="flex items-center justify-start flex-1 space-x-2 sm:space-x-3">
-                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0 mr-1 sm:mr-2" style={{ color: getTeamColor(game.awayTeamId) }}>
+                {/* Away Team */}
+                <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
+                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
                     {getTeamName(game.awayTeamId).substring(0, 1)}
                   </span>
-                  <span className="text-white font-black text-left text-sm sm:text-base md:text-2xl uppercase italic leading-tight">
+                  <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
                     {getTeamName(game.awayTeamId)}
                   </span>
                 </div>
