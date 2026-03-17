@@ -71,7 +71,7 @@ const Standings: React.FC = () => {
       `}</style>
       
       <div className="mb-12">
-        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
+        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
           {t.standings.title}
         </h2>
       </div>
@@ -279,17 +279,17 @@ const Standings: React.FC = () => {
               </div>
 
               <div className="overflow-y-auto p-4 md:p-10 space-y-12 text-gray-300 hide-scrollbar" style={scrollbarHideStyle}>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                   {[
-                    { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={16} /> },
-                    { label: t.standings.record, val: `${selectedTeam.wins}-${selectedTeam.losses}-${selectedTeam.ties}`, icon: <Trophy size={16} /> },
-                    { label: t.standings.pts, val: selectedTeam.points, icon: <LayoutList size={16} /> },
-                    { label: t.standings.diff, val: (selectedTeam.goalsFor - selectedTeam.goalsAgainst > 0 ? '+' : '') + (selectedTeam.goalsFor - selectedTeam.goalsAgainst), icon: <LayoutList size={16} /> },
+                    { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
+                    { label: t.standings.record, val: `${selectedTeam.wins}-${selectedTeam.losses}-${selectedTeam.ties}`, icon: <Trophy size={14} className="sm:w-4 sm:h-4" /> },
+                    { label: t.standings.pts, val: selectedTeam.points, icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
+                    { label: t.standings.diff, val: (selectedTeam.goalsFor - selectedTeam.goalsAgainst > 0 ? '+' : '') + (selectedTeam.goalsFor - selectedTeam.goalsAgainst), icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
                   ].map((stat, i) => (
-                    <div key={i} className="bg-ng-blue/30 border border-gray-700 p-4 rounded-xl text-center">
+                    <div key={i} className="bg-ng-blue/30 border border-gray-700 p-3 sm:p-4 rounded-xl text-center">
                       <div className="flex justify-center text-gray-500 mb-1">{stat.icon}</div>
-                      <div className="text-xl md:text-2xl font-black text-white">{stat.val}</div>
-                      <div className="text-[9px] md:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{stat.label}</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-black text-white">{stat.val}</div>
+                      <div className="text-[8px] sm:text-[9px] md:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -419,30 +419,30 @@ const Standings: React.FC = () => {
                             : null;
 
                           return (
-                            <div key={g.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700 flex items-center justify-between relative overflow-hidden">
+                            <div key={g.id} className="bg-ng-navy/50 p-3 sm:p-4 rounded-xl border border-gray-700 flex items-center justify-between relative overflow-hidden">
                               {g.isPlayoff && (
                                 <div className="absolute top-0 right-0">
-                                  <div className="bg-ng-light-blue text-ng-navy text-[8px] font-black px-2 py-0.5 uppercase italic transform rotate-0">Playoffs</div>
+                                  <div className="bg-ng-light-blue text-ng-navy text-[7px] sm:text-[8px] font-black px-1.5 sm:px-2 py-0.5 uppercase italic transform rotate-0">Playoffs</div>
                                 </div>
                               )}
-                              <div className="flex items-center gap-4">
-                                <div className="text-center w-12 border-r border-gray-700 pr-4">
-                                  <div className="text-xs font-black text-white">{formatDate(g.date).split(',')[0]}</div>
-                                  <div className="text-[10px] text-gray-500 uppercase">{formatDate(g.date).split(',')[1]}</div>
+                              <div className="flex items-center gap-2 sm:gap-4">
+                                <div className="text-center w-10 sm:w-12 border-r border-gray-700 pr-2 sm:pr-4">
+                                  <div className="text-[10px] sm:text-xs font-black text-white">{formatDate(g.date).split(',')[0]}</div>
+                                  <div className="text-[8px] sm:text-[10px] text-gray-500 uppercase">{formatDate(g.date).split(',')[1]}</div>
                                 </div>
                                 <div>
-                                  <div className="text-xs text-gray-500 uppercase font-bold">{isHome ? 'VS' : '@'} {opponentName}</div>
-                                  <div className="text-[10px] text-gray-600 font-medium">{g.time} - {g.location}</div>
+                                  <div className="text-[10px] sm:text-xs text-gray-500 uppercase font-bold">{isHome ? 'VS' : '@'} {opponentName}</div>
+                                  <div className="text-[8px] sm:text-[10px] text-gray-600 font-medium">{g.time} - {g.location}</div>
                                 </div>
                               </div>
                               <div className="text-right">
                                 {g.status === 'played' ? (
-                                  <div className="flex items-center gap-2">
-                                    <span className={`text-xs font-black px-2 py-0.5 rounded ${result === 'W' ? 'bg-green-500/20 text-green-400' : (result === 'L' ? 'bg-red-500/20 text-red-400' : 'bg-gray-500/20 text-gray-400')}`}>{result}</span>
-                                    <span className="text-sm font-mono font-bold text-white whitespace-nowrap">{isHome ? `${g.homeScore}-${g.awayScore}` : `${g.awayScore}-${g.homeScore}`}</span>
+                                  <div className="flex items-center gap-1.5 sm:gap-2">
+                                    <span className={`text-[10px] sm:text-xs font-black px-1.5 sm:px-2 py-0.5 rounded ${result === 'W' ? 'bg-green-500/20 text-green-400' : (result === 'L' ? 'bg-red-500/20 text-red-400' : 'bg-gray-500/20 text-gray-400')}`}>{result}</span>
+                                    <span className="text-xs sm:text-sm font-mono font-bold text-white whitespace-nowrap">{isHome ? `${g.homeScore}-${g.awayScore}` : `${g.awayScore}-${g.homeScore}`}</span>
                                   </div>
                                 ) : (
-                                  <span className="text-[10px] text-gray-500 uppercase font-bold">{t.schedule.scheduled}</span>
+                                  <span className="text-[8px] sm:text-[10px] text-gray-500 uppercase font-bold">{t.schedule.scheduled}</span>
                                 )}
                               </div>
                             </div>

@@ -9,7 +9,7 @@ const Rules: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-16">
-        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
+        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
           {t.rules.pageTitle}
         </h2>
       </div>

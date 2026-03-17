@@ -119,7 +119,7 @@ export const translations = {
       leagueRank: 'League Rank'
     },
     schedule: {
-      title: 'Schedule',
+      title: 'Schedule / Calendrier',
       filterUpcoming: 'Upcoming',
       filterResults: 'Results',
       tbdTitle: 'Schedule TBD',
@@ -585,7 +585,7 @@ export const translations = {
       leagueRank: 'Rang de la Ligue'
     },
     schedule: {
-      title: 'Calendrier',
+      title: 'Calendrier / Schedule',
       filterUpcoming: 'À venir',
       filterResults: 'Résultats',
       tbdTitle: 'Calendrier à venir',

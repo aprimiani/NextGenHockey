@@ -88,7 +88,7 @@ const Registration: React.FC = () => {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="mb-12">
-        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight font-display border-l-8 border-ng-light-blue pl-6">
+        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal font-display border-l-8 border-ng-light-blue pl-6">
           {t.register.title}
         </h2>
         <p className="mt-4 text-gray-400 font-medium pl-8 border-l-8 border-transparent">

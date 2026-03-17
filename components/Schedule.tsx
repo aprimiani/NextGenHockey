@@ -139,7 +139,7 @@ const Schedule: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight border-l-8 border-ng-light-blue pl-6 font-display">
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
             {t.schedule.title}
           </h2>
           <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-3 pl-8">
@@ -148,82 +148,80 @@ const Schedule: React.FC = () => {
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex bg-ng-blue/50 p-1.5 rounded-2xl border border-gray-700 shadow-xl self-start md:self-auto">
+        <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl self-start md:self-auto overflow-x-auto max-w-full">
           <button
             onClick={() => setFilter('scheduled')}
-            className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
+            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
           >
             {t.schedule.filterUpcoming}
           </button>
           <button
             onClick={() => setFilter('played')}
-            className={`px-8 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
+            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
           >
             {t.schedule.filterResults}
           </button>
         </div>
       </div>
 
-      <div className="grid gap-6 animate-in fade-in slide-in-from-bottom duration-500">
+      <div className="grid gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom duration-500">
         {filteredGames.length > 0 ? (
           filteredGames.map((game) => (
-            <div key={game.id} className="group bg-ng-blue/30 rounded-2xl border border-gray-700 p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg">
-              <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-2">
-                <div className="flex items-center text-white font-black text-lg uppercase italic">
-                  <Calendar className="w-5 h-5 mr-3 text-ng-light-blue flex-shrink-0" />
+            <div key={game.id} className="group bg-ng-blue/30 rounded-2xl border border-gray-700 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg">
+              <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
+                <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
+                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-ng-light-blue flex-shrink-0" />
                   <span>{formatDate(game.date)}</span>
                 </div>
                 {game.isPlayoff && (
-                  <div className="flex items-center pl-8">
-                    <span className="bg-ng-light-blue/20 text-ng-light-blue text-[10px] font-black px-2 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-widest italic">Playoffs</span>
+                  <div className="flex items-center pl-6 sm:pl-8">
+                    <span className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-widest italic">Playoffs</span>
                   </div>
                 )}
-                <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest pl-8"><Clock className="w-4 h-4 mr-2" />{game.time}</div>
-                <div className="flex items-center text-gray-500 text-xs font-bold uppercase tracking-widest pl-8"><MapPin className="w-4 h-4 mr-2" />{game.location}</div>
+                <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.time}</div>
+                <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.location}</div>
               </div>
               
-              <div className="flex-1 flex items-center justify-center w-full px-4">
-                <div className="flex items-center justify-end flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0 mr-2" style={{ color: getTeamColor(game.homeTeamId) }}>
+              <div className="flex-1 flex items-center justify-center w-full px-0 sm:px-4 my-4 md:my-0">
+                <div className="flex items-center justify-end flex-1 space-x-2 sm:space-x-3">
+                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0 mr-1 sm:mr-2" style={{ color: getTeamColor(game.homeTeamId) }}>
                     {getTeamName(game.homeTeamId).substring(0, 1)}
                   </span>
-                  <span className="text-white font-black text-right md:text-2xl uppercase italic leading-tight">
+                  <span className="text-white font-black text-right text-sm sm:text-base md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.homeTeamId)}
                   </span>
                 </div>
                 
-                <div className="px-6 flex flex-col items-center">
+                <div className="px-3 sm:px-6 flex flex-col items-center shrink-0">
                   {game.status === 'played' ? (
-                    <div className="bg-ng-navy px-5 py-2 rounded-xl border border-ng-light-blue/30 text-3xl font-black text-white tracking-widest shadow-2xl group-hover:scale-110 transition-transform">
+                    <div className="bg-ng-navy px-3 sm:px-5 py-1.5 sm:py-2 rounded-xl border border-ng-light-blue/30 text-xl sm:text-3xl font-black text-white tracking-widest shadow-2xl group-hover:scale-110 transition-transform">
                       {game.homeScore}-{game.awayScore}
                     </div>
                   ) : (
-                    <div className="bg-gray-800 px-6 py-2 rounded-xl border border-gray-700 text-sm font-black text-gray-400 uppercase tracking-widest">
+                    <div className="bg-gray-800 px-4 sm:px-6 py-1.5 sm:py-2 rounded-xl border border-gray-700 text-[10px] sm:text-sm font-black text-gray-400 uppercase tracking-widest">
                       VS
                     </div>
                   )}
                 </div>
                 
-                <div className="flex items-center justify-start flex-1 space-x-3">
-                  <span className="text-lg md:text-xl font-black italic shrink-0 mr-2" style={{ color: getTeamColor(game.awayTeamId) }}>
+                <div className="flex items-center justify-start flex-1 space-x-2 sm:space-x-3">
+                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0 mr-1 sm:mr-2" style={{ color: getTeamColor(game.awayTeamId) }}>
                     {getTeamName(game.awayTeamId).substring(0, 1)}
                   </span>
-                  <span className="text-white font-black text-left md:text-2xl uppercase italic leading-tight">
+                  <span className="text-white font-black text-left text-sm sm:text-base md:text-2xl uppercase italic leading-tight">
                     {getTeamName(game.awayTeamId)}
                   </span>
                 </div>
               </div>
 
-              <div className="md:w-1/6 flex justify-end mt-6 md:mt-0">
+              <div className="md:w-1/6 flex justify-end mt-2 md:mt-0 w-full md:w-auto">
                   {game.status === 'played' && gameRecaps[game.id] ? (
-                    <button onClick={() => setSelectedGameId(game.id)} className="text-xs font-black uppercase tracking-widest text-ng-light-blue border-2 border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue px-6 py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg shadow-ng-light-blue/5">
+                    <button onClick={() => setSelectedGameId(game.id)} className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-ng-light-blue border-2 border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg shadow-ng-light-blue/5">
                       {t.schedule.viewRecap}
                     </button>
                   ) : game.status === 'played' ? (
-                    <div className="text-[10px] font-black text-gray-500 uppercase tracking-widest px-4 py-2 border border-gray-800 rounded-lg italic">Final Score Only</div>
-                  ) : (
-                    <div className="text-[10px] font-black text-ng-light-blue uppercase tracking-widest px-4 py-2 bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-lg italic">Registration Open</div>
-                  )}
+                    <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
+                  ) : null}
               </div>
             </div>
           ))
