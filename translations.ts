@@ -41,7 +41,7 @@ export const translations = {
         {
           name: 'Subway Delson',
           description: 'Proud local partner of Next Gen Hockey. Fuel up with fresh ingredients before or after your game at the Delson location.',
-          perk: 'Exclusive Season Discount Card: Buy any 6-inch sub and a drink, get a second 6-inch sub for FREE! (Valid all season)',
+          perk: 'Exclusive Season Discount Card: Get 20% off your order! Plus, visit with a friend and present a second card to get 6 cookies for only $1.',
           category: 'Food & Drink',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
         },
@@ -58,7 +58,8 @@ export const translations = {
           perk: '$15 gift card for every member of the Championship team!',
           category: 'Championship Prize',
           address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'gold'
         },
         {
           name: 'Royal Amusement',
@@ -66,7 +67,8 @@ export const translations = {
           perk: '300 credits for the Finalist team to enjoy at the arcade!',
           category: 'Finalist Prize',
           address: '66 QC-132, Delson, Quebec J5B 0A1',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'silver'
         },
         {
           name: 'Subway Delson (Prizes)',
@@ -507,7 +509,7 @@ export const translations = {
         {
           name: 'Subway Delson',
           description: 'Fier partenaire local de Next Gen Hockey. Faites le plein d\'énergie avec des ingrédients frais avant ou après votre match à la succursale de Delson.',
-          perk: 'Carte de rabais exclusive pour la saison : Achetez un sous-marin de 6 pouces et une boisson, obtenez un deuxième sous-marin de 6 pouces GRATUITEMENT ! (Valide toute la saison)',
+          perk: 'Carte de rabais exclusive pour la saison : Obtenez 20 % de rabais sur votre commande ! De plus, visitez avec un ami et présentez une deuxième carte pour obtenir 6 biscuits pour seulement 1 $.',
           category: 'Restauration',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
         },
@@ -524,7 +526,8 @@ export const translations = {
           perk: 'Une carte-cadeau de 15 $ pour chaque membre de l\'équipe championne des séries !',
           category: 'Prix Championnat',
           address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'gold'
         },
         {
           name: 'Royal Amusement',
@@ -532,7 +535,8 @@ export const translations = {
           perk: '300 crédits pour l\'équipe finaliste à utiliser à l\'arcade !',
           category: 'Prix Finaliste',
           address: '66 QC-132, Delson, Quebec J5B 0A1',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'silver'
         },
         {
           name: 'Subway Delson (Prix)',
