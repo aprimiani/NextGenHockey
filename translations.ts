@@ -26,7 +26,7 @@ export const translations = {
       communityDesc: "Proud partners with the Montreal Children's Hospital.",
       missionTitle: 'Our Charity Mission',
       missionText: '30% of all league profits are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
-      earlyBird: 'Registration is Open — Prices Are Live!'
+      earlyBird: 'Follow us on Instagram for updates!'
     },
     sponsors: {
       title: 'Our League Partners',
@@ -467,6 +467,7 @@ export const translations = {
     },
     footer: {
       rights: '© 2026 Next Gen Hockey League. All rights reserved.',
+      followUs: 'Follow us!',
     }
   },
   fr: {
@@ -494,7 +495,7 @@ export const translations = {
       communityDesc: "Fiers partenaires de l'Hôpital de Montréal pour enfants.",
       missionTitle: 'Notre Mission Caritative',
       missionText: '30 % de tous les profits de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
-      earlyBird: 'Inscriptions ouvertes — Tarifs disponibles !'
+      earlyBird: 'Suivez-nous sur Instagram pour les nouvelles !'
     },
     sponsors: {
       title: 'Nos Partenaires',
@@ -937,6 +938,7 @@ export const translations = {
     },
     footer: {
       rights: '© 2026 Ligue de Hockey Next Gen. Tous droits réservés.',
+      followUs: 'Suivez-nous !',
     }
   }
 };

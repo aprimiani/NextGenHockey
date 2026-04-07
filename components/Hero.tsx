@@ -14,12 +14,17 @@ const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-32">
         
-        {/* Early Bird Ribbon */}
+        {/* Social Media Promo Ribbon */}
         <div className="flex justify-center lg:justify-start mb-8 animate-in fade-in slide-in-from-top duration-1000">
-           <NavLink to="/register" className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-ng-light-blue/20 hover:scale-105 transition-transform group italic">
+           <a 
+             href="https://www.instagram.com/nxtgenhky/#" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-ng-light-blue/20 hover:scale-105 transition-transform group italic"
+           >
              <Sparkles size={12} className="group-hover:animate-pulse" />
              {t.hero.earlyBird}
-           </NavLink>
+           </a>
         </div>
 
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
