@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { X, Calendar, User, Trophy, LayoutList, Shield } from 'lucide-react';
+import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 
 const Standings: React.FC = () => {
@@ -13,19 +13,92 @@ const Standings: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerStats | null>(null);
   const [selectedGoalie, setSelectedGoalie] = useState<GoalieStats | null>(null);
 
+  // Sorting State
+  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+  const [playerSort, setPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+  const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'gaa', dir: 'asc' });
+
+  const handleSort = <T,>(
+    currentSort: { key: keyof T | any; dir: 'asc' | 'desc' },
+    setSort: React.Dispatch<React.SetStateAction<{ key: keyof T | any; dir: 'asc' | 'desc' }>>,
+    key: keyof T | any
+  ) => {
+    if (currentSort.key === key) {
+      setSort({ key, dir: currentSort.dir === 'asc' ? 'desc' : 'asc' });
+    } else {
+      setSort({ key, dir: 'desc' });
+    }
+  };
+
+  const SortIcon = ({ sort, column }: { sort: { key: any; dir: 'asc' | 'desc' }; column: any }) => {
+    if (sort.key !== column) return <div className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-20 transition-opacity"><ChevronUp size={14} /></div>;
+    return sort.dir === 'asc' ? <ChevronUp size={14} className="ml-1 text-ng-light-blue" /> : <ChevronDown size={14} className="ml-1 text-ng-light-blue" />;
+  };
+
   // Process and Sort Teams
   const sortedTeams = [...teams].sort((a, b) => {
-    if (b.points !== a.points) {
-      return b.points - a.points;
+    if (teamSort.key === 'rank') return 0;
+    const key = teamSort.key as keyof Team;
+
+    let valA = a[key];
+    let valB = b[key];
+
+    if (typeof valA === 'string') {
+      return teamSort.dir === 'asc' ? valA.localeCompare(valB as string) : (valB as string).localeCompare(valA);
     }
-    return b.wins - a.wins;
+
+    if (teamSort.dir === 'asc') {
+      return (valA as number) - (valB as number);
+    } else {
+      return (valB as number) - (valA as number);
+    }
   });
 
-  const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
+  // Secondary sort for teams if primary sort is points
+  if (teamSort.key === 'points') {
+    sortedTeams.sort((a, b) => {
+      if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
+      return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+    });
+  }
+
+  const sortedPlayers = [...players].sort((a, b) => {
+    if (playerSort.key === 'rank') return 0;
+    const key = playerSort.key as keyof PlayerStats;
+    let valA = a[key];
+    let valB = b[key];
+
+    if (typeof valA === 'string') {
+      return playerSort.dir === 'asc' ? valA.localeCompare(valB as string) : (valB as string).localeCompare(valA);
+    }
+
+    if (playerSort.dir === 'asc') {
+      return (valA as number) - (valB as number);
+    } else {
+      return (valB as number) - (valA as number);
+    }
+  });
+
   const sortedGoalies = [...goalies].sort((a, b) => {
-    const gaaA = a.gp > 0 ? a.goalsAgainst / a.gp : 99;
-    const gaaB = b.gp > 0 ? b.goalsAgainst / b.gp : 99;
-    return gaaA - gaaB; // Sort by lowest GAA
+    if (goalieSort.key === 'rank') return 0;
+    let valA: number, valB: number;
+
+    if (goalieSort.key === 'gaa') {
+      valA = a.gp > 0 ? a.goalsAgainst / a.gp : 99;
+      valB = b.gp > 0 ? b.goalsAgainst / b.gp : 99;
+    } else if (goalieSort.key === 'svPct') {
+      valA = a.shotsAgainst > 0 ? (a.shotsAgainst - a.goalsAgainst) / a.shotsAgainst : 0;
+      valB = b.shotsAgainst > 0 ? (b.shotsAgainst - b.goalsAgainst) / b.shotsAgainst : 0;
+    } else if (typeof a[goalieSort.key as keyof GoalieStats] === 'string') {
+      const sA = a[goalieSort.key as keyof GoalieStats] as string;
+      const sB = b[goalieSort.key as keyof GoalieStats] as string;
+      return goalieSort.dir === 'asc' ? sA.localeCompare(sB) : sB.localeCompare(sA);
+    } else {
+      valA = a[goalieSort.key as keyof GoalieStats] as number;
+      valB = b[goalieSort.key as keyof GoalieStats] as number;
+    }
+
+    return goalieSort.dir === 'asc' ? valA - valB : valB - valA;
   });
 
   const displayedPlayers = showAllPlayers ? sortedPlayers : sortedPlayers.slice(0, 5);
@@ -85,15 +158,96 @@ const Standings: React.FC = () => {
           <table className="w-full divide-y divide-gray-700">
             <thead className="bg-ng-blue">
               <tr>
-                <th scope="col" className="px-1 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap w-8 md:w-auto">{t.standings.rank}</th>
-                <th scope="col" className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.team}</th>
-                <th scope="col" className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.gp}</th>
-                <th scope="col" className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.w}</th>
-                <th scope="col" className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.l}</th>
-                <th scope="col" className="hidden sm:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.t}</th>
-                <th scope="col" className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.pts}</th>
-                <th scope="col" className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.gf}</th>
-                <th scope="col" className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap">{t.standings.ga}</th>
+                <th 
+                  scope="col" 
+                  className="px-1 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'rank')}
+                >
+                  <div className="flex items-center">
+                    {t.standings.rank}
+                    <SortIcon sort={teamSort} column="rank" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'name')}
+                >
+                  <div className="flex items-center">
+                    {t.standings.team}
+                    <SortIcon sort={teamSort} column="name" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'gp')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.gp}
+                    <SortIcon sort={teamSort} column="gp" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'wins')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.w}
+                    <SortIcon sort={teamSort} column="wins" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'losses')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.l}
+                    <SortIcon sort={teamSort} column="losses" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="hidden sm:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'ties')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.t}
+                    <SortIcon sort={teamSort} column="ties" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'points')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.pts}
+                    <SortIcon sort={teamSort} column="points" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'goalsFor')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.gf}
+                    <SortIcon sort={teamSort} column="goalsFor" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'goalsAgainst')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.ga}
+                    <SortIcon sort={teamSort} column="goalsAgainst" />
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
@@ -146,13 +300,61 @@ const Standings: React.FC = () => {
                  <table className="w-full divide-y divide-gray-700">
                    <thead>
                      <tr>
-                       <th className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto">{t.standings.rank}</th>
-                       <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.player}</th>
+                       <th 
+                         className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'rank')}
+                       >
+                         <div className="flex items-center">
+                           {t.standings.rank}
+                           <SortIcon sort={playerSort} column="rank" />
+                         </div>
+                       </th>
+                       <th 
+                         className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'name')}
+                       >
+                         <div className="flex items-center">
+                           {t.standings.player}
+                           <SortIcon sort={playerSort} column="name" />
+                         </div>
+                       </th>
                        <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
-                       <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gp}</th>
-                       <th className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.goals}</th>
-                       <th className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.assists}</th>
-                       <th className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap">{t.standings.points}</th>
+                       <th 
+                         className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'gp')}
+                       >
+                         <div className="flex items-center justify-center">
+                           {t.standings.gp}
+                           <SortIcon sort={playerSort} column="gp" />
+                         </div>
+                       </th>
+                       <th 
+                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'goals')}
+                       >
+                         <div className="flex items-center justify-center">
+                           {t.standings.goals}
+                           <SortIcon sort={playerSort} column="goals" />
+                         </div>
+                       </th>
+                       <th 
+                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'assists')}
+                       >
+                         <div className="flex items-center justify-center">
+                           {t.standings.assists}
+                           <SortIcon sort={playerSort} column="assists" />
+                         </div>
+                       </th>
+                       <th 
+                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
+                         onClick={() => handleSort(playerSort, setPlayerSort, 'points')}
+                       >
+                         <div className="flex items-center justify-center">
+                           {t.standings.points}
+                           <SortIcon sort={playerSort} column="points" />
+                         </div>
+                       </th>
                      </tr>
                    </thead>
                    <tbody className="divide-y divide-gray-700">
@@ -195,15 +397,86 @@ const Standings: React.FC = () => {
                  <table className="w-full divide-y divide-gray-700">
                    <thead>
                      <tr>
-                       <th className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto">{t.standings.rank}</th>
-                       <th className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.player}</th>
+                       <th 
+                         className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                         onClick={() => handleSort(goalieSort, setGoalieSort, 'rank')}
+                       >
+                         <div className="flex items-center">
+                           {t.standings.rank}
+                           <SortIcon sort={goalieSort} column="rank" />
+                         </div>
+                       </th>
+                                               <th 
+                          className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'name')}
+                        >
+                          <div className="flex items-center">
+                            {t.standings.player}
+                            <SortIcon sort={goalieSort} column="name" />
+                          </div>
+                        </th>
+
                        <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
-                       <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gp}</th>
-                       <th className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.record}</th>
-                       <th className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.gaa}</th>
-                       <th className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap">{t.standings.svPct}</th>
-                       <th className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap">{t.standings.shotsAgainst}</th>
-                       <th className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap">{t.standings.goalsAgainstShort}</th>
+                                               <th 
+                          className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'gp')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.gp}
+                            <SortIcon sort={goalieSort} column="gp" />
+                          </div>
+                        </th>
+
+                                               <th 
+                          className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'wins')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.record}
+                            <SortIcon sort={goalieSort} column="wins" />
+                          </div>
+                        </th>
+
+                                               <th 
+                          className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'gaa')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.gaa}
+                            <SortIcon sort={goalieSort} column="gaa" />
+                          </div>
+                        </th>
+
+                                               <th 
+                          className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'svPct')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.svPct}
+                            <SortIcon sort={goalieSort} column="svPct" />
+                          </div>
+                        </th>
+
+                                               <th 
+                          className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'shotsAgainst')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.shotsAgainst}
+                            <SortIcon sort={goalieSort} column="shotsAgainst" />
+                          </div>
+                        </th>
+
+                                               <th 
+                          className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'goalsAgainst')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.goalsAgainstShort}
+                            <SortIcon sort={goalieSort} column="goalsAgainst" />
+                          </div>
+                        </th>
+
                      </tr>
                    </thead>
                    <tbody className="divide-y divide-gray-700">
