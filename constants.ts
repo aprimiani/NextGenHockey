@@ -802,8 +802,98 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_1775582149892",
-    "name": "Guillaume Auger",
+    "name": "Cédric Auger",
     "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591027128",
+    "name": "Jake Thompson",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591027631",
+    "name": "Isaac Huberman",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591028160",
+    "name": "William Taylor",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591028719",
+    "name": "Dylan Caplan-Boutet",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591029324",
+    "name": "Mackenzie Newman",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591101053",
+    "name": "Nathan Godin",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591101444",
+    "name": "Alexei Larose",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591101854",
+    "name": "Thomas Sousa Moniz",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591141404",
+    "name": "Liam Chysyk",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591152854",
+    "name": "Caleb Laurie",
+    "teamId": "t_1775579415800",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -862,7 +952,7 @@ export const GOALIE_STATS: GoalieStats[] = [
   },
   {
     "id": "goalie_1775582169664",
-    "name": "Cédric Auger",
+    "name": "Guillaume Auger",
     "teamId": "t_1775579370484",
     "gp": 0,
     "wins": 0,
