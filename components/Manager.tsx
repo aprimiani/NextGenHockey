@@ -164,6 +164,22 @@ const Manager: React.FC = () => {
     }
   };
 
+  const addTeam = () => {
+    const newTeam: Team = { 
+      id: `t_${Date.now()}`, 
+      name: 'New Team', 
+      gp: 0, 
+      wins: 0, 
+      losses: 0, 
+      ties: 0, 
+      points: 0, 
+      goalsFor: 0, 
+      goalsAgainst: 0, 
+      logoColor: '#ffffff' 
+    };
+    setTeams(prev => [...prev, newTeam]);
+  };
+
   const addPlayer = () => {
     const newPlayer = { id: `p_${Date.now()}`, name: 'New Player', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
     setPlayers(prev => [...prev, newPlayer]);
@@ -263,7 +279,7 @@ const Manager: React.FC = () => {
 
   const addEvent = () => {
     if (!editingRecapId) return;
-    const newEvent: GameEvent = { id: `e_${Date.now()}`, type: 'goal', period: 1, time: '0:00', teamId: teams[0].id, player: '', assist: '' };
+    const newEvent: GameEvent = { id: `e_${Date.now()}`, type: 'goal', period: 1, time: '0:00', teamId: teams[0]?.id || '1', player: '', assist: '' };
     setGameRecaps(prev => ({ ...prev, [editingRecapId]: { ...prev[editingRecapId], events: [...prev[editingRecapId].events, newEvent] } }));
   };
 
@@ -450,9 +466,21 @@ const Manager: React.FC = () => {
             )}
             {activeTab === 'teams' && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest italic">Standings Logic</span>
-                  <button onClick={syncStandingsFromGames} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 transition-all active:scale-95"><RefreshCcw size={16} /> Auto-Sync Results</button>
+                <div className="flex flex-col md:flex-row justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700 gap-4">
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest italic">Standings Logic</span>
+                    <button onClick={syncStandingsFromGames} className="bg-ng-light-blue/10 hover:bg-ng-light-blue/20 text-ng-light-blue font-bold py-2 px-4 rounded-lg text-[10px] flex items-center gap-2 transition-all uppercase tracking-widest border border-ng-light-blue/30"><RefreshCcw size={14} /> Auto-Sync Results</button>
+                  </div>
+                  <div className="flex gap-3 w-full md:w-auto">
+                    <button 
+                      type="button"
+                      onClick={() => { if(window.confirm('DANGER: This will permanently delete ALL teams and their associated data. Continue?')) { setTeams([]); setPlayers([]); setGoalies([]); setSchedule([]); } }} 
+                      className="flex-1 md:flex-none bg-red-900/20 hover:bg-red-600 text-red-400 hover:text-white font-bold py-2.5 px-4 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all border border-red-900/50 shadow-lg"
+                    >
+                      <Trash2 size={14} /> Clear All Teams
+                    </button>
+                    <button onClick={addTeam} className="flex-1 md:flex-none bg-green-600 hover:bg-green-500 text-white font-black py-2.5 px-6 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 italic"><Plus size={14} /> New Team</button>
+                  </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
@@ -507,12 +535,21 @@ const Manager: React.FC = () => {
             )}
             {activeTab === 'players' && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
+                <div className="flex flex-col md:flex-row justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700 gap-4">
                   <div className="relative flex-1 max-w-xs">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
                     <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search players..." className="w-full bg-gray-900 border-gray-700 rounded-lg pl-10 pr-4 py-2 text-xs text-white" />
                   </div>
-                  <button onClick={addPlayer} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 uppercase italic"><UserPlus size={16} /> New Player</button>
+                  <div className="flex gap-3 w-full md:w-auto">
+                    <button 
+                      type="button"
+                      onClick={() => { if(window.confirm('DANGER: This will permanently delete ALL players. Continue?')) setPlayers([]); }} 
+                      className="flex-1 md:flex-none bg-red-900/20 hover:bg-red-600 text-red-400 hover:text-white font-bold py-2.5 px-4 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all border border-red-900/50 shadow-lg"
+                    >
+                      <Trash2 size={14} /> Clear Players
+                    </button>
+                    <button onClick={addPlayer} className="flex-1 md:flex-none bg-ng-light-blue text-ng-navy font-black py-2.5 px-6 rounded-lg text-[10px] uppercase italic flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"><UserPlus size={16} /> New Player</button>
+                  </div>
                 </div>
                 <div className="overflow-x-auto max-h-[600px]">
                     <table className="w-full text-left">
@@ -558,9 +595,18 @@ const Manager: React.FC = () => {
             )}
             {activeTab === 'goalies' && (
               <div className="space-y-6">
-                <div className="flex justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700">
+                <div className="flex flex-col md:flex-row justify-between items-center bg-ng-navy/40 p-4 rounded-xl border border-gray-700 gap-4">
                   <span className="text-xs font-black text-gray-500 uppercase tracking-widest italic">Goalie Matrix</span>
-                  <button onClick={addGoalie} className="bg-ng-light-blue text-ng-navy font-black py-2 px-6 rounded-lg text-xs flex items-center gap-2 uppercase italic"><Shield size={16} /> New Goalie</button>
+                  <div className="flex gap-3 w-full md:w-auto">
+                    <button 
+                      type="button"
+                      onClick={() => { if(window.confirm('DANGER: This will permanently delete ALL goalies. Continue?')) setGoalies([]); }} 
+                      className="flex-1 md:flex-none bg-red-900/20 hover:bg-red-600 text-red-400 hover:text-white font-bold py-2.5 px-4 rounded-lg text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all border border-red-900/50 shadow-lg"
+                    >
+                      <Trash2 size={14} /> Clear Goalies
+                    </button>
+                    <button onClick={addGoalie} className="flex-1 md:flex-none bg-ng-light-blue text-ng-navy font-black py-2.5 px-6 rounded-lg text-[10px] uppercase italic flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95"><Shield size={16} /> New Goalie</button>
+                  </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">

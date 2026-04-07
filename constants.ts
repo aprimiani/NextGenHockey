@@ -67,6 +67,30 @@ export const TEAMS: Team[] = [
     "goalsFor": 0,
     "goalsAgainst": 0,
     "logoColor": "#ef4444"
+  },
+  {
+    "id": "t_1775579370484",
+    "name": "Wise Guys",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#3b82f6"
+  },
+  {
+    "id": "t_1775579415800",
+    "name": "Huskies",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#22c55e"
   }
 ];
 
@@ -694,6 +718,96 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_1775579856558",
+    "name": "Malix Garceau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579857302",
+    "name": "Jacob Riel",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579857978",
+    "name": "Mathis Pelletier",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579858742",
+    "name": "Alexandre Boisjoly",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579859505",
+    "name": "Vincent Gagnon",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579860292",
+    "name": "Thierry Charbonneau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579861062",
+    "name": "Maxim Garceau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579861768",
+    "name": "Samuel Jette",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775580097968",
+    "name": "Mathis Lecourtois",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775582149892",
+    "name": "Guillaume Auger",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -701,7 +815,7 @@ export const GOALIE_STATS: GoalieStats[] = [
   {
     "id": "g1",
     "name": "Nicolas Primiani",
-    "teamId": "1",
+    "teamId": "t_1775579415800",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -712,7 +826,7 @@ export const GOALIE_STATS: GoalieStats[] = [
   },
   {
     "id": "goalie_1767082104234",
-    "name": "Massimo Garofalo",
+    "name": "Michael-Joseph Primiani",
     "teamId": "1",
     "gp": 0,
     "wins": 0,
@@ -745,6 +859,18 @@ export const GOALIE_STATS: GoalieStats[] = [
     "saves": 0,
     "shotsAgainst": 0,
     "goalsAgainst": 0
+  },
+  {
+    "id": "goalie_1775582169664",
+    "name": "Cédric Auger",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "saves": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0
   }
 ];
 
@@ -753,7 +879,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {};
 export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey. You provide information about the league, teams, players, schedule, and standings. You can also help with registration and rules.
 
 Current League Data:
-- Teams: Bots, Jets, Milf Hunters, Redlight
+- Teams: Bots, Jets, Milf Hunters, Redlight, Wise Guys, Huskies
 - Location: Sportium
 - Season: Summer 2026 (Starts May 10th)
 
