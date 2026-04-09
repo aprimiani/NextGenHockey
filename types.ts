@@ -61,18 +61,29 @@ export interface GameEvent {
   period: number;
   time: string; // e.g., "12:30"
   teamId: string;
-  player: string;
-  assist?: string; 
-  assist2?: string; // Second assist slot
+  player: string; // Player ID
+  assist?: string; // Player ID
+  assist2?: string; // Player ID
   details?: string; // For penalties (e.g., "Tripping")
+  penaltyMinutes?: number;
 }
 
 export interface GameRecapData {
   gameId: string;
   events: GameEvent[];
   goalieStats: {
-    homeGoalie: { name: string; shotsFaced: number; saves: number; goalsAgainst: number };
-    awayGoalie: { name: string; shotsFaced: number; saves: number; goalsAgainst: number };
+    homeGoalie: { 
+      playerId: string; 
+      shotsFaced: number; 
+      goalsAgainst: number;
+      saves: number; // Calculated
+    };
+    awayGoalie: { 
+      playerId: string; 
+      shotsFaced: number; 
+      goalsAgainst: number;
+      saves: number; // Calculated
+    };
   }
 }
 

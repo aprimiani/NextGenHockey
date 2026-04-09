@@ -5,7 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
-  const { schedule, teams, gameRecaps, loading } = useLeagueData();
+  const { schedule, teams, players, goalies, gameRecaps, loading } = useLeagueData();
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'scheduled' | 'played'>('scheduled');
 
@@ -74,6 +74,9 @@ const Schedule: React.FC = () => {
     const game = schedule.find(g => g.id === selectedGameId);
     if (!game) return null;
 
+    const getPlayerName = (id: string) => players.find(p => p.id === id)?.name || id;
+    const getGoalieName = (id: string) => goalies.find(g => g.id === id)?.name || id;
+
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button onClick={() => setSelectedGameId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs"><ArrowLeft className="mr-2" size={20} />{t.schedule.backToSchedule}</button>
@@ -102,7 +105,7 @@ const Schedule: React.FC = () => {
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.scoringSummary}</h3>
                     <div className="space-y-3">
-                        {selectedRecap.events.length > 0 ? selectedRecap.events.map(event => (
+                        {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').map(event => (
                             <div key={event.id} className="flex items-center justify-between bg-ng-navy/50 p-3 rounded border border-gray-700/50">
                                 <div className="flex items-center space-x-3">
                                     <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
@@ -110,21 +113,50 @@ const Schedule: React.FC = () => {
                                     <span className="text-[9px] font-black italic shrink-0 mr-1.5" style={{ color: getTeamColor(event.teamId) }}>
                                         {getTeamName(event.teamId).substring(0, 1)}
                                     </span>
-                                    <span className="text-white font-bold">{event.player}</span>
+                                    <span className="text-white font-bold">{getPlayerName(event.player)}</span>
                                 </div>
-                                <div className="text-xs text-gray-400 font-medium"><span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist || '-'}</div>
+                                <div className="text-xs text-gray-400 font-medium">
+                                  <span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist ? getPlayerName(event.assist) : '-'}
+                                  {event.assist2 && <span className="text-gray-600 mx-1">,</span>}
+                                  {event.assist2 && getPlayerName(event.assist2)}
+                                </div>
                             </div>
                         )) : <p className="text-gray-500 italic text-center py-4">{t.schedule.noEvents}</p>}
                     </div>
                 </div>
+
+                {selectedRecap.events.filter(e => e.type === 'penalty').length > 0 && (
+                  <div>
+                      <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-red-500"></div> {t.schedule.penaltySummary}</h3>
+                      <div className="space-y-3">
+                          {selectedRecap.events.filter(e => e.type === 'penalty').map(event => (
+                              <div key={event.id} className="flex items-center justify-between bg-red-900/10 p-3 rounded border border-red-900/20">
+                                  <div className="flex items-center space-x-3">
+                                      <span className="text-red-400 font-mono font-bold">{event.time}</span>
+                                      <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
+                                      <span className="text-[9px] font-black italic shrink-0 mr-1.5" style={{ color: getTeamColor(event.teamId) }}>
+                                          {getTeamName(event.teamId).substring(0, 1)}
+                                      </span>
+                                      <span className="text-white font-bold">{getPlayerName(event.player)}</span>
+                                  </div>
+                                  <div className="text-xs text-gray-400 font-medium">
+                                    <span className="text-red-500/50 uppercase tracking-tighter text-[10px] mr-2">{event.details}</span>
+                                    <span className="bg-red-900/30 px-1.5 py-0.5 rounded text-[10px] text-red-400 font-bold">{event.penaltyMinutes} MIN</span>
+                                  </div>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+                )}
+
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.goalieStats}</h3>
                     <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-700">
-                            <thead><tr className="bg-ng-navy/30"><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th></tr></thead>
+                            <thead><tr className="bg-ng-navy/30"><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">Saves</th></tr></thead>
                             <tbody className="divide-y divide-gray-700">
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.homeGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td></tr>
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{selectedRecap.goalieStats.awayGoalie.name}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td></tr>
+                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.homeGoalie.playerId)}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td><td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.homeGoalie.saves}</td></tr>
+                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.awayGoalie.playerId)}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td><td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.awayGoalie.saves}</td></tr>
                             </tbody>
                         </table>
                     </div>
