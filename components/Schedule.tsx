@@ -1,13 +1,29 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { Calendar, MapPin, Clock, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
+  const location = useLocation();
   const { schedule, teams, players, goalies, gameRecaps, loading } = useLeagueData();
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'scheduled' | 'played'>('scheduled');
+
+  useEffect(() => {
+    if (location.state?.selectedGameId) {
+      const gameId = location.state.selectedGameId;
+      setSelectedGameId(gameId);
+      
+      const game = schedule.find(g => g.id === gameId);
+      if (game?.status === 'played') {
+        setFilter('played');
+      } else if (game?.status === 'scheduled') {
+        setFilter('scheduled');
+      }
+    }
+  }, [location.state, schedule]);
 
   const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || t.schedule.unknown;
   const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
