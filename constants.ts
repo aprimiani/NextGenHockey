@@ -1051,6 +1051,18 @@ export const GOALIE_STATS: GoalieStats[] = [
     "saves": 0,
     "shotsAgainst": 0,
     "goalsAgainst": 0
+  },
+  {
+    "id": "goalie_1776783555439",
+    "name": "Dave Fortin",
+    "teamId": "3",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "saves": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0
   }
 ];
 
