@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.subject}</label><input type="text" name="subject" required value={formData.subject} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none transition-all" /></div>
                 <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.message}</label><textarea name="message" rows={4} required value={formData.message} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none resize-none transition-all"></textarea></div>
                 <button type="submit" disabled={isSubmitting} className="w-full bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-black py-4 rounded-lg transition-all flex items-center justify-center disabled:opacity-50 uppercase tracking-widest italic shadow-lg shadow-ng-light-blue/20">
-                  <Send className="w-5 h-5 mr-2" /> {isSubmitting ? 'Sending...' : t.contact.submit}
+                  <Send className="w-5 h-5 mr-2" /> {isSubmitting ? t.contact.sending : t.contact.submit}
                 </button>
               </form>
             </>
@@ -82,7 +82,7 @@ const Contact: React.FC = () => {
           <div className="flex items-start">
             <div className="bg-ng-light-blue/10 p-4 rounded-lg mr-4 sm:mr-5 border border-ng-light-blue/20 shadow-inner shrink-0"><Mail className="w-6 h-6 sm:w-7 sm:h-7 text-ng-light-blue" /></div>
             <div className="min-w-0 flex-1">
-              <p className="text-[10px] text-ng-light-blue font-black uppercase tracking-[0.2em] mb-1">Direct Outreach</p>
+              <p className="text-[10px] text-ng-light-blue font-black uppercase tracking-[0.2em] mb-1">{t.contact.directOutreach}</p>
               <p className="text-xs text-gray-500 font-black uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
               <a 
                 href="mailto:nextgenhky@outlook.com" 
