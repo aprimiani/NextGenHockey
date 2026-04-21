@@ -10,6 +10,12 @@
   --color-ng-light-blue: #38bdf8;
   --color-ng-accent: #0ea5e9;
   --color-ng-white: #f8fafc;
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  --animate-spin-slow: spin-slow 8s linear infinite;
 }
 
 @layer base {

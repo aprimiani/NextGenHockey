@@ -22,6 +22,28 @@ const Sponsors: React.FC = () => {
         </p>
       </div>
 
+      {/* Opening Day Special Banner */}
+      <div className="mb-12 bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden group hover:border-ng-light-blue/40 transition-all duration-500">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-ng-light-blue/5 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-ng-light-blue/10 transition-all duration-500"></div>
+        <div className="relative flex flex-col md:flex-row items-center gap-6 sm:gap-10">
+          <div className="flex-shrink-0 bg-ng-light-blue text-ng-navy p-4 rounded-xl rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-lg shadow-ng-light-blue/20">
+            <Gift size={32} className="animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center justify-center md:justify-start gap-2 text-ng-light-blue mb-2">
+              <Star size={14} className="fill-ng-light-blue animate-spin-slow" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase italic tracking-tighter mb-2 leading-tight text-center md:text-left transition-colors group-hover:text-ng-light-blue">
+              {t.sponsors.openingDaySpecialTitle}
+            </h3>
+            <p className="text-gray-300 text-base sm:text-lg font-medium leading-relaxed max-w-3xl text-center md:text-left">
+              {t.sponsors.openingDaySpecialText}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
         {t.sponsors.partners.map((partner: any, idx: number) => {
           const isSilver = partner.prizeType === 'silver';
