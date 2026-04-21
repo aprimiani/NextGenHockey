@@ -19,7 +19,8 @@ import {
   Database,
   Globe,
   Check,
-  Save
+  Save,
+  Trophy
 } from 'lucide-react';
 import { GameRecapData, Team, GameEvent } from '../types';
 
@@ -37,17 +38,19 @@ const Manager: React.FC = () => {
     players, 
     goalies,
     gameRecaps,
+    playerOfMonth,
     setTeams, 
     setSchedule, 
     setPlayers, 
     setGoalies,
     setGameRecaps,
+    setPlayerOfMonth,
     resetData 
   } = useLeagueData();
 
   const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || 'Unknown';
   
-  const [activeTab, setActiveTab] = useState<'schedule' | 'teams' | 'players' | 'goalies' | 'deployment'>('schedule');
+  const [activeTab, setActiveTab] = useState<'schedule' | 'teams' | 'players' | 'goalies' | 'pom' | 'deployment'>('schedule');
   const [editingRecapId, setEditingRecapId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [passcode, setPasscode] = useState('');
@@ -119,6 +122,7 @@ const Manager: React.FC = () => {
       if (data.ALL_PLAYERS) setPlayers(data.ALL_PLAYERS);
       if (data.GOALIE_STATS) setGoalies(data.GOALIE_STATS);
       if (data.GAME_RECAPS) setGameRecaps(data.GAME_RECAPS);
+      if (data.PLAYER_OF_THE_MONTH) setPlayerOfMonth(data.PLAYER_OF_THE_MONTH);
       alert('League Data Imported Successfully!');
       setShowImportModal(false);
       setImportValue('');
@@ -360,8 +364,8 @@ const Manager: React.FC = () => {
   };
 
   const generateExport = () => {
-    const data = { TEAMS: teams, SCHEDULE: schedule, ALL_PLAYERS: players, GOALIE_STATS: goalies, GAME_RECAPS: gameRecaps };
-    navigator.clipboard.writeText(`import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from './types';\n\nexport const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };\n\nexport const TEAMS: Team[] = ${JSON.stringify(teams, null, 2)};\n\nexport const SCHEDULE: Game[] = ${JSON.stringify(schedule, null, 2)};\n\nexport const ALL_PLAYERS: PlayerStats[] = ${JSON.stringify(players, null, 2)};\n\nexport const GOALIE_STATS: GoalieStats[] = ${JSON.stringify(goalies, null, 2)};\n\nexport const GAME_RECAPS: Record<string, GameRecapData> = ${JSON.stringify(gameRecaps, null, 2)};\n\nexport const SYSTEM_INSTRUCTION = \`You are the "League Assistant" for Next Gen Hockey...\`;`);
+    const data = { TEAMS: teams, SCHEDULE: schedule, ALL_PLAYERS: players, GOALIE_STATS: goalies, GAME_RECAPS: gameRecaps, PLAYER_OF_THE_MONTH: playerOfMonth };
+    navigator.clipboard.writeText(`import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } from './types';\n\nexport const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };\n\nexport const PLAYER_OF_THE_MONTH: PlayerOfMonth = ${JSON.stringify(playerOfMonth, null, 2)};\n\nexport const TEAMS: Team[] = ${JSON.stringify(teams, null, 2)};\n\nexport const SCHEDULE: Game[] = ${JSON.stringify(schedule, null, 2)};\n\nexport const ALL_PLAYERS: PlayerStats[] = ${JSON.stringify(players, null, 2)};\n\nexport const GOALIE_STATS: GoalieStats[] = ${JSON.stringify(goalies, null, 2)};\n\nexport const GAME_RECAPS: Record<string, GameRecapData> = ${JSON.stringify(gameRecaps, null, 2)};\n\nexport const SYSTEM_INSTRUCTION = \`You are the "League Assistant" for Next Gen Hockey...\`;`);
     setCopied(true); setTimeout(() => setCopied(false), 2000);
   };
 
@@ -725,9 +729,11 @@ const Manager: React.FC = () => {
       )}
       {!editingRecapId && (
         <div className="bg-ng-blue/30 rounded-xl border border-gray-700 overflow-hidden shadow-2xl flex flex-col min-h-[500px]">
-          <div className="flex border-b border-gray-700 bg-ng-navy/50">
-            {['schedule', 'teams', 'players', 'goalies', 'deployment'].map((tab: any) => (
-              <button key={tab} onClick={() => { setActiveTab(tab); setSearchTerm(''); }} className={`flex-1 py-5 font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === tab ? 'text-ng-light-blue bg-ng-light-blue/10 border-b-4 border-ng-light-blue' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}>{tab}</button>
+          <div className="flex border-b border-gray-700 bg-ng-navy/50 overflow-x-auto hide-scrollbar">
+            {['schedule', 'teams', 'players', 'goalies', 'pom', 'deployment'].map((tab: any) => (
+              <button key={tab} onClick={() => { setActiveTab(tab); setSearchTerm(''); }} className={`flex-1 min-w-[80px] py-5 font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === tab ? 'text-ng-light-blue bg-ng-light-blue/10 border-b-4 border-ng-light-blue' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}>
+                {tab === 'pom' ? 'PO. Month' : tab}
+              </button>
             ))}
           </div>
           <div className="p-8 flex-1">
@@ -993,6 +999,108 @@ const Manager: React.FC = () => {
                 <div className="mt-4 p-3 bg-ng-navy/30 rounded border border-gray-700 flex items-center gap-2 text-gray-500 text-[10px] italic">
                    <Shield size={12} />
                    <span>{t.standings.gaaExplanation}</span>
+                </div>
+              </div>
+            )}
+            {activeTab === 'pom' && (
+              <div className="space-y-8 animate-in fade-in slide-in-from-bottom duration-500">
+                <div className="bg-ng-navy/50 p-6 md:p-8 rounded-2xl border border-gray-700 shadow-xl max-w-2xl mx-auto">
+                    <div className="flex items-center gap-3 mb-8">
+                       <div className="p-3 bg-ng-light-blue/20 rounded-xl">
+                         <Trophy className="text-ng-light-blue" size={24} />
+                       </div>
+                       <div>
+                         <h3 className="text-xl font-black text-white uppercase italic tracking-tight">Player of the Month Manager</h3>
+                         <p className="text-xs text-gray-500 font-bold uppercase tracking-widest">Select winner and set stats manually</p>
+                       </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Month</label>
+                                <select 
+                                  value={playerOfMonth.month} 
+                                  onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, month: parseInt(e.target.value) }))}
+                                  className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs"
+                                >
+                                    {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((m, idx) => (
+                                        <option key={m} value={idx}>{m}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Year</label>
+                                <input 
+                                  type="number" 
+                                  value={playerOfMonth.year} 
+                                  onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, year: parseInt(e.target.value) || 2026 }))}
+                                  className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Select Player</label>
+                            <select 
+                              value={playerOfMonth.playerId} 
+                              onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, playerId: e.target.value }))}
+                              className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs"
+                            >
+                                <option value="">Select a player...</option>
+                                {players.sort((a,b) => a.name.localeCompare(b.name)).map(p => (
+                                    <option key={p.id} value={p.id}>{p.name} ({getTeamName(p.teamId)})</option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="grid grid-cols-4 gap-3">
+                            {[
+                                { label: 'GP', key: 'gp' },
+                                { label: 'Goals', key: 'goals' },
+                                { label: 'Assists', key: 'assists' },
+                                { label: 'Points', key: 'points' }
+                            ].map((s: any) => (
+                                <div key={s.key} className="space-y-1">
+                                    <label className="text-[9px] text-gray-500 uppercase font-bold text-center block">{s.label}</label>
+                                    <input 
+                                      type="number" 
+                                      value={(playerOfMonth as any)[s.key]} 
+                                      onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, [s.key]: parseInt(e.target.value) || 0 }))}
+                                      className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white text-center text-xs font-black"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Prize (EN)</label>
+                                <textarea 
+                                  value={playerOfMonth.prizeEn} 
+                                  onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, prizeEn: e.target.value }))}
+                                  placeholder="Free 6 inch Trio..."
+                                  className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs h-20 resize-none"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Prize (FR)</label>
+                                <textarea 
+                                  value={playerOfMonth.prizeFr} 
+                                  onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, prizeFr: e.target.value }))}
+                                  placeholder="Trio Sandwich 6 pouces..."
+                                  className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs h-20 resize-none"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="pt-4 border-t border-gray-800">
+                           <div className="bg-yellow-500/10 border border-yellow-500/30 p-4 rounded-xl flex items-start gap-3">
+                             <AlertCircle className="text-yellow-500 shrink-0 mt-0.5" size={16} />
+                             <p className="text-[10px] text-gray-400 leading-relaxed font-medium">Month details and Player stats are handled manually here to showcase specific monthly achievements which may differ from total league stats.</p>
+                           </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             )}

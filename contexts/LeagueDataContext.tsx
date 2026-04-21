@@ -4,9 +4,10 @@ import {
   SCHEDULE, 
   ALL_PLAYERS, 
   GOALIE_STATS,
-  GAME_RECAPS
+  GAME_RECAPS,
+  PLAYER_OF_THE_MONTH
 } from '../constants';
-import { Team, Game, PlayerStats, GoalieStats, GameRecapData, GalleryImage } from '../types';
+import { Team, Game, PlayerStats, GoalieStats, GameRecapData, GalleryImage, PlayerOfMonth } from '../types';
 
 type Setter<T> = (data: T | ((prev: T) => T)) => void;
 
@@ -17,6 +18,7 @@ interface LeagueDataContextType {
   goalies: GoalieStats[];
   gameRecaps: Record<string, GameRecapData>;
   gallery: GalleryImage[];
+  playerOfMonth: PlayerOfMonth;
   loading: boolean;
   setTeams: Setter<Team[]>;
   setSchedule: Setter<Game[]>;
@@ -24,6 +26,7 @@ interface LeagueDataContextType {
   setGoalies: Setter<GoalieStats[]>;
   setGameRecaps: Setter<Record<string, GameRecapData>>;
   setGallery: Setter<GalleryImage[]>;
+  setPlayerOfMonth: Setter<PlayerOfMonth>;
   resetData: () => void;
 }
 
@@ -36,20 +39,22 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
   const [goalies, setGoaliesState] = useState<GoalieStats[]>(GOALIE_STATS);
   const [gameRecaps, setGameRecapsState] = useState<Record<string, GameRecapData>>(GAME_RECAPS);
   const [gallery, setGalleryState] = useState<GalleryImage[]>([]);
+  const [playerOfMonth, setPlayerOfMonthState] = useState<PlayerOfMonth>(PLAYER_OF_THE_MONTH);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Force a one-time reset to clear the old schedule data
-    const hasReset = localStorage.getItem('ng_force_reset_v8');
+    const hasReset = localStorage.getItem('ng_force_reset_v9');
     if (!hasReset) {
       localStorage.clear();
-      localStorage.setItem('ng_force_reset_v8', 'true');
+      localStorage.setItem('ng_force_reset_v9', 'true');
       setTeamsState(TEAMS);
       setScheduleState(SCHEDULE);
       setPlayersState(ALL_PLAYERS);
       setGoaliesState(GOALIE_STATS);
       setGameRecapsState(GAME_RECAPS);
       setGalleryState([]);
+      setPlayerOfMonthState(PLAYER_OF_THE_MONTH);
       setLoading(false);
       return;
     }
@@ -60,6 +65,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     const savedGoalies = localStorage.getItem('ng_goalies');
     const savedRecaps = localStorage.getItem('ng_recaps');
     const savedGallery = localStorage.getItem('ng_gallery');
+    const savedPOM = localStorage.getItem('ng_pom');
 
     if (savedTeams) {
       const parsed = JSON.parse(savedTeams);
@@ -72,6 +78,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     if (savedGoalies) setGoaliesState(JSON.parse(savedGoalies));
     if (savedRecaps) setGameRecapsState(JSON.parse(savedRecaps));
     if (savedGallery) setGalleryState(JSON.parse(savedGallery));
+    if (savedPOM) setPlayerOfMonthState(JSON.parse(savedPOM));
     
     setLoading(false);
   }, []);
@@ -93,6 +100,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
   const setGoalies = createSetter(setGoaliesState, 'ng_goalies');
   const setGameRecaps = createSetter(setGameRecapsState, 'ng_recaps');
   const setGallery = createSetter(setGalleryState, 'ng_gallery');
+  const setPlayerOfMonth = createSetter(setPlayerOfMonthState, 'ng_pom');
 
   const resetData = () => {
     localStorage.clear();
@@ -102,6 +110,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     setGoaliesState(GOALIE_STATS);
     setGameRecapsState(GAME_RECAPS);
     setGalleryState([]);
+    setPlayerOfMonthState(PLAYER_OF_THE_MONTH);
   };
 
   return (
@@ -112,6 +121,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       goalies, 
       gameRecaps,
       gallery,
+      playerOfMonth,
       loading,
       setTeams,
       setSchedule,
@@ -119,6 +129,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       setGoalies,
       setGameRecaps,
       setGallery,
+      setPlayerOfMonth,
       resetData
     }}>
       {children}

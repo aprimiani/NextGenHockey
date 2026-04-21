@@ -1,6 +1,18 @@
-import { Team, Game, PlayerStats, GoalieStats, GameRecapData } from './types';
+import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } from './types';
 
 export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
+
+export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
+  playerId: 'p1', // Alessandro Primiani
+  month: 4, // May
+  year: 2026,
+  gp: 4,
+  goals: 8,
+  assists: 4,
+  points: 12,
+  prizeEn: 'Free 6" Trio Sandwich from Subway (Sandwich + Combo Meal)',
+  prizeFr: 'Trio Sandwich 6 pouces gratuit chez Subway (Sandwich + Combo)'
+};
 
 export const PRICING_DATA = {
   EARLY_BIRD: {

@@ -92,3 +92,15 @@ export interface GalleryImage {
   url: string;
   caption?: string;
 }
+
+export interface PlayerOfMonth {
+  playerId: string;
+  month: number; // 0-11
+  year: number;
+  gp: number;
+  goals: number;
+  assists: number;
+  points: number;
+  prizeEn: string;
+  prizeFr: string;
+}

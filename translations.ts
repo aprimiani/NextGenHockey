@@ -95,6 +95,8 @@ export const translations = {
       offenseDefense: 'Team Offense vs Defense',
       goalsFor: 'Goals For',
       goalsAgainst: 'Goals Against',
+      playerOfMonth: 'Player of the Month',
+      prizeLabel: 'Winner Prize',
       topPerformers: 'League Player Stats',
       goalieStats: 'League Goalie Stats',
       playersTab: 'Players',
@@ -118,7 +120,11 @@ export const translations = {
       teamSchedule: 'Team Schedule',
       noPlayers: 'No players registered for this team yet.',
       gaaExplanation: 'GAA (Goals Against Average) = Total Goals Against ÷ Games Played.',
-      leagueRank: 'League Rank'
+      leagueRank: 'League Rank',
+      months: [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ]
     },
     schedule: {
       title: 'Schedule',
@@ -564,6 +570,8 @@ export const translations = {
       offenseDefense: "Offensive vs Défensive d'Équipe",
       goalsFor: 'Buts Pour',
       goalsAgainst: 'Buts Contre',
+      playerOfMonth: 'Joueur du mois',
+      prizeLabel: 'Prix du gagnant',
       topPerformers: 'Stats des Joueurs',
       goalieStats: 'Stats des Gardiens',
       playersTab: 'Joueurs',
@@ -587,7 +595,11 @@ export const translations = {
       teamSchedule: "Calendrier de l'Équipe",
       noPlayers: 'Aucun joueur inscrit pour cette équipe.',
       gaaExplanation: 'Moy. (Moyenne de buts alloués) = Total des buts alloués ÷ Parties jouées.',
-      leagueRank: 'Rang de la Ligue'
+      leagueRank: 'Rang de la Ligue',
+      months: [
+        'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+      ]
     },
     schedule: {
       title: 'Calendrier',

@@ -4,11 +4,12 @@ import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
+import { PLAYER_OF_THE_MONTH } from '../constants';
 
 const Standings: React.FC = () => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  const { teams, players, goalies, schedule, loading } = useLeagueData();
+  const { teams, players, goalies, schedule, playerOfMonth, loading } = useLeagueData();
   const [activeTab, setActiveTab] = useState<'players' | 'goalies'>('players');
   const [showAllPlayers, setShowAllPlayers] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
@@ -280,6 +281,80 @@ const Standings: React.FC = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+
+      {/* Player of the Month Section */}
+      <div className="mb-12">
+        <div className="bg-gradient-to-br from-ng-navy/80 to-ng-blue/40 rounded-2xl border border-ng-light-blue/30 p-6 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-ng-light-blue/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-ng-light-blue/20 transition-all duration-500"></div>
+          <div className="relative flex flex-col md:flex-row items-center gap-8">
+            {/* Header/Title */}
+            <div className="flex-shrink-0 text-center md:text-left min-w-[140px]">
+              <div className="flex items-center justify-center md:justify-start gap-2 text-ng-light-blue mb-1">
+                <Trophy size={18} className="animate-bounce" />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t.standings.playerOfMonth}</span>
+              </div>
+              <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter leading-none">
+                {t.standings.months?.[playerOfMonth.month] || 'Month'} {playerOfMonth.year}
+              </h3>
+            </div>
+
+            {/* Divider */}
+            <div className="hidden md:block w-px h-12 bg-gray-700"></div>
+
+            {/* Player Info */}
+            <div className="flex-1 flex flex-col items-center md:items-start">
+              {playerOfMonth.playerId ? (
+                <>
+                  <button 
+                    onClick={() => {
+                      const p = players.find(p => p.id === playerOfMonth.playerId);
+                      if (p) setSelectedPlayer(p);
+                    }}
+                    className="text-2xl font-black text-white uppercase italic hover:text-ng-light-blue transition-colors text-center md:text-left outline-none"
+                  >
+                    {players.find(p => p.id === playerOfMonth.playerId)?.name || 'N/A'}
+                  </button>
+                  <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center md:text-left">
+                    {getTeamName(players.find(p => p.id === playerOfMonth.playerId)?.teamId || '')}
+                  </div>
+                </>
+              ) : (
+                <div className="text-2xl font-black text-gray-600 uppercase italic text-center md:text-left">
+                  TBD
+                </div>
+              )}
+            </div>
+
+            {/* Stats Line */}
+            <div className="grid grid-cols-4 gap-2 sm:gap-6 bg-ng-navy/40 p-3 sm:p-4 rounded-xl border border-gray-700/50 w-full md:w-auto">
+              {[
+                { label: 'GP', val: playerOfMonth.gp },
+                { label: 'G', val: playerOfMonth.goals },
+                { label: 'A', val: playerOfMonth.assists },
+                { label: 'PTS', val: playerOfMonth.points },
+              ].map(s => (
+                <div key={s.label} className="text-center px-1">
+                  <div className="text-lg sm:text-xl font-black text-white leading-none tracking-tighter">{s.val}</div>
+                  <div className="text-[8px] sm:text-[9px] font-bold text-gray-500 uppercase tracking-tighter mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Prize Box */}
+            <div className="bg-green-950/30 border border-green-500/30 p-4 rounded-xl flex items-center gap-4 w-full md:max-w-xs justify-center md:justify-start">
+              <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <Shield size={20} className="text-green-400" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-[9px] font-black text-green-400 uppercase tracking-widest mb-0.5">{t.standings.prizeLabel}</div>
+                <div className="text-[10px] sm:text-[11px] font-bold text-gray-200 leading-tight line-clamp-2 md:line-clamp-none">
+                  {language === 'en' ? playerOfMonth.prizeEn : playerOfMonth.prizeFr}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
