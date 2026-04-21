@@ -14,6 +14,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { LeagueDataProvider } from './contexts/LeagueDataContext';
 
+// Deployment Trigger: 2026-04-21
 function App() {
   return (
     <LanguageProvider>
