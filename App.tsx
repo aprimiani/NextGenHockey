@@ -18,7 +18,7 @@ function App() {
   return (
     <LanguageProvider>
       <LeagueDataProvider>
-        <Router>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
           <div className="min-h-screen bg-ng-navy flex flex-col">
             <Navbar />
