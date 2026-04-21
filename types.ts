@@ -53,6 +53,9 @@ export interface GoalieStats {
   saves: number; // Calculated: shotsAgainst - goalsAgainst
   shotsAgainst: number;
   goalsAgainst: number;
+  goals?: number;
+  assists?: number;
+  points?: number;
 }
 
 export interface GameEvent {
@@ -103,4 +106,5 @@ export interface PlayerOfMonth {
   points: number;
   prizeEn: string;
   prizeFr: string;
+  prize?: string;
 }

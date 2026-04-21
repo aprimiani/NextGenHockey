@@ -3,15 +3,16 @@ import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } fr
 export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
 
 export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
-  playerId: 'p1', // Alessandro Primiani
-  month: 4, // May
-  year: 2026,
-  gp: 4,
-  goals: 8,
-  assists: 4,
-  points: 12,
-  prizeEn: 'Free 6" Trio Sandwich from Subway (Sandwich + Combo Meal)',
-  prizeFr: 'Trio Sandwich 6 pouces gratuit chez Subway (Sandwich + Combo)'
+  "playerId": "",
+  "month": 4,
+  "gp": 0,
+  "goals": 0,
+  "assists": 0,
+  "points": 0,
+  "prize": "Free 6\" Trio Sandwich from Subway (Sandwich + Combo Meal)",
+  "year": 2026,
+  "prizeEn": "Free 6 inch trio from Subway Delson!",
+  "prizeFr": "Trio sandwich 6 pouces de Subway Delson!"
 };
 
 export const PRICING_DATA = {
@@ -444,81 +445,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p2",
-    "name": "Todd Mumford",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p3",
-    "name": "Lucas Molinaro",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p4",
-    "name": "Michael-Joseph Primiani",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082286306",
-    "name": "Jérémy Dumont",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082302464",
-    "name": "Olivier St-Cyr",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082310061",
-    "name": "Gabriel Savard",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082317648",
-    "name": "Zachary Hébert",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082323831",
-    "name": "Xavier Lussier",
-    "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1767082324693",
-    "name": "Arnaud Gamelin",
-    "teamId": "1",
+    "id": "p_1775579858742",
+    "name": "Alexandre Boisjoly",
+    "teamId": "t_1775579370484",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -534,6 +463,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
+    "id": "p_1775591101444",
+    "name": "Alexei Larose",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
     "id": "p_1771962869757",
     "name": "Alexis Belleau",
     "teamId": "2",
@@ -543,188 +481,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1771962876661",
-    "name": "Liam Notebeart",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962890109",
-    "name": "Félix Dupuis",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962941457",
-    "name": "Kevin Croteau",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962942416",
-    "name": "Antoine Roy",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962943297",
-    "name": "Simon Roy",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962944635",
-    "name": "Félix Belleau",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1771962945887",
-    "name": "Micky Dunberry",
-    "teamId": "2",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917065337",
-    "name": "Alexis Levesque",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917089084",
-    "name": "Justin Gerin lajoie",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917089971",
-    "name": "Eric Brunelle",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917090874",
-    "name": "Mathis Aubin",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917091771",
-    "name": "Danick Boissonneault",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917092637",
-    "name": "Mathis Sylvain",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917093420",
-    "name": "Simon Fleury",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917094310",
-    "name": "Félix Girard",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917204341",
-    "name": "Vincent Legros",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917204934",
-    "name": "Thomas Asselin",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1772917205487",
-    "name": "Frederic Brodeur",
-    "teamId": "3",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
     "id": "p_1773774313607",
     "name": "Alexis De Almeida",
-    "teamId": "4",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1773774483853",
-    "name": "Marc-Antoine Gamelin",
-    "teamId": "4",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1773774484701",
-    "name": "Loik Lemieux-Roy",
     "teamId": "4",
     "gp": 0,
     "goals": 0,
@@ -741,6 +499,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
+    "id": "p_1772917065337",
+    "name": "Alexis Levesque",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
     "id": "p_1773774486160",
     "name": "Alexis Poirier",
     "teamId": "4",
@@ -750,54 +517,36 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1773774486881",
-    "name": "Maxime Gagné",
-    "teamId": "4",
+    "id": "p_1771962942416",
+    "name": "Antoine Roy",
+    "teamId": "2",
     "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
   },
   {
-    "id": "p_1773774487631",
-    "name": "Ethan Lebeau",
-    "teamId": "4",
+    "id": "p_1767082324693",
+    "name": "Arnaud Gamelin",
+    "teamId": "1",
     "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
   },
   {
-    "id": "p_1773774488345",
-    "name": "Maël Godbout",
-    "teamId": "4",
+    "id": "p_1775591152854",
+    "name": "Caleb Laurie",
+    "teamId": "t_1775579415800",
     "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
   },
   {
-    "id": "p_1773774489039",
-    "name": "Zachary Marchand",
-    "teamId": "4",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1773774609841",
-    "name": "William Gauthier",
-    "teamId": "4",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1773774610374",
-    "name": "Vincent Gagnon",
-    "teamId": "4",
+    "id": "p_1775582149892",
+    "name": "Cédric Auger",
+    "teamId": "t_1775579370484",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -813,8 +562,44 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1775162084185",
-    "name": "Marc Poirier",
+    "id": "p_1772917091771",
+    "name": "Danick Boissonneault",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591028719",
+    "name": "Dylan Caplan-Boutet",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917089971",
+    "name": "Eric Brunelle",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774487631",
+    "name": "Ethan Lebeau",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962944635",
+    "name": "Félix Belleau",
     "teamId": "2",
     "gp": 0,
     "goals": 0,
@@ -822,9 +607,45 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1775579856558",
-    "name": "Malix Garceau",
-    "teamId": "t_1775579370484",
+    "id": "p_1771962890109",
+    "name": "Félix Dupuis",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917094310",
+    "name": "Félix Girard",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917205487",
+    "name": "Frederic Brodeur",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082310061",
+    "name": "Gabriel Savard",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591027631",
+    "name": "Isaac Huberman",
+    "teamId": "t_1775579415800",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -833,78 +654,6 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1775579857302",
     "name": "Jacob Riel",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579857978",
-    "name": "Mathis Pelletier",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579858742",
-    "name": "Alexandre Boisjoly",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579859505",
-    "name": "Vincent Gagnon",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579860292",
-    "name": "Thierry Charbonneau",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579861062",
-    "name": "Maxim Garceau",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775579861768",
-    "name": "Samuel Jette",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775580097968",
-    "name": "Mathis Lecourtois",
-    "teamId": "t_1775579370484",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775582149892",
-    "name": "Cédric Auger",
     "teamId": "t_1775579370484",
     "gp": 0,
     "goals": 0,
@@ -921,63 +670,27 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1775591027631",
-    "name": "Isaac Huberman",
-    "teamId": "t_1775579415800",
+    "id": "p_1767082286306",
+    "name": "Jérémy Dumont",
+    "teamId": "1",
     "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
   },
   {
-    "id": "p_1775591028160",
-    "name": "William Taylor",
-    "teamId": "t_1775579415800",
+    "id": "p_1772917089084",
+    "name": "Justin Gerin lajoie",
+    "teamId": "3",
     "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
   },
   {
-    "id": "p_1775591028719",
-    "name": "Dylan Caplan-Boutet",
-    "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775591029324",
-    "name": "Mackenzie Newman",
-    "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775591101053",
-    "name": "Nathan Godin",
-    "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775591101444",
-    "name": "Alexei Larose",
-    "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
-  },
-  {
-    "id": "p_1775591101854",
-    "name": "Thomas Sousa Moniz",
-    "teamId": "t_1775579415800",
+    "id": "p_1771962941457",
+    "name": "Kevin Croteau",
+    "teamId": "2",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -993,9 +706,297 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
-    "id": "p_1775591152854",
-    "name": "Caleb Laurie",
+    "id": "p_1771962876661",
+    "name": "Liam Notebeart",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774484701",
+    "name": "Loik Lemieux-Roy",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p3",
+    "name": "Lucas Molinaro",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591029324",
+    "name": "Mackenzie Newman",
     "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774488345",
+    "name": "Maël Godbout",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579856558",
+    "name": "Malix Garceau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775162084185",
+    "name": "Marc Poirier",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774483853",
+    "name": "Marc-Antoine Gamelin",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917090874",
+    "name": "Mathis Aubin",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775580097968",
+    "name": "Mathis Lecourtois",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579857978",
+    "name": "Mathis Pelletier",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917092637",
+    "name": "Mathis Sylvain",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579861062",
+    "name": "Maxim Garceau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774486881",
+    "name": "Maxime Gagné",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p4",
+    "name": "Michael-Joseph Primiani",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962945887",
+    "name": "Micky Dunberry",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591101053",
+    "name": "Nathan Godin",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082302464",
+    "name": "Olivier St-Cyr",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579861768",
+    "name": "Samuel Jette",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917093420",
+    "name": "Simon Fleury",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1771962943297",
+    "name": "Simon Roy",
+    "teamId": "2",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579860292",
+    "name": "Thierry Charbonneau",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917204934",
+    "name": "Thomas Asselin",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591101854",
+    "name": "Thomas Sousa Moniz",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p2",
+    "name": "Todd Mumford",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774610374",
+    "name": "Vincent Gagnon",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775579859505",
+    "name": "Vincent Gagnon",
+    "teamId": "t_1775579370484",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1772917204341",
+    "name": "Vincent Legros",
+    "teamId": "3",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774609841",
+    "name": "William Gauthier",
+    "teamId": "4",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1775591028160",
+    "name": "William Taylor",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082323831",
+    "name": "Xavier Lussier",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1767082317648",
+    "name": "Zachary Hébert",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1773774489039",
+    "name": "Zachary Marchand",
+    "teamId": "4",
     "gp": 0,
     "goals": 0,
     "assists": 0,
@@ -1045,6 +1046,9 @@ export const GOALIE_STATS: GoalieStats[] = [
     "name": "Alexandre Langlais",
     "teamId": "4",
     "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0,
     "wins": 0,
     "losses": 0,
     "draws": 0,
@@ -1057,6 +1061,9 @@ export const GOALIE_STATS: GoalieStats[] = [
     "name": "Guillaume Auger",
     "teamId": "t_1775579370484",
     "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0,
     "wins": 0,
     "losses": 0,
     "draws": 0,
@@ -1069,6 +1076,9 @@ export const GOALIE_STATS: GoalieStats[] = [
     "name": "Dave Fortin",
     "teamId": "3",
     "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0,
     "wins": 0,
     "losses": 0,
     "draws": 0,
