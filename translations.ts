@@ -35,7 +35,7 @@ export const translations = {
       prizeTitle: 'League Prize',
       viewAddress: 'Get Directions',
       openingDaySpecialTitle: 'Opening Day Special!',
-      openingDaySpecialText: 'On opening day, every player of every team will receive a Popeyes bottle, a $10 gift card from Popeyes, and gifts from our other sponsors!',
+      openingDaySpecialText: 'On opening day, every player of every team will receive a Popeyes bottle, a $10 gift card from Popeyes, and free samples at their table in the lobby!',
       becomePartner: 'Become a Partner',
       ctaTitle: 'Want to reach our local community?',
       ctaSubtitle: "Join us in supporting the Montreal Children's Hospital while growing your business. Become a Next Gen Hockey partner today.",

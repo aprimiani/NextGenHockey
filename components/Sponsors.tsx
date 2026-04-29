@@ -23,21 +23,21 @@ const Sponsors: React.FC = () => {
       </div>
 
       {/* Opening Day Special Banner */}
-      <div className="mb-10 bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-xl p-4 sm:p-6 relative overflow-hidden group hover:border-ng-light-blue/40 transition-all duration-500">
-        <div className="absolute top-0 right-0 w-48 h-48 bg-ng-light-blue/5 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-ng-light-blue/10 transition-all duration-500"></div>
-        <div className="relative flex flex-col md:flex-row items-center gap-4 sm:gap-8">
-          <div className="flex-shrink-0 bg-ng-light-blue text-ng-navy p-3 rounded-lg rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-md shadow-ng-light-blue/20">
-            <Gift size={24} className="animate-pulse" />
+      <div className="mb-10 bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-xl p-3 sm:p-4 md:p-5 relative overflow-hidden group hover:border-ng-light-blue/40 transition-all duration-500 max-w-4xl mx-auto">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-ng-light-blue/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-ng-light-blue/10 transition-all duration-500"></div>
+        <div className="relative flex flex-col md:flex-row items-center gap-4 md:gap-6">
+          <div className="flex-shrink-0 bg-ng-light-blue text-ng-navy p-2.5 rounded-lg rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-md shadow-ng-light-blue/20">
+            <Gift size={20} className="animate-pulse" />
           </div>
-          <div className="flex-grow">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-ng-light-blue mb-1">
-              <Star size={12} className="fill-ng-light-blue animate-spin-slow" />
-              <span className="text-[9px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
+          <div className="flex-grow text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-1.5 text-ng-light-blue mb-0.5">
+              <Star size={10} className="fill-ng-light-blue animate-spin-slow" />
+              <span className="text-[8px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-black text-white uppercase italic tracking-tighter mb-1 leading-tight text-center md:text-left transition-colors group-hover:text-ng-light-blue">
+            <h3 className="text-base sm:text-lg font-black text-white uppercase italic tracking-tighter mb-0.5 leading-tight transition-colors group-hover:text-ng-light-blue">
               {t.sponsors.openingDaySpecialTitle}
             </h3>
-            <p className="text-gray-300 text-sm sm:text-base font-medium leading-relaxed max-w-2xl text-center md:text-left">
+            <p className="text-gray-300 text-xs sm:text-sm font-medium leading-relaxed max-w-2xl">
               {t.sponsors.openingDaySpecialText}
             </p>
           </div>
