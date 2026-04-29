@@ -30,14 +30,14 @@ const Sponsors: React.FC = () => {
             <Gift size={16} className="animate-pulse" />
           </div>
           <div className="flex-grow text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-1 text-ng-light-blue mb-0.5">
-              <Star size={8} className="fill-ng-light-blue animate-spin-slow" />
-              <span className="text-[7px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
+            <div className="flex items-center justify-center md:justify-start gap-1.5 text-ng-light-blue mb-0.5">
+              <Star size={10} className="fill-ng-light-blue animate-spin-slow" />
+              <span className="text-[8px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
             </div>
-            <h3 className="text-sm sm:text-base font-black text-white uppercase italic tracking-tighter mb-0.5 leading-tight transition-colors group-hover:text-ng-light-blue">
+            <h3 className="text-base sm:text-lg font-black text-white uppercase italic tracking-tighter mb-0.5 leading-tight transition-colors group-hover:text-ng-light-blue">
               {t.sponsors.openingDaySpecialTitle}
             </h3>
-            <p className="text-gray-400 text-[10px] sm:text-xs font-medium leading-tight max-w-xl">
+            <p className="text-gray-400 text-xs sm:text-sm font-medium leading-tight max-w-xl">
               {t.sponsors.openingDaySpecialText}
             </p>
           </div>
