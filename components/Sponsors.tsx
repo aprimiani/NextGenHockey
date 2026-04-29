@@ -1,14 +1,99 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { MapPin, Star, Gift, ArrowRight, Trophy } from 'lucide-react';
+import { MapPin, Star, Gift, ArrowRight, Trophy, ExternalLink } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 const Sponsors: React.FC = () => {
   const { t } = useLanguage();
 
   const handleAddressClick = (address: string) => {
+    if (!address) return;
     const encodedAddress = encodeURIComponent(address);
     window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+  };
+
+  const renderPartnerCard = (partner: any, idx: number) => {
+    const isSilver = partner.prizeType === 'silver';
+    const prizeTextClass = isSilver ? 'text-slate-300' : 'text-yellow-500';
+    const prizeBorderClass = isSilver ? 'border-slate-400/50 hover:border-slate-300 hover:shadow-slate-400/10' : 'border-yellow-500/50 hover:border-yellow-500 hover:shadow-yellow-500/10';
+    const prizeHeaderBgClass = isSilver ? 'bg-slate-400/10 border-slate-400/20' : 'bg-yellow-500/10 border-yellow-500/20';
+    const prizeIconClass = isSilver ? 'text-slate-300 fill-slate-300' : 'text-yellow-500 fill-yellow-500';
+    const prizePerkBgClass = isSilver ? 'bg-slate-400/5 border-slate-400/20 group-hover:bg-slate-400/10' : 'bg-yellow-500/5 border-yellow-500/20 group-hover:bg-yellow-500/10';
+    const prizePerkLabelClass = isSilver ? 'bg-slate-400' : 'bg-yellow-500';
+
+    return (
+      <div 
+        key={idx} 
+        className={`group bg-ng-blue/30 rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl ${partner.isPrize ? prizeBorderClass : 'border-gray-700 hover:border-ng-light-blue hover:shadow-ng-light-blue/10'}`}
+      >
+        {/* Header / Category */}
+        <div className={`p-4 flex justify-between items-center border-b ${partner.isPrize ? prizeHeaderBgClass : 'bg-ng-navy border-gray-700'}`}>
+          <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'}`}>
+            {partner.category}
+          </span>
+          {partner.isPrize ? (
+            <Trophy size={14} className={prizeIconClass} />
+          ) : (
+            <Star size={14} className="text-yellow-500 fill-yellow-500" />
+          )}
+        </div>
+
+        <div className="p-8 flex-grow flex flex-col">
+          <h3 className="text-2xl font-black text-white uppercase italic mb-4">
+            {partner.name}
+          </h3>
+          <p className="text-gray-400 text-sm leading-relaxed mb-6">
+            {partner.description}
+          </p>
+
+          {/* Perk Box */}
+          <div className={`border rounded-xl p-5 relative transition-colors mb-6 ${partner.isPrize ? prizePerkBgClass : 'bg-ng-light-blue/10 border-ng-light-blue/20 group-hover:bg-ng-light-blue/20'}`}>
+            <div className={`absolute -top-3 left-4 text-ng-navy text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1 ${partner.isPrize ? prizePerkLabelClass : 'bg-ng-light-blue'}`}>
+              {partner.isPrize ? <Trophy size={10} /> : <Gift size={10} />} 
+              {partner.isPrize ? t.sponsors.prizeTitle : t.sponsors.perkTitle}
+            </div>
+            <p className="text-white font-bold text-sm">
+              {partner.perk}
+            </p>
+          </div>
+
+          {/* Address Display */}
+          <div className="mt-auto">
+            {partner.address ? (
+              <div className="flex items-start gap-2 text-gray-400 text-xs">
+                 <MapPin size={14} className={`${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'} shrink-0 mt-0.5`} />
+                 <span className="italic">{partner.address}</span>
+              </div>
+            ) : partner.website && (
+              <div className="flex items-start gap-2 text-gray-400 text-xs">
+                 <ExternalLink size={14} className="text-ng-light-blue shrink-0 mt-0.5" />
+                 <span className="italic">{t.nav.home} Official Partner</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="p-4 bg-ng-navy/50 border-t border-gray-700 mt-auto">
+           {partner.website ? (
+             <a 
+               href={partner.website}
+               target="_blank"
+               rel="noopener noreferrer"
+               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
+             >
+               {t.sponsors.viewWebsite} <ExternalLink size={14} />
+             </a>
+           ) : (
+             <button 
+               onClick={() => handleAddressClick(partner.address)}
+               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
+              >
+               {t.sponsors.viewAddress} <MapPin size={14} />
+             </button>
+           )}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -44,73 +129,55 @@ const Sponsors: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        {t.sponsors.partners.map((partner: any, idx: number) => {
-          const isSilver = partner.prizeType === 'silver';
-          const prizeColorClass = isSilver ? 'slate-400' : 'yellow-500';
-          const prizeTextClass = isSilver ? 'text-slate-300' : 'text-yellow-500';
-          const prizeBorderClass = isSilver ? 'border-slate-400/50 hover:border-slate-300 hover:shadow-slate-400/10' : 'border-yellow-500/50 hover:border-yellow-500 hover:shadow-yellow-500/10';
-          const prizeHeaderBgClass = isSilver ? 'bg-slate-400/10 border-slate-400/20' : 'bg-yellow-500/10 border-yellow-500/20';
-          const prizeIconClass = isSilver ? 'text-slate-300 fill-slate-300' : 'text-yellow-500 fill-yellow-500';
-          const prizePerkBgClass = isSilver ? 'bg-slate-400/5 border-slate-400/20 group-hover:bg-slate-400/10' : 'bg-yellow-500/5 border-yellow-500/20 group-hover:bg-yellow-500/10';
-          const prizePerkLabelClass = isSilver ? 'bg-slate-400' : 'bg-yellow-500';
+      {/* Partners Groups */}
+      <div className="space-y-16">
+        {/* General Perks */}
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <Gift className="text-ng-light-blue" size={24} />
+            <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-wider">
+              {t.sponsors.perksGroupTitle}
+            </h3>
+            <div className="flex-grow h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {t.sponsors.partners
+              .filter((p: any) => !p.isPrize)
+              .map((partner: any, idx: number) => renderPartnerCard(partner, idx))}
+          </div>
+        </div>
 
-          return (
-            <div 
-              key={idx} 
-              className={`group bg-ng-blue/30 rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl ${partner.isPrize ? prizeBorderClass : 'border-gray-700 hover:border-ng-light-blue hover:shadow-ng-light-blue/10'}`}
-            >
-              {/* Header / Category */}
-              <div className={`p-4 flex justify-between items-center border-b ${partner.isPrize ? prizeHeaderBgClass : 'bg-ng-navy border-gray-700'}`}>
-                <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'}`}>
-                  {partner.category}
-                </span>
-                {partner.isPrize ? (
-                  <Trophy size={14} className={prizeIconClass} />
-                ) : (
-                  <Star size={14} className="text-yellow-500 fill-yellow-500" />
-                )}
-              </div>
+        {/* Finalist Prizes */}
+        <div>
+          <div className="flex items-center gap-4 mb-8">
+            <Trophy className="text-slate-400" size={24} />
+            <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-wider">
+              {t.sponsors.finalistGroupTitle}
+            </h3>
+            <div className="flex-grow h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {t.sponsors.partners
+              .filter((p: any) => p.isPrize && p.prizeType === 'silver')
+              .map((partner: any, idx: number) => renderPartnerCard(partner, idx))}
+          </div>
+        </div>
 
-              <div className="p-8 flex-grow">
-                <h3 className="text-2xl font-black text-white uppercase italic mb-4">
-                  {partner.name}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">
-                  {partner.description}
-                </p>
-
-                {/* Perk Box */}
-                <div className={`border rounded-xl p-5 relative transition-colors mb-6 ${partner.isPrize ? prizePerkBgClass : 'bg-ng-light-blue/10 border-ng-light-blue/20 group-hover:bg-ng-light-blue/20'}`}>
-                  <div className={`absolute -top-3 left-4 text-ng-navy text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1 ${partner.isPrize ? prizePerkLabelClass : 'bg-ng-light-blue'}`}>
-                    {partner.isPrize ? <Trophy size={10} /> : <Gift size={10} />} 
-                    {partner.isPrize ? t.sponsors.prizeTitle : t.sponsors.perkTitle}
-                  </div>
-                  <p className="text-white font-bold text-sm">
-                    {partner.perk}
-                  </p>
-                </div>
-
-                {/* Address Display */}
-                {partner.address && (
-                  <div className="flex items-start gap-2 text-gray-400 text-xs mt-auto">
-                     <MapPin size={14} className={`${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'} shrink-0 mt-0.5`} />
-                     <span className="italic">{partner.address}</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="p-4 bg-ng-navy/50 border-t border-gray-700 mt-auto">
-                 <button 
-                   onClick={() => handleAddressClick(partner.address)}
-                   className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
-                  >
-                   {t.sponsors.viewAddress} <MapPin size={14} />
-                 </button>
-              </div>
-            </div>
-          );
-        })}
+        {/* Championship Prizes */}
+        <div className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <Trophy className="text-yellow-500" size={24} />
+            <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-wider">
+              {t.sponsors.championshipGroupTitle}
+            </h3>
+            <div className="flex-grow h-px bg-gradient-to-r from-gray-700 to-transparent"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {t.sponsors.partners
+              .filter((p: any) => p.isPrize && p.prizeType === 'gold')
+              .map((partner: any, idx: number) => renderPartnerCard(partner, idx))}
+          </div>
+        </div>
       </div>
 
       {/* CTA Section */}

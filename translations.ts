@@ -33,7 +33,11 @@ export const translations = {
       subtitle: 'Exclusive perks and discounts for Next Gen Hockey players.',
       perkTitle: 'Player Perk',
       prizeTitle: 'League Prize',
+      perksGroupTitle: 'Exclusive Player Perks',
+      finalistGroupTitle: 'Finalist Prizes',
+      championshipGroupTitle: 'Championship Prizes',
       viewAddress: 'Get Directions',
+      viewWebsite: 'Visit Website',
       openingDaySpecialTitle: 'Opening Day Special!',
       openingDaySpecialText: 'On opening day, every player of every team will receive a Popeyes bottle and a $10 gift card from Popeyes! Visit their table in the lobby before your game for free samples and to pick up your gear.',
       becomePartner: 'Become a Partner',
@@ -55,13 +59,20 @@ export const translations = {
           address: '66 QC-132, Delson, Quebec J5B 0A1'
         },
         {
-          name: 'Pasquier Delson',
-          description: 'A premier local grocery store supporting our league champions with quality food and service.',
-          perk: '$15 gift card for every member of the Championship team!',
-          category: 'Championship Prize',
-          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          name: 'Howies Hockey Tape',
+          description: 'Online retailer for premium hockey tape, equipment and apparel.',
+          perk: 'Get 15% off your next order! Use code NXTGENHKY15 at checkout (Activates May 1st, Expires Sept 30th at midnight).',
+          category: 'Gear & Equipment',
+          website: 'https://howieshockeytape.ca/?utm_source=google&utm_medium=&utm_campaign=22577683823&utm_content=&utm_term=&gad_source=1&gad_campaignid=22577679965&gbraid=0AAAAAC6zBT9LP9FnV1WP7T7pr_tRUeJz_&gclid=Cj0KCQjw2MbPBhCSARIsAP3jP9wRSpC0YEZ0MM5QIquNN63MoC6bG944VrWPBK5oQkJS7o4Z5-9pf9kaAmnREALw_wcB&shpxid=f7731958-cec5-4d3d-8f01-3e620ce9a78f'
+        },
+        {
+          name: 'Subway Delson (Finalist)',
+          description: 'Subway supports our top teams with fresh catering for their post-season celebrations.',
+          perk: '2 sandwich trays for the entire team!',
+          category: 'Finalist Prize',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
           isPrize: true,
-          prizeType: 'gold'
+          prizeType: 'silver'
         },
         {
           name: 'Royal Amusement',
@@ -73,12 +84,22 @@ export const translations = {
           prizeType: 'silver'
         },
         {
-          name: 'Subway Delson (Prizes)',
+          name: 'Subway Delson (Champion)',
           description: 'Subway supports our top teams with fresh catering for their post-season celebrations.',
-          perk: '2 sandwich trays for the Champions and 2 sandwich trays for the Finalists!',
-          category: 'Championship/Finalist Prize',
+          perk: '2 sandwich trays for the entire team!',
+          category: 'Championship Prize',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'gold'
+        },
+        {
+          name: 'Pasquier Delson',
+          description: 'A premier local grocery store supporting our league champions with quality food and service.',
+          perk: '$15 gift card for every member of the Championship team!',
+          category: 'Championship Prize',
+          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          isPrize: true,
+          prizeType: 'gold'
         }
       ]
     },
@@ -512,7 +533,11 @@ export const translations = {
       subtitle: 'Avantages exclusifs et rabais pour les joueurs de Next Gen Hockey.',
       perkTitle: 'Avantage Joueur',
       prizeTitle: 'Prix de la Ligue',
+      perksGroupTitle: 'Avantages Exclusifs aux Joueurs',
+      finalistGroupTitle: 'Prix de Finaliste',
+      championshipGroupTitle: 'Prix de Championnat',
       viewAddress: 'Directions',
+      viewWebsite: 'Visiter le site web',
       openingDaySpecialTitle: 'Spécial Jour d\'Ouverture !',
       openingDaySpecialText: 'Le jour de l\'ouverture, chaque joueur de chaque équipe recevra une bouteille Popeyes et une carte-cadeau de 10 $ de Popeyes ! Visitez leur table dans l\'entrée avant votre match pour des échantillons gratuits et pour récupérer votre équipement.',
       becomePartner: 'Devenir partenaire',
@@ -522,7 +547,7 @@ export const translations = {
         {
           name: 'Subway Delson',
           description: 'Fier partenaire local de Next Gen Hockey. Faites le plein d\'énergie avec des ingrédients frais avant ou après votre match à la succursale de Delson.',
-          perk: 'Carte de rabais exclusive pour la saison : Obtenez 20 % de rabais sur votre commande ! De plus, visitez avec un ami et présentez une deuxième carte pour obtenir 6 biscuits pour seulement 1 $.',
+          perk: 'Carte de rabais exclusive pour la saison : Obtenez 20 % de rabais sur votre commande ! De plus, visitez avec un ami et présentez une deuxième carte pour obtenir 6 biscuits pour seulement 1 $..',
           category: 'Restauration',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5'
         },
@@ -534,13 +559,20 @@ export const translations = {
           address: '66 QC-132, Delson, Quebec J5B 0A1'
         },
         {
-          name: 'Pasquier Delson',
-          description: 'Une épicerie locale de premier plan soutenant nos champions de ligue avec des produits et un service de qualité.',
-          perk: 'Une carte-cadeau de 15 $ pour chaque membre de l\'équipe championne des séries !',
-          category: 'Prix Championnat',
-          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          name: 'Howies Hockey Tape',
+          description: 'Détaillant en ligne de ruban de hockey, d\'équipement et de vêtements de première qualité.',
+          perk: 'Obtenez 15 % de rabais sur votre prochaine commande ! Utilisez le code NXTGENHKY15 lors du paiement (Active le 1er mai, expire le 30 sept. à minuit).',
+          category: 'Équipement',
+          website: 'https://howieshockeytape.ca/?utm_source=google&utm_medium=&utm_campaign=22577683823&utm_content=&utm_term=&gad_source=1&gad_campaignid=22577679965&gbraid=0AAAAAC6zBT9LP9FnV1WP7T7pr_tRUeJz_&gclid=Cj0KCQjw2MbPBhCSARIsAP3jP9wRSpC0YEZ0MM5QIquNN63MoC6bG944VrWPBK5oQkJS7o4Z5-9pf9kaAmnREALw_wcB&shpxid=f7731958-cec5-4d3d-8f01-3e620ce9a78f'
+        },
+        {
+          name: 'Subway Delson (Finaliste)',
+          description: 'Subway soutient nos meilleures équipes avec un service de traiteur frais pour leurs célébrations de fin de saison.',
+          perk: '2 plateaux de sous-marins pour toute l\'équipe !',
+          category: 'Prix Finaliste',
+          address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
           isPrize: true,
-          prizeType: 'gold'
+          prizeType: 'silver'
         },
         {
           name: 'Royal Amusement',
@@ -552,12 +584,22 @@ export const translations = {
           prizeType: 'silver'
         },
         {
-          name: 'Subway Delson (Prix)',
+          name: 'Subway Delson (Champion)',
           description: 'Subway soutient nos meilleures équipes avec un service de traiteur frais pour leurs célébrations de fin de saison.',
-          perk: '2 plateaux de sous-marins pour les champions et 2 plateaux pour les finalistes !',
-          category: 'Prix Championnat/Finaliste',
+          perk: '2 plateaux de sous-marins pour toute l\'équipe !',
+          category: 'Prix Championnat',
           address: '15, 41 Boulevard Georges-Gagné S Space 35-013, Delson, QC J5B 2E5',
-          isPrize: true
+          isPrize: true,
+          prizeType: 'gold'
+        },
+        {
+          name: 'Pasquier Delson',
+          description: 'Une épicerie locale de premier plan soutenant nos champions de ligue avec des produits et un service de qualité.',
+          perk: 'Une carte-cadeau de 15 $ pour chaque membre de l\'équipe championne des séries !',
+          category: 'Prix Championnat',
+          address: '31 Boulevard Georges-Gagné S, Delson, QC J5B 2E4',
+          isPrize: true,
+          prizeType: 'gold'
         }
       ]
     },
