@@ -514,7 +514,7 @@ export const translations = {
       prizeTitle: 'Prix de la Ligue',
       viewAddress: 'Directions',
       openingDaySpecialTitle: 'Spécial Jour d\'Ouverture !',
-      openingDaySpecialText: 'Le jour de l\'ouverture, chaque joueur de chaque équipe recevra une bouteille Popeyes, une carte-cadeau de 10 $ de Popeyes, ainsi que des cadeaux de nos autres partenaires !',
+      openingDaySpecialText: 'Le jour de l\'ouverture, chaque joueur de chaque équipe recevra une bouteille Popeyes et une carte-cadeau de 10 $ de Popeyes ! Visitez leur table dans l\'entrée avant votre match pour des échantillons gratuits et pour récupérer votre équipement.',
       becomePartner: 'Devenir partenaire',
       ctaTitle: 'Vous voulez rejoindre notre communauté locale ?',
       ctaSubtitle: "Joignez-vous à nous pour soutenir l'Hôpital de Montréal pour enfants tout en développant votre entreprise. Devenez partenaire de Next Gen Hockey dès aujourd'hui.",

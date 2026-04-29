@@ -95,7 +95,7 @@ export const TEAMS: Team[] = [
   },
   {
     "id": "t_1775579415800",
-    "name": "Huskies",
+    "name": "Frozen Furries",
     "gp": 0,
     "wins": 0,
     "losses": 0,
@@ -103,7 +103,7 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#22c55e"
+    "logoColor": "#000000"
   }
 ];
 
@@ -1093,7 +1093,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {};
 export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey. You provide information about the league, teams, players, schedule, and standings. You can also help with registration and rules.
 
 Current League Data:
-- Teams: Bots, Jets, Milf Hunters, Redlight, Wise Guys, Huskies
+- Teams: Bots, Jets, Milf Hunters, Redlight, Wise Guys, Frozen Furries
 - Location: Sportium
 - Season: Summer 2026 (Starts May 10th)
 
