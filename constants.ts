@@ -103,7 +103,7 @@ export const TEAMS: Team[] = [
     "points": 0,
     "goalsFor": 0,
     "goalsAgainst": 0,
-    "logoColor": "#000000"
+    "logoColor": "#84cc16"
   }
 ];
 
