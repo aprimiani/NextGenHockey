@@ -265,8 +265,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_1771798334065",
     "date": "2026-07-12",
     "time": "18:30",
-    "homeTeamId": "2",
-    "awayTeamId": "3",
+    "homeTeamId": "t_1775579415800",
+    "awayTeamId": "t_1775579370484",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -292,8 +292,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_1771798464840",
     "date": "2026-07-26",
     "time": "14:00",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579370484",
+    "homeTeamId": "t_1775579415800",
+    "awayTeamId": "3",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -409,8 +409,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_1776044440781",
     "date": "2026-07-26",
     "time": "19:30",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "3",
+    "homeTeamId": "1",
+    "awayTeamId": "t_1775579370484",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -427,8 +427,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_1776044443034",
     "date": "2026-07-12",
     "time": "19:30",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "t_1775579370484",
+    "homeTeamId": "2",
+    "awayTeamId": "3",
     "location": "Sportium",
     "status": "scheduled"
   }
@@ -977,7 +977,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_1767082323831",
-    "name": "Xavier Lussier",
+    "name": "Jérémy Quenneville",
     "teamId": "1",
     "gp": 0,
     "goals": 0,
@@ -1001,6 +1001,33 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_1778425131558",
+    "name": "Ryan Turcotte",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1778425132617",
+    "name": "Anthony Roy",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_1778425149518",
+    "name": "Nathan Riendeau",
+    "teamId": "1",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -1019,7 +1046,7 @@ export const GOALIE_STATS: GoalieStats[] = [
   },
   {
     "id": "goalie_1767082104234",
-    "name": "Michael-Joseph Primiani",
+    "name": "William Thibodeau",
     "teamId": "1",
     "gp": 0,
     "wins": 0,
