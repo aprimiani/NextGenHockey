@@ -169,10 +169,41 @@ const Schedule: React.FC = () => {
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.goalieStats}</h3>
                     <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-700">
-                            <thead><tr className="bg-ng-navy/30"><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th><th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th><th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">Saves</th></tr></thead>
+                            <thead>
+                                <tr className="bg-ng-navy/30">
+                                    <th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th>
+                                    <th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th>
+                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th>
+                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th>
+                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">Saves</th>
+                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.svPct}</th>
+                                </tr>
+                            </thead>
                             <tbody className="divide-y divide-gray-700">
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.homeGoalie.playerId)}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td><td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.homeGoalie.saves}</td></tr>
-                                <tr className="hover:bg-white/5"><td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td><td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.awayGoalie.playerId)}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td><td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td><td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.awayGoalie.saves}</td></tr>
+                                <tr className="hover:bg-white/5">
+                                    <td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td>
+                                    <td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.homeGoalie.playerId)}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.homeGoalie.saves}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-yellow-500 font-mono font-bold">
+                                        {selectedRecap.goalieStats.homeGoalie.shotsFaced > 0 
+                                            ? (selectedRecap.goalieStats.homeGoalie.saves / selectedRecap.goalieStats.homeGoalie.shotsFaced).toFixed(3) 
+                                            : '.000'}
+                                    </td>
+                                </tr>
+                                <tr className="hover:bg-white/5">
+                                    <td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td>
+                                    <td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.awayGoalie.playerId)}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.awayGoalie.saves}</td>
+                                    <td className="px-4 py-3 text-sm text-center text-yellow-500 font-mono font-bold">
+                                        {selectedRecap.goalieStats.awayGoalie.shotsFaced > 0 
+                                            ? (selectedRecap.goalieStats.awayGoalie.saves / selectedRecap.goalieStats.awayGoalie.shotsFaced).toFixed(3) 
+                                            : '.000'}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

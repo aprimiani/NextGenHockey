@@ -36,13 +36,13 @@ export const TEAMS: Team[] = [
   {
     "id": "1",
     "name": "Bots",
-    "gp": 0,
-    "wins": 0,
+    "gp": 1,
+    "wins": 1,
     "losses": 0,
     "ties": 0,
-    "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "points": 2,
+    "goalsFor": 8,
+    "goalsAgainst": 5,
     "logoColor": "#f59e0b"
   },
   {
@@ -96,13 +96,13 @@ export const TEAMS: Team[] = [
   {
     "id": "t_1775579415800",
     "name": "Frozen Furries",
-    "gp": 0,
+    "gp": 1,
     "wins": 0,
-    "losses": 0,
+    "losses": 1,
     "ties": 0,
     "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "goalsFor": 5,
+    "goalsAgainst": 8,
     "logoColor": "#84cc16"
   }
 ];
@@ -115,7 +115,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "1",
     "awayTeamId": "t_1775579415800",
     "location": "Sportium",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 8,
+    "awayScore": 5
   },
   {
     "id": "g_1771797306185",
@@ -439,10 +441,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p1",
     "name": "Alessandro Primiani",
     "teamId": "1",
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 1,
     "assists": 0,
-    "points": 0
+    "points": 1
   },
   {
     "id": "p_1775579858742",
@@ -529,10 +531,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1767082324693",
     "name": "Arnaud Gamelin",
     "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
+    "gp": 1,
+    "goals": 2,
+    "assists": 1,
+    "points": 3
   },
   {
     "id": "p_1775591152854",
@@ -574,10 +576,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1775591028719",
     "name": "Dylan Caplan-Boutet",
     "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 1,
     "assists": 0,
-    "points": 0
+    "points": 1
   },
   {
     "id": "p_1772917089971",
@@ -646,10 +648,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1775591027631",
     "name": "Isaac Huberman",
     "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 3,
     "assists": 0,
-    "points": 0
+    "points": 3
   },
   {
     "id": "p_1775579857302",
@@ -673,10 +675,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1767082286306",
     "name": "Jérémy Dumont",
     "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
+    "gp": 1,
+    "goals": 2,
+    "assists": 2,
+    "points": 4
   },
   {
     "id": "p_1772917089084",
@@ -700,10 +702,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1775591141404",
     "name": "Liam Chysyk",
     "teamId": "t_1775579415800",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
+    "gp": 1,
+    "goals": 1,
+    "assists": 1,
+    "points": 2
   },
   {
     "id": "p_1771962876661",
@@ -853,10 +855,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1775591101053",
     "name": "Nathan Godin",
     "teamId": "t_1775579415800",
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "p_1767082302464",
@@ -916,10 +918,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1775591101854",
     "name": "Thomas Sousa Moniz",
     "teamId": "t_1775579415800",
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 2,
+    "points": 2
   },
   {
     "id": "p2",
@@ -979,10 +981,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1767082323831",
     "name": "Jérémy Quenneville",
     "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
+    "gp": 1,
+    "goals": 1,
+    "assists": 2,
+    "points": 3
   },
   {
     "id": "p_1767082317648",
@@ -1015,19 +1017,19 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1778425132617",
     "name": "Anthony Roy",
     "teamId": "1",
-    "gp": 0,
-    "goals": 0,
-    "assists": 0,
-    "points": 0
+    "gp": 1,
+    "goals": 2,
+    "assists": 1,
+    "points": 3
   },
   {
     "id": "p_1778425149518",
     "name": "Nathan Riendeau",
     "teamId": "1",
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 2,
+    "points": 2
   }
 ];
 
@@ -1036,25 +1038,25 @@ export const GOALIE_STATS: GoalieStats[] = [
     "id": "g1",
     "name": "Nicolas Primiani",
     "teamId": "t_1775579415800",
-    "gp": 0,
+    "gp": 1,
     "wins": 0,
-    "losses": 0,
+    "losses": 1,
     "draws": 0,
-    "saves": 0,
-    "shotsAgainst": 0,
-    "goalsAgainst": 0
+    "saves": 20,
+    "shotsAgainst": 28,
+    "goalsAgainst": 8
   },
   {
     "id": "goalie_1767082104234",
     "name": "William Thibodeau",
     "teamId": "1",
-    "gp": 0,
-    "wins": 0,
+    "gp": 1,
+    "wins": 1,
     "losses": 0,
     "draws": 0,
-    "saves": 0,
-    "shotsAgainst": 0,
-    "goalsAgainst": 0
+    "saves": 26,
+    "shotsAgainst": 31,
+    "goalsAgainst": 5
   },
   {
     "id": "goalie_1771963002603",
@@ -1115,7 +1117,170 @@ export const GOALIE_STATS: GoalieStats[] = [
   }
 ];
 
-export const GAME_RECAPS: Record<string, GameRecapData> = {};
+export const GAME_RECAPS: Record<string, GameRecapData> = {
+  "g_1771797304880": {
+    "gameId": "g_1771797304880",
+    "events": [
+      {
+        "id": "e_1778444300781",
+        "type": "goal",
+        "period": 1,
+        "time": "3:02",
+        "teamId": "1",
+        "player": "p_1767082324693",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444354117",
+        "type": "goal",
+        "period": 1,
+        "time": "6:30",
+        "teamId": "1",
+        "player": "p_1767082286306",
+        "assist": "p_1767082324693",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444368939",
+        "type": "goal",
+        "period": 1,
+        "time": "9:55",
+        "teamId": "1",
+        "player": "p_1767082323831",
+        "assist": "p_1767082286306",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444370318",
+        "type": "goal",
+        "period": 2,
+        "time": "5:30",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591027631",
+        "assist": "p_1775591101053",
+        "assist2": "p_1775591101854",
+        "details": ""
+      },
+      {
+        "id": "e_1778444370758",
+        "type": "goal",
+        "period": 2,
+        "time": "8:04",
+        "teamId": "1",
+        "player": "p_1767082286306",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444371223",
+        "type": "goal",
+        "period": 2,
+        "time": "10:05",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591027631",
+        "assist": "p_1775591101854",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444371663",
+        "type": "goal",
+        "period": 3,
+        "time": "5:22",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591028719",
+        "assist": "p_1775591141404",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444372027",
+        "type": "goal",
+        "period": 3,
+        "time": "8:25",
+        "teamId": "1",
+        "player": "p_1778425132617",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444612375",
+        "type": "goal",
+        "period": 3,
+        "time": "9:35",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591027631",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444613163",
+        "type": "goal",
+        "period": 3,
+        "time": "10:18",
+        "teamId": "1",
+        "player": "p_1767082324693",
+        "assist": "p_1767082286306",
+        "assist2": "p_1767082323831",
+        "details": ""
+      },
+      {
+        "id": "e_1778444613807",
+        "type": "goal",
+        "period": 3,
+        "time": "11:25",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591141404",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444711860",
+        "type": "goal",
+        "period": 3,
+        "time": "12:35",
+        "teamId": "1",
+        "player": "p_1778425132617",
+        "assist": "p_1778425149518",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_1778444712330",
+        "type": "goal",
+        "period": 3,
+        "time": "13:45",
+        "teamId": "1",
+        "player": "p1",
+        "assist": "p_1778425132617",
+        "assist2": "p_1778425149518",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 31,
+        "goalsAgainst": 5,
+        "saves": 26
+      },
+      "awayGoalie": {
+        "playerId": "g1",
+        "shotsFaced": 28,
+        "goalsAgainst": 8,
+        "saves": 20
+      }
+    }
+  }
+};
 
 export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen Hockey. You provide information about the league, teams, players, schedule, and standings. You can also help with registration and rules.
 
