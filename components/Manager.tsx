@@ -251,12 +251,18 @@ const Manager: React.FC = () => {
           awayTeam.points += 1;
         }
 
-        // 3. Process Recap Events (Goals & Assists)
+        // 3. Increment GP for all players in the game (User Request: auto-add 1 GP to all team players)
+        newPlayers.forEach(p => {
+          if (p.teamId === game.homeTeamId || p.teamId === game.awayTeamId) {
+            p.gp++;
+          }
+        });
+
+        // 4. Process Recap Events (Goals & Assists)
         if (recap) {
           recap.events.filter(e => e.type === 'goal').forEach(event => {
             const scorer = newPlayers.find(p => p.id === event.player);
             if (scorer) {
-              scorer.gp = scorer.gp || 0; // Ensure it's initialized
               scorer.goals++;
               scorer.points++;
             }
@@ -271,32 +277,8 @@ const Manager: React.FC = () => {
               assist2.points++;
             }
           });
-
-          // Update GP for all players in the recap (this is tricky because we don't have a full roster in the recap)
-          // For now, we'll increment GP for anyone who scored or assisted. 
-          // A better way would be to have a "lineup" in the recap.
-          // Let's at least ensure everyone involved gets a GP.
-          const playersInGame = new Set<string>();
-          recap.events.forEach(e => {
-            if (e.player) playersInGame.add(e.player);
-            if (e.assist) playersInGame.add(e.assist);
-            if (e.assist2) playersInGame.add(e.assist2);
-          });
-          playersInGame.forEach(pid => {
-            const p = newPlayers.find(player => player.id === pid);
-            if (p) {
-              p.gp++;
-            }
-          });
           
-          // Let's refine GP logic: increment GP for any player who is on the team and the game was played.
-          // But some players might be absent. 
-          // User said: "I can select from the actual team lineup amongst thier players"
-          // For now, let's assume if they are in the recap, they played.
-          // To be more accurate, we'd need a "Played" checkbox for the whole roster.
-          // Let's stick to the user's request: "stats from that game automatically updates"
-          
-          // 4. Process Goalie Stats
+          // 5. Process Goalie Stats
           const hGoalie = newGoalies.find(g => g.id === recap.goalieStats.homeGoalie.playerId);
           const aGoalie = newGoalies.find(g => g.id === recap.goalieStats.awayGoalie.playerId);
 
@@ -694,14 +676,14 @@ const Manager: React.FC = () => {
                           <div className="grid grid-cols-3 gap-3">
                               <div className="space-y-1">
                                 <label className="text-[8px] text-gray-500 uppercase font-bold">Shots</label>
-                                <input type="number" value={stats.shotsFaced} onChange={(e) => {
+                                <input type="number" value={isNaN(stats.shotsFaced) ? 0 : stats.shotsFaced} onChange={(e) => {
                                   const shots = parseInt(e.target.value) || 0;
                                   updateRecap('goalieStats', side, { shotsFaced: shots, saves: shots - stats.goalsAgainst });
                                 }} className="w-full bg-gray-900 text-white text-xs p-2 rounded border border-gray-700" />
                               </div>
                               <div className="space-y-1">
                                 <label className="text-[8px] text-gray-500 uppercase font-bold">Goals Allowed</label>
-                                <input type="number" value={stats.goalsAgainst} onChange={(e) => {
+                                <input type="number" value={isNaN(stats.goalsAgainst) ? 0 : stats.goalsAgainst} onChange={(e) => {
                                   const ga = parseInt(e.target.value) || 0;
                                   updateRecap('goalieStats', side, { goalsAgainst: ga, saves: stats.shotsFaced - ga });
                                 }} className="w-full bg-gray-900 text-white text-xs p-2 rounded border border-gray-700" />
@@ -853,10 +835,10 @@ const Manager: React.FC = () => {
                                             )}
                                         </div>
                                     </td>
-                                    <td className="p-3 text-center"><input type="number" value={team.wins} onChange={(e) => handleTeamUpdate(team.id, 'wins', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                    <td className="p-3 text-center"><input type="number" value={team.losses} onChange={(e) => handleTeamUpdate(team.id, 'losses', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                    <td className="p-3 text-center"><input type="number" value={team.ties} onChange={(e) => handleTeamUpdate(team.id, 'ties', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                    <td className="p-3 text-center"><input type="number" value={team.points} onChange={(e) => handleTeamUpdate(team.id, 'points', parseInt(e.target.value))} className="w-10 bg-ng-light-blue/20 border-none text-ng-light-blue font-bold text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(team.wins) ? 0 : team.wins} onChange={(e) => handleTeamUpdate(team.id, 'wins', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(team.losses) ? 0 : team.losses} onChange={(e) => handleTeamUpdate(team.id, 'losses', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(team.ties) ? 0 : team.ties} onChange={(e) => handleTeamUpdate(team.id, 'ties', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(team.points) ? 0 : team.points} onChange={(e) => handleTeamUpdate(team.id, 'points', parseInt(e.target.value) || 0)} className="w-10 bg-ng-light-blue/20 border-none text-ng-light-blue font-bold text-xs text-center rounded" /></td>
                                     <td className="p-3 text-right">
                                         <button 
                                           type="button"
@@ -913,9 +895,9 @@ const Manager: React.FC = () => {
                                             {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                         </select>
                                     </td>
-                                    <td className="p-3 text-center"><input type="number" value={p.gp} onChange={(e) => handlePlayerUpdate(p.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                    <td className="p-3 text-center"><input type="number" value={p.goals} onChange={(e) => handlePlayerUpdate(p.id, 'goals', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                    <td className="p-3 text-center"><input type="number" value={p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(p.gp) ? 0 : p.gp} onChange={(e) => handlePlayerUpdate(p.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(p.goals) ? 0 : p.goals} onChange={(e) => handlePlayerUpdate(p.id, 'goals', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                    <td className="p-3 text-center"><input type="number" value={isNaN(p.assists) ? 0 : p.assists} onChange={(e) => handlePlayerUpdate(p.id, 'assists', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{p.points}</td>
                                     <td className="p-3 text-right">
                                         <button 
@@ -975,12 +957,12 @@ const Manager: React.FC = () => {
                                                 {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                                             </select>
                                         </td>
-                                        <td className="p-3 text-center"><input type="number" value={g.gp} onChange={(e) => handleGoalieUpdate(g.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={isNaN(g.gp) ? 0 : g.gp} onChange={(e) => handleGoalieUpdate(g.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center text-xs text-gray-500 font-mono">{g.wins}-{g.losses}-{g.draws}</td>
                                         <td className="p-3 text-center text-gray-400 font-mono text-xs italic">{gaa}</td>
                                         <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
-                                        <td className="p-3 text-center"><input type="number" value={g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
-                                        <td className="p-3 text-center"><input type="number" value={g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value))} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={isNaN(g.shotsAgainst) ? 0 : g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={isNaN(g.goalsAgainst) ? 0 : g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-right">
                                             <button 
                                               type="button"
@@ -1065,7 +1047,7 @@ const Manager: React.FC = () => {
                                     <label className="text-[9px] text-gray-500 uppercase font-bold text-center block">{s.label}</label>
                                     <input 
                                       type="number" 
-                                      value={(playerOfMonth as any)[s.key]} 
+                                      value={isNaN((playerOfMonth as any)[s.key]) ? 0 : (playerOfMonth as any)[s.key]} 
                                       onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, [s.key]: parseInt(e.target.value) || 0 }))}
                                       className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white text-center text-xs font-black"
                                     />
