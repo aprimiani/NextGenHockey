@@ -120,21 +120,44 @@ const Schedule: React.FC = () => {
             <div className="p-6 space-y-8">
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.scoringSummary}</h3>
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').map(event => (
-                            <div key={event.id} className="flex items-center justify-between bg-ng-navy/50 p-3 rounded border border-gray-700/50">
-                                <div className="flex items-center space-x-3">
-                                    <span className="text-ng-light-blue font-mono font-bold">{event.time}</span>
-                                    <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
-                                    <span className="text-[9px] font-black italic shrink-0 mr-1.5" style={{ color: getTeamColor(event.teamId) }}>
-                                        {getTeamName(event.teamId).substring(0, 1)}
-                                    </span>
-                                    <span className="text-white font-bold">{getPlayerName(event.player)}</span>
-                                </div>
-                                <div className="text-xs text-gray-400 font-medium">
-                                  <span className="text-gray-500 uppercase tracking-tighter text-[10px]">{t.schedule.assist}:</span> {event.assist ? getPlayerName(event.assist) : '-'}
-                                  {event.assist2 && <span className="text-gray-600 mx-1">,</span>}
-                                  {event.assist2 && getPlayerName(event.assist2)}
+                            <div key={event.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700/50 shadow-inner">
+                                <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr] gap-4 items-center">
+                                    <div className="flex items-center space-x-3 border-r border-gray-700/50 pr-4">
+                                        <span className="text-ng-light-blue font-mono font-bold text-lg">{event.time}</span>
+                                        <div className="flex flex-col">
+                                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period}</span>
+                                            <span className="text-white font-bold text-sm">{event.period}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center space-x-3">
+                                        <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700">
+                                            <span className="text-xs font-black italic" style={{ color: getTeamColor(event.teamId) }}>
+                                                {getTeamName(event.teamId).substring(0, 1)}
+                                            </span>
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none mb-1">{t.schedule.scorer}</span>
+                                            <span className="text-white font-bold text-base md:text-lg">{getPlayerName(event.player)}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col md:border-l md:border-gray-700/50 md:pl-6">
+                                        <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none mb-1">{t.schedule.assist}</span>
+                                        <div className="text-gray-300 font-medium text-sm">
+                                            {event.assist ? (
+                                                <div className="flex flex-wrap items-center gap-1">
+                                                    <span>{getPlayerName(event.assist)}</span>
+                                                    {event.assist2 && <span className="text-gray-600">,</span>}
+                                                    {event.assist2 && <span>{getPlayerName(event.assist2)}</span>}
+                                                </div>
+                                            ) : (
+                                                <span className="text-gray-600 font-normal italic">None</span>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )) : <p className="text-gray-500 italic text-center py-4">{t.schedule.noEvents}</p>}
@@ -144,20 +167,37 @@ const Schedule: React.FC = () => {
                 {selectedRecap.events.filter(e => e.type === 'penalty').length > 0 && (
                   <div>
                       <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-red-500"></div> {t.schedule.penaltySummary}</h3>
-                      <div className="space-y-3">
+                      <div className="space-y-4">
                           {selectedRecap.events.filter(e => e.type === 'penalty').map(event => (
-                              <div key={event.id} className="flex items-center justify-between bg-red-900/10 p-3 rounded border border-red-900/20">
-                                  <div className="flex items-center space-x-3">
-                                      <span className="text-red-400 font-mono font-bold">{event.time}</span>
-                                      <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period} {event.period}</span>
-                                      <span className="text-[9px] font-black italic shrink-0 mr-1.5" style={{ color: getTeamColor(event.teamId) }}>
-                                          {getTeamName(event.teamId).substring(0, 1)}
-                                      </span>
-                                      <span className="text-white font-bold">{getPlayerName(event.player)}</span>
-                                  </div>
-                                  <div className="text-xs text-gray-400 font-medium">
-                                    <span className="text-red-500/50 uppercase tracking-tighter text-[10px] mr-2">{event.details}</span>
-                                    <span className="bg-red-900/30 px-1.5 py-0.5 rounded text-[10px] text-red-400 font-bold">{event.penaltyMinutes} MIN</span>
+                              <div key={event.id} className="bg-red-900/5 p-4 rounded-xl border border-red-900/10">
+                                  <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr] gap-4 items-center">
+                                      <div className="flex items-center space-x-3 border-r border-red-900/10 pr-4">
+                                          <span className="text-red-400 font-mono font-bold text-lg">{event.time}</span>
+                                          <div className="flex flex-col">
+                                              <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period}</span>
+                                              <span className="text-white font-bold text-sm">{event.period}</span>
+                                          </div>
+                                      </div>
+                                      
+                                      <div className="flex items-center space-x-3">
+                                          <div className="w-8 h-8 rounded-full bg-red-900/20 flex items-center justify-center shrink-0 border border-red-900/30">
+                                              <span className="text-xs font-black italic" style={{ color: getTeamColor(event.teamId) }}>
+                                                  {getTeamName(event.teamId).substring(0, 1)}
+                                              </span>
+                                          </div>
+                                          <div className="flex flex-col">
+                                              <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none mb-1">{t.schedule.player || 'Player'}</span>
+                                              <span className="text-white font-bold text-base md:text-lg">{getPlayerName(event.player)}</span>
+                                          </div>
+                                      </div>
+
+                                      <div className="flex flex-col md:border-l md:border-red-900/10 md:pl-6">
+                                          <div className="flex items-center justify-between mb-1">
+                                            <span className="text-red-500/50 text-[10px] font-black uppercase tracking-widest leading-none">{t.schedule.details || 'Details'}</span>
+                                            <span className="bg-red-900/30 px-2 py-0.5 rounded text-[10px] text-red-400 font-black tracking-widest">{event.penaltyMinutes} MIN</span>
+                                          </div>
+                                          <span className="text-red-200 font-semibold text-sm">{event.details}</span>
+                                      </div>
                                   </div>
                               </div>
                           ))}
@@ -167,45 +207,95 @@ const Schedule: React.FC = () => {
 
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.goalieStats}</h3>
-                    <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-700">
-                            <thead>
-                                <tr className="bg-ng-navy/30">
-                                    <th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th>
-                                    <th className="px-4 py-2 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">Goalie</th>
-                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th>
-                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th>
-                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">Saves</th>
-                                    <th className="px-4 py-2 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.svPct}</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-700">
-                                <tr className="hover:bg-white/5">
-                                    <td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.homeTeamId)}</td>
-                                    <td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.homeGoalie.playerId)}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.shotsFaced}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.homeGoalie.goalsAgainst}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.homeGoalie.saves}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-yellow-500 font-mono font-bold">
-                                        {selectedRecap.goalieStats.homeGoalie.shotsFaced > 0 
-                                            ? (selectedRecap.goalieStats.homeGoalie.saves / selectedRecap.goalieStats.homeGoalie.shotsFaced).toFixed(3) 
-                                            : '.000'}
-                                    </td>
-                                </tr>
-                                <tr className="hover:bg-white/5">
-                                    <td className="px-4 py-3 text-sm font-bold text-gray-300">{getTeamName(game.awayTeamId)}</td>
-                                    <td className="px-4 py-3 text-sm font-bold text-white">{getGoalieName(selectedRecap.goalieStats.awayGoalie.playerId)}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.shotsFaced}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-gray-300 font-mono">{selectedRecap.goalieStats.awayGoalie.goalsAgainst}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-ng-light-blue font-mono font-bold">{selectedRecap.goalieStats.awayGoalie.saves}</td>
-                                    <td className="px-4 py-3 text-sm text-center text-yellow-500 font-mono font-bold">
-                                        {selectedRecap.goalieStats.awayGoalie.shotsFaced > 0 
-                                            ? (selectedRecap.goalieStats.awayGoalie.saves / selectedRecap.goalieStats.awayGoalie.shotsFaced).toFixed(3) 
-                                            : '.000'}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div className="space-y-4">
+                        {/* Mobile view: Cards */}
+                        <div className="md:hidden space-y-3">
+                            {[
+                                { side: 'homeGoalie', teamId: game.homeTeamId },
+                                { side: 'awayGoalie', teamId: game.awayTeamId }
+                            ].map(({ side, teamId }) => {
+                                const stats = (selectedRecap.goalieStats as any)[side];
+                                const svPct = stats.shotsFaced > 0 
+                                    ? (stats.saves / stats.shotsFaced).toFixed(3) 
+                                    : '.000';
+                                return (
+                                    <div key={side} className="bg-ng-navy/30 rounded-xl border border-gray-700 p-4 shadow-inner">
+                                        <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-700/50">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700">
+                                                    <span className="text-[10px] font-black italic" style={{ color: getTeamColor(teamId) }}>
+                                                        {getTeamName(teamId).substring(0, 1)}
+                                                    </span>
+                                                </div>
+                                                <span className="text-sm font-bold text-gray-300 truncate max-w-[120px]">{getTeamName(teamId)}</span>
+                                            </div>
+                                            <span className="text-sm font-bold text-white">{getGoalieName(stats.playerId)}</span>
+                                        </div>
+                                        <div className="grid grid-cols-4 gap-2 text-center">
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.shotsAgainst}</span>
+                                                <span className="text-gray-300 font-mono text-sm">{stats.shotsFaced}</span>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.goalsAgainstShort}</span>
+                                                <span className="text-gray-300 font-mono text-sm">{stats.goalsAgainst}</span>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.schedule.saves.substring(0, 3)}</span>
+                                                <span className="text-ng-light-blue font-mono text-sm font-bold">{stats.saves}</span>
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.svPct}</span>
+                                                <span className="text-yellow-500 font-mono text-sm font-bold">{svPct}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+
+                        {/* Desktop view: Table */}
+                        <div className="hidden md:block bg-ng-navy/30 rounded-xl border border-gray-700 overflow-hidden shadow-inner font-sans">
+                            <table className="min-w-full divide-y divide-gray-700">
+                                <thead>
+                                    <tr className="bg-gray-800/50">
+                                        <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.team}</th>
+                                        <th className="px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalie}</th>
+                                        <th className="px-4 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.shotsAgainst}</th>
+                                        <th className="px-4 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.goalsAgainstShort}</th>
+                                        <th className="px-4 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.schedule.saves || 'Saves'}</th>
+                                        <th className="px-6 py-4 text-center text-[10px] font-black text-gray-400 uppercase tracking-widest">{t.standings.svPct}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-700/50">
+                                    {[
+                                        { side: 'homeGoalie', teamId: game.homeTeamId },
+                                        { side: 'awayGoalie', teamId: game.awayTeamId }
+                                    ].map(({ side, teamId }) => {
+                                        const stats = (selectedRecap.goalieStats as any)[side];
+                                        return (
+                                            <tr key={side} className="hover:bg-white/5 transition-colors">
+                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[10px] font-black italic" style={{ color: getTeamColor(teamId) }}>{getTeamName(teamId).substring(0, 1)}</span>
+                                                        <span className="text-sm font-bold text-gray-300">{getTeamName(teamId)}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-white">{getGoalieName(stats.playerId)}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.shotsFaced}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.goalsAgainst}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-ng-light-blue font-mono font-bold">{stats.saves}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-yellow-500 font-mono font-bold">
+                                                    {stats.shotsFaced > 0 
+                                                        ? (stats.saves / stats.shotsFaced).toFixed(3) 
+                                                        : '.000'}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                  </div>
             </div>
