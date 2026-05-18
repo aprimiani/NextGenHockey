@@ -217,7 +217,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="hidden sm:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-2 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'ties')}
                 >
                   <div className="flex items-center justify-center">
@@ -273,7 +273,7 @@ const Standings: React.FC = () => {
                   <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-bold">{team.gp}</td>
                   <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-green-400 font-semibold">{team.wins}</td>
                   <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-red-400">{team.losses}</td>
-                  <td className="hidden sm:table-cell px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-400">{team.ties}</td>
+                  <td className="px-2 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-400">{team.ties}</td>
                   <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-white font-bold bg-ng-light-blue/10">{team.points}</td>
                   <td className="hidden lg:table-cell px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">{team.goalsFor}</td>
                   <td className="hidden lg:table-cell px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">{team.goalsAgainst}</td>
