@@ -447,13 +447,13 @@ const Standings: React.FC = () => {
                               <button onClick={() => setSelectedPlayer(player)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{player.name}</span></button>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
                                 <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(player.teamId)}</span>
+                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}</span>
                               </div>
                             </div>
                          </td>
                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
                             <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
-                            {getTeamName(player.teamId)}
+                            {getTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}
                          </td>
                          <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
@@ -572,13 +572,13 @@ const Standings: React.FC = () => {
                               <button onClick={() => setSelectedGoalie(goalie)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{goalie.name}</span></button>
                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
                                 <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(goalie.teamId)}</span>
+                                <span className="text-[10px] text-gray-500 font-medium uppercase">{getTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
                               </div>
                             </div>
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
                               <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
-                              {getTeamName(goalie.teamId)}
+                              <span>{getTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
                           </td>
                           <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
                           <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
@@ -705,9 +705,9 @@ const Standings: React.FC = () => {
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800">
-                              {goalies.filter(g => g.teamId === selectedTeam.id).length > 0 ? (
+                              {goalies.filter(g => g.teamId === selectedTeam.id || (g.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
                                 [...goalies]
-                                  .filter(g => g.teamId === selectedTeam.id)
+                                  .filter(g => g.teamId === selectedTeam.id || (g.secondaryTeamIds || []).includes(selectedTeam.id))
                                   .sort((a, b) => {
                                     let valA: number, valB: number;
                                     if (teamGoalieSort.key === 'gaa') {
@@ -737,7 +737,12 @@ const Standings: React.FC = () => {
                                           className="flex items-center gap-2 hover:text-ng-light-blue transition-colors outline-none"
                                         >
                                           <span className="text-[8px] bg-ng-light-blue text-ng-navy px-1.5 py-0.5 rounded-sm font-black uppercase">G</span>
-                                          {g.name}
+                                          <span className="flex items-center gap-1.5">
+                                            <span>{g.name}</span>
+                                            {g.teamId !== selectedTeam.id && (
+                                              <span className="text-[8px] bg-amber-500/10 text-amber-500 border border-amber-500/30 px-1.5 py-0.5 rounded font-black uppercase">Sub</span>
+                                            )}
+                                          </span>
                                         </button>
                                       </td>
                                       <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{g.gp}</td>
@@ -819,9 +824,9 @@ const Standings: React.FC = () => {
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800">
-                              {players.filter(p => p.teamId === selectedTeam.id).length > 0 ? (
+                              {players.filter(p => p.teamId === selectedTeam.id || (p.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
                                 [...players]
-                                  .filter(p => p.teamId === selectedTeam.id)
+                                  .filter(p => p.teamId === selectedTeam.id || (p.secondaryTeamIds || []).includes(selectedTeam.id))
                                   .sort((a, b) => {
                                     const key = teamPlayerSort.key as keyof PlayerStats;
                                     let valA = a[key];
@@ -836,9 +841,12 @@ const Standings: React.FC = () => {
                                     <td className="px-3 md:px-4 py-3 text-sm font-semibold text-white whitespace-nowrap">
                                       <button 
                                         onClick={() => setSelectedPlayer(p)}
-                                        className="hover:text-ng-light-blue transition-colors outline-none"
+                                        className="hover:text-ng-light-blue transition-colors outline-none flex items-center gap-2"
                                       >
-                                        {p.name}
+                                        <span>{p.name}</span>
+                                        {p.teamId !== selectedTeam.id && (
+                                          <span className="text-[8px] bg-amber-500/10 text-amber-500 border border-amber-500/30 px-1.5 py-0.5 rounded font-black uppercase">Sub</span>
+                                        )}
                                       </button>
                                     </td>
                                     <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{p.gp}</td>
@@ -947,9 +955,19 @@ const Standings: React.FC = () => {
                 </div>
                 
                 <h2 className="text-3xl font-black text-white uppercase italic leading-tight mb-1">{selectedPlayer.name}</h2>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="bg-white/10 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">{t.standings.player}</span>
-                  <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{getTeamName(selectedPlayer.teamId)}</span>
+                <div className="flex flex-col items-center gap-1.5 mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-white/10 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">{t.standings.player}</span>
+                    <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{getTeamName(selectedPlayer.teamId)}</span>
+                  </div>
+                  {selectedPlayer.secondaryTeamIds && selectedPlayer.secondaryTeamIds.length > 0 && (
+                    <div className="flex flex-wrap justify-center items-center gap-1 mt-1">
+                      <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest mr-1">Subs:</span>
+                      {selectedPlayer.secondaryTeamIds.map(tid => (
+                        <span key={tid} className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] font-black px-1.5 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-wider">{getTeamName(tid)}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 w-full mt-4">
@@ -1007,9 +1025,19 @@ const Standings: React.FC = () => {
                 </div>
                 
                 <h2 className="text-3xl font-black text-white uppercase italic leading-tight mb-1">{selectedGoalie.name}</h2>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="bg-ng-light-blue text-ng-navy text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">{t.standings.goalie}</span>
-                  <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{getTeamName(selectedGoalie.teamId)}</span>
+                <div className="flex flex-col items-center gap-1.5 mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="bg-ng-light-blue text-ng-navy text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">{t.standings.goalie}</span>
+                    <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{getTeamName(selectedGoalie.teamId)}</span>
+                  </div>
+                  {selectedGoalie.secondaryTeamIds && selectedGoalie.secondaryTeamIds.length > 0 && (
+                    <div className="flex flex-wrap justify-center items-center gap-1 mt-1">
+                      <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest mr-1">Subs:</span>
+                      {selectedGoalie.secondaryTeamIds.map(tid => (
+                        <span key={tid} className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] font-black px-1.5 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-wider">{getTeamName(tid)}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 w-full mt-4">

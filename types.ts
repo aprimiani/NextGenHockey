@@ -36,6 +36,7 @@ export interface PlayerStats {
   id: string;
   name: string;
   teamId: string;
+  secondaryTeamIds?: string[];
   gp: number; // Added manual GP
   goals: number;
   assists: number;
@@ -46,6 +47,7 @@ export interface GoalieStats {
   id: string;
   name: string;
   teamId: string;
+  secondaryTeamIds?: string[];
   gp: number; // Added manual GP
   wins: number;
   losses: number;

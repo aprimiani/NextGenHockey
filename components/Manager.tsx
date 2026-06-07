@@ -187,12 +187,12 @@ const Manager: React.FC = () => {
   };
 
   const addPlayer = () => {
-    const newPlayer = { id: `p_${Date.now()}`, name: 'New Player', teamId: teams[0]?.id || '1', gp: 0, goals: 0, assists: 0, points: 0 };
+    const newPlayer = { id: `p_${Date.now()}`, name: 'New Player', teamId: teams[0]?.id || '1', secondaryTeamIds: [], gp: 0, goals: 0, assists: 0, points: 0 };
     setPlayers(prev => [...prev, newPlayer]);
   };
 
   const addGoalie = () => {
-    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
+    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', secondaryTeamIds: [], gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
     setGoalies(prev => [...prev, newGoalie]);
   };
 
@@ -326,6 +326,9 @@ const Manager: React.FC = () => {
     setPlayers(prev => prev.map(p => {
       if (p.id === playerId) {
         const updated = { ...p, [field]: value };
+        if (field === 'teamId') {
+          updated.secondaryTeamIds = (updated.secondaryTeamIds || []).filter(id => id !== value);
+        }
         updated.points = (Number(updated.goals) || 0) + (Number(updated.assists) || 0);
         return updated;
       }
@@ -336,6 +339,9 @@ const Manager: React.FC = () => {
     setGoalies(prev => prev.map(g => {
       if (g.id === goalieId) {
         const updated = { ...g, [field]: value };
+        if (field === 'teamId') {
+          updated.secondaryTeamIds = (updated.secondaryTeamIds || []).filter(id => id !== value);
+        }
         const sa = Number(updated.shotsAgainst) || 0;
         const ga = Number(updated.goalsAgainst) || 0;
         updated.saves = sa - ga;
@@ -891,9 +897,42 @@ const Manager: React.FC = () => {
                                 <tr key={p.id} className="hover:bg-white/5">
                                     <td className="p-3"><input type="text" value={p.name} onChange={(e) => handlePlayerUpdate(p.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs p-1 rounded" /></td>
                                     <td className="p-3">
-                                        <select value={p.teamId} onChange={(e) => handlePlayerUpdate(p.id, 'teamId', e.target.value)} className="bg-gray-900 border-none text-gray-300 text-[10px] rounded p-1">
-                                            {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                                        </select>
+                                        <div className="flex flex-col gap-2">
+                                          <div>
+                                            <span className="text-[8px] text-gray-500 uppercase font-bold block mb-0.5">Primary Team</span>
+                                            <select value={p.teamId} onChange={(e) => handlePlayerUpdate(p.id, 'teamId', e.target.value)} className="bg-gray-900 border border-gray-700 text-gray-300 text-[10px] rounded p-1 w-full max-w-[150px]">
+                                                {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                                            </select>
+                                          </div>
+                                          <div>
+                                            <span className="text-[8px] text-gray-500 uppercase font-bold block mb-0.5">Subs for / Secondary</span>
+                                            <div className="flex flex-wrap gap-1 max-w-[200px]">
+                                              {teams.filter(t => t.id !== p.teamId).map(t => {
+                                                const isSec = (p.secondaryTeamIds || []).includes(t.id);
+                                                return (
+                                                  <button
+                                                    key={t.id}
+                                                    type="button"
+                                                    onClick={() => {
+                                                      const currentSecondary = p.secondaryTeamIds || [];
+                                                      const updatedSecondary = isSec
+                                                        ? currentSecondary.filter(id => id !== t.id)
+                                                        : [...currentSecondary, t.id];
+                                                      handlePlayerUpdate(p.id, 'secondaryTeamIds', updatedSecondary);
+                                                    }}
+                                                    className={`text-[8px] px-1.5 py-0.5 rounded font-bold transition-all border ${
+                                                      isSec 
+                                                        ? 'bg-ng-light-blue/20 text-ng-light-blue border-ng-light-blue/50' 
+                                                        : 'bg-gray-900/40 text-gray-400 border-gray-800 hover:border-gray-700'
+                                                    }`}
+                                                  >
+                                                    {t.name}
+                                                  </button>
+                                                )
+                                              })}
+                                            </div>
+                                          </div>
+                                        </div>
                                     </td>
                                     <td className="p-3 text-center"><input type="number" value={isNaN(p.gp) ? 0 : p.gp} onChange={(e) => handlePlayerUpdate(p.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                     <td className="p-3 text-center"><input type="number" value={isNaN(p.goals) ? 0 : p.goals} onChange={(e) => handlePlayerUpdate(p.id, 'goals', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
@@ -953,9 +992,42 @@ const Manager: React.FC = () => {
                                     <tr key={g.id} className="hover:bg-white/5">
                                         <td className="p-3"><input type="text" value={g.name} onChange={(e) => handleGoalieUpdate(g.id, 'name', e.target.value)} className="bg-transparent border-none text-white text-xs p-1 rounded" /></td>
                                         <td className="p-3">
-                                            <select value={g.teamId} onChange={(e) => handleGoalieUpdate(g.id, 'teamId', e.target.value)} className="bg-gray-900 border-none text-gray-300 text-[10px] rounded p-1">
-                                                {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                                            </select>
+                                            <div className="flex flex-col gap-2">
+                                              <div>
+                                                <span className="text-[8px] text-gray-500 uppercase font-bold block mb-0.5">Primary Team</span>
+                                                <select value={g.teamId} onChange={(e) => handleGoalieUpdate(g.id, 'teamId', e.target.value)} className="bg-gray-900 border border-gray-700 text-gray-300 text-[10px] rounded p-1 w-full max-w-[150px]">
+                                                    {teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                                                </select>
+                                              </div>
+                                              <div>
+                                                <span className="text-[8px] text-gray-500 uppercase font-bold block mb-0.5">Subs for / Secondary</span>
+                                                <div className="flex flex-wrap gap-1 max-w-[200px]">
+                                                  {teams.filter(t => t.id !== g.teamId).map(t => {
+                                                    const isSec = (g.secondaryTeamIds || []).includes(t.id);
+                                                    return (
+                                                      <button
+                                                        key={t.id}
+                                                        type="button"
+                                                        onClick={() => {
+                                                          const currentSecondary = g.secondaryTeamIds || [];
+                                                          const updatedSecondary = isSec
+                                                            ? currentSecondary.filter(id => id !== t.id)
+                                                            : [...currentSecondary, t.id];
+                                                          handleGoalieUpdate(g.id, 'secondaryTeamIds', updatedSecondary);
+                                                        }}
+                                                        className={`text-[8px] px-1.5 py-0.5 rounded font-bold transition-all border ${
+                                                          isSec 
+                                                            ? 'bg-ng-light-blue/20 text-ng-light-blue border-ng-light-blue/50' 
+                                                            : 'bg-gray-900/40 text-gray-400 border-gray-800 hover:border-gray-700'
+                                                        }`}
+                                                      >
+                                                        {t.name}
+                                                      </button>
+                                                    )
+                                                  })}
+                                                </div>
+                                              </div>
+                                            </div>
                                         </td>
                                         <td className="p-3 text-center"><input type="number" value={isNaN(g.gp) ? 0 : g.gp} onChange={(e) => handleGoalieUpdate(g.id, 'gp', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center text-xs text-gray-500 font-mono">{g.wins}-{g.losses}-{g.draws}</td>
