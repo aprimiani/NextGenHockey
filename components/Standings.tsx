@@ -19,11 +19,11 @@ const Standings: React.FC = () => {
   // Sorting State
   const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [playerSort, setPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
-  const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'gaa', dir: 'asc' });
+  const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'svPct', dir: 'desc' });
 
   // Team Profile Sorting State
   const [teamPlayerSort, setTeamPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
-  const [teamGoalieSort, setTeamGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'gaa', dir: 'asc' });
+  const [teamGoalieSort, setTeamGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'svPct', dir: 'desc' });
 
   const handleSort = <T,>(
     currentSort: { key: keyof T | any; dir: 'asc' | 'desc' },
@@ -103,6 +103,10 @@ const Standings: React.FC = () => {
     } else {
       valA = a[goalieSort.key as keyof GoalieStats] as number;
       valB = b[goalieSort.key as keyof GoalieStats] as number;
+    }
+
+    if (valA === valB) {
+      return b.gp - a.gp;
     }
 
     return goalieSort.dir === 'asc' ? valA - valB : valB - valA;
@@ -723,6 +727,9 @@ const Standings: React.FC = () => {
                                     } else {
                                       valA = a[teamGoalieSort.key as keyof GoalieStats] as number;
                                       valB = b[teamGoalieSort.key as keyof GoalieStats] as number;
+                                    }
+                                    if (valA === valB) {
+                                      return b.gp - a.gp;
                                     }
                                     return teamGoalieSort.dir === 'asc' ? valA - valB : valB - valA;
                                   })
