@@ -401,7 +401,7 @@ const Standings: React.FC = () => {
                        </th>
                        <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
                        <th 
-                         className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                         className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                          onClick={() => handleSort(playerSort, setPlayerSort, 'gp')}
                        >
                          <div className="flex items-center justify-center">
@@ -455,7 +455,7 @@ const Standings: React.FC = () => {
                             <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamName(player.teamId).substring(0, 1)}</span>
                             {getTeamName(player.teamId)}
                          </td>
-                         <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
+                         <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
                          <td className="px-3 md:px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{player.points}</td>
@@ -499,7 +499,7 @@ const Standings: React.FC = () => {
 
                        <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
                                                <th 
-                          className="hidden sm:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'gp')}
                         >
                           <div className="flex items-center justify-center">
@@ -580,7 +580,7 @@ const Standings: React.FC = () => {
                               <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamName(goalie.teamId).substring(0, 1)}</span>
                               {getTeamName(goalie.teamId)}
                           </td>
-                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
+                          <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
                           <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
                           <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
                           <td className="px-3 md:px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{svPct}</td>
