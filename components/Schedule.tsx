@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { Calendar, MapPin, Clock, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { translatePenalty } from '../translations';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
@@ -93,6 +94,24 @@ const Schedule: React.FC = () => {
     const getPlayerName = (id: string) => players.find(p => p.id === id)?.name || id;
     const getGoalieName = (id: string) => goalies.find(g => g.id === id)?.name || id;
 
+    const parseTimeToSeconds = (tStr: string | undefined): number => {
+      if (!tStr) return 0;
+      const parts = tStr.split(':');
+      if (parts.length !== 2) return 0;
+      const mins = parseInt(parts[0], 10) || 0;
+      const secs = parseInt(parts[1], 10) || 0;
+      return mins * 60 + secs;
+    };
+
+    const compareEvents = (a: any, b: any) => {
+      const aPeriod = typeof a.period === 'number' ? a.period : parseInt(a.period, 10) || 0;
+      const bPeriod = typeof b.period === 'number' ? b.period : parseInt(b.period, 10) || 0;
+      if (aPeriod !== bPeriod) {
+        return aPeriod - bPeriod;
+      }
+      return parseTimeToSeconds(a.time) - parseTimeToSeconds(b.time);
+    };
+
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button onClick={() => setSelectedGameId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs"><ArrowLeft className="mr-2" size={20} />{t.schedule.backToSchedule}</button>
@@ -121,7 +140,7 @@ const Schedule: React.FC = () => {
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.scoringSummary}</h3>
                     <div className="space-y-4">
-                        {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').map(event => (
+                        {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').sort(compareEvents).map(event => (
                             <div key={event.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700/50 shadow-inner">
                                 <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr] gap-4 items-center">
                                     <div className="flex items-center space-x-3 border-r border-gray-700/50 pr-4">
@@ -168,7 +187,7 @@ const Schedule: React.FC = () => {
                   <div>
                       <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-red-500"></div> {t.schedule.penaltySummary}</h3>
                       <div className="space-y-4">
-                          {selectedRecap.events.filter(e => e.type === 'penalty').map(event => (
+                          {selectedRecap.events.filter(e => e.type === 'penalty').sort(compareEvents).map(event => (
                               <div key={event.id} className="bg-red-900/5 p-4 rounded-xl border border-red-900/10">
                                   <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr] gap-4 items-center">
                                       <div className="flex items-center space-x-3 border-r border-red-900/10 pr-4">
@@ -196,7 +215,7 @@ const Schedule: React.FC = () => {
                                             <span className="text-red-500/50 text-[10px] font-black uppercase tracking-widest leading-none">{t.schedule.details || 'Details'}</span>
                                             <span className="bg-red-900/30 px-2 py-0.5 rounded text-[10px] text-red-400 font-black tracking-widest">{event.penaltyMinutes} MIN</span>
                                           </div>
-                                          <span className="text-red-200 font-semibold text-sm">{event.details}</span>
+                                          <span className="text-red-200 font-semibold text-sm">{translatePenalty(event.details, language)}</span>
                                       </div>
                                   </div>
                               </div>

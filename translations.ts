@@ -1008,3 +1008,85 @@ export const translations = {
     }
   }
 };
+
+export const translatePenalty = (details: string | undefined, lang: Language): string => {
+  if (!details) return '';
+  
+  const trimLower = details.trim().toLowerCase();
+  
+  // Mapping of lowercase search keys to their multilingual records
+  const maps: Record<string, { en: string, fr: string }> = {
+    'minor': { en: 'Minor', fr: 'Mineure' },
+    'mineure': { en: 'Minor', fr: 'Mineure' },
+    
+    'tripping': { en: 'Tripping', fr: 'Faire trébucher' },
+    'faire trébucher': { en: 'Tripping', fr: 'Faire trébucher' },
+    
+    'roughing': { en: 'Roughing', fr: 'Rudesse' },
+    'rudess': { en: 'Roughing', fr: 'Rudesse' },
+    'rudesse': { en: 'Roughing', fr: 'Rudesse' },
+    
+    'mise en échec illégale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'illegal body check': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'illegal check': { en: 'Illegal check', fr: 'Mise en échec illégale' },
+    
+    'major': { en: 'Major', fr: 'Majeure' },
+    'majeure': { en: 'Major', fr: 'Majeure' },
+    'holding': { en: 'Holding', fr: 'Retenir' },
+    'retenir': { en: 'Holding', fr: 'Retenir' },
+  };
+
+  // Direct match
+  if (maps[trimLower]) {
+    return lang === 'fr' ? maps[trimLower].fr : maps[trimLower].en;
+  }
+
+  // Handle advanced strings with regex / dynamic replacements like "Major (2 Game Suspension)"
+  if (/major\s*\(2\s*game\s*suspension\)/i.test(trimLower)) {
+    return lang === 'fr' ? 'Majeure (2 matchs de suspension)' : 'Major (2 Game Suspension)';
+  }
+  if (/majeure\s*\(2\s*matchs?\s*de\s*suspension\)/i.test(trimLower)) {
+    return lang === 'fr' ? 'Majeure (2 matchs de suspension)' : 'Major (2 Game Suspension)';
+  }
+
+  // If there's a dynamic number, e.g. "Major (3 Game Suspension)" or "Majeure (1 match de suspension)"
+  const majorSuspMatch = details.match(/(major|majeure)\s*\((\d+)\s*(game|matchs?)\s*(suspension|de\s*suspension)\)/i);
+  if (majorSuspMatch) {
+    const num = majorSuspMatch[2];
+    if (lang === 'fr') {
+      const matchWord = parseInt(num) > 1 ? 'matchs' : 'match';
+      return `Majeure (${num} ${matchWord} de suspension)`;
+    } else {
+      const gameWord = parseInt(num) > 1 ? 'Games' : 'Game';
+      return `Major (${num} ${gameWord} Suspension)`;
+    }
+  }
+
+  // General fallback translations of substrings for highly customizable entries
+  let result = details;
+  if (lang === 'fr') {
+    result = result
+      .replace(/\bMinor\b/gi, 'Mineure')
+      .replace(/\bMajor\b/gi, 'Majeure')
+      .replace(/\bTripping\b/gi, 'Faire trébucher')
+      .replace(/\bRoughing\b/gi, 'Rudesse')
+      .replace(/\bRudess\b/gi, 'Rudesse')
+      .replace(/\bHolding\b/gi, 'Retenir')
+      .replace(/\bIllegal body check\b/gi, 'Mise en échec illégale')
+      .replace(/\bIllegal check\b/gi, 'Mise en échec illégale')
+      .replace(/\bgame suspension\b/gi, 'match de suspension')
+      .replace(/\bgames suspension\b/gi, 'matchs de suspension');
+  } else {
+    result = result
+      .replace(/\bMineure\b/gi, 'Minor')
+      .replace(/\bMajeure\b/gi, 'Major')
+      .replace(/\bFaire trébucher\b/gi, 'Tripping')
+      .replace(/\bRudesse\b/gi, 'Roughing')
+      .replace(/\bRetenir\b/gi, 'Holding')
+      .replace(/\bMise en échec illégale\b/gi, 'Illegal body check')
+      .replace(/\bmatch de suspension\b/gi, 'game suspension')
+      .replace(/\bmatchs de suspension\b/gi, 'games suspension');
+  }
+
+  return result;
+};
