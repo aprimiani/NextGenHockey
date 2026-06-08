@@ -510,8 +510,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "teamId": "2",
     "gp": 4,
     "goals": 3,
-    "assists": 4,
-    "points": 7
+    "assists": 5,
+    "points": 8
   },
   {
     "id": "p_1773774313607",
@@ -645,8 +645,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "teamId": "2",
     "gp": 4,
     "goals": 1,
-    "assists": 1,
-    "points": 2
+    "assists": 2,
+    "points": 3
   },
   {
     "id": "p_1771962890109",
@@ -744,8 +744,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "teamId": "2",
     "gp": 5,
     "goals": 0,
-    "assists": 5,
-    "points": 5,
+    "assists": 4,
+    "points": 4,
     "secondaryTeamIds": [
       "t_1775579370484"
     ]
@@ -2658,7 +2658,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "teamId": "2",
         "player": "p_1771962890109",
         "assist": "p_1771962876661",
-        "assist2": "p_1771962941457",
+        "assist2": "p_1771962869757",
         "details": ""
       },
       {
@@ -2692,7 +2692,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "teamId": "2",
         "player": "p_1767082325178",
         "assist": "p_1775162084185",
-        "assist2": "",
+        "assist2": "p_1771962944635",
         "details": ""
       }
     ],
