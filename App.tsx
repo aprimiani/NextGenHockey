@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Standings from './components/Standings';
@@ -37,6 +38,7 @@ function App() {
             </main>
             <Footer />
           </div>
+          <Analytics />
         </Router>
       </LeagueDataProvider>
     </LanguageProvider>
