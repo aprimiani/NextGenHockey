@@ -132,7 +132,7 @@ const Manager: React.FC = () => {
   };
 
   const addGame = () => {
-    const newGame = { id: `g_${Date.now()}`, date: new Date().toISOString().split('T')[0], time: '19:00', homeTeamId: teams[0]?.id || '1', awayTeamId: teams[1]?.id || '2', location: 'Sportium', status: 'scheduled' as const };
+    const newGame = { id: `g_${Date.now()}`, date: new Date().toISOString().split('T')[0], time: '19:00', homeTeamId: teams[0]?.id || '1', awayTeamId: teams[1]?.id || '2', location: 'Centre Sportif de Delson', status: 'scheduled' as const };
     setSchedule(prev => [...prev, newGame]);
   };
 

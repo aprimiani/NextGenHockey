@@ -17,15 +17,15 @@ export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
 
 export const PRICING_DATA = {
   EARLY_BIRD: {
-    price: 3025,
-    deadline: '2026-04-04',
+    price: 8525,
+    deadline: '2026-09-05',
   },
   REGULAR: {
-    price: 4125,
-    deadline: '2026-05-01',
+    price: 8525,
+    deadline: '2026-09-05',
   },
   INCLUDES: [
-    'Minimum 15 games guaranteed',
+    'Minimum 30 games guaranteed',
     'Sponsor Perks',
     'Professional Refereeing',
     'Full Digital Stats & Recaps'
@@ -3100,7 +3100,7 @@ export const SYSTEM_INSTRUCTION = `You are the "League Assistant" for Next Gen H
 
 Current League Data:
 - Teams: Bots, Jets, Milf Hunters, Redlight, Wise Guys, Frozen Furries
-- Location: Sportium
-- Season: Summer 2026 (Starts May 10th)
+- Location: Centre Sportif de Delson
+- Season: Winter (Starts September 5th)
 
 When asked about specific stats or games, refer to the provided constants. Always be professional, encouraging, and helpful. If you don't know something, suggest contacting the league organizers.`;

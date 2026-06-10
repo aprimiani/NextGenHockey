@@ -17,7 +17,6 @@ const Registration: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPaymentPlan, setShowPaymentPlan] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -110,66 +109,37 @@ const Registration: React.FC = () => {
            <span className="hidden sm:block text-[10px] text-gray-500 uppercase font-black tracking-widest italic">{t.register.pricingSubtitle}</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Early Bird Card */}
-          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue/40 rounded-2xl p-6 relative overflow-hidden group hover:border-ng-light-blue transition-colors flex flex-col h-full">
-            <div className="absolute top-0 right-0 bg-ng-light-blue text-ng-navy font-black text-[10px] uppercase px-4 py-1 italic shadow-lg">
-               {t.register.earlyBird}
+        <div className="max-w-xl mx-auto">
+          {/* Winter Season Pricing Card */}
+          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue rounded-3xl p-8 relative overflow-hidden group hover:border-ng-accent transition-all flex flex-col items-center text-center shadow-2xl">
+            <div className="absolute top-0 right-0 bg-ng-light-blue text-ng-navy font-black text-xs uppercase px-5 py-1.5 italic shadow-lg">
+               {language === 'en' ? 'Winter Season' : "Saison d'Hiver"}
             </div>
-            <div className="text-4xl font-black text-white mb-1">
-              ${PRICING_DATA.EARLY_BIRD.price.toLocaleString()}<span className="text-xs font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
+            
+            <div className="text-5xl font-black text-white mb-2 tracking-tight">
+              $8,525<span className="text-sm font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
             </div>
-            <div className="flex items-center gap-2 text-ng-light-blue text-xs font-bold uppercase tracking-widest mb-4">
-              <Calendar size={14} />
-              {t.register.endsOn} {formatDate(PRICING_DATA.EARLY_BIRD.deadline)}
+            
+            <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest mb-6 bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/20">
+              <Calendar size={16} />
+              {t.register.seasonStart}
             </div>
-            <div className="pt-4 border-t border-ng-light-blue/20 flex-grow">
-               <ul className="space-y-2">
+            
+            <div className="w-full pt-6 border-t border-ng-light-blue/20">
+               <h4 className="text-xs text-gray-400 uppercase font-black tracking-widest mb-4">
+                 {t.register.whatsIncluded}
+               </h4>
+               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-left">
                   {t.register.includedFeatures.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-300 uppercase">
-                      <CheckCircle2 size={12} className="text-ng-light-blue" /> {item}
+                    <li key={i} className="flex items-center gap-2.5 text-xs font-bold text-gray-200 uppercase">
+                      <CheckCircle2 size={16} className="text-ng-light-blue shrink-0" />
+                      <span>{item}</span>
                     </li>
                   ))}
                </ul>
             </div>
-          </div>
 
-          {/* Regular Rate Card */}
-          <div 
-            onClick={() => setShowPaymentPlan(!showPaymentPlan)}
-            className={`bg-ng-blue/30 border rounded-2xl p-6 transition-all duration-300 cursor-pointer flex flex-col h-full ${showPaymentPlan ? 'border-ng-light-blue bg-ng-light-blue/5' : 'border-gray-700 hover:border-gray-500'}`}
-          >
-            <div className="text-4xl font-black text-white mb-1">
-              ${PRICING_DATA.REGULAR.price.toLocaleString()}<span className="text-xs font-normal text-gray-500 ml-1">/{t.register.perTeam}</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
-              <Calendar size={14} />
-              {t.register.deadline}: {formatDate(PRICING_DATA.REGULAR.deadline)}
-            </div>
-            <div className="pt-4 border-t border-gray-700/50 flex-grow">
-               <ul className="space-y-2 mb-4">
-                  {t.register.includedFeatures.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase">
-                      <CheckCircle2 size={12} className="text-gray-600" /> {item}
-                    </li>
-                  ))}
-               </ul>
-               
-               {/* Payment Plan Section */}
-               <div className="mt-auto">
-                 <div className="flex items-center justify-between text-ng-light-blue text-[10px] font-black uppercase tracking-widest bg-ng-light-blue/10 p-2 rounded-lg border border-ng-light-blue/20">
-                    <span className="flex items-center gap-1"><Info size={12}/> {t.register.paymentPlan}</span>
-                    {showPaymentPlan ? <ChevronUp size={14}/> : <ChevronDown size={14}/>}
-                 </div>
-                 
-                 {showPaymentPlan && (
-                    <div className="mt-3 space-y-2 animate-in slide-in-from-top duration-300">
-                        <p className="text-[10px] font-bold text-white leading-snug">{t.register.installment1}</p>
-                        <p className="text-[10px] font-bold text-white leading-snug">{t.register.installment2}</p>
-                    </div>
-                 )}
-               </div>
-            </div>
+
           </div>
         </div>
       </div>
