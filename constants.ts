@@ -104,6 +104,30 @@ export const TEAMS: Team[] = [
     "goalsFor": 19,
     "goalsAgainst": 23,
     "logoColor": "#84cc16"
+  },
+  {
+    "id": "5",
+    "name": "Team L",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#ec4899"
+  },
+  {
+    "id": "6",
+    "name": "86ers",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#f5f5dc"
   }
 ];
 
@@ -131,6 +155,17 @@ export const SCHEDULE: Game[] = [
     "awayScore": 4
   },
   {
+    "id": "g_1771798564661",
+    "date": "2026-05-10",
+    "time": "19:30",
+    "homeTeamId": "4",
+    "awayTeamId": "t_1775579370484",
+    "location": "Sportium",
+    "status": "played",
+    "homeScore": 5,
+    "awayScore": 3
+  },
+  {
     "id": "g_1771797872922",
     "date": "2026-05-17",
     "time": "13:00",
@@ -151,6 +186,17 @@ export const SCHEDULE: Game[] = [
     "status": "played",
     "homeScore": 3,
     "awayScore": 8
+  },
+  {
+    "id": "g_1771798604938",
+    "date": "2026-05-17",
+    "time": "19:30",
+    "homeTeamId": "1",
+    "awayTeamId": "t_1775579370484",
+    "location": "Sportium",
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 5
   },
   {
     "id": "g_1771797944802",
@@ -175,6 +221,17 @@ export const SCHEDULE: Game[] = [
     "awayScore": 5
   },
   {
+    "id": "g_1776044151164",
+    "date": "2026-05-24",
+    "time": "19:30",
+    "homeTeamId": "1",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "played",
+    "homeScore": 1,
+    "awayScore": 6
+  },
+  {
     "id": "g_1771797985096",
     "date": "2026-06-07",
     "time": "14:00",
@@ -197,6 +254,17 @@ export const SCHEDULE: Game[] = [
     "awayScore": 6
   },
   {
+    "id": "g_1776044151738",
+    "date": "2026-06-07",
+    "time": "19:30",
+    "homeTeamId": "4",
+    "awayTeamId": "1",
+    "location": "Sportium",
+    "status": "played",
+    "homeScore": 4,
+    "awayScore": 4
+  },
+  {
     "id": "g_1771798031618",
     "date": "2026-06-14",
     "time": "14:00",
@@ -215,176 +283,6 @@ export const SCHEDULE: Game[] = [
     "status": "scheduled"
   },
   {
-    "id": "g_1771798132582",
-    "date": "2026-06-21",
-    "time": "14:00",
-    "homeTeamId": "t_1775579370484",
-    "awayTeamId": "3",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798133140",
-    "date": "2026-06-21",
-    "time": "18:30",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579415800",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798173663",
-    "date": "2026-06-28",
-    "time": "14:00",
-    "homeTeamId": "2",
-    "awayTeamId": "t_1775579415800",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798174326",
-    "date": "2026-06-28",
-    "time": "18:30",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798270556",
-    "date": "2026-07-05",
-    "time": "14:00",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "3",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798271082",
-    "date": "2026-07-05",
-    "time": "18:30",
-    "homeTeamId": "4",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798333497",
-    "date": "2026-07-12",
-    "time": "14:00",
-    "homeTeamId": "4",
-    "awayTeamId": "1",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798334065",
-    "date": "2026-07-12",
-    "time": "18:30",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798416249",
-    "date": "2026-07-19",
-    "time": "14:00",
-    "homeTeamId": "2",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798417193",
-    "date": "2026-07-19",
-    "time": "18:30",
-    "homeTeamId": "1",
-    "awayTeamId": "3",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798464840",
-    "date": "2026-07-26",
-    "time": "14:00",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "3",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798465348",
-    "date": "2026-08-02",
-    "time": "14:00",
-    "homeTeamId": "4",
-    "awayTeamId": "2",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798502143",
-    "date": "2026-07-26",
-    "time": "18:30",
-    "homeTeamId": "4",
-    "awayTeamId": "2",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798534024",
-    "date": "2026-08-02",
-    "time": "18:30",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579415800",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1771798564661",
-    "date": "2026-05-10",
-    "time": "19:30",
-    "homeTeamId": "4",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "played",
-    "homeScore": 5,
-    "awayScore": 3
-  },
-  {
-    "id": "g_1771798604938",
-    "date": "2026-05-17",
-    "time": "19:30",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "played",
-    "homeScore": 6,
-    "awayScore": 5
-  },
-  {
-    "id": "g_1776044151164",
-    "date": "2026-05-24",
-    "time": "19:30",
-    "homeTeamId": "1",
-    "awayTeamId": "2",
-    "location": "Sportium",
-    "status": "played",
-    "homeScore": 1,
-    "awayScore": 6
-  },
-  {
-    "id": "g_1776044151738",
-    "date": "2026-06-07",
-    "time": "19:30",
-    "homeTeamId": "4",
-    "awayTeamId": "1",
-    "location": "Sportium",
-    "status": "played",
-    "homeScore": 4,
-    "awayScore": 4
-  },
-  {
     "id": "g_1776044152353",
     "date": "2026-06-14",
     "time": "19:30",
@@ -394,65 +292,245 @@ export const SCHEDULE: Game[] = [
     "status": "scheduled"
   },
   {
-    "id": "g_1776044153503",
+    "id": "g_20260621_1",
     "date": "2026-06-21",
-    "time": "19:30",
-    "homeTeamId": "2",
-    "awayTeamId": "4",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1776044375120",
-    "date": "2026-06-28",
-    "time": "19:30",
-    "homeTeamId": "4",
+    "time": "14:30",
+    "homeTeamId": "t_1775579370484",
     "awayTeamId": "3",
     "location": "Sportium",
     "status": "scheduled"
   },
   {
-    "id": "g_1776044376146",
-    "date": "2026-07-05",
-    "time": "19:30",
+    "id": "g_20260621_2",
+    "date": "2026-06-21",
+    "time": "18:30",
     "homeTeamId": "1",
+    "awayTeamId": "t_1775579415800",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260621_3",
+    "date": "2026-06-21",
+    "time": "19:30",
+    "homeTeamId": "4",
     "awayTeamId": "2",
     "location": "Sportium",
     "status": "scheduled"
   },
   {
-    "id": "g_1776044439898",
-    "date": "2026-08-02",
+    "id": "g_20260628_1",
+    "date": "2026-06-28",
+    "time": "13:00",
+    "homeTeamId": "6",
+    "awayTeamId": "t_1775579370484",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260628_2",
+    "date": "2026-06-28",
+    "time": "14:00",
+    "homeTeamId": "5",
+    "awayTeamId": "1",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260628_3",
+    "date": "2026-06-28",
+    "time": "18:30",
+    "homeTeamId": "t_1775579415800",
+    "awayTeamId": "3",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260628_4",
+    "date": "2026-06-28",
     "time": "19:30",
+    "homeTeamId": "4",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260705_1",
+    "date": "2026-07-05",
+    "time": "13:30",
+    "homeTeamId": "6",
+    "awayTeamId": "5",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260705_2",
+    "date": "2026-07-05",
+    "time": "14:30",
     "homeTeamId": "3",
     "awayTeamId": "t_1775579370484",
     "location": "Sportium",
     "status": "scheduled"
   },
   {
-    "id": "g_1776044440781",
-    "date": "2026-07-26",
-    "time": "19:30",
-    "homeTeamId": "1",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
-    "status": "scheduled"
-  },
-  {
-    "id": "g_1776044442188",
-    "date": "2026-07-19",
-    "time": "19:30",
-    "homeTeamId": "4",
+    "id": "g_20260705_3",
+    "date": "2026-07-05",
+    "time": "18:30",
+    "homeTeamId": "2",
     "awayTeamId": "t_1775579415800",
     "location": "Sportium",
     "status": "scheduled"
   },
   {
-    "id": "g_1776044443034",
+    "id": "g_20260705_4",
+    "date": "2026-07-05",
+    "time": "19:30",
+    "homeTeamId": "1",
+    "awayTeamId": "4",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260712_1",
+    "date": "2026-07-12",
+    "time": "13:00",
+    "homeTeamId": "6",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260712_2",
+    "date": "2026-07-12",
+    "time": "14:00",
+    "homeTeamId": "5",
+    "awayTeamId": "t_1775579370484",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260712_3",
+    "date": "2026-07-12",
+    "time": "18:30",
+    "homeTeamId": "1",
+    "awayTeamId": "3",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260712_4",
     "date": "2026-07-12",
     "time": "19:30",
-    "homeTeamId": "2",
+    "homeTeamId": "t_1775579415800",
+    "awayTeamId": "4",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260719_1",
+    "date": "2026-07-19",
+    "time": "13:30",
+    "homeTeamId": "6",
+    "awayTeamId": "t_1775579415800",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260719_2",
+    "date": "2026-07-19",
+    "time": "14:30",
+    "homeTeamId": "5",
     "awayTeamId": "3",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260719_3",
+    "date": "2026-07-19",
+    "time": "18:30",
+    "homeTeamId": "1",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260719_4",
+    "date": "2026-07-19",
+    "time": "19:30",
+    "homeTeamId": "t_1775579370484",
+    "awayTeamId": "4",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260726_1",
+    "date": "2026-07-26",
+    "time": "13:00",
+    "homeTeamId": "6",
+    "awayTeamId": "1",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260726_2",
+    "date": "2026-07-26",
+    "time": "14:00",
+    "homeTeamId": "3",
+    "awayTeamId": "t_1775579415800",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260726_3",
+    "date": "2026-07-26",
+    "time": "18:30",
+    "homeTeamId": "5",
+    "awayTeamId": "4",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260726_4",
+    "date": "2026-07-26",
+    "time": "19:30",
+    "homeTeamId": "t_1775579370484",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260802_1",
+    "date": "2026-08-02",
+    "time": "13:30",
+    "homeTeamId": "6",
+    "awayTeamId": "4",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260802_2",
+    "date": "2026-08-02",
+    "time": "14:30",
+    "homeTeamId": "3",
+    "awayTeamId": "2",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260802_3",
+    "date": "2026-08-02",
+    "time": "18:30",
+    "homeTeamId": "t_1775579370484",
+    "awayTeamId": "1",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_20260802_4",
+    "date": "2026-08-02",
+    "time": "19:30",
+    "homeTeamId": "5",
+    "awayTeamId": "t_1775579415800",
     "location": "Sportium",
     "status": "scheduled"
   }
@@ -696,7 +774,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1775579857302",
     "name": "Jacob Riel",
-    "teamId": "t_1775579370484",
+    "teamId": "5",
+    "secondaryTeamIds": ["t_1775579370484"],
     "gp": 4,
     "goals": 5,
     "assists": 5,
@@ -799,6 +878,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p3",
     "name": "Lucas Molinaro",
     "teamId": "1",
+    "secondaryTeamIds": ["6"],
     "gp": 3,
     "goals": 0,
     "assists": 1,
@@ -1313,6 +1393,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "name": "Steven Croteau",
     "teamId": "4",
     "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_joshua_sylvain",
+    "name": "Joshua Sylvain",
+    "teamId": "6",
+    "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
