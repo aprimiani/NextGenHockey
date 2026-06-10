@@ -856,7 +856,7 @@ const Standings: React.FC = () => {
                                         className="hover:text-ng-light-blue transition-colors outline-none flex items-center gap-2"
                                       >
                                         <span>{p.name}</span>
-                                        {p.teamId !== selectedTeam.id && (
+                                        {p.teamId !== selectedTeam.id && p.name !== 'Lucas Molinaro' && (
                                           <span className="text-[8px] bg-amber-500/10 text-amber-500 border border-amber-500/30 px-1.5 py-0.5 rounded font-black uppercase">Sub</span>
                                         )}
                                       </button>
