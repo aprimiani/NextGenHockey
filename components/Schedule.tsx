@@ -32,6 +32,7 @@ const Schedule: React.FC = () => {
   const getTeamInitial = (id: string) => {
     const name = getTeamName(id);
     if (name.toLowerCase() === 'team l') return 'L';
+    if (name.toLowerCase() === '86ers') return '86';
     return name.substring(0, 1);
   };
 
