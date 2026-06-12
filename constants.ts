@@ -395,8 +395,8 @@ export const SCHEDULE: Game[] = [
     "date": "2026-07-12",
     "time": "13:00",
     "homeTeamId": "6",
-    "awayTeamId": "2",
-    "location": "Sportium",
+    "awayTeamId": "t_1775579370484",
+    "location": "Centre Sportif de Delson",
     "status": "scheduled"
   },
   {
@@ -404,8 +404,8 @@ export const SCHEDULE: Game[] = [
     "date": "2026-07-12",
     "time": "14:00",
     "homeTeamId": "5",
-    "awayTeamId": "t_1775579370484",
-    "location": "Sportium",
+    "awayTeamId": "2",
+    "location": "Centre Sportif de Delson",
     "status": "scheduled"
   },
   {
@@ -414,7 +414,7 @@ export const SCHEDULE: Game[] = [
     "time": "18:30",
     "homeTeamId": "1",
     "awayTeamId": "3",
-    "location": "Sportium",
+    "location": "Centre Sportif de Delson",
     "status": "scheduled"
   },
   {
@@ -423,7 +423,7 @@ export const SCHEDULE: Game[] = [
     "time": "19:30",
     "homeTeamId": "t_1775579415800",
     "awayTeamId": "4",
-    "location": "Sportium",
+    "location": "Centre Sportif de Delson",
     "status": "scheduled"
   },
   {
