@@ -396,7 +396,7 @@ export const SCHEDULE: Game[] = [
     "time": "13:00",
     "homeTeamId": "6",
     "awayTeamId": "t_1775579370484",
-    "location": "Centre Sportif de Delson",
+    "location": "Sportium",
     "status": "scheduled"
   },
   {
@@ -405,7 +405,7 @@ export const SCHEDULE: Game[] = [
     "time": "14:00",
     "homeTeamId": "5",
     "awayTeamId": "2",
-    "location": "Centre Sportif de Delson",
+    "location": "Sportium",
     "status": "scheduled"
   },
   {
@@ -414,7 +414,7 @@ export const SCHEDULE: Game[] = [
     "time": "18:30",
     "homeTeamId": "1",
     "awayTeamId": "3",
-    "location": "Centre Sportif de Delson",
+    "location": "Sportium",
     "status": "scheduled"
   },
   {
@@ -423,7 +423,7 @@ export const SCHEDULE: Game[] = [
     "time": "19:30",
     "homeTeamId": "t_1775579415800",
     "awayTeamId": "4",
-    "location": "Centre Sportif de Delson",
+    "location": "Sportium",
     "status": "scheduled"
   },
   {
