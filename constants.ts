@@ -331,8 +331,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_20260628_2",
     "date": "2026-06-28",
     "time": "14:00",
-    "homeTeamId": "5",
-    "awayTeamId": "1",
+    "homeTeamId": "t_1775579415800",
+    "awayTeamId": "3",
     "location": "Sportium",
     "status": "scheduled"
   },
@@ -340,8 +340,8 @@ export const SCHEDULE: Game[] = [
     "id": "g_20260628_3",
     "date": "2026-06-28",
     "time": "18:30",
-    "homeTeamId": "t_1775579415800",
-    "awayTeamId": "3",
+    "homeTeamId": "5",
+    "awayTeamId": "1",
     "location": "Sportium",
     "status": "scheduled"
   },
