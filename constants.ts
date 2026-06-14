@@ -639,7 +639,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_alexandre_marquis_177914",
     "name": "Alexandre Marquis",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 2,
     "goals": 0,
     "assists": 0,
@@ -1238,7 +1239,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778425131558",
     "name": "Ryan Turcotte",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 2,
     "goals": 0,
     "assists": 0,
@@ -1247,7 +1249,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778425132617",
     "name": "Anthony Roy",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 1,
     "goals": 2,
     "assists": 1,
@@ -1256,7 +1259,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778425149518",
     "name": "Nathan Riendeau",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 2,
     "goals": 1,
     "assists": 5,
@@ -1310,7 +1314,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778475248942",
     "name": "Vincent Brunet",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 3,
     "goals": 3,
     "assists": 3,
@@ -1319,7 +1324,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778475249644",
     "name": "Alec Isabelle",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 1,
     "goals": 0,
     "assists": 0,
@@ -1373,7 +1379,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1779144310000",
     "name": "Philippe Labrie",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 1,
     "goals": 0,
     "assists": 1,
@@ -1382,7 +1389,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1779144311000",
     "name": "Andrew Taylor",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 1,
     "goals": 0,
     "assists": 0,
@@ -1391,7 +1399,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1779144312000",
     "name": "Justin Vaillant",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 1,
     "goals": 0,
     "assists": 1,
@@ -1400,7 +1409,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1779144313000",
     "name": "Justin Grenier",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 1,
     "goals": 0,
     "assists": 2,
@@ -1409,7 +1419,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_vincent_boulerice",
     "name": "Vincent Boulerice",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 2,
     "goals": 2,
     "assists": 1,
@@ -1418,7 +1429,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_xavier_lussier",
     "name": "Xavier Lussier",
-    "teamId": "1",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 2,
     "goals": 1,
     "assists": 1,
@@ -1445,7 +1457,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_cedric_grenier",
     "name": "Cédric Grenier",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 1,
     "goals": 0,
     "assists": 1,
@@ -1463,7 +1476,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_steven_croteau",
     "name": "Steven Croteau",
-    "teamId": "4",
+    "teamId": "sub",
+    "secondaryTeamIds": ["4"],
     "gp": 1,
     "goals": 0,
     "assists": 0,
@@ -1473,6 +1487,16 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_joshua_sylvain",
     "name": "Joshua Sylvain",
     "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_leighton_geraghty_sub_178009",
+    "name": "Leighton Geraghty",
+    "teamId": "sub",
+    "secondaryTeamIds": ["1"],
     "gp": 0,
     "goals": 0,
     "assists": 0,

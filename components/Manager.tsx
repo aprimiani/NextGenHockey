@@ -48,7 +48,10 @@ const Manager: React.FC = () => {
     resetData 
   } = useLeagueData();
 
-  const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || 'Unknown';
+  const getTeamName = (id: string) => {
+    if (id === 'sub') return 'League Sub';
+    return teams.find(t => t.id === id)?.name || 'Unknown';
+  };
   
   const [activeTab, setActiveTab] = useState<'schedule' | 'teams' | 'players' | 'goalies' | 'pom' | 'deployment'>('schedule');
   const [editingRecapId, setEditingRecapId] = useState<string | null>(null);

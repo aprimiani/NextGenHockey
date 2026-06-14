@@ -26,7 +26,10 @@ const Schedule: React.FC = () => {
     }
   }, [location.state, schedule]);
 
-  const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || t.schedule.unknown;
+  const getTeamName = (id: string) => {
+    if (id === 'sub') return 'League Sub';
+    return teams.find(t => t.id === id)?.name || t.schedule.unknown;
+  };
   const renderTeamName = (id: string) => {
     const name = getTeamName(id);
     if (name.toLowerCase() === '86ers') {

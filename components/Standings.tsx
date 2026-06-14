@@ -115,7 +115,10 @@ const Standings: React.FC = () => {
   const displayedPlayers = showAllPlayers ? sortedPlayers : sortedPlayers.slice(0, 5);
   const displayedGoalies = sortedGoalies;
 
-  const getTeamName = (id: string) => teams.find(t => t.id === id)?.name || 'Unknown';
+  const getTeamName = (id: string) => {
+    if (id === 'sub') return 'League Sub';
+    return teams.find(t => t.id === id)?.name || 'Unknown';
+  };
   const renderTeamName = (id: string) => {
     const name = getTeamName(id);
     if (name.toLowerCase() === '86ers') {
