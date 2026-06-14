@@ -538,6 +538,78 @@ export const SCHEDULE: Game[] = [
 
 export const ALL_PLAYERS: PlayerStats[] = [
   {
+    "id": "p_alexandre_beaudry_178001",
+    "name": "Alexandre Beaudry",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_alexandre_stefanson_178002",
+    "name": "Alexandre Stefanson",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_vincent_belanger_178003",
+    "name": "Vincent Bélanger",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_nicholas_giacalone_178004",
+    "name": "Nicholas Giacalone",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_maverick_bergeron_178005",
+    "name": "Maverick Bergeron",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_william_doyle_178006",
+    "name": "William Doyle",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_sydina_gaye_178007",
+    "name": "Sydina Gaye",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_william_bilodeau_178008",
+    "name": "William Bilodeau",
+    "teamId": "6",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
     "id": "p1",
     "name": "Alessandro Primiani",
     "teamId": "1",
@@ -1476,7 +1548,8 @@ export const GOALIE_STATS: GoalieStats[] = [
   {
     "id": "goalie_ephram_labonville_177914",
     "name": "Ephram Labonville",
-    "teamId": "3",
+    "teamId": "6",
+    "secondaryTeamIds": ["3"],
     "gp": 1,
     "wins": 0,
     "losses": 1,
