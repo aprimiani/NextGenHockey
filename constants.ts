@@ -901,13 +901,12 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1771962941457",
     "name": "Kevin Croteau",
-    "teamId": "sub",
+    "teamId": "2",
     "gp": 6,
-    "goals": 0,
+    "goals": 1,
     "assists": 7,
-    "points": 7,
+    "points": 8,
     "secondaryTeamIds": [
-      "2",
       "t_1775579370484"
     ]
   },
