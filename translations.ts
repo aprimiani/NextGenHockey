@@ -1012,7 +1012,14 @@ export const translations = {
 };
 
 export const translatePenalty = (details: string | undefined, lang: Language): string => {
-  if (!details) return '';
+  const capitalize = (str: string): string => {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  if (!details || details.trim() === '') {
+    return lang === 'fr' ? 'Mineure' : 'Minor';
+  }
   
   const trimLower = details.trim().toLowerCase();
   
@@ -1020,6 +1027,8 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
   const maps: Record<string, { en: string, fr: string }> = {
     'minor': { en: 'Minor', fr: 'Mineure' },
     'mineure': { en: 'Minor', fr: 'Mineure' },
+    'major': { en: 'Major', fr: 'Majeure' },
+    'majeure': { en: 'Major', fr: 'Majeure' },
     
     'tripping': { en: 'Tripping', fr: 'Faire trébucher' },
     'faire trébucher': { en: 'Tripping', fr: 'Faire trébucher' },
@@ -1028,19 +1037,57 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
     'rudess': { en: 'Roughing', fr: 'Rudesse' },
     'rudesse': { en: 'Roughing', fr: 'Rudesse' },
     
-    'mise en échec illégale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
-    'illegal body check': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
-    'illegal check': { en: 'Illegal check', fr: 'Mise en échec illégale' },
-    
-    'major': { en: 'Major', fr: 'Majeure' },
-    'majeure': { en: 'Major', fr: 'Majeure' },
     'holding': { en: 'Holding', fr: 'Retenir' },
     'retenir': { en: 'Holding', fr: 'Retenir' },
+
+    'slashing': { en: 'Slashing', fr: 'Coup de bâton' },
+    'coup de bâton': { en: 'Slashing', fr: 'Coup de bâton' },
+    'coup de baton': { en: 'Slashing', fr: 'Coup de bâton' },
+
+    'cross checking': { en: 'Cross-checking', fr: 'Double-échec' },
+    'cross-checking': { en: 'Cross-checking', fr: 'Double-échec' },
+    'double-échec': { en: 'Cross-checking', fr: 'Double-échec' },
+    'double-echec': { en: 'Cross-checking', fr: 'Double-échec' },
+
+    'interference': { en: 'Interference', fr: 'Obstruction' },
+    'obstruction': { en: 'Interference', fr: 'Obstruction' },
+
+    'too many men': { en: 'Too many men', fr: '6 joueurs sur la glace' },
+    'surnombre': { en: 'Too many men', fr: '6 joueurs sur la glace' },
+    '6 joueurs sur la glace': { en: 'Too many men', fr: '6 joueurs sur la glace' },
+
+    'hooking': { en: 'Hooking', fr: 'Accrocher' },
+    'accrocher': { en: 'Hooking', fr: 'Accrocher' },
+
+    'high sticking': { en: 'High sticking', fr: 'Bâton élevé' },
+    'bâton élevé': { en: 'High sticking', fr: 'Bâton élevé' },
+    'baton eleve': { en: 'High sticking', fr: 'Bâton élevé' },
+
+    'boarding': { en: 'Boarding', fr: 'Donner de la bande' },
+    'donner de la bande': { en: 'Boarding', fr: 'Donner de la bande' },
+
+    'charging': { en: 'Charging', fr: 'Assaut' },
+    'assaut': { en: 'Charging', fr: 'Assaut' },
+
+    'delay of game': { en: 'Delay of game', fr: 'Retarder le jeu' },
+    'retarder le jeu': { en: 'Delay of game', fr: 'Retarder le jeu' },
+
+    'kneeing': { en: 'Kneeing', fr: 'Donner du genou' },
+    'donner du genou': { en: 'Kneeing', fr: 'Donner du genou' },
+
+    'elbowing': { en: 'Elbowing', fr: 'Donner du coude' },
+    'donner du coude': { en: 'Elbowing', fr: 'Donner du coude' },
+    
+    'mise en échec illégale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'mise en echec illegale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'illegal body check': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'illegal check': { en: 'Illegal check', fr: 'Mise en échec illégale' },
   };
 
   // Direct match
   if (maps[trimLower]) {
-    return lang === 'fr' ? maps[trimLower].fr : maps[trimLower].en;
+    const matched = lang === 'fr' ? maps[trimLower].fr : maps[trimLower].en;
+    return capitalize(matched);
   }
 
   // Handle advanced strings with regex / dynamic replacements like "Major (2 Game Suspension)"
@@ -1066,29 +1113,59 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
 
   // General fallback translations of substrings for highly customizable entries
   let result = details;
+  // Use simple case-insensitive replaces without strict word boundary limits to avoid accented non-ASCII issues
   if (lang === 'fr') {
     result = result
-      .replace(/\bMinor\b/gi, 'Mineure')
-      .replace(/\bMajor\b/gi, 'Majeure')
-      .replace(/\bTripping\b/gi, 'Faire trébucher')
-      .replace(/\bRoughing\b/gi, 'Rudesse')
-      .replace(/\bRudess\b/gi, 'Rudesse')
-      .replace(/\bHolding\b/gi, 'Retenir')
-      .replace(/\bIllegal body check\b/gi, 'Mise en échec illégale')
-      .replace(/\bIllegal check\b/gi, 'Mise en échec illégale')
-      .replace(/\bgame suspension\b/gi, 'match de suspension')
-      .replace(/\bgames suspension\b/gi, 'matchs de suspension');
+      .replace(/tripping/gi, 'faire trébucher')
+      .replace(/roughing/gi, 'rudesse')
+      .replace(/rudess/gi, 'rudesse')
+      .replace(/holding/gi, 'retenir')
+      .replace(/slashing/gi, 'coup de bâton')
+      .replace(/cross checking/gi, 'double-échec')
+      .replace(/cross-checking/gi, 'double-échec')
+      .replace(/interference/gi, 'obstruction')
+      .replace(/too many men/gi, '6 joueurs sur la glace')
+      .replace(/surnombre/gi, '6 joueurs sur la glace')
+      .replace(/hooking/gi, 'accrocher')
+      .replace(/high sticking/gi, 'bâton élevé')
+      .replace(/boarding/gi, 'donner de la bande')
+      .replace(/charging/gi, 'assaut')
+      .replace(/delay of game/gi, 'retarder le jeu')
+      .replace(/kneeing/gi, 'donner du genou')
+      .replace(/elbowing/gi, 'donner du coude')
+      .replace(/illegal body check/gi, 'mise en échec illégale')
+      .replace(/illegal check/gi, 'mise en échec illégale')
+      .replace(/minor/gi, 'mineure')
+      .replace(/major/gi, 'majeure')
+      .replace(/game suspension/gi, 'match de suspension')
+      .replace(/games suspension/gi, 'matchs de suspension');
   } else {
     result = result
-      .replace(/\bMineure\b/gi, 'Minor')
-      .replace(/\bMajeure\b/gi, 'Major')
-      .replace(/\bFaire trébucher\b/gi, 'Tripping')
-      .replace(/\bRudesse\b/gi, 'Roughing')
-      .replace(/\bRetenir\b/gi, 'Holding')
-      .replace(/\bMise en échec illégale\b/gi, 'Illegal body check')
-      .replace(/\bmatch de suspension\b/gi, 'game suspension')
-      .replace(/\bmatchs de suspension\b/gi, 'games suspension');
+      .replace(/faire trébucher/gi, 'tripping')
+      .replace(/rudesse/gi, 'roughing')
+      .replace(/retenir/gi, 'holding')
+      .replace(/coup de bâton/gi, 'slashing')
+      .replace(/coup de baton/gi, 'slashing')
+      .replace(/double-échec/gi, 'cross-checking')
+      .replace(/double-echec/gi, 'cross-checking')
+      .replace(/obstruction/gi, 'interference')
+      .replace(/surnombre/gi, 'too many men')
+      .replace(/6 joueurs sur la glace/gi, 'too many men')
+      .replace(/accrocher/gi, 'hooking')
+      .replace(/bâton élevé/gi, 'high sticking')
+      .replace(/baton eleve/gi, 'high sticking')
+      .replace(/donner de la bande/gi, 'boarding')
+      .replace(/assaut/gi, 'charging')
+      .replace(/retarder le jeu/gi, 'delay of game')
+      .replace(/donner du genou/gi, 'kneeing')
+      .replace(/donner du coude/gi, 'elbowing')
+      .replace(/mise en échec illégale/gi, 'illegal body check')
+      .replace(/mise en echec illegale/gi, 'illegal body check')
+      .replace(/mineure/gi, 'minor')
+      .replace(/majeure/gi, 'major')
+      .replace(/match de suspension/gi, 'game suspension')
+      .replace(/matchs de suspension/gi, 'games suspension');
   }
 
-  return result;
+  return capitalize(result);
 };
