@@ -1580,6 +1580,78 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_louis_charle_lavoie",
+    "name": "Louis-Charle Lavoie",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_maxime_lavoie",
+    "name": "Maxime Lavoie",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_shahin_ouest",
+    "name": "Shahin Ouest",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_alexis_lachance",
+    "name": "Alexis Lachance",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_xavier_leduc",
+    "name": "Xavier Leduc",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_xavier_ladouceur",
+    "name": "Xavier Ladouceur",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_anthony_thibeault",
+    "name": "Anthony Thibeault",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_jules_gurky",
+    "name": "Jules Gurky",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -1714,6 +1786,18 @@ export const GOALIE_STATS: GoalieStats[] = [
     "saves": 20,
     "shotsAgainst": 26,
     "goalsAgainst": 6
+  },
+  {
+    "id": "goalie_mathy_tessier",
+    "name": "Mathy Tessier",
+    "teamId": "5",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "saves": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0
   }
 ];
 
