@@ -137,6 +137,34 @@ const Schedule: React.FC = () => {
       return parseTimeToSeconds(a.time) - parseTimeToSeconds(b.time);
     };
 
+    // Precompute running score states in chronological order of goals
+    const sortedGoals = [...selectedRecap.events]
+      .filter(e => e.type === 'goal')
+      .sort(compareEvents);
+
+    let homeScoreCurrent = 0;
+    let awayScoreCurrent = 0;
+    const goalRunningScores: Record<string, {
+      homeScore: number;
+      awayScore: number;
+    }> = {};
+
+    const homeInitial = getTeamInitial(game.homeTeamId);
+    const awayInitial = getTeamInitial(game.awayTeamId);
+
+    sortedGoals.forEach(g => {
+      if (g.teamId === game.homeTeamId) {
+        homeScoreCurrent++;
+      } else if (g.teamId === game.awayTeamId) {
+        awayScoreCurrent++;
+      }
+      
+      goalRunningScores[g.id] = {
+        homeScore: homeScoreCurrent,
+        awayScore: awayScoreCurrent,
+      };
+    });
+
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button onClick={() => setSelectedGameId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs"><ArrowLeft className="mr-2" size={20} />{t.schedule.backToSchedule}</button>
@@ -165,9 +193,9 @@ const Schedule: React.FC = () => {
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.scoringSummary}</h3>
                     <div className="space-y-4">
-                        {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').sort(compareEvents).map(event => (
+                        {sortedGoals.length > 0 ? sortedGoals.map(event => (
                             <div key={event.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700/50 shadow-inner">
-                                <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr] gap-4 items-center">
+                                <div className="grid grid-cols-1 md:grid-cols-[120px_1fr_1fr_140px] gap-4 items-center">
                                     <div className="flex items-center space-x-3 border-r border-gray-700/50 pr-4">
                                         <span className="text-ng-light-blue font-mono font-bold text-lg">{event.time}</span>
                                         <div className="flex flex-col">
@@ -200,6 +228,31 @@ const Schedule: React.FC = () => {
                                             ) : (
                                                 <span className="text-gray-600 font-normal italic">None</span>
                                             )}
+                                        </div>
+                                    </div>
+
+                                    <div className="flex flex-col md:border-l md:border-gray-700/50 md:pl-6 md:items-end md:text-right">
+                                        <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none mb-1.5">{language === 'fr' ? 'SCORE' : 'RUNNING SCORE'}</span>
+                                        <div className="bg-gray-950/50 border border-gray-800/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-mono select-none">
+                                            <span 
+                                                className={event.teamId === game.homeTeamId ? "font-black text-[11px] tracking-wide" : "text-gray-500 font-medium text-[10px]"}
+                                                style={event.teamId === game.homeTeamId ? { color: getTeamColor(game.homeTeamId), textShadow: `0 0 6px ${getTeamColor(game.homeTeamId)}` } : undefined}
+                                            >
+                                                {homeInitial}
+                                            </span>
+                                            <span className={event.teamId === game.homeTeamId ? "text-white font-black text-sm md:text-base transition-all" : "text-gray-500 font-medium text-xs md:text-sm"}>
+                                                {goalRunningScores[event.id]?.homeScore ?? 0}
+                                            </span>
+                                            <span className="text-gray-800 font-bold text-xs px-0.5">-</span>
+                                            <span className={event.teamId === game.awayTeamId ? "text-white font-black text-sm md:text-base transition-all" : "text-gray-500 font-medium text-xs md:text-sm"}>
+                                                {goalRunningScores[event.id]?.awayScore ?? 0}
+                                            </span>
+                                            <span 
+                                                className={event.teamId === game.awayTeamId ? "font-black text-[11px] tracking-wide" : "text-gray-500 font-medium text-[10px]"}
+                                                style={event.teamId === game.awayTeamId ? { color: getTeamColor(game.awayTeamId), textShadow: `0 0 6px ${getTeamColor(game.awayTeamId)}` } : undefined}
+                                            >
+                                                {awayInitial}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
