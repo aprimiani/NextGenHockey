@@ -1652,6 +1652,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_thom_cusson",
+    "name": "Thom Cusson",
+    "teamId": "5",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
