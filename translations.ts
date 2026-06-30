@@ -144,6 +144,9 @@ export const translations = {
       noPlayers: 'No players registered for this team yet.',
       gaaExplanation: 'GAA (Goals Against Average) = Total Goals Against ÷ Games Played.',
       leagueRank: 'League Rank',
+      gameLogs: 'Game Logs',
+      opponent: 'Opponent',
+      pim: 'PIM',
       months: [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -647,6 +650,9 @@ export const translations = {
       noPlayers: 'Aucun joueur inscrit pour cette équipe.',
       gaaExplanation: 'Moy. (Moyenne de buts alloués) = Total des buts alloués ÷ Parties jouées.',
       leagueRank: 'Rang de la Ligue',
+      gameLogs: 'Journal des Matchs',
+      opponent: 'Adversaire',
+      pim: 'PEN',
       months: [
         'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
         'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
@@ -1022,6 +1028,83 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
   }
   
   const trimLower = details.trim().toLowerCase();
+
+  const exactTranslations: Record<string, { en: string; fr: string }> = {
+    "boarding and violating safety guidelines (suspended for remainder of season)": {
+      en: "Boarding and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Mise en échec contre la bande et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "boarding and violating safety guidelines (suspended for remainder of the season)": {
+      en: "Boarding and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Mise en échec contre la bande et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "major penalty for fighting and violating safety guidelines (suspended for remainder of season)": {
+      en: "Major penalty for fighting and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Pénalité majeure pour combat et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "major penalty for fighting and violating safety guidelines (suspended for remainder of the season)": {
+      en: "Major penalty for fighting and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Pénalité majeure pour combat et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "major penalty for fighting and violating safety guidelines (5 game suspension)": {
+      en: "Major penalty for fighting and violating safety guidelines (5 Game Suspension)",
+      fr: "Pénalité majeure pour combat et non-respect des règles de sécurité (suspension de 5 matchs)"
+    },
+    "major penalty for fighting and second offence (6 game suspension)": {
+      en: "Major penalty for fighting and second offence (6 Game Suspension)",
+      fr: "Pénalité majeure pour combat et deuxième infraction (suspension de 6 matchs)"
+    },
+    "major penalty for fighting and second offense (6 game suspension)": {
+      en: "Major penalty for fighting and second offence (6 Game Suspension)",
+      fr: "Pénalité majeure pour combat et deuxième infraction (suspension de 6 matchs)"
+    },
+    "major penalty for fighting (2 game suspension)": {
+      en: "Major penalty for fighting (2 Game Suspension)",
+      fr: "Pénalité majeure pour combat (suspension de 2 matchs)"
+    },
+    "major penalty for fighting (5 game suspension)": {
+      en: "Major penalty for fighting (5 Game Suspension)",
+      fr: "Pénalité majeure pour combat (suspension de 5 matchs)"
+    },
+    "roughing (1 game suspension)": {
+      en: "Roughing (1 Game Suspension)",
+      fr: "Rudesse (suspension de 1 match)"
+    },
+
+    // Reverse lookups for French inputs
+    "mise en échec contre la bande et non-respect des règles de sécurité (suspension pour le reste de la saison)": {
+      en: "Boarding and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Mise en échec contre la bande et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "pénalité majeure pour combat et non-respect des règles de sécurité (suspension pour le reste de la saison)": {
+      en: "Major penalty for fighting and violating safety guidelines (Suspended for remainder of season)",
+      fr: "Pénalité majeure pour combat et non-respect des règles de sécurité (suspension pour le reste de la saison)"
+    },
+    "pénalité majeure pour combat et non-respect des règles de sécurité (suspension de 5 matchs)": {
+      en: "Major penalty for fighting and violating safety guidelines (5 Game Suspension)",
+      fr: "Pénalité majeure pour combat et non-respect des règles de sécurité (suspension de 5 matchs)"
+    },
+    "pénalité majeure pour combat et deuxième infraction (suspension de 6 matchs)": {
+      en: "Major penalty for fighting and second offence (6 Game Suspension)",
+      fr: "Pénalité majeure pour combat et deuxième infraction (suspension de 6 matchs)"
+    },
+    "pénalité majeure pour combat (suspension de 2 matchs)": {
+      en: "Major penalty for fighting (2 Game Suspension)",
+      fr: "Pénalité majeure pour combat (suspension de 2 matchs)"
+    },
+    "pénalité majeure pour combat (suspension de 5 matchs)": {
+      en: "Major penalty for fighting (5 Game Suspension)",
+      fr: "Pénalité majeure pour combat (suspension de 5 matchs)"
+    },
+    "rudesse (suspension de 1 match)": {
+      en: "Roughing (1 Game Suspension)",
+      fr: "Rudesse (suspension de 1 match)"
+    }
+  };
+
+  if (exactTranslations[trimLower]) {
+    return lang === 'fr' ? exactTranslations[trimLower].fr : exactTranslations[trimLower].en;
+  }
   
   // Mapping of lowercase search keys to their multilingual records
   const maps: Record<string, { en: string, fr: string }> = {
@@ -1137,6 +1220,15 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
       .replace(/illegal check/gi, 'mise en échec illégale')
       .replace(/minor/gi, 'mineure')
       .replace(/major/gi, 'majeure')
+      .replace(/fighting/gi, 'bagarre')
+      .replace(/violating safety guidelines/gi, 'violation des directives de sécurité')
+      .replace(/second offence/gi, 'deuxième offense')
+      .replace(/suspended for remainder of season/gi, 'suspendu pour le reste de la saison')
+      .replace(/suspended for remainder of the season/gi, 'suspendu pour le reste de la saison')
+      .replace(/remainder of season/gi, 'reste de la saison')
+      .replace(/remainder of the season/gi, 'reste de la saison')
+      .replace(/(\d+)\s*game\s*suspension/gi, (m, g1) => `${g1} ${parseInt(g1) > 1 ? 'matchs' : 'match'} de suspension`)
+      .replace(/(\d+)\s*games\s*suspension/gi, (m, g1) => `${g1} matchs de suspension`)
       .replace(/game suspension/gi, 'match de suspension')
       .replace(/games suspension/gi, 'matchs de suspension');
   } else {
@@ -1163,6 +1255,12 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
       .replace(/mise en echec illegale/gi, 'illegal body check')
       .replace(/mineure/gi, 'minor')
       .replace(/majeure/gi, 'major')
+      .replace(/bagarre/gi, 'fighting')
+      .replace(/violation des directives de sécurité/gi, 'violating safety guidelines')
+      .replace(/deuxième offense/gi, 'second offence')
+      .replace(/suspendu pour le reste de la saison/gi, 'suspended for remainder of season')
+      .replace(/reste de la saison/gi, 'remainder of season')
+      .replace(/(\d+)\s*matchs?\s*de\s*suspension/gi, (m, g1) => `${g1} ${parseInt(g1) > 1 ? 'Games' : 'Game'} Suspension`)
       .replace(/match de suspension/gi, 'game suspension')
       .replace(/matchs de suspension/gi, 'games suspension');
   }
