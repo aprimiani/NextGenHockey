@@ -312,68 +312,110 @@ const Standings: React.FC = () => {
       <div className="mb-12">
         <div className="bg-gradient-to-br from-ng-navy/80 to-ng-blue/40 rounded-2xl border border-ng-light-blue/30 p-6 shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-32 h-32 bg-ng-light-blue/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-ng-light-blue/20 transition-all duration-500"></div>
-          <div className="relative flex flex-col md:flex-row items-center gap-8">
-            {/* Header/Title */}
-            <div className="flex-shrink-0 text-center md:text-left min-w-[140px]">
-              <div className="flex items-center justify-center md:justify-start gap-2 text-ng-light-blue mb-1">
-                <Trophy size={18} className="animate-bounce" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t.standings.playerOfMonth}</span>
-              </div>
-              <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter leading-none">
-                {t.standings.months?.[playerOfMonth.month] || 'Month'} {playerOfMonth.year}
-              </h3>
-            </div>
-
-            {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-gray-700"></div>
-
-            {/* Player Info */}
-            <div className="flex-1 flex flex-col items-center md:items-start">
-              {playerOfMonth.playerId ? (
-                <>
-                  <button 
-                    onClick={() => {
-                      const p = players.find(p => p.id === playerOfMonth.playerId);
-                      if (p) setSelectedPlayer(p);
-                    }}
-                    className="text-2xl font-black text-white uppercase italic hover:text-ng-light-blue transition-colors text-center md:text-left outline-none"
-                  >
-                    {players.find(p => p.id === playerOfMonth.playerId)?.name || 'N/A'}
-                  </button>
-                  <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center md:text-left">
-                    {renderTeamName(players.find(p => p.id === playerOfMonth.playerId)?.teamId || '')}
-                  </div>
-                </>
-              ) : (
-                <div className="text-2xl font-black text-gray-600 uppercase italic text-center md:text-left">
-                  TBD
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+            {/* Header/Title & Player Info */}
+            <div className="col-span-12 lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-center sm:items-start lg:items-start gap-4 sm:gap-6 lg:gap-3 text-center sm:text-left">
+              <div className="flex-shrink-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 text-ng-light-blue mb-1">
+                  <Trophy size={18} className="animate-bounce" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t.standings.playerOfMonth}</span>
                 </div>
-              )}
+                <h3 className="text-2xl sm:text-3xl font-black text-white uppercase italic tracking-tighter leading-none">
+                  {t.standings.months?.[playerOfMonth.month] || 'Month'} {playerOfMonth.year}
+                </h3>
+              </div>
+
+              {/* Divider on Tablet Viewports only */}
+              <div className="hidden sm:block lg:hidden w-px h-12 bg-gray-700"></div>
+
+              {/* Player name and Team */}
+              <div className="flex-1 flex flex-col items-center sm:items-start">
+                {playerOfMonth.playerId ? (
+                  (() => {
+                    const p = players.find(x => x.id === playerOfMonth.playerId);
+                    const g = goalies.find(x => x.id === playerOfMonth.playerId);
+                    const name = p ? p.name : (g ? g.name : 'N/A');
+                    const teamId = p ? p.teamId : (g ? g.teamId : '');
+                    return (
+                      <>
+                        <button 
+                          onClick={() => {
+                            if (p) setSelectedPlayer(p);
+                            else if (g) setSelectedGoalie(g);
+                          }}
+                          className="text-xl sm:text-2xl font-black text-white uppercase italic hover:text-ng-light-blue transition-colors text-center sm:text-left outline-none leading-tight"
+                        >
+                          {name}
+                        </button>
+                        <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center sm:text-left mt-0.5">
+                          {renderTeamName(teamId)}
+                        </div>
+                      </>
+                    );
+                  })()
+                ) : (
+                  <div className="text-xl sm:text-2xl font-black text-gray-600 uppercase italic text-center sm:text-left">
+                    TBD
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Stats Line */}
-            <div className="grid grid-cols-4 gap-2 sm:gap-6 bg-ng-navy/40 p-3 sm:p-4 rounded-xl border border-gray-700/50 w-full md:w-auto">
-              {[
-                { label: 'GP', val: playerOfMonth.gp },
-                { label: 'G', val: playerOfMonth.goals },
-                { label: 'A', val: playerOfMonth.assists },
-                { label: 'PTS', val: playerOfMonth.points },
-              ].map(s => (
-                <div key={s.label} className="text-center px-1">
-                  <div className="text-lg sm:text-xl font-black text-white leading-none tracking-tighter">{s.val}</div>
-                  <div className="text-[8px] sm:text-[9px] font-bold text-gray-500 uppercase tracking-tighter mt-1">{s.label}</div>
-                </div>
-              ))}
+            <div className="col-span-12 lg:col-span-4 w-full">
+              {(() => {
+                const isGoalie = playerOfMonth.isGoalie || goalies.some(g => g.id === playerOfMonth.playerId);
+                const pomGoalie = isGoalie ? goalies.find(g => g.id === playerOfMonth.playerId) : null;
+                const stats = isGoalie ? [
+                  { label: 'GP', val: playerOfMonth.gp },
+                  { 
+                    label: 'REC', 
+                    val: `${playerOfMonth.wins !== undefined ? playerOfMonth.wins : (pomGoalie?.wins ?? 0)}-${playerOfMonth.losses !== undefined ? playerOfMonth.losses : (pomGoalie?.losses ?? 0)}-${playerOfMonth.draws !== undefined ? playerOfMonth.draws : (pomGoalie?.draws ?? 0)}` 
+                  },
+                  { 
+                    label: 'SV%', 
+                    val: playerOfMonth.savePct !== undefined 
+                      ? playerOfMonth.savePct.toFixed(3) 
+                      : (pomGoalie && pomGoalie.shotsAgainst > 0 
+                        ? ((pomGoalie.shotsAgainst - pomGoalie.goalsAgainst) / pomGoalie.shotsAgainst).toFixed(3) 
+                        : '.000') 
+                  },
+                  { 
+                    label: 'GAA', 
+                    val: playerOfMonth.gaa !== undefined 
+                      ? playerOfMonth.gaa.toFixed(2) 
+                      : (pomGoalie && pomGoalie.gp > 0 
+                        ? (pomGoalie.goalsAgainst / pomGoalie.gp).toFixed(2) 
+                        : '0.00') 
+                  },
+                ] : [
+                  { label: 'GP', val: playerOfMonth.gp },
+                  { label: 'G', val: playerOfMonth.goals },
+                  { label: 'A', val: playerOfMonth.assists },
+                  { label: 'PTS', val: playerOfMonth.points },
+                ];
+
+                return (
+                  <div className="grid grid-cols-4 gap-2 bg-ng-navy/40 p-3 sm:p-4 rounded-xl border border-gray-700/50 w-full justify-items-center">
+                    {stats.map(s => (
+                      <div key={s.label} className="text-center px-1">
+                        <div className="text-sm sm:text-lg xl:text-xl font-black text-white leading-none tracking-tighter whitespace-nowrap">{s.val}</div>
+                        <div className="text-[8px] sm:text-[9px] font-bold text-gray-500 uppercase tracking-tighter mt-1">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Prize Box */}
-            <div className="bg-green-950/30 border border-green-500/30 p-4 rounded-xl flex items-center gap-4 w-full md:max-w-xs justify-center md:justify-start">
+            <div className="col-span-12 lg:col-span-4 w-full bg-green-950/30 border border-green-500/30 p-4 rounded-xl flex items-center gap-4 justify-center lg:justify-start">
               <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Shield size={20} className="text-green-400" />
               </div>
               <div className="min-w-0">
                 <div className="text-[9px] font-black text-green-400 uppercase tracking-widest mb-0.5">{t.standings.prizeLabel}</div>
-                <div className="text-[10px] sm:text-[11px] font-bold text-gray-200 leading-tight line-clamp-2 md:line-clamp-none">
+                <div className="text-[10px] sm:text-[11px] font-bold text-gray-200 leading-tight">
                   {language === 'en' ? playerOfMonth.prizeEn : playerOfMonth.prizeFr}
                 </div>
               </div>

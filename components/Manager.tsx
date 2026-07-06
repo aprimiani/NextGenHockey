@@ -1098,37 +1098,83 @@ const Manager: React.FC = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Select Player</label>
+                            <label className="text-[10px] text-gray-500 uppercase font-black tracking-widest">Select Player or Goalie</label>
                             <select 
                               value={playerOfMonth.playerId} 
-                              onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, playerId: e.target.value }))}
+                              onChange={(e) => {
+                                const id = e.target.value;
+                                const isG = goalies.some(g => g.id === id);
+                                setPlayerOfMonth(prev => ({ 
+                                  ...prev, 
+                                  playerId: id,
+                                  isGoalie: isG,
+                                  goals: isG ? 0 : prev.goals,
+                                  assists: isG ? 0 : prev.assists,
+                                  points: isG ? 0 : prev.points
+                                }));
+                              }}
                               className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white text-xs"
                             >
                                 <option value="">Select a player...</option>
-                                {players.sort((a,b) => a.name.localeCompare(b.name)).map(p => (
-                                    <option key={p.id} value={p.id}>{p.name} ({getTeamName(p.teamId)})</option>
-                                ))}
+                                <optgroup label="Skaters">
+                                    {players.sort((a,b) => a.name.localeCompare(b.name)).map(p => (
+                                        <option key={p.id} value={p.id}>{p.name} ({getTeamName(p.teamId)})</option>
+                                    ))}
+                                </optgroup>
+                                <optgroup label="Goalies">
+                                    {goalies.sort((a,b) => a.name.localeCompare(b.name)).map(g => (
+                                        <option key={g.id} value={g.id}>{g.name} [G] ({getTeamName(g.teamId)})</option>
+                                    ))}
+                                </optgroup>
                             </select>
                         </div>
 
-                        <div className="grid grid-cols-4 gap-3">
-                            {[
-                                { label: 'GP', key: 'gp' },
-                                { label: 'Goals', key: 'goals' },
-                                { label: 'Assists', key: 'assists' },
-                                { label: 'Points', key: 'points' }
-                            ].map((s: any) => (
-                                <div key={s.key} className="space-y-1">
-                                    <label className="text-[9px] text-gray-500 uppercase font-bold text-center block">{s.label}</label>
-                                    <input 
-                                      type="number" 
-                                      value={isNaN((playerOfMonth as any)[s.key]) ? 0 : (playerOfMonth as any)[s.key]} 
-                                      onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, [s.key]: parseInt(e.target.value) || 0 }))}
-                                      className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white text-center text-xs font-black"
-                                    />
-                                </div>
-                            ))}
-                        </div>
+                        {playerOfMonth.isGoalie || goalies.some(g => g.id === playerOfMonth.playerId) ? (
+                            <div className="grid grid-cols-4 md:grid-cols-7 gap-3">
+                                {[
+                                    { label: 'GP', key: 'gp' },
+                                    { label: 'Wins', key: 'wins' },
+                                    { label: 'Losses', key: 'losses' },
+                                    { label: 'Draws', key: 'draws' },
+                                    { label: 'SV%', key: 'savePct', isFloat: true, step: "0.001" },
+                                    { label: 'GAA', key: 'gaa', isFloat: true, step: "0.01" },
+                                    { label: 'SO', key: 'shutouts' }
+                                ].map((s: any) => (
+                                    <div key={s.key} className="space-y-1">
+                                        <label className="text-[9px] text-gray-500 uppercase font-bold text-center block">{s.label}</label>
+                                        <input 
+                                          type="number" 
+                                          step={s.step || "1"}
+                                          value={isNaN((playerOfMonth as any)[s.key]) ? 0 : (playerOfMonth as any)[s.key]} 
+                                          onChange={(e) => {
+                                            const val = s.isFloat ? parseFloat(e.target.value) : parseInt(e.target.value);
+                                            setPlayerOfMonth(prev => ({ ...prev, [s.key]: isNaN(val) ? 0 : val }));
+                                          }}
+                                          className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white text-center text-xs font-black"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-4 gap-3">
+                                {[
+                                    { label: 'GP', key: 'gp' },
+                                    { label: 'Goals', key: 'goals' },
+                                    { label: 'Assists', key: 'assists' },
+                                    { label: 'Points', key: 'points' }
+                                ].map((s: any) => (
+                                    <div key={s.key} className="space-y-1">
+                                        <label className="text-[9px] text-gray-500 uppercase font-bold text-center block">{s.label}</label>
+                                        <input 
+                                          type="number" 
+                                          value={isNaN((playerOfMonth as any)[s.key]) ? 0 : (playerOfMonth as any)[s.key]} 
+                                          onChange={(e) => setPlayerOfMonth(prev => ({ ...prev, [s.key]: parseInt(e.target.value) || 0 }))}
+                                          className="w-full bg-gray-900 border border-gray-700 rounded-lg p-2 text-white text-center text-xs font-black"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">

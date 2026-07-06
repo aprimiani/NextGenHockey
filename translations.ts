@@ -1165,6 +1165,12 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
     'mise en echec illegale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
     'illegal body check': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
     'illegal check': { en: 'Illegal check', fr: 'Mise en échec illégale' },
+    'slash': { en: 'Slashing', fr: 'Coup de bâton' },
+    'powerplay': { en: 'Powerplay', fr: 'Avantage numérique' },
+    'coup à la tête': { en: 'Head contact', fr: 'Coup à la tête' },
+    'coup a la tete': { en: 'Head contact', fr: 'Coup à la tête' },
+    'head contact': { en: 'Head contact', fr: 'Coup à la tête' },
+    'head checking': { en: 'Head contact', fr: 'Coup à la tête' },
   };
 
   // Direct match
@@ -1203,7 +1209,11 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
       .replace(/roughing/gi, 'rudesse')
       .replace(/rudess/gi, 'rudesse')
       .replace(/holding/gi, 'retenir')
+      .replace(/slash/gi, 'coup de bâton')
       .replace(/slashing/gi, 'coup de bâton')
+      .replace(/powerplay/gi, 'avantage numérique')
+      .replace(/head contact/gi, 'coup à la tête')
+      .replace(/head checking/gi, 'coup à la tête')
       .replace(/cross checking/gi, 'double-échec')
       .replace(/cross-checking/gi, 'double-échec')
       .replace(/interference/gi, 'obstruction')
@@ -1238,6 +1248,10 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
       .replace(/retenir/gi, 'holding')
       .replace(/coup de bâton/gi, 'slashing')
       .replace(/coup de baton/gi, 'slashing')
+      .replace(/avantage numérique/gi, 'powerplay')
+      .replace(/avantage numerique/gi, 'powerplay')
+      .replace(/coup à la tête/gi, 'head contact')
+      .replace(/coup a la tete/gi, 'head contact')
       .replace(/double-échec/gi, 'cross-checking')
       .replace(/double-echec/gi, 'cross-checking')
       .replace(/obstruction/gi, 'interference')

@@ -109,4 +109,11 @@ export interface PlayerOfMonth {
   prizeEn: string;
   prizeFr: string;
   prize?: string;
+  isGoalie?: boolean;
+  wins?: number;
+  losses?: number;
+  draws?: number;
+  savePct?: number;
+  gaa?: number;
+  shutouts?: number;
 }
