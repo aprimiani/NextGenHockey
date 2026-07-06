@@ -1891,7 +1891,8 @@ export const GOALIE_STATS: GoalieStats[] = [
     "draws": 2,
     "saves": 186,
     "shotsAgainst": 209,
-    "goalsAgainst": 23
+    "goalsAgainst": 23,
+    "shutouts": 1
   },
   {
     "id": "goalie_ephram_labonville_177914",

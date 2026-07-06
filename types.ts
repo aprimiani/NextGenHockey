@@ -55,6 +55,7 @@ export interface GoalieStats {
   saves: number; // Calculated: shotsAgainst - goalsAgainst
   shotsAgainst: number;
   goalsAgainst: number;
+  shutouts?: number;
   goals?: number;
   assists?: number;
   points?: number;

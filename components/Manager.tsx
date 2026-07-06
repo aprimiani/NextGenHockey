@@ -195,7 +195,7 @@ const Manager: React.FC = () => {
   };
 
   const addGoalie = () => {
-    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', secondaryTeamIds: [], gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 };
+    const newGoalie = { id: `goalie_${Date.now()}`, name: 'New Goalie', teamId: teams[0]?.id || '1', secondaryTeamIds: [], gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0, shutouts: 0 };
     setGoalies(prev => [...prev, newGoalie]);
   };
 
@@ -220,7 +220,7 @@ const Manager: React.FC = () => {
     // 1. Reset all stats
     const newTeams = teams.map(team => ({ ...team, gp: 0, wins: 0, losses: 0, ties: 0, points: 0, goalsFor: 0, goalsAgainst: 0 }));
     const newPlayers = players.map(player => ({ ...player, gp: 0, goals: 0, assists: 0, points: 0 }));
-    const newGoalies = goalies.map(goalie => ({ ...goalie, gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0 }));
+    const newGoalies = goalies.map(goalie => ({ ...goalie, gp: 0, wins: 0, losses: 0, draws: 0, saves: 0, shotsAgainst: 0, goalsAgainst: 0, shutouts: 0 }));
 
     // 2. Process each played game
     schedule.filter(game => game.status === 'played').forEach(game => {
@@ -290,6 +290,9 @@ const Manager: React.FC = () => {
             hGoalie.shotsAgainst += recap.goalieStats.homeGoalie.shotsFaced;
             hGoalie.goalsAgainst += recap.goalieStats.homeGoalie.goalsAgainst;
             hGoalie.saves += recap.goalieStats.homeGoalie.saves;
+            if (recap.goalieStats.homeGoalie.goalsAgainst === 0) {
+              hGoalie.shutouts = (hGoalie.shutouts || 0) + 1;
+            }
             if (homeScore > awayScore) hGoalie.wins++;
             else if (homeScore < awayScore) hGoalie.losses++;
             else hGoalie.draws++;
@@ -299,6 +302,9 @@ const Manager: React.FC = () => {
             aGoalie.shotsAgainst += recap.goalieStats.awayGoalie.shotsFaced;
             aGoalie.goalsAgainst += recap.goalieStats.awayGoalie.goalsAgainst;
             aGoalie.saves += recap.goalieStats.awayGoalie.saves;
+            if (recap.goalieStats.awayGoalie.goalsAgainst === 0) {
+              aGoalie.shutouts = (aGoalie.shutouts || 0) + 1;
+            }
             if (awayScore > homeScore) aGoalie.wins++;
             else if (awayScore < homeScore) aGoalie.losses++;
             else aGoalie.draws++;
@@ -984,6 +990,7 @@ const Manager: React.FC = () => {
                                 <th className="p-3 text-center">{t.standings.svPct}</th>
                                 <th className="p-3 text-center text-gray-500">{t.standings.shotsAgainst}</th>
                                 <th className="p-3 text-center text-gray-500">{t.standings.goalsAgainstShort}</th>
+                                <th className="p-3 text-center text-gray-500">{t.standings.shutouts}</th>
                                 <th className="p-3"></th>
                             </tr>
                         </thead>
@@ -1038,6 +1045,7 @@ const Manager: React.FC = () => {
                                         <td className="p-3 text-center text-ng-light-blue font-bold text-xs">{svPct}</td>
                                         <td className="p-3 text-center"><input type="number" value={isNaN(g.shotsAgainst) ? 0 : g.shotsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'shotsAgainst', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-center"><input type="number" value={isNaN(g.goalsAgainst) ? 0 : g.goalsAgainst} onChange={(e) => handleGoalieUpdate(g.id, 'goalsAgainst', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
+                                        <td className="p-3 text-center"><input type="number" value={isNaN(g.shutouts || 0) ? 0 : g.shutouts} onChange={(e) => handleGoalieUpdate(g.id, 'shutouts', parseInt(e.target.value) || 0)} className="w-10 bg-gray-900 border-none text-white text-xs text-center rounded" /></td>
                                         <td className="p-3 text-right">
                                             <button 
                                               type="button"

@@ -101,8 +101,8 @@ const Standings: React.FC = () => {
       const sB = b[goalieSort.key as keyof GoalieStats] as string;
       return goalieSort.dir === 'asc' ? sA.localeCompare(sB) : sB.localeCompare(sA);
     } else {
-      valA = a[goalieSort.key as keyof GoalieStats] as number;
-      valB = b[goalieSort.key as keyof GoalieStats] as number;
+      valA = (a[goalieSort.key as keyof GoalieStats] as number) || 0;
+      valB = (b[goalieSort.key as keyof GoalieStats] as number) || 0;
     }
 
     if (valA === valB) {
@@ -601,8 +601,18 @@ const Standings: React.FC = () => {
                           <div className="flex items-center justify-center">
                             {t.standings.svPct}
                             <SortIcon sort={goalieSort} column="svPct" />
-                          </div>
-                        </th>
+                           </div>
+                         </th>
+                         <th 
+                           className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                           onClick={() => handleSort(goalieSort, setGoalieSort, 'shutouts')}
+                         >
+                           <div className="flex items-center justify-center">
+                             {t.standings.shutouts}
+                             <SortIcon sort={goalieSort} column="shutouts" />
+                           </div>
+                         </th>
+                         <th style={{ display: "none" }}><div className="hidden"></div></th>
 
                                                <th 
                           className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap cursor-pointer group"
@@ -650,6 +660,7 @@ const Standings: React.FC = () => {
                           <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
                           <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
                           <td className="px-3 md:px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{svPct}</td>
+                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{goalie.shutouts || 0}</td>
                           <td className="hidden lg:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.shotsAgainst}</td>
                           <td className="hidden lg:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.goalsAgainst}</td>
                         </tr>
@@ -766,6 +777,16 @@ const Standings: React.FC = () => {
                                     <SortIcon sort={teamGoalieSort} column="svPct" />
                                   </div>
                                 </th>
+                                <th 
+                                  className="px-3 md:px-4 py-2 text-center whitespace-nowrap cursor-pointer group"
+                                  onClick={() => handleSort(teamGoalieSort, setTeamGoalieSort, 'shutouts')}
+                                >
+                                  <div className="flex items-center justify-center">
+                                    {t.standings.shutouts}
+                                    <SortIcon sort={teamGoalieSort} column="shutouts" />
+                                  </div>
+                                </th>
+                                <th style={{ display: "none" }}><div className="hidden"></div></th>
                                 <th className="hidden md:table-cell px-3 md:px-4 py-2 text-center text-gray-500 whitespace-nowrap">{t.standings.shotsAgainst}</th>
                                 <th className="hidden md:table-cell px-3 md:px-4 py-2 text-center text-gray-500 whitespace-nowrap">{t.standings.goalsAgainstShort}</th>
                               </tr>
@@ -787,8 +808,8 @@ const Standings: React.FC = () => {
                                       const sB = b[teamGoalieSort.key as keyof GoalieStats] as string;
                                       return teamGoalieSort.dir === 'asc' ? sA.localeCompare(sB) : sB.localeCompare(sA);
                                     } else {
-                                      valA = a[teamGoalieSort.key as keyof GoalieStats] as number;
-                                      valB = b[teamGoalieSort.key as keyof GoalieStats] as number;
+                                      valA = (a[teamGoalieSort.key as keyof GoalieStats] as number) || 0;
+                                      valB = (b[teamGoalieSort.key as keyof GoalieStats] as number) || 0;
                                     }
                                     if (valA === valB) {
                                       return b.gp - a.gp;
@@ -818,13 +839,14 @@ const Standings: React.FC = () => {
                                       <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{g.wins}-{g.losses}-{g.draws}</td>
                                       <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono italic whitespace-nowrap">{gaa}</td>
                                       <td className="px-3 md:px-4 py-3 text-sm text-center font-black text-ng-light-blue whitespace-nowrap">{svPct}</td>
+                                      <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{g.shutouts || 0}</td>
                                       <td className="hidden md:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{g.shotsAgainst}</td>
                                       <td className="hidden md:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{g.goalsAgainst}</td>
                                     </tr>
                                   )
                                 })
                               ) : (
-                                <tr><td colSpan={7} className="p-4 text-center text-gray-500 italic text-xs">No goalies assigned.</td></tr>
+                                <tr><td colSpan={8} className="p-4 text-center text-gray-500 italic text-xs">No goalies assigned.</td></tr>
                               )}
                             </tbody>
                           </table>
