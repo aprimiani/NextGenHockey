@@ -460,7 +460,7 @@ const Manager: React.FC = () => {
                         const eventIdx = gameRecaps[editingRecapId].events.findIndex(e => e.id === event.id);
                         const homeId = schedule.find(g => g.id === editingRecapId)?.homeTeamId;
                         const awayId = schedule.find(g => g.id === editingRecapId)?.awayTeamId;
-                        const teamPlayers = players.filter(p => p.teamId === event.teamId);
+                        const teamPlayers = players.filter(p => p.teamId === event.teamId || (p.secondaryTeamIds || []).includes(event.teamId));
                         
                         return (
                         <div key={event.id} className="bg-gray-800/50 p-4 rounded-lg border border-gray-700 space-y-3">
@@ -571,7 +571,7 @@ const Manager: React.FC = () => {
                         const eventIdx = gameRecaps[editingRecapId].events.findIndex(e => e.id === event.id);
                         const homeId = schedule.find(g => g.id === editingRecapId)?.homeTeamId;
                         const awayId = schedule.find(g => g.id === editingRecapId)?.awayTeamId;
-                        const teamPlayers = players.filter(p => p.teamId === event.teamId);
+                        const teamPlayers = players.filter(p => p.teamId === event.teamId || (p.secondaryTeamIds || []).includes(event.teamId));
                         
                         return (
                         <div key={event.id} className="bg-red-900/10 p-4 rounded-lg border border-red-900/30 space-y-3">
