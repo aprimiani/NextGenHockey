@@ -253,7 +253,7 @@ const Standings: React.FC = () => {
   }, [selectedSeason, schedule]);
 
   // Sorting State
-  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank' | 'winPct' | 'diff'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [playerSort, setPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'svPct', dir: 'desc' });
 
@@ -281,10 +281,21 @@ const Standings: React.FC = () => {
   // Process and Sort Teams
   const sortedTeams = [...activeTeamsList].sort((a, b) => {
     if (teamSort.key === 'rank') return 0;
-    const key = teamSort.key as keyof Team;
+    
+    let valA: number | string;
+    let valB: number | string;
 
-    let valA = a[key];
-    let valB = b[key];
+    if (teamSort.key === 'winPct') {
+      valA = a.gp > 0 ? (a.wins / a.gp) : 0;
+      valB = b.gp > 0 ? (b.wins / b.gp) : 0;
+    } else if (teamSort.key === 'diff') {
+      valA = a.goalsFor - a.goalsAgainst;
+      valB = b.goalsFor - b.goalsAgainst;
+    } else {
+      const key = teamSort.key as keyof Team;
+      valA = a[key] ?? 0;
+      valB = b[key] ?? 0;
+    }
 
     if (typeof valA === 'string') {
       return teamSort.dir === 'asc' ? valA.localeCompare(valB as string) : (valB as string).localeCompare(valA);
@@ -463,27 +474,27 @@ const Standings: React.FC = () => {
         </div>
       ) : (
         <>
-      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-12 relative fade-right overflow-hidden">
+      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-12 relative overflow-hidden">
         <div 
           className="overflow-x-auto hide-scrollbar" 
           style={scrollbarHideStyle}
         >
-          <table className="w-full divide-y divide-gray-700">
+          <table className="w-full divide-y divide-gray-700 min-w-full">
             <thead className="bg-ng-blue">
               <tr>
                 <th 
                   scope="col" 
-                  className="px-1 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center md:text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap w-8 md:w-auto cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'rank')}
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-center md:justify-start">
                     {t.standings.rank}
                     <SortIcon sort={teamSort} column="rank" />
                   </div>
                 </th>
                 <th 
                   scope="col" 
-                  className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-2 md:px-6 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'name')}
                 >
                   <div className="flex items-center">
@@ -493,7 +504,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'gp')}
                 >
                   <div className="flex items-center justify-center">
@@ -503,7 +514,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'wins')}
                 >
                   <div className="flex items-center justify-center">
@@ -513,7 +524,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'losses')}
                 >
                   <div className="flex items-center justify-center">
@@ -523,7 +534,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-2 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'ties')}
                 >
                   <div className="flex items-center justify-center">
@@ -533,7 +544,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-black text-ng-light-blue uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'points')}
                 >
                   <div className="flex items-center justify-center">
@@ -543,7 +554,17 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'winPct')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.winPct}
+                    <SortIcon sort={teamSort} column="winPct" />
+                  </div>
+                </th>
+                <th 
+                  scope="col" 
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'goalsFor')}
                 >
                   <div className="flex items-center justify-center">
@@ -553,7 +574,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="hidden lg:table-cell px-3 md:px-6 py-3 text-center text-xs font-medium text-gray-400 uppercase tracking-wider whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'goalsAgainst')}
                 >
                   <div className="flex items-center justify-center">
@@ -561,30 +582,51 @@ const Standings: React.FC = () => {
                     <SortIcon sort={teamSort} column="goalsAgainst" />
                   </div>
                 </th>
+                <th 
+                  scope="col" 
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  onClick={() => handleSort(teamSort, setTeamSort, 'diff')}
+                >
+                  <div className="flex items-center justify-center">
+                    {t.standings.diff}
+                    <SortIcon sort={teamSort} column="diff" />
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-700">
-              {sortedTeams.map((team, index) => (
-                <tr key={team.id} className="hover:bg-ng-blue/50 transition-colors group">
-                  <td className="px-1 md:px-6 py-4 whitespace-nowrap text-sm text-gray-400 text-center md:text-left">{index + 1}</td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap">
-                    <button 
-                      onClick={() => setSelectedTeam(team)}
-                      className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
-                    >
-                      <span className="mr-2 text-[11px] font-black italic shrink-0" style={{ color: team.logoColor }}>{getTeamInitial(team.id)}</span>
-                      <div className="text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(team.id)}</div>
-                    </button>
-                  </td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-bold">{team.gp}</td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-green-400 font-semibold">{team.wins}</td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-red-400">{team.losses}</td>
-                  <td className="px-2 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-400">{team.ties}</td>
-                  <td className="px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-white font-bold bg-ng-light-blue/10">{team.points}</td>
-                  <td className="hidden lg:table-cell px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">{team.goalsFor}</td>
-                  <td className="hidden lg:table-cell px-3 md:px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">{team.goalsAgainst}</td>
-                </tr>
-              ))}
+              {sortedTeams.map((team, index) => {
+                const diff = team.goalsFor - team.goalsAgainst;
+                return (
+                  <tr key={team.id} className="hover:bg-ng-blue/50 transition-colors group">
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-gray-400 text-center md:text-left">{index + 1}</td>
+                    <td className="px-2 md:px-6 py-3 whitespace-nowrap">
+                      <button 
+                        onClick={() => setSelectedTeam(team)}
+                        className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
+                      >
+                        <span className="mr-1 md:mr-2 text-[10px] md:text-[11px] font-black italic shrink-0" style={{ color: team.logoColor }}>{getTeamInitial(team.id)}</span>
+                        <div className="text-xs md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
+                      </button>
+                    </td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300 font-bold">{team.gp}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-green-400 font-semibold">{team.wins}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-red-400">{team.losses}</td>
+                    <td className="px-1 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-400">{team.ties}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-white font-black bg-ng-light-blue/10">{team.points}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">
+                      {team.gp > 0 ? ((team.wins / team.gp) * 100).toFixed(1) + '%' : '0.0%'}
+                    </td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">{team.goalsFor}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">{team.goalsAgainst}</td>
+                    <td className={`px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center font-black ${
+                      diff > 0 ? 'text-green-400' : diff < 0 ? 'text-red-400' : 'text-gray-400'
+                    }`}>
+                      {diff > 0 ? `+${diff}` : diff}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -722,96 +764,102 @@ const Standings: React.FC = () => {
           </button>
         </div>
 
-        <div className="p-6">
+        <div className="p-2 sm:p-6">
            {activeTab === 'players' ? (
-             <div className="relative fade-right overflow-hidden">
-               <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
-                 <table className="w-full divide-y divide-gray-700">
-                   <thead>
-                     <tr>
-                       <th 
-                         className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'rank')}
-                       >
-                         <div className="flex items-center">
-                           {t.standings.rank}
-                           <SortIcon sort={playerSort} column="rank" />
-                         </div>
-                       </th>
-                       <th 
-                         className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'name')}
-                       >
-                         <div className="flex items-center">
-                           {t.standings.player}
-                           <SortIcon sort={playerSort} column="name" />
-                         </div>
-                       </th>
-                       <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
-                       <th 
-                         className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'gp')}
-                       >
-                         <div className="flex items-center justify-center">
-                           {t.standings.gp}
-                           <SortIcon sort={playerSort} column="gp" />
-                         </div>
-                       </th>
-                       <th 
-                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'goals')}
-                       >
-                         <div className="flex items-center justify-center">
-                           {t.standings.goals}
-                           <SortIcon sort={playerSort} column="goals" />
-                         </div>
-                       </th>
-                       <th 
-                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'assists')}
-                       >
-                         <div className="flex items-center justify-center">
-                           {t.standings.assists}
-                           <SortIcon sort={playerSort} column="assists" />
-                         </div>
-                       </th>
-                       <th 
-                         className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
-                         onClick={() => handleSort(playerSort, setPlayerSort, 'points')}
-                       >
-                         <div className="flex items-center justify-center">
-                           {t.standings.points}
-                           <SortIcon sort={playerSort} column="points" />
-                         </div>
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody className="divide-y divide-gray-700">
-                     {displayedPlayers.map((player, idx) => (
-                       <tr key={player.id} className="hover:bg-ng-navy transition-colors">
-                         <td className="px-1 md:px-4 py-3 text-sm text-gray-500 whitespace-nowrap text-center md:text-left">{idx + 1}</td>
-                         <td className="px-3 md:px-4 py-3 text-sm font-bold text-white whitespace-nowrap text-left">
-                            <div className="flex flex-col items-start">
-                              <button onClick={() => setSelectedPlayer(player)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{player.name}</span></button>
-                              <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(player.teamId) }}>{getTeamInitial(player.teamId)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{renderTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}</span>
-                              </div>
-                            </div>
-                         </td>
-                         <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                            <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamInitial(player.teamId)}</span>
-                            {renderTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}
-                         </td>
-                         <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
-                         <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
-                         <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
-                         <td className="px-3 md:px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{player.points}</td>
-                       </tr>
-                     ))}
-                   </tbody>
-                 </table>
-               </div>
+              <div className="relative overflow-hidden">
+                <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
+                  <table className="w-full divide-y divide-gray-700 min-w-full table-fixed sm:table-auto">
+                    <thead>
+                      <tr>
+                        <th 
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-16 cursor-pointer group"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'rank')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.rank}
+                            <SortIcon sort={playerSort} column="rank" />
+                          </div>
+                        </th>
+                        <th 
+                          className="px-1.5 md:px-4 py-2 md:py-3 text-left text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-28 xs:w-36 sm:w-auto"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'name')}
+                        >
+                          <div className="flex items-center">
+                            {t.standings.player}
+                            <SortIcon sort={playerSort} column="name" />
+                          </div>
+                        </th>
+                        <th className="hidden sm:table-cell px-3 md:px-4 py-2 md:py-3 text-left text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                        <th 
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'gp')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.gp}
+                            <SortIcon sort={playerSort} column="gp" />
+                          </div>
+                        </th>
+                        <th 
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'goals')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.goals}
+                            <SortIcon sort={playerSort} column="goals" />
+                          </div>
+                        </th>
+                        <th 
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'assists')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.assists}
+                            <SortIcon sort={playerSort} column="assists" />
+                          </div>
+                        </th>
+                        <th 
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group w-12 md:w-auto"
+                          onClick={() => handleSort(playerSort, setPlayerSort, 'points')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.points}
+                            <SortIcon sort={playerSort} column="points" />
+                          </div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {displayedPlayers.map((player, idx) => (
+                        <tr key={player.id} className="hover:bg-ng-navy transition-colors">
+                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-gray-500 whitespace-nowrap text-center">{idx + 1}</td>
+                          <td className="px-1.5 md:px-4 py-2 text-[10px] sm:text-[11px] md:text-sm font-bold text-white whitespace-nowrap text-left truncate">
+                             <div className="flex flex-col items-start min-w-0">
+                               <button onClick={() => setSelectedPlayer(player)} className="hover:text-ng-light-blue transition-colors outline-none text-left truncate w-full">
+                                 <span>{player.name}</span>
+                               </button>
+                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
+                                 <span className="text-[8px] font-black italic px-1 py-0.25 rounded bg-white/5 border border-white/10" style={{ color: getTeamColor(player.teamId) }}>
+                                   {getTeamInitial(player.teamId)}
+                                 </span>
+                                 {player.secondaryTeamIds && player.secondaryTeamIds.length > 0 && (
+                                   <span className="text-[8px] text-gray-500 font-bold">+{player.secondaryTeamIds.length}</span>
+                                 )}
+                               </div>
+                             </div>
+                          </td>
+                          <td className="hidden sm:table-cell px-3 md:px-4 py-2 text-[11px] md:text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                             <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamInitial(player.teamId)}</span>
+                             {renderTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}
+                          </td>
+                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
+                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
+                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
+                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{player.points}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
                {sortedPlayers.length > 5 && (
                  <div className="mt-4 text-center">
                    <button onClick={() => setShowAllPlayers(!showAllPlayers)} className="text-ng-light-blue hover:text-white text-sm font-medium transition-colors">
@@ -821,22 +869,22 @@ const Standings: React.FC = () => {
                )}
              </div>
            ) : (
-             <div className="relative fade-right overflow-hidden">
+              <div className="relative fade-right overflow-hidden">
                 <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
-                 <table className="w-full divide-y divide-gray-700">
-                   <thead>
-                     <tr>
-                       <th 
-                         className="px-1 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
-                         onClick={() => handleSort(goalieSort, setGoalieSort, 'rank')}
-                       >
-                         <div className="flex items-center">
-                           {t.standings.rank}
-                           <SortIcon sort={goalieSort} column="rank" />
-                         </div>
-                       </th>
-                                               <th 
-                          className="px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                  <table className="w-full divide-y divide-gray-700 min-w-full">
+                    <thead>
+                      <tr>
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'rank')}
+                        >
+                          <div className="flex items-center">
+                            {t.standings.rank}
+                            <SortIcon sort={goalieSort} column="rank" />
+                          </div>
+                        </th>
+                        <th 
+                          className="px-2 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'name')}
                         >
                           <div className="flex items-center">
@@ -845,9 +893,9 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                       <th className="hidden sm:table-cell px-3 md:px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
-                                               <th 
-                          className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                        <th className="hidden sm:table-cell px-3 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'gp')}
                         >
                           <div className="flex items-center justify-center">
@@ -856,8 +904,8 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                                               <th 
-                          className="px-2 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'wins')}
                         >
                           <div className="flex items-center justify-center">
@@ -866,8 +914,8 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                                               <th 
-                          className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'gaa')}
                         >
                           <div className="flex items-center justify-center">
@@ -876,8 +924,8 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                                               <th 
-                          className="px-3 md:px-4 py-3 text-center text-xs font-medium text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'svPct')}
                         >
                           <div className="flex items-center justify-center">
@@ -886,7 +934,7 @@ const Standings: React.FC = () => {
                            </div>
                          </th>
                          <th 
-                           className="px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                           className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                            onClick={() => handleSort(goalieSort, setGoalieSort, 'shutouts')}
                          >
                            <div className="flex items-center justify-center">
@@ -896,8 +944,8 @@ const Standings: React.FC = () => {
                          </th>
                          <th style={{ display: "none" }}><div className="hidden"></div></th>
 
-                                               <th 
-                          className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap cursor-pointer group"
+                        <th 
+                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'shotsAgainst')}
                         >
                           <div className="flex items-center justify-center">
@@ -906,8 +954,8 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                                               <th 
-                          className="hidden lg:table-cell px-3 md:px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase whitespace-nowrap cursor-pointer group"
+                        <th 
+                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'goalsAgainst')}
                         >
                           <div className="flex items-center justify-center">
@@ -916,41 +964,41 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                     </tr>
-                   </thead>
-                   <tbody className="divide-y divide-gray-700">
-                     {displayedGoalies.map((goalie, idx) => {
-                       const gaa = goalie.gp > 0 ? (goalie.goalsAgainst / goalie.gp).toFixed(2) : '0.00';
-                       const svPct = goalie.shotsAgainst > 0 ? ((goalie.shotsAgainst - goalie.goalsAgainst) / goalie.shotsAgainst).toFixed(3) : '.000';
-                       return (
-                        <tr key={goalie.id} className="hover:bg-ng-navy transition-colors">
-                          <td className="px-1 md:px-4 py-3 text-sm text-gray-500 whitespace-nowrap text-center md:text-left">{idx + 1}</td>
-                          <td className="px-3 md:px-4 py-3 text-sm font-bold text-white whitespace-nowrap text-left">
-                            <div className="flex flex-col items-start">
-                              <button onClick={() => setSelectedGoalie(goalie)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{goalie.name}</span></button>
-                              <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
-                                <span className="text-[10px] text-gray-500 font-medium uppercase">{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="hidden sm:table-cell px-3 md:px-4 py-3 text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                              <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
-                              <span>{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
-                          </td>
-                          <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
-                          <td className="px-2 md:px-4 py-3 text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
-                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
-                          <td className="px-3 md:px-4 py-3 text-sm text-center font-bold text-ng-light-blue whitespace-nowrap">{svPct}</td>
-                          <td className="px-3 md:px-4 py-3 text-sm text-center text-gray-300 font-mono whitespace-nowrap">{goalie.shutouts || 0}</td>
-                          <td className="hidden lg:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.shotsAgainst}</td>
-                          <td className="hidden lg:table-cell px-3 md:px-4 py-3 text-sm text-center text-gray-500 whitespace-nowrap">{goalie.goalsAgainst}</td>
-                        </tr>
-                       );
-                     })}
-                   </tbody>
-                 </table>
-               </div>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-700">
+                      {displayedGoalies.map((goalie, idx) => {
+                        const gaa = goalie.gp > 0 ? (goalie.goalsAgainst / goalie.gp).toFixed(2) : '0.00';
+                        const svPct = goalie.shotsAgainst > 0 ? ((goalie.shotsAgainst - goalie.goalsAgainst) / goalie.shotsAgainst).toFixed(3) : '.000';
+                        return (
+                         <tr key={goalie.id} className="hover:bg-ng-navy transition-colors">
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-gray-500 whitespace-nowrap text-center md:text-left">{idx + 1}</td>
+                           <td className="px-2 md:px-4 py-2.5 text-[11px] md:text-sm font-bold text-white whitespace-nowrap text-left">
+                             <div className="flex flex-col items-start">
+                               <button onClick={() => setSelectedGoalie(goalie)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{goalie.name}</span></button>
+                               <div className="sm:hidden flex items-center gap-1 mt-0.5">
+                                 <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
+                                 <span className="text-[10px] text-gray-500 font-medium uppercase">{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
+                               </div>
+                             </div>
+                           </td>
+                           <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                               <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
+                               <span>{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
+                           </td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{svPct}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono whitespace-nowrap">{goalie.shutouts || 0}</td>
+                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-505 whitespace-nowrap">{goalie.shotsAgainst}</td>
+                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-505 whitespace-nowrap">{goalie.goalsAgainst}</td>
+                         </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
                <div className="mt-6 flex items-center gap-2 text-gray-500 text-[10px] italic">
                  <Shield size={12} />
                  <span>{t.standings.gaaExplanation}</span>

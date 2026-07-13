@@ -93,9 +93,17 @@ const Registration: React.FC = () => {
         <p className="mt-4 text-gray-400 font-medium pl-8 border-l-8 border-transparent">
           {t.register.subtitle}
         </p>
-        <div className="mt-6 ml-8 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic">
-          <Calendar size={14} />
-          {t.register.seasonStart}
+        <div className="mt-6 ml-8 flex flex-wrap gap-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic animate-in fade-in duration-500">
+            <Calendar size={14} />
+            {t.register.seasonStart}
+          </div>
+          {t.register.signupDeadline && (
+            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-black uppercase tracking-widest italic animate-in fade-in duration-500">
+              <Info size={14} />
+              {t.register.signupDeadline}
+            </div>
+          )}
         </div>
       </div>
 
@@ -120,9 +128,17 @@ const Registration: React.FC = () => {
               $8,525<span className="text-sm font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
             </div>
             
-            <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest mb-6 bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/20">
-              <Calendar size={16} />
-              {t.register.seasonStart}
+            <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mb-6">
+              <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/20">
+                <Calendar size={16} />
+                {t.register.seasonStart}
+              </div>
+              {t.register.signupDeadline && (
+                <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-black uppercase tracking-widest bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">
+                  <Info size={16} />
+                  {t.register.signupDeadline}
+                </div>
+              )}
             </div>
             
             <div className="w-full pt-6 border-t border-ng-light-blue/20">
