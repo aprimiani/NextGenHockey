@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,6 +15,242 @@ const Standings: React.FC = () => {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerStats | null>(null);
   const [selectedGoalie, setSelectedGoalie] = useState<GoalieStats | null>(null);
+
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_reg');
+
+  const seasonsList = [
+    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
+    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
+    { id: 'winter_2026_2027', label: language === 'fr' ? "Saison d'Hiver 2026-2027" : 'Winter Season 2026-2027' },
+  ] as const;
+
+  const playoffStats = useMemo(() => {
+    const playoffTeamsMap: Record<string, Team> = {};
+    teams.forEach(t => {
+      playoffTeamsMap[t.id] = {
+        ...t,
+        gp: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        points: 0,
+        goalsFor: 0,
+        goalsAgainst: 0
+      };
+    });
+
+    const playoffPlayersMap: Record<string, PlayerStats> = {};
+    players.forEach(p => {
+      playoffPlayersMap[p.id] = {
+        ...p,
+        gp: 0,
+        goals: 0,
+        assists: 0,
+        points: 0
+      };
+    });
+
+    const playoffGoaliesMap: Record<string, GoalieStats> = {};
+    goalies.forEach(g => {
+      playoffGoaliesMap[g.id] = {
+        ...g,
+        gp: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0,
+        saves: 0,
+        shotsAgainst: 0,
+        goalsAgainst: 0,
+        shutouts: 0,
+        goals: 0,
+        assists: 0,
+        points: 0
+      };
+    });
+
+    const playedPlayoffGames = schedule.filter(g => g.isPlayoff && g.status === 'played');
+
+    playedPlayoffGames.forEach(game => {
+      const homeId = game.homeTeamId;
+      const awayId = game.awayTeamId;
+      const homeScore = game.homeScore || 0;
+      const awayScore = game.awayScore || 0;
+
+      if (playoffTeamsMap[homeId]) {
+        const t = playoffTeamsMap[homeId];
+        t.gp++;
+        t.goalsFor += homeScore;
+        t.goalsAgainst += awayScore;
+        if (homeScore > awayScore) {
+          t.wins++;
+          t.points += 2;
+        } else if (awayScore > homeScore) {
+          t.losses++;
+        } else {
+          t.ties++;
+          t.points += 1;
+        }
+      }
+
+      if (playoffTeamsMap[awayId]) {
+        const t = playoffTeamsMap[awayId];
+        t.gp++;
+        t.goalsFor += awayScore;
+        t.goalsAgainst += homeScore;
+        if (awayScore > homeScore) {
+          t.wins++;
+          t.points += 2;
+        } else if (homeScore > awayScore) {
+          t.losses++;
+        } else {
+          t.ties++;
+          t.points += 1;
+        }
+      }
+
+      players.forEach(p => {
+        if (p.teamId === homeId || p.secondaryTeamIds?.includes(homeId)) {
+          if (playoffPlayersMap[p.id]) {
+            playoffPlayersMap[p.id].gp++;
+          }
+        }
+        if (p.teamId === awayId || p.secondaryTeamIds?.includes(awayId)) {
+          if (playoffPlayersMap[p.id]) {
+            playoffPlayersMap[p.id].gp++;
+          }
+        }
+      });
+
+      const recap = gameRecaps[game.id];
+      if (recap?.events) {
+        recap.events.forEach(e => {
+          if (e.type === 'goal') {
+            if (e.player && playoffPlayersMap[e.player]) {
+              playoffPlayersMap[e.player].goals++;
+              playoffPlayersMap[e.player].points++;
+            }
+            if (e.assist && playoffPlayersMap[e.assist]) {
+              playoffPlayersMap[e.assist].assists++;
+              playoffPlayersMap[e.assist].points++;
+            }
+            if (e.assist2 && playoffPlayersMap[e.assist2]) {
+              playoffPlayersMap[e.assist2].assists++;
+              playoffPlayersMap[e.assist2].points++;
+            }
+          }
+        });
+      }
+
+      if (recap?.goalieStats) {
+        const { homeGoalie, awayGoalie } = recap.goalieStats;
+        if (homeGoalie && playoffGoaliesMap[homeGoalie.playerId]) {
+          const g = playoffGoaliesMap[homeGoalie.playerId];
+          g.gp++;
+          g.shotsAgainst += homeGoalie.shotsFaced || 0;
+          g.goalsAgainst += homeGoalie.goalsAgainst || 0;
+          g.saves += homeGoalie.saves || 0;
+          if (homeScore > awayScore) {
+            g.wins++;
+          } else if (awayScore > homeScore) {
+            g.losses++;
+          } else {
+            g.draws++;
+          }
+          if ((homeGoalie.goalsAgainst || 0) === 0) {
+            g.shutouts = (g.shutouts || 0) + 1;
+          }
+        }
+
+        if (awayGoalie && playoffGoaliesMap[awayGoalie.playerId]) {
+          const g = playoffGoaliesMap[awayGoalie.playerId];
+          g.gp++;
+          g.shotsAgainst += awayGoalie.shotsFaced || 0;
+          g.goalsAgainst += awayGoalie.goalsAgainst || 0;
+          g.saves += awayGoalie.saves || 0;
+          if (awayScore > homeScore) {
+            g.wins++;
+          } else if (homeScore > awayScore) {
+            g.losses++;
+          } else {
+            g.draws++;
+          }
+          if ((awayGoalie.goalsAgainst || 0) === 0) {
+            g.shutouts = (g.shutouts || 0) + 1;
+          }
+        }
+      }
+    });
+
+    return {
+      teams: Object.values(playoffTeamsMap),
+      players: Object.values(playoffPlayersMap).filter(p => p.gp > 0 || p.points > 0),
+      goalies: Object.values(playoffGoaliesMap).filter(g => g.gp > 0)
+    };
+  }, [teams, players, goalies, schedule, gameRecaps]);
+
+  const winterStats = useMemo(() => {
+    return {
+      teams: teams.map(t => ({
+        ...t,
+        gp: 0,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        points: 0,
+        goalsFor: 0,
+        goalsAgainst: 0
+      })),
+      players: players.map(p => ({
+        ...p,
+        gp: 0,
+        goals: 0,
+        assists: 0,
+        points: 0
+      })),
+      goalies: goalies.map(g => ({
+        ...g,
+        gp: 0,
+        wins: 0,
+        losses: 0,
+        draws: 0,
+        saves: 0,
+        shotsAgainst: 0,
+        goalsAgainst: 0,
+        shutouts: 0,
+        goals: 0,
+        assists: 0,
+        points: 0
+      }))
+    };
+  }, [teams, players, goalies]);
+
+  const activeTeamsList = useMemo(() => {
+    if (selectedSeason === 'summer_2026_reg') return teams;
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.teams;
+    return winterStats.teams;
+  }, [selectedSeason, teams, playoffStats, winterStats]);
+
+  const activePlayersList = useMemo(() => {
+    if (selectedSeason === 'summer_2026_reg') return players;
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.players;
+    return winterStats.players;
+  }, [selectedSeason, players, playoffStats, winterStats]);
+
+  const activeGoaliesList = useMemo(() => {
+    if (selectedSeason === 'summer_2026_reg') return goalies;
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.goalies;
+    return winterStats.goalies;
+  }, [selectedSeason, goalies, playoffStats, winterStats]);
+
+  const activeScheduleList = useMemo(() => {
+    if (selectedSeason === 'summer_2026_reg') {
+      return schedule.filter(g => !g.isPlayoff);
+    }
+    if (selectedSeason === 'summer_2026_playoffs') {
+      return schedule.filter(g => g.isPlayoff);
+    }
+    return [];
+  }, [selectedSeason, schedule]);
 
   // Sorting State
   const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
@@ -43,7 +279,7 @@ const Standings: React.FC = () => {
   };
 
   // Process and Sort Teams
-  const sortedTeams = [...teams].sort((a, b) => {
+  const sortedTeams = [...activeTeamsList].sort((a, b) => {
     if (teamSort.key === 'rank') return 0;
     const key = teamSort.key as keyof Team;
 
@@ -69,7 +305,7 @@ const Standings: React.FC = () => {
     });
   }
 
-  const sortedPlayers = [...players].sort((a, b) => {
+  const sortedPlayers = [...activePlayersList].sort((a, b) => {
     if (playerSort.key === 'rank') return 0;
     const key = playerSort.key as keyof PlayerStats;
     let valA = a[key];
@@ -86,7 +322,7 @@ const Standings: React.FC = () => {
     }
   });
 
-  const sortedGoalies = [...goalies].sort((a, b) => {
+  const sortedGoalies = [...activeGoaliesList].sort((a, b) => {
     if (goalieSort.key === 'rank') return 0;
     let valA: number, valB: number;
 
@@ -117,6 +353,9 @@ const Standings: React.FC = () => {
 
   const getTeamName = (id: string) => {
     if (id === 'sub') return 'League Sub';
+    if (id.toLowerCase() === 'tbd') {
+      return language === 'fr' ? 'À déterminer' : 'TBD';
+    }
     return teams.find(t => t.id === id)?.name || 'Unknown';
   };
   const renderTeamName = (id: string) => {
@@ -130,8 +369,12 @@ const Standings: React.FC = () => {
     }
     return name;
   };
-  const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
+  const getTeamColor = (id: string) => {
+    if (id.toLowerCase() === 'tbd') return '#6b7280';
+    return teams.find(t => t.id === id)?.logoColor || '#ccc';
+  };
   const getTeamInitial = (id: string) => {
+    if (id.toLowerCase() === 'tbd') return '?';
     const name = getTeamName(id);
     if (name.toLowerCase() === 'team l') return 'L';
     if (name.toLowerCase() === '86ers') return '86';
@@ -174,13 +417,52 @@ const Standings: React.FC = () => {
         }
       `}</style>
       
-      <div className="mb-12">
-        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
-          {t.standings.title}
-        </h2>
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+        <div>
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
+            {t.standings.title}
+          </h2>
+        </div>
+
+        {/* Season Selector */}
+        <div className="relative self-start md:self-auto min-w-[240px]">
+          <select
+            value={selectedSeason}
+            onChange={(e) => setSelectedSeason(e.target.value as any)}
+            className="appearance-none bg-ng-blue/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 rounded-2xl border-2 border-gray-700 hover:border-ng-light-blue/50 focus:outline-none focus:border-ng-light-blue cursor-pointer transition-all shadow-xl w-full"
+          >
+            {seasonsList.map((s) => (
+              <option key={s.id} value={s.id} className="bg-ng-navy text-white text-xs sm:text-sm font-sans uppercase">
+                {s.label}
+              </option>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ng-light-blue">
+            <ChevronDown size={16} />
+          </div>
+        </div>
       </div>
-      
-      {/* Standings Table */}
+
+      {selectedSeason === 'winter_2026_2027' ? (
+        <div className="text-center py-20 px-6 bg-ng-blue/20 rounded-3xl border border-dashed border-gray-700 shadow-xl relative overflow-hidden">
+          <div className="bg-amber-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-500/30">
+            <Trophy className="text-amber-400" size={28} />
+          </div>
+          <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-tight mb-2">
+            {language === 'fr' ? "Saison d'Hiver 2026-2027 - À venir" : "Winter Season 2026-2027 - Coming Soon"}
+          </h3>
+          <p className="text-sm text-gray-400 max-w-md mx-auto leading-relaxed mb-6">
+            {language === 'fr' 
+              ? "Les statistiques pour la saison d'hiver 2026-2027 seront disponibles dès le coup d'envoi du premier match officiel de la ligue!" 
+              : "Statistics for the Winter 2026-2027 season will be available as soon as the first official league game kicks off!"}
+          </p>
+          <div className="inline-flex items-center gap-2 bg-ng-light-blue/10 text-ng-light-blue text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-ng-light-blue/20">
+            <span className="w-2 h-2 rounded-full bg-ng-light-blue animate-ping" />
+            {language === 'fr' ? "Aucune donnée enregistrée" : "No data recorded yet"}
+          </div>
+        </div>
+      ) : (
+        <>
       <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-12 relative fade-right overflow-hidden">
         <div 
           className="overflow-x-auto hide-scrollbar" 
@@ -678,6 +960,9 @@ const Standings: React.FC = () => {
         </div>
       </div>
 
+        </>
+      )}
+
       {/* Team Modal */}
       {selectedTeam && (
         <div 
@@ -792,8 +1077,8 @@ const Standings: React.FC = () => {
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800">
-                              {goalies.filter(g => g.teamId === selectedTeam.id || (g.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
-                                [...goalies]
+                              {activeGoaliesList.filter(g => g.teamId === selectedTeam.id || (g.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
+                                [...activeGoaliesList]
                                   .filter(g => g.teamId === selectedTeam.id || (g.secondaryTeamIds || []).includes(selectedTeam.id))
                                   .sort((a, b) => {
                                     let valA: number, valB: number;
@@ -915,8 +1200,8 @@ const Standings: React.FC = () => {
                               </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-800">
-                              {players.filter(p => p.teamId === selectedTeam.id || (p.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
-                                [...players]
+                              {activePlayersList.filter(p => p.teamId === selectedTeam.id || (p.secondaryTeamIds || []).includes(selectedTeam.id)).length > 0 ? (
+                                [...activePlayersList]
                                   .filter(p => p.teamId === selectedTeam.id || (p.secondaryTeamIds || []).includes(selectedTeam.id))
                                   .sort((a, b) => {
                                     const key = teamPlayerSort.key as keyof PlayerStats;
@@ -962,8 +1247,8 @@ const Standings: React.FC = () => {
                       {t.standings.teamSchedule}
                     </h3>
                     <div className="space-y-3">
-                      {schedule.filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id).length > 0 ? (
-                        [...schedule]
+                      {activeScheduleList.filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id).length > 0 ? (
+                        [...activeScheduleList]
                           .filter(g => g.homeTeamId === selectedTeam.id || g.awayTeamId === selectedTeam.id)
                           .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                           .map(g => {
@@ -1023,8 +1308,14 @@ const Standings: React.FC = () => {
       )}
       {/* Player Profile Modal */}
       {selectedPlayer && (() => {
+        const outerPlayer = selectedPlayer;
+        const playerFromList = activePlayersList.find(p => p.id === outerPlayer.id);
+        const resolvedPlayer = playerFromList ? { ...playerFromList, secondaryTeamIds: playerFromList.secondaryTeamIds || outerPlayer.secondaryTeamIds } : outerPlayer;
+        
+        return ((selectedPlayer: any) => {
+
         // First, get all played games for this player's PRIMARY team chronologically
-        const primaryTeamGames = schedule
+        const primaryTeamGames = activeScheduleList
           .filter(g => g.status === 'played' && (g.homeTeamId === selectedPlayer.teamId || g.awayTeamId === selectedPlayer.teamId))
           .sort((a, b) => {
             const dateA = new Date(`${a.date}T${a.time || '00:00'}`).getTime();
@@ -1077,7 +1368,7 @@ const Standings: React.FC = () => {
           }
         });
 
-        const playerGames = schedule.filter(g => {
+        const playerGames = activeScheduleList.filter(g => {
           if (g.status !== 'played') return false;
           const isOnHomeTeam = g.homeTeamId === selectedPlayer.teamId || selectedPlayer.secondaryTeamIds?.includes(g.homeTeamId);
           const isOnAwayTeam = g.awayTeamId === selectedPlayer.teamId || selectedPlayer.secondaryTeamIds?.includes(g.awayTeamId);
@@ -1164,7 +1455,7 @@ const Standings: React.FC = () => {
                       {selectedPlayer.secondaryTeamIds && selectedPlayer.secondaryTeamIds.length > 0 && (
                         <div className="flex flex-wrap justify-center items-center gap-1 mt-1">
                           <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest mr-1">Subs:</span>
-                          {selectedPlayer.secondaryTeamIds.map(tid => (
+                          {selectedPlayer.secondaryTeamIds.map((tid: string) => (
                             <span key={tid} className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] font-black px-1.5 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-wider">{renderTeamName(tid)}</span>
                           ))}
                         </div>
@@ -1264,23 +1555,25 @@ const Standings: React.FC = () => {
              </div>
           </div>
         );
-      })()}
+      })(resolvedPlayer);
+    })()}
 
       {/* Goalie Profile Modal */}
       {selectedGoalie && (() => {
-        const goalieGames = schedule.filter(g => {
+        const resolvedGoalie = activeGoaliesList.find(g => g.id === selectedGoalie.id) || selectedGoalie;
+        const goalieGames = activeScheduleList.filter(g => {
           if (g.status !== 'played') return false;
           const recap = gameRecaps[g.id];
           if (!recap) return false;
           return (
-            recap.goalieStats?.homeGoalie?.playerId === selectedGoalie.id ||
-            recap.goalieStats?.awayGoalie?.playerId === selectedGoalie.id
+            recap.goalieStats?.homeGoalie?.playerId === resolvedGoalie.id ||
+            recap.goalieStats?.awayGoalie?.playerId === resolvedGoalie.id
           );
         });
 
         const goalieLogs = goalieGames.map(g => {
           const recap = gameRecaps[g.id];
-          const isHome = recap.goalieStats.homeGoalie.playerId === selectedGoalie.id;
+          const isHome = recap.goalieStats.homeGoalie.playerId === resolvedGoalie.id;
           const stats = isHome ? recap.goalieStats.homeGoalie : recap.goalieStats.awayGoalie;
           
           const opponentTeamId = isHome ? g.awayTeamId : g.homeTeamId;
@@ -1324,28 +1617,28 @@ const Standings: React.FC = () => {
              >
                   <div 
                     className="p-5 relative overflow-hidden flex flex-col items-center text-center"
-                    style={{ backgroundColor: `${getTeamColor(selectedGoalie.teamId)}20`, borderBottom: `2px solid ${getTeamColor(selectedGoalie.teamId)}` }}
+                    style={{ backgroundColor: `${getTeamColor(resolvedGoalie.teamId)}20`, borderBottom: `2px solid ${getTeamColor(resolvedGoalie.teamId)}` }}
                   >
                     <button onClick={() => setSelectedGoalie(null)} className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full transition-colors text-white z-10">
                       <X size={20} />
                     </button>
                     
-                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-3 border-4" style={{ borderColor: getTeamColor(selectedGoalie.teamId), backgroundColor: getTeamColor(selectedGoalie.teamId) }}>
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-3 border-4" style={{ borderColor: getTeamColor(resolvedGoalie.teamId), backgroundColor: getTeamColor(resolvedGoalie.teamId) }}>
                       <span className="text-3xl font-black text-white italic pr-1">
-                        {getTeamName(selectedGoalie.teamId).charAt(0)}
+                        {getTeamName(resolvedGoalie.teamId).charAt(0)}
                       </span>
                     </div>
                     
-                    <h2 className="text-2xl font-black text-white uppercase italic leading-tight mb-1">{selectedGoalie.name}</h2>
+                    <h2 className="text-2xl font-black text-white uppercase italic leading-tight mb-1">{resolvedGoalie.name}</h2>
                     <div className="flex flex-col items-center gap-1 mb-3">
                       <div className="flex items-center gap-2">
                         <span className="bg-ng-light-blue text-ng-navy text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-widest">{t.standings.goalie}</span>
-                        <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{renderTeamName(selectedGoalie.teamId)}</span>
+                        <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{renderTeamName(resolvedGoalie.teamId)}</span>
                       </div>
-                      {selectedGoalie.secondaryTeamIds && selectedGoalie.secondaryTeamIds.length > 0 && (
+                      {resolvedGoalie.secondaryTeamIds && resolvedGoalie.secondaryTeamIds.length > 0 && (
                         <div className="flex flex-wrap justify-center items-center gap-1 mt-1">
                           <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest mr-1">Subs:</span>
-                          {selectedGoalie.secondaryTeamIds.map(tid => (
+                          {resolvedGoalie.secondaryTeamIds.map((tid: string) => (
                             <span key={tid} className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] font-black px-1.5 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-wider">{renderTeamName(tid)}</span>
                           ))}
                         </div>
@@ -1355,12 +1648,12 @@ const Standings: React.FC = () => {
                     <div className="grid grid-cols-2 gap-3 w-full mt-2">
                       <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
                         <div className="text-2xl font-black text-ng-light-blue">
-                          {selectedGoalie.gp > 0 ? (selectedGoalie.goalsAgainst / selectedGoalie.gp).toFixed(2) : '0.00'}
+                          {resolvedGoalie.gp > 0 ? (resolvedGoalie.goalsAgainst / resolvedGoalie.gp).toFixed(2) : '0.00'}
                         </div>
                         <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.gaa}</div>
                       </div>
                       <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
-                        <div className="text-2xl font-black text-white">#{sortedGoalies.findIndex(g => g.id === selectedGoalie.id) + 1}</div>
+                        <div className="text-2xl font-black text-white">#{sortedGoalies.findIndex(g => g.id === resolvedGoalie.id) + 1}</div>
                         <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.leagueRank}</div>
                       </div>
                     </div>
@@ -1368,16 +1661,16 @@ const Standings: React.FC = () => {
                   
                   <div className="p-4 grid grid-cols-3 gap-3">
                     <div className="text-center">
-                      <div className="text-lg font-bold text-white">{selectedGoalie.gp}</div>
+                      <div className="text-lg font-bold text-white">{resolvedGoalie.gp}</div>
                       <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.gp}</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg font-bold text-white">{selectedGoalie.wins}-{selectedGoalie.losses}-{selectedGoalie.draws}</div>
+                      <div className="text-lg font-bold text-white">{resolvedGoalie.wins}-{resolvedGoalie.losses}-{resolvedGoalie.draws}</div>
                       <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.record}</div>
                     </div>
                     <div className="text-center">
                       <div className="text-lg font-bold text-white">
-                        {selectedGoalie.shotsAgainst > 0 ? ((selectedGoalie.shotsAgainst - selectedGoalie.goalsAgainst) / selectedGoalie.shotsAgainst).toFixed(3) : '.000'}
+                        {resolvedGoalie.shotsAgainst > 0 ? ((resolvedGoalie.shotsAgainst - resolvedGoalie.goalsAgainst) / resolvedGoalie.shotsAgainst).toFixed(3) : '.000'}
                       </div>
                       <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.svPct}</div>
                     </div>

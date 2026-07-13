@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
-import { Calendar, MapPin, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translatePenalty } from '../translations';
 
@@ -11,6 +11,13 @@ const Schedule: React.FC = () => {
   const { schedule, teams, players, goalies, gameRecaps, loading } = useLeagueData();
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'scheduled' | 'played'>('scheduled');
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_reg');
+
+  const seasonsList = [
+    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
+    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
+    { id: 'winter_2026_2027', label: language === 'fr' ? "Saison d'Hiver 2026-2027" : 'Winter Season 2026-2027' },
+  ] as const;
 
   useEffect(() => {
     if (location.state?.selectedGameId) {
@@ -28,6 +35,9 @@ const Schedule: React.FC = () => {
 
   const getTeamName = (id: string) => {
     if (id === 'sub') return 'League Sub';
+    if (id.toLowerCase() === 'tbd') {
+      return language === 'fr' ? 'À déterminer' : 'TBD';
+    }
     return teams.find(t => t.id === id)?.name || t.schedule.unknown;
   };
   const renderTeamName = (id: string) => {
@@ -41,9 +51,13 @@ const Schedule: React.FC = () => {
     }
     return name;
   };
-  const getTeamColor = (id: string) => teams.find(t => t.id === id)?.logoColor || '#ccc';
+  const getTeamColor = (id: string) => {
+    if (id.toLowerCase() === 'tbd') return '#6b7280';
+    return teams.find(t => t.id === id)?.logoColor || '#ccc';
+  };
   const getTeamLogo = (id: string) => teams.find(t => t.id === id)?.logoUrl;
   const getTeamInitial = (id: string) => {
+    if (id.toLowerCase() === 'tbd') return '?';
     const name = getTeamName(id);
     if (name.toLowerCase() === 'team l') return 'L';
     if (name.toLowerCase() === '86ers') return '86';
@@ -51,13 +65,23 @@ const Schedule: React.FC = () => {
   };
 
   const filteredGames = useMemo(() => {
-    return schedule.filter(g => g.status === filter).sort((a, b) => {
+    let games = schedule;
+    
+    if (selectedSeason === 'summer_2026_reg') {
+      games = schedule.filter(g => !g.isPlayoff);
+    } else if (selectedSeason === 'summer_2026_playoffs') {
+      games = schedule.filter(g => g.isPlayoff);
+    } else if (selectedSeason === 'winter_2026_2027') {
+      return [];
+    }
+
+    return games.filter(g => g.status === filter).sort((a, b) => {
       // For upcoming: show nearest first
       if (filter === 'scheduled') return new Date(a.date).getTime() - new Date(b.date).getTime();
       // For results: show most recent first
       return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
-  }, [schedule, filter]);
+  }, [schedule, filter, selectedSeason]);
 
   const selectedRecap = selectedGameId ? gameRecaps[selectedGameId] : null;
 
@@ -403,97 +427,184 @@ const Schedule: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-6">
         <div>
           <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
             {t.schedule.title}
           </h2>
           <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-3 pl-8">
-            {t.schedule.seasonStart}
+            {selectedSeason === 'winter_2026_2027' 
+              ? (language === 'fr' ? "PROCHAINE SAISON" : "UPCOMING SEASON") 
+              : t.schedule.seasonStart}
           </p>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl self-start md:self-auto overflow-x-auto max-w-full">
-          <button
-            onClick={() => setFilter('scheduled')}
-            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
-          >
-            {t.schedule.filterUpcoming}
-          </button>
-          <button
-            onClick={() => setFilter('played')}
-            className={`px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-500 hover:text-white'}`}
-          >
-            {t.schedule.filterResults}
-          </button>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+          {/* Season Selector */}
+          <div className="relative">
+            <select
+              value={selectedSeason}
+              onChange={(e) => {
+                setSelectedSeason(e.target.value as any);
+                if (e.target.value === 'winter_2026_2027') {
+                  setFilter('scheduled');
+                }
+              }}
+              className="appearance-none bg-ng-blue/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 sm:py-3.5 rounded-2xl border-2 border-gray-700 hover:border-ng-light-blue/50 focus:outline-none focus:border-ng-light-blue cursor-pointer transition-all shadow-xl w-full"
+            >
+              {seasonsList.map((s) => (
+                <option key={s.id} value={s.id} className="bg-ng-navy text-white text-xs sm:text-sm font-sans uppercase">
+                  {s.label}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ng-light-blue">
+              <ChevronDown size={16} />
+            </div>
+          </div>
+
+          {/* Filter Tabs */}
+          {selectedSeason !== 'winter_2026_2027' && (
+            <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl overflow-x-auto max-w-full">
+              <button
+                onClick={() => setFilter('scheduled')}
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+              >
+                {t.schedule.filterUpcoming}
+              </button>
+              <button
+                onClick={() => setFilter('played')}
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+              >
+                {t.schedule.filterResults}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
       <div className="grid gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom duration-500">
-        {filteredGames.length > 0 ? (
-          filteredGames.map((game) => (
-            <div key={game.id} className="group bg-ng-blue/30 rounded-2xl border border-gray-700 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg">
-              <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
-                <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-ng-light-blue flex-shrink-0" />
-                  <span>{formatDate(game.date)}</span>
-                </div>
-                {game.isPlayoff && (
-                  <div className="flex items-center pl-6 sm:pl-8">
-                    <span className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-widest italic">Playoffs</span>
-                  </div>
+        {selectedSeason === 'winter_2026_2027' ? (
+          <div className="text-center py-16 px-6 bg-ng-blue/20 rounded-3xl border border-dashed border-gray-700 shadow-xl relative overflow-hidden">
+            <div className="bg-amber-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-500/30">
+              <Trophy className="text-amber-400" size={28} />
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-tight mb-2">
+              {language === 'fr' ? "Saison d'Hiver 2026-2027 - À venir" : "Winter Season 2026-2027 - Coming Soon"}
+            </h3>
+            <p className="text-sm text-gray-400 max-w-md mx-auto leading-relaxed mb-6">
+              {language === 'fr' 
+                ? "L'horaire de la saison d'hiver est en cours de finalisation par l'administration de la ligue. Restez à l'affût pour le dévoilement officiel du calendrier de la saison!" 
+                : "The Winter season schedule is currently being finalized by the league administration. Stay tuned for the official calendar release!"}
+            </p>
+            <div className="inline-flex items-center gap-2 bg-ng-light-blue/10 text-ng-light-blue text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-ng-light-blue/20">
+              <span className="w-2 h-2 rounded-full bg-ng-light-blue animate-ping" />
+              {language === 'fr' ? "Inscriptions Ouvertes" : "Registration Open"}
+            </div>
+          </div>
+        ) : filteredGames.length > 0 ? (
+          filteredGames.map((game) => {
+            const isSemiOrFinal = game.isPlayoff && (
+              game.playoffRoundEn?.toLowerCase().includes('semi') || 
+              game.playoffRoundEn?.toLowerCase().includes('final')
+            );
+            
+            return (
+              <div 
+                key={game.id} 
+                className={
+                  isSemiOrFinal 
+                    ? "group bg-gradient-to-r from-amber-500/5 via-ng-blue/30 to-amber-500/5 rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:bg-ng-blue/40 transition-all duration-300 shadow-[0_0_15px_rgba(245,158,11,0.1)] relative overflow-hidden"
+                    : "group bg-ng-blue/30 rounded-2xl border border-gray-700 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg"
+                }
+              >
+                {isSemiOrFinal && (
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-500 animate-pulse" />
                 )}
-                <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.time}</div>
-                <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.location}</div>
-              </div>
-              
-              <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center w-full px-0 sm:px-4 my-4 md:my-0">
-                {/* Home Team */}
-                <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
-                  <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
-                    {renderTeamName(game.homeTeamId)}
-                  </span>
-                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
-                    {getTeamInitial(game.homeTeamId)}
-                  </span>
-                </div>
                 
-                {/* VS / Score */}
-                <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
-                  {game.status === 'played' ? (
-                    <div className="bg-ng-navy px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl border border-ng-light-blue/30 text-lg sm:text-3xl font-black text-white tracking-widest shadow-2xl group-hover:scale-110 transition-transform">
-                      {game.homeScore}-{game.awayScore}
-                    </div>
-                  ) : (
-                    <div className="bg-gray-800 px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl border border-gray-700 text-[8px] sm:text-sm font-black text-gray-400 uppercase tracking-widest">
-                      VS
+                <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
+                  <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
+                    <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0 ${isSemiOrFinal ? 'text-amber-400' : 'text-ng-light-blue'}`} />
+                    <span>{formatDate(game.date)}</span>
+                  </div>
+                  {game.isPlayoff && (
+                    <div className="flex items-center pl-6 sm:pl-8">
+                      <span className={`flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic ${
+                        isSemiOrFinal 
+                          ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 animate-pulse' 
+                          : 'bg-ng-light-blue/20 text-ng-light-blue border-ng-light-blue/30'
+                      }`}>
+                        {isSemiOrFinal && <Trophy className="w-3.5 h-3.5 text-amber-400" />}
+                        {game.playoffRoundEn ? (language === 'fr' ? `Séries - ${game.playoffRoundFr || game.playoffRoundEn}` : `Playoffs - ${game.playoffRoundEn}`) : (language === 'fr' ? 'Séries' : 'Playoffs')}
+                      </span>
                     </div>
                   )}
+                  <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.time}</div>
+                  <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.location}</div>
                 </div>
                 
-                {/* Away Team */}
-                <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
-                  <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
-                    {getTeamInitial(game.awayTeamId)}
-                  </span>
-                  <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
-                    {renderTeamName(game.awayTeamId)}
-                  </span>
+                <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center w-full px-0 sm:px-4 my-4 md:my-0">
+                  {/* Home Team */}
+                  <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
+                    <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
+                      {renderTeamName(game.homeTeamId)}
+                    </span>
+                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
+                      {getTeamInitial(game.homeTeamId)}
+                    </span>
+                  </div>
+                  
+                  {/* VS / Score */}
+                  <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
+                    {game.status === 'played' ? (
+                      <div className={`px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl text-lg sm:text-3xl font-black tracking-widest shadow-2xl group-hover:scale-110 transition-transform ${
+                        isSemiOrFinal 
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+                          : 'bg-ng-navy text-white border border-ng-light-blue/30'
+                      }`}>
+                        {game.homeScore}-{game.awayScore}
+                      </div>
+                    ) : (
+                      <div className={`px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl text-[8px] sm:text-sm font-black uppercase tracking-widest ${
+                        isSemiOrFinal 
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] animate-pulse' 
+                          : 'bg-gray-800 text-gray-400 border border-gray-700'
+                      }`}>
+                        VS
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Away Team */}
+                  <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
+                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
+                      {getTeamInitial(game.awayTeamId)}
+                    </span>
+                    <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
+                      {renderTeamName(game.awayTeamId)}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="md:w-1/6 flex justify-end mt-2 md:mt-0 w-full md:w-auto">
+                    {game.status === 'played' && gameRecaps[game.id] ? (
+                      <button 
+                        onClick={() => setSelectedGameId(game.id)} 
+                        className={`text-[10px] sm:text-xs font-black uppercase tracking-widest border-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg ${
+                          isSemiOrFinal 
+                            ? 'text-amber-400 border-amber-500/30 hover:bg-amber-500 hover:text-ng-navy hover:border-amber-500' 
+                            : 'text-ng-light-blue border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue'
+                        }`}
+                      >
+                        {t.schedule.viewRecap}
+                      </button>
+                    ) : game.status === 'played' ? (
+                      <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
+                    ) : null}
                 </div>
               </div>
-
-              <div className="md:w-1/6 flex justify-end mt-2 md:mt-0 w-full md:w-auto">
-                  {game.status === 'played' && gameRecaps[game.id] ? (
-                    <button onClick={() => setSelectedGameId(game.id)} className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-ng-light-blue border-2 border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg shadow-ng-light-blue/5">
-                      {t.schedule.viewRecap}
-                    </button>
-                  ) : game.status === 'played' ? (
-                    <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
-                  ) : null}
-              </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div className="text-center py-24 bg-ng-blue/10 rounded-3xl border border-dashed border-gray-700">
             <p className="text-gray-500 font-bold uppercase tracking-widest">No games found for this category.</p>

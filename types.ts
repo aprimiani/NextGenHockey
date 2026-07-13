@@ -23,6 +23,8 @@ export interface Game {
   homeScore?: number;
   awayScore?: number;
   isPlayoff?: boolean;
+  playoffRoundEn?: string;
+  playoffRoundFr?: string;
 }
 
 export interface Message {

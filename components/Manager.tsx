@@ -50,6 +50,7 @@ const Manager: React.FC = () => {
 
   const getTeamName = (id: string) => {
     if (id === 'sub') return 'League Sub';
+    if (id.toLowerCase() === 'tbd') return 'TBD';
     return teams.find(t => t.id === id)?.name || 'Unknown';
   };
   
