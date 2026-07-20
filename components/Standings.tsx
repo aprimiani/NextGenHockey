@@ -484,7 +484,7 @@ const Standings: React.FC = () => {
               <tr>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center md:text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center md:text-left text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap w-8 md:w-auto cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'rank')}
                 >
                   <div className="flex items-center justify-center md:justify-start">
@@ -494,7 +494,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-2 md:px-6 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-2 md:px-6 py-2.5 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'name')}
                 >
                   <div className="flex items-center">
@@ -504,7 +504,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'gp')}
                 >
                   <div className="flex items-center justify-center">
@@ -514,7 +514,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'wins')}
                 >
                   <div className="flex items-center justify-center">
@@ -524,7 +524,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'losses')}
                 >
                   <div className="flex items-center justify-center">
@@ -534,7 +534,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'ties')}
                 >
                   <div className="flex items-center justify-center">
@@ -544,7 +544,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-black text-ng-light-blue uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-black text-ng-light-blue uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'points')}
                 >
                   <div className="flex items-center justify-center">
@@ -554,7 +554,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'winPct')}
                 >
                   <div className="flex items-center justify-center">
@@ -564,7 +564,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'goalsFor')}
                 >
                   <div className="flex items-center justify-center">
@@ -574,7 +574,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'goalsAgainst')}
                 >
                   <div className="flex items-center justify-center">
@@ -584,7 +584,7 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'diff')}
                 >
                   <div className="flex items-center justify-center">
@@ -599,27 +599,27 @@ const Standings: React.FC = () => {
                 const diff = team.goalsFor - team.goalsAgainst;
                 return (
                   <tr key={team.id} className="hover:bg-ng-blue/50 transition-colors group">
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-gray-400 text-center md:text-left">{index + 1}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-gray-400 text-center md:text-left">{index + 1}</td>
                     <td className="px-2 md:px-6 py-3 whitespace-nowrap">
-                      <button 
-                        onClick={() => setSelectedTeam(team)}
-                        className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
-                      >
-                        <span className="mr-1 md:mr-2 text-[10px] md:text-[11px] font-black italic shrink-0" style={{ color: team.logoColor }}>{getTeamInitial(team.id)}</span>
-                        <div className="text-xs md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
-                      </button>
+                       <button 
+                         onClick={() => setSelectedTeam(team)}
+                         className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
+                       >
+                         <span className="mr-1 md:mr-2 text-[11px] md:text-xs font-black italic shrink-0" style={{ color: team.logoColor }}>{getTeamInitial(team.id)}</span>
+                         <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
+                       </button>
                     </td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300 font-bold">{team.gp}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-green-400 font-semibold">{team.wins}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-red-400">{team.losses}</td>
-                    <td className="px-1 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-400">{team.ties}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-white font-black bg-ng-light-blue/10">{team.points}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300 font-bold">{team.gp}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-green-400 font-semibold">{team.wins}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-red-400">{team.losses}</td>
+                    <td className="px-1 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-400">{team.ties}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-white font-black bg-ng-light-blue/10">{team.points}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300">
                       {team.gp > 0 ? ((team.wins / team.gp) * 100).toFixed(1) + '%' : '0.0%'}
                     </td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">{team.goalsFor}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center text-gray-300">{team.goalsAgainst}</td>
-                    <td className={`px-1.5 md:px-6 py-3 whitespace-nowrap text-[11px] md:text-sm text-center font-black ${
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300">{team.goalsFor}</td>
+                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300">{team.goalsAgainst}</td>
+                    <td className={`px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center font-black ${
                       diff > 0 ? 'text-green-400' : diff < 0 ? 'text-red-400' : 'text-gray-400'
                     }`}>
                       {diff > 0 ? `+${diff}` : diff}
@@ -772,7 +772,7 @@ const Standings: React.FC = () => {
                     <thead>
                       <tr>
                         <th 
-                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-16 cursor-pointer group"
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap w-8 md:w-16 cursor-pointer group"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'rank')}
                         >
                           <div className="flex items-center justify-center">
@@ -781,7 +781,7 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
                         <th 
-                          className="px-1.5 md:px-4 py-2 md:py-3 text-left text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-28 xs:w-36 sm:w-auto"
+                          className="px-1.5 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-28 xs:w-36 sm:w-auto"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'name')}
                         >
                           <div className="flex items-center">
@@ -789,9 +789,9 @@ const Standings: React.FC = () => {
                             <SortIcon sort={playerSort} column="name" />
                           </div>
                         </th>
-                        <th className="hidden sm:table-cell px-3 md:px-4 py-2 md:py-3 text-left text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                        <th className="hidden sm:table-cell px-3 md:px-4 py-2 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
                         <th 
-                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'gp')}
                         >
                           <div className="flex items-center justify-center">
@@ -800,7 +800,7 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
                         <th 
-                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'goals')}
                         >
                           <div className="flex items-center justify-center">
@@ -809,7 +809,7 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
                         <th 
-                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group w-10 md:w-auto"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'assists')}
                         >
                           <div className="flex items-center justify-center">
@@ -818,7 +818,7 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
                         <th 
-                          className="px-1 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group w-12 md:w-auto"
+                          className="px-1 md:px-4 py-2 md:py-3 text-center text-xs md:text-sm font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group w-12 md:w-auto"
                           onClick={() => handleSort(playerSort, setPlayerSort, 'points')}
                         >
                           <div className="flex items-center justify-center">
@@ -831,8 +831,8 @@ const Standings: React.FC = () => {
                     <tbody className="divide-y divide-gray-700">
                       {displayedPlayers.map((player, idx) => (
                         <tr key={player.id} className="hover:bg-ng-navy transition-colors">
-                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-gray-500 whitespace-nowrap text-center">{idx + 1}</td>
-                          <td className="px-1.5 md:px-4 py-2 text-[10px] sm:text-[11px] md:text-sm font-bold text-white whitespace-nowrap text-left truncate">
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-gray-500 whitespace-nowrap text-center">{idx + 1}</td>
+                          <td className="px-1.5 md:px-4 py-2 text-xs sm:text-[13px] md:text-[15px] font-bold text-white whitespace-nowrap text-left truncate">
                              <div className="flex flex-col items-start min-w-0">
                                <button onClick={() => setSelectedPlayer(player)} className="hover:text-ng-light-blue transition-colors outline-none text-left truncate w-full">
                                  <span>{player.name}</span>
@@ -847,14 +847,14 @@ const Standings: React.FC = () => {
                                </div>
                              </div>
                           </td>
-                          <td className="hidden sm:table-cell px-3 md:px-4 py-2 text-[11px] md:text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                          <td className="hidden sm:table-cell px-3 md:px-4 py-2 text-xs md:text-[15px] text-gray-300 flex items-center gap-2 whitespace-nowrap">
                              <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamInitial(player.teamId)}</span>
                              {renderTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}
                           </td>
-                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
-                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
-                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
-                          <td className="px-1 md:px-4 py-2 text-[10px] md:text-sm text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{player.points}</td>
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-center text-gray-300 whitespace-nowrap">{player.goals}</td>
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-center text-gray-300 whitespace-nowrap">{player.assists}</td>
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{player.points}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -875,7 +875,7 @@ const Standings: React.FC = () => {
                     <thead>
                       <tr>
                         <th 
-                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap w-8 md:w-auto cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'rank')}
                         >
                           <div className="flex items-center">
@@ -884,7 +884,7 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
                         <th 
-                          className="px-2 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-2 md:px-4 py-2.5 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'name')}
                         >
                           <div className="flex items-center">
@@ -893,9 +893,9 @@ const Standings: React.FC = () => {
                           </div>
                         </th>
 
-                        <th className="hidden sm:table-cell px-3 md:px-4 py-2.5 md:py-3 text-left text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
+                        <th className="hidden sm:table-cell px-3 md:px-4 py-2.5 md:py-3 text-left text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap">{t.standings.team}</th>
                         <th 
-                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'gp')}
                         >
                           <div className="flex items-center justify-center">
@@ -905,7 +905,7 @@ const Standings: React.FC = () => {
                         </th>
 
                         <th 
-                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'wins')}
                         >
                           <div className="flex items-center justify-center">
@@ -915,7 +915,7 @@ const Standings: React.FC = () => {
                         </th>
 
                         <th 
-                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'gaa')}
                         >
                           <div className="flex items-center justify-center">
@@ -925,27 +925,27 @@ const Standings: React.FC = () => {
                         </th>
 
                         <th 
-                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-black text-ng-light-blue uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'svPct')}
                         >
                           <div className="flex items-center justify-center">
                             {t.standings.svPct}
                             <SortIcon sort={goalieSort} column="svPct" />
-                           </div>
-                         </th>
-                         <th 
-                           className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
-                           onClick={() => handleSort(goalieSort, setGoalieSort, 'shutouts')}
-                         >
-                           <div className="flex items-center justify-center">
-                             {t.standings.shutouts}
-                             <SortIcon sort={goalieSort} column="shutouts" />
-                           </div>
-                         </th>
-                         <th style={{ display: "none" }}><div className="hidden"></div></th>
+                          </div>
+                        </th>
+                        <th 
+                          className="px-1.5 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase whitespace-nowrap cursor-pointer group"
+                          onClick={() => handleSort(goalieSort, setGoalieSort, 'shutouts')}
+                        >
+                          <div className="flex items-center justify-center">
+                            {t.standings.shutouts}
+                            <SortIcon sort={goalieSort} column="shutouts" />
+                          </div>
+                        </th>
+                        <th style={{ display: "none" }}><div className="hidden"></div></th>
 
                         <th 
-                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
+                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'shotsAgainst')}
                         >
                           <div className="flex items-center justify-center">
@@ -955,7 +955,7 @@ const Standings: React.FC = () => {
                         </th>
 
                         <th 
-                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-[10px] md:text-xs font-medium text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
+                          className="hidden lg:table-cell px-3 md:px-4 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-505 uppercase whitespace-nowrap cursor-pointer group"
                           onClick={() => handleSort(goalieSort, setGoalieSort, 'goalsAgainst')}
                         >
                           <div className="flex items-center justify-center">
@@ -972,8 +972,8 @@ const Standings: React.FC = () => {
                         const svPct = goalie.shotsAgainst > 0 ? ((goalie.shotsAgainst - goalie.goalsAgainst) / goalie.shotsAgainst).toFixed(3) : '.000';
                         return (
                          <tr key={goalie.id} className="hover:bg-ng-navy transition-colors">
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-gray-500 whitespace-nowrap text-center md:text-left">{idx + 1}</td>
-                           <td className="px-2 md:px-4 py-2.5 text-[11px] md:text-sm font-bold text-white whitespace-nowrap text-left">
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-gray-500 whitespace-nowrap text-center md:text-left">{idx + 1}</td>
+                           <td className="px-2 md:px-4 py-2.5 text-xs md:text-[15px] font-bold text-white whitespace-nowrap text-left">
                              <div className="flex flex-col items-start">
                                <button onClick={() => setSelectedGoalie(goalie)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{goalie.name}</span></button>
                                <div className="sm:hidden flex items-center gap-1 mt-0.5">
@@ -982,17 +982,17 @@ const Standings: React.FC = () => {
                                </div>
                              </div>
                            </td>
-                           <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                           <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[15px] text-gray-300 flex items-center gap-2 whitespace-nowrap">
                                <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
                                <span>{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
                            </td>
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono text-[10px] whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{svPct}</td>
-                           <td className="px-1.5 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-300 font-mono whitespace-nowrap">{goalie.shutouts || 0}</td>
-                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-505 whitespace-nowrap">{goalie.shotsAgainst}</td>
-                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-[11px] md:text-sm text-center text-gray-505 whitespace-nowrap">{goalie.goalsAgainst}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-mono whitespace-nowrap">{goalie.wins}-{goalie.losses}-{goalie.draws}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-mono whitespace-nowrap">{gaa}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center font-bold text-ng-light-blue bg-ng-light-blue/10 whitespace-nowrap">{svPct}</td>
+                           <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-mono whitespace-nowrap">{goalie.shutouts || 0}</td>
+                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-550 whitespace-nowrap">{goalie.shotsAgainst}</td>
+                           <td className="hidden lg:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-550 whitespace-nowrap">{goalie.goalsAgainst}</td>
                          </tr>
                         );
                       })}

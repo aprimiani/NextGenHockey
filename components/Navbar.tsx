@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
       {/* Winter Season Registration Banner */}
       <div className="bg-gradient-to-r from-ng-light-blue via-ng-accent to-ng-light-blue text-ng-navy text-xs sm:text-sm font-black uppercase tracking-widest text-center py-2.5 px-4 italic flex items-center justify-center gap-2 relative z-50 shadow-md">
          <Sparkles size={14} className="shrink-0 animate-pulse text-ng-navy" />
-         <span>{language === 'en' ? '❄️ Winter Season Registration is Now Open! ❄️' : "❄️ L'inscription pour la de saison d'hiver est maintenant ouverte ! ❄️"}</span>
+         <span>{language === 'en' ? '❄️ Winter Season Registration is Now Open! (Deadline: August 8th | Starts: Sept 7th) ❄️' : "❄️ L'inscription pour la saison d'hiver est ouverte ! (Limite : 8 août | Début : 7 sept) ❄️"}</span>
          <span className="hidden sm:inline-block text-ng-navy/30">|</span>
          <NavLink to="/register" className="underline hover:text-white transition-colors underline-offset-2">{language === 'en' ? 'Register Your Team' : 'Inscrivez votre équipe'}</NavLink>
       </div>
