@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown } from 'lucide-react';
+import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 import { PLAYER_OF_THE_MONTH } from '../constants';
 
@@ -253,9 +253,18 @@ const Standings: React.FC = () => {
   }, [selectedSeason, schedule]);
 
   // Sorting State
-  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank' | 'winPct' | 'diff'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+  type PoolSortKey = 'seed' | 'name' | 'regWinPct' | 'gp' | 'wins' | 'losses' | 'ties' | 'points' | 'winPct' | 'goalsFor' | 'goalsAgainst' | 'diff';
+
+  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank' | 'winPct' | 'diff'; dir: 'asc' | 'desc' }>({ key: 'winPct', dir: 'desc' });
   const [playerSort, setPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'svPct', dir: 'desc' });
+
+  // Playoff Pools Sorting State
+  const [pool1Sort, setPool1Sort] = useState<{ key: PoolSortKey; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+  const [pool2Sort, setPool2Sort] = useState<{ key: PoolSortKey; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
+
+  // Playoff View Mode ('pools' or 'overall')
+  const [playoffViewMode, setPlayoffViewMode] = useState<'pools' | 'overall'>('pools');
 
   // Team Profile Sorting State
   const [teamPlayerSort, setTeamPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
@@ -308,13 +317,143 @@ const Standings: React.FC = () => {
     }
   });
 
-  // Secondary sort for teams if primary sort is points
+  // Secondary sort for teams if primary sort is points or winPct
   if (teamSort.key === 'points') {
     sortedTeams.sort((a, b) => {
       if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
       return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
     });
+  } else if (teamSort.key === 'winPct') {
+    sortedTeams.sort((a, b) => {
+      const winPctA = a.gp > 0 ? a.wins / a.gp : 0;
+      const winPctB = b.gp > 0 ? b.wins / b.gp : 0;
+      if (winPctA !== winPctB) return teamSort.dir === 'asc' ? winPctA - winPctB : winPctB - winPctA;
+      if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
+      return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+    });
   }
+
+  // Regular Season Ranked Teams by Win Percentage for Playoff Seeding
+  const regSeasonRankedTeams = useMemo(() => {
+    return [...teams].sort((a, b) => {
+      const winPctA = a.gp > 0 ? a.wins / a.gp : 0;
+      const winPctB = b.gp > 0 ? b.wins / b.gp : 0;
+      if (winPctB !== winPctA) return winPctB - winPctA;
+      if (b.points !== a.points) return b.points - a.points;
+      if (b.wins !== a.wins) return b.wins - a.wins;
+      const diffA = a.goalsFor - a.goalsAgainst;
+      const diffB = b.goalsFor - b.goalsAgainst;
+      if (diffB !== diffA) return diffB - diffA;
+      return b.goalsFor - a.goalsFor;
+    });
+  }, [teams]);
+
+  // Pool 1: Seeds #1, #4, #5, #8 (Indices 0, 3, 4, 7)
+  const pool1Seeded = useMemo(() => {
+    const indices = [0, 3, 4, 7];
+    return indices.map(idx => {
+      const regTeam = regSeasonRankedTeams[idx];
+      if (!regTeam) return null;
+      const playoffTeam = playoffStats.teams.find(t => t.id === regTeam.id) || {
+        ...regTeam,
+        gp: 0, wins: 0, losses: 0, ties: 0, points: 0, goalsFor: 0, goalsAgainst: 0
+      };
+      const regWinPct = regTeam.gp > 0 ? regTeam.wins / regTeam.gp : 0;
+      return { regTeam, playoffTeam, seed: idx + 1, regWinPct };
+    }).filter(Boolean) as { regTeam: Team; playoffTeam: Team; seed: number; regWinPct: number }[];
+  }, [regSeasonRankedTeams, playoffStats.teams]);
+
+  // Pool 2: Seeds #2, #3, #6, #7 (Indices 1, 2, 5, 6)
+  const pool2Seeded = useMemo(() => {
+    const indices = [1, 2, 5, 6];
+    return indices.map(idx => {
+      const regTeam = regSeasonRankedTeams[idx];
+      if (!regTeam) return null;
+      const playoffTeam = playoffStats.teams.find(t => t.id === regTeam.id) || {
+        ...regTeam,
+        gp: 0, wins: 0, losses: 0, ties: 0, points: 0, goalsFor: 0, goalsAgainst: 0
+      };
+      const regWinPct = regTeam.gp > 0 ? regTeam.wins / regTeam.gp : 0;
+      return { regTeam, playoffTeam, seed: idx + 1, regWinPct };
+    }).filter(Boolean) as { regTeam: Team; playoffTeam: Team; seed: number; regWinPct: number }[];
+  }, [regSeasonRankedTeams, playoffStats.teams]);
+
+  const sortPoolTeams = useCallback((
+    items: { regTeam: Team; playoffTeam: Team; seed: number; regWinPct: number }[],
+    sort: { key: PoolSortKey; dir: 'asc' | 'desc' }
+  ): { regTeam: Team; playoffTeam: Team; seed: number; regWinPct: number }[] => {
+    return [...items].sort((a, b) => {
+      let valA: number | string = 0;
+      let valB: number | string = 0;
+
+      switch (sort.key) {
+        case 'seed':
+          valA = a.seed;
+          valB = b.seed;
+          break;
+        case 'name':
+          valA = a.regTeam.name;
+          valB = b.regTeam.name;
+          break;
+        case 'regWinPct':
+          valA = a.regWinPct;
+          valB = b.regWinPct;
+          break;
+        case 'gp':
+          valA = a.playoffTeam.gp;
+          valB = b.playoffTeam.gp;
+          break;
+        case 'wins':
+          valA = a.playoffTeam.wins;
+          valB = b.playoffTeam.wins;
+          break;
+        case 'losses':
+          valA = a.playoffTeam.losses;
+          valB = b.playoffTeam.losses;
+          break;
+        case 'ties':
+          valA = a.playoffTeam.ties;
+          valB = b.playoffTeam.ties;
+          break;
+        case 'points':
+          valA = a.playoffTeam.points;
+          valB = b.playoffTeam.points;
+          break;
+        case 'winPct':
+          valA = a.playoffTeam.gp > 0 ? a.playoffTeam.wins / a.playoffTeam.gp : 0;
+          valB = b.playoffTeam.gp > 0 ? b.playoffTeam.wins / b.playoffTeam.gp : 0;
+          break;
+        case 'goalsFor':
+          valA = a.playoffTeam.goalsFor;
+          valB = b.playoffTeam.goalsFor;
+          break;
+        case 'goalsAgainst':
+          valA = a.playoffTeam.goalsAgainst;
+          valB = b.playoffTeam.goalsAgainst;
+          break;
+        case 'diff':
+          valA = a.playoffTeam.goalsFor - a.playoffTeam.goalsAgainst;
+          valB = b.playoffTeam.goalsFor - b.playoffTeam.goalsAgainst;
+          break;
+      }
+
+      if (typeof valA === 'string' && typeof valB === 'string') {
+        return sort.dir === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      }
+
+      if (valA === valB) {
+        if (b.playoffTeam.points !== a.playoffTeam.points) {
+          return b.playoffTeam.points - a.playoffTeam.points;
+        }
+        return a.seed - b.seed;
+      }
+
+      return sort.dir === 'asc' ? (valA as number) - (valB as number) : (valB as number) - (valA as number);
+    });
+  }, []);
+
+  const sortedPool1 = useMemo(() => sortPoolTeams(pool1Seeded, pool1Sort), [pool1Seeded, pool1Sort, sortPoolTeams]);
+  const sortedPool2 = useMemo(() => sortPoolTeams(pool2Seeded, pool2Sort), [pool2Seeded, pool2Sort, sortPoolTeams]);
 
   const sortedPlayers = [...activePlayersList].sort((a, b) => {
     if (playerSort.key === 'rank') return 0;
@@ -472,9 +611,423 @@ const Standings: React.FC = () => {
             {language === 'fr' ? "Aucune donnée enregistrée" : "No data recorded yet"}
           </div>
         </div>
+      ) : selectedSeason === 'summer_2026_playoffs' && playoffViewMode === 'pools' ? (
+        <>
+          {/* Playoff Mode View Switcher */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 bg-ng-blue/30 p-4 rounded-2xl border border-gray-700/80 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="bg-ng-light-blue/10 p-2.5 rounded-xl border border-ng-light-blue/20">
+                <Layers size={20} className="text-ng-light-blue" />
+              </div>
+              <div>
+                <h3 className="text-base font-black uppercase text-white tracking-wide">
+                  {t.standings.playoffPoolsTitle || 'Playoff Pools Seeding'}
+                </h3>
+                <p className="text-xs text-gray-400">
+                  {t.standings.playoffPoolsSub || 'Seeding determined by Regular Season Win % (Pool 1: Seeds #1, #4, #5, #8 | Pool 2: Seeds #2, #3, #6, #7)'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 bg-ng-navy p-1 rounded-xl border border-gray-700/80 self-stretch sm:self-auto justify-center">
+              <button
+                onClick={() => setPlayoffViewMode('pools')}
+                className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
+                  playoffViewMode === 'pools' ? 'bg-ng-light-blue text-ng-navy shadow-md' : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {t.standings.poolView || 'Playoff Pools'}
+              </button>
+              <button
+                onClick={() => setPlayoffViewMode('overall')}
+                className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
+                  (playoffViewMode as string) === 'overall' ? 'bg-ng-light-blue text-ng-navy shadow-md' : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {t.standings.combinedView || 'Overall Standings'}
+              </button>
+            </div>
+          </div>
+
+          {/* Pool A Table */}
+          <div className="bg-ng-blue/30 rounded-2xl border border-blue-500/30 shadow-xl overflow-hidden mb-8 relative">
+            <div className="px-6 py-4 bg-gradient-to-r from-blue-900/40 via-ng-navy to-ng-blue/40 border-b border-gray-700/80 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-blue-400 animate-pulse" />
+                <h3 className="text-base sm:text-lg font-black text-white uppercase italic tracking-wider">
+                  {t.standings.pool1Title || 'Pool A (Seeds #1, #4, #5, #8)'}
+                </h3>
+              </div>
+              <span className="text-[10px] sm:text-xs font-black uppercase text-blue-400 bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                Pool A
+              </span>
+            </div>
+            <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
+              <table className="w-full divide-y divide-gray-700 min-w-full">
+                <thead className="bg-ng-navy/80">
+                  <tr>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'seed')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.seed || 'Seed'}
+                        <SortIcon sort={pool1Sort} column="seed" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'name')}
+                    >
+                      <div className="flex items-center">
+                        {t.standings.team}
+                        <SortIcon sort={pool1Sort} column="name" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'regWinPct')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.regWinPct || 'Reg. W%'}
+                        <SortIcon sort={pool1Sort} column="regWinPct" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'gp')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.gp}
+                        <SortIcon sort={pool1Sort} column="gp" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'wins')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.w}
+                        <SortIcon sort={pool1Sort} column="wins" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'losses')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.l}
+                        <SortIcon sort={pool1Sort} column="losses" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'ties')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.t}
+                        <SortIcon sort={pool1Sort} column="ties" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-black text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'points')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.pts}
+                        <SortIcon sort={pool1Sort} column="points" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'winPct')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.winPct}
+                        <SortIcon sort={pool1Sort} column="winPct" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'goalsFor')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.gf}
+                        <SortIcon sort={pool1Sort} column="goalsFor" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'goalsAgainst')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.ga}
+                        <SortIcon sort={pool1Sort} column="goalsAgainst" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'diff')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.diff}
+                        <SortIcon sort={pool1Sort} column="diff" />
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700">
+                  {sortedPool1.map(({ regTeam, playoffTeam, seed, regWinPct }) => {
+                    const diff = playoffTeam.goalsFor - playoffTeam.goalsAgainst;
+                    const playWinPct = playoffTeam.gp > 0 ? (playoffTeam.wins / playoffTeam.gp) * 100 : 0;
+                    return (
+                      <tr key={regTeam.id} className="hover:bg-ng-blue/50 transition-colors group">
+                        <td className="px-3 py-3 text-center">
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black border border-blue-500/30">
+                            #{seed}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <button 
+                            onClick={() => setSelectedTeam(regTeam)}
+                            className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
+                          >
+                            <span className="mr-2 text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>{getTeamInitial(regTeam.id)}</span>
+                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
+                          </button>
+                        </td>
+                        <td className="px-3 py-3 text-center text-xs font-black text-ng-light-blue bg-ng-light-blue/5">
+                          {(regWinPct * 100).toFixed(1)}%
+                        </td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300 font-bold">{playoffTeam.gp}</td>
+                        <td className="px-3 py-3 text-center text-xs text-green-400 font-semibold">{playoffTeam.wins}</td>
+                        <td className="px-3 py-3 text-center text-xs text-red-400">{playoffTeam.losses}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-400">{playoffTeam.ties}</td>
+                        <td className="px-3 py-3 text-center text-xs text-white font-black bg-ng-light-blue/10">{playoffTeam.points}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playWinPct.toFixed(1)}%</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playoffTeam.goalsFor}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playoffTeam.goalsAgainst}</td>
+                        <td className={`px-3 py-3 text-center text-xs font-black ${
+                          diff > 0 ? 'text-green-400' : diff < 0 ? 'text-red-400' : 'text-gray-400'
+                        }`}>
+                          {diff > 0 ? `+${diff}` : diff}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Pool B Table */}
+          <div className="bg-ng-blue/30 rounded-2xl border border-purple-500/30 shadow-xl overflow-hidden mb-12 relative">
+            <div className="px-6 py-4 bg-gradient-to-r from-purple-900/40 via-ng-navy to-ng-blue/40 border-b border-gray-700/80 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-purple-400 animate-pulse" />
+                <h3 className="text-base sm:text-lg font-black text-white uppercase italic tracking-wider">
+                  {t.standings.pool2Title || 'Pool B (Seeds #2, #3, #6, #7)'}
+                </h3>
+              </div>
+              <span className="text-[10px] sm:text-xs font-black uppercase text-purple-400 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">
+                Pool B
+              </span>
+            </div>
+            <div className="overflow-x-auto hide-scrollbar" style={scrollbarHideStyle}>
+              <table className="w-full divide-y divide-gray-700 min-w-full">
+                <thead className="bg-ng-navy/80">
+                  <tr>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'seed')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.seed || 'Seed'}
+                        <SortIcon sort={pool2Sort} column="seed" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-4 py-3 text-left text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'name')}
+                    >
+                      <div className="flex items-center">
+                        {t.standings.team}
+                        <SortIcon sort={pool2Sort} column="name" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'regWinPct')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.regWinPct || 'Reg. W%'}
+                        <SortIcon sort={pool2Sort} column="regWinPct" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'gp')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.gp}
+                        <SortIcon sort={pool2Sort} column="gp" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'wins')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.w}
+                        <SortIcon sort={pool2Sort} column="wins" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'losses')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.l}
+                        <SortIcon sort={pool2Sort} column="losses" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'ties')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.t}
+                        <SortIcon sort={pool2Sort} column="ties" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-black text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'points')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.pts}
+                        <SortIcon sort={pool2Sort} column="points" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'winPct')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.winPct}
+                        <SortIcon sort={pool2Sort} column="winPct" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'goalsFor')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.gf}
+                        <SortIcon sort={pool2Sort} column="goalsFor" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'goalsAgainst')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.ga}
+                        <SortIcon sort={pool2Sort} column="goalsAgainst" />
+                      </div>
+                    </th>
+                    <th 
+                      className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
+                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'diff')}
+                    >
+                      <div className="flex items-center justify-center">
+                        {t.standings.diff}
+                        <SortIcon sort={pool2Sort} column="diff" />
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-700">
+                  {sortedPool2.map(({ regTeam, playoffTeam, seed, regWinPct }) => {
+                    const diff = playoffTeam.goalsFor - playoffTeam.goalsAgainst;
+                    const playWinPct = playoffTeam.gp > 0 ? (playoffTeam.wins / playoffTeam.gp) * 100 : 0;
+                    return (
+                      <tr key={regTeam.id} className="hover:bg-ng-blue/50 transition-colors group">
+                        <td className="px-3 py-3 text-center">
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-black border border-purple-500/30">
+                            #{seed}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap">
+                          <button 
+                            onClick={() => setSelectedTeam(regTeam)}
+                            className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
+                          >
+                            <span className="mr-2 text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>{getTeamInitial(regTeam.id)}</span>
+                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
+                          </button>
+                        </td>
+                        <td className="px-3 py-3 text-center text-xs font-black text-ng-light-blue bg-ng-light-blue/5">
+                          {(regWinPct * 100).toFixed(1)}%
+                        </td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300 font-bold">{playoffTeam.gp}</td>
+                        <td className="px-3 py-3 text-center text-xs text-green-400 font-semibold">{playoffTeam.wins}</td>
+                        <td className="px-3 py-3 text-center text-xs text-red-400">{playoffTeam.losses}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-400">{playoffTeam.ties}</td>
+                        <td className="px-3 py-3 text-center text-xs text-white font-black bg-ng-light-blue/10">{playoffTeam.points}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playWinPct.toFixed(1)}%</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playoffTeam.goalsFor}</td>
+                        <td className="px-3 py-3 text-center text-xs text-gray-300">{playoffTeam.goalsAgainst}</td>
+                        <td className={`px-3 py-3 text-center text-xs font-black ${
+                          diff > 0 ? 'text-green-400' : diff < 0 ? 'text-red-400' : 'text-gray-400'
+                        }`}>
+                          {diff > 0 ? `+${diff}` : diff}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
       ) : (
         <>
-      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-12 relative overflow-hidden">
+        {selectedSeason === 'summer_2026_playoffs' && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 bg-ng-blue/30 p-4 rounded-2xl border border-gray-700/80 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="bg-ng-light-blue/10 p-2.5 rounded-xl border border-ng-light-blue/20">
+                <Layers size={20} className="text-ng-light-blue" />
+              </div>
+              <div>
+                <h3 className="text-base font-black uppercase text-white tracking-wide">
+                  {t.standings.playoffPoolsTitle || 'Playoff Pools Seeding'}
+                </h3>
+                <p className="text-xs text-gray-400">
+                  {t.standings.playoffPoolsSub || 'Seeding determined by Regular Season Win % (Pool 1: Seeds #1, #4, #5, #8 | Pool 2: Seeds #2, #3, #6, #7)'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 bg-ng-navy p-1 rounded-xl border border-gray-700/80 self-stretch sm:self-auto justify-center">
+              <button
+                onClick={() => setPlayoffViewMode('pools')}
+                className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
+                  playoffViewMode === 'pools' ? 'bg-ng-light-blue text-ng-navy shadow-md' : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {t.standings.poolView || 'Playoff Pools'}
+              </button>
+              <button
+                onClick={() => setPlayoffViewMode('overall')}
+                className={`px-4 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
+                  playoffViewMode === 'overall' ? 'bg-ng-light-blue text-ng-navy shadow-md' : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {t.standings.combinedView || 'Overall Standings'}
+              </button>
+            </div>
+          </div>
+        )}
+      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-8 relative overflow-hidden">
         <div 
           className="overflow-x-auto hide-scrollbar" 
           style={scrollbarHideStyle}
@@ -631,6 +1184,119 @@ const Standings: React.FC = () => {
           </table>
         </div>
       </div>
+
+      {/* Playoff Pools Seeding Alignment Preview Cards (Regular Season Mode) */}
+      {selectedSeason === 'summer_2026_reg' && (
+        <div className="mb-12 bg-ng-blue/20 rounded-2xl border border-gray-700/80 p-6 shadow-xl relative">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 border-b border-gray-700/80 pb-4">
+            <div>
+              <div className="flex items-center gap-2 text-ng-light-blue mb-1">
+                <Trophy size={18} />
+                <span className="text-xs font-black uppercase tracking-widest">{t.standings.playoffPoolsTitle || 'Playoff Pools Seeding'}</span>
+              </div>
+              <p className="text-xs text-gray-400">
+                {t.standings.playoffPoolsSub || 'Seeding determined by Regular Season Win % (Pool 1: Seeds #1, #4, #5, #8 | Pool 2: Seeds #2, #3, #6, #7)'}
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-1.5 text-[10px] uppercase font-black text-ng-light-blue bg-ng-light-blue/10 px-3 py-1.5 rounded-lg border border-ng-light-blue/20 self-start sm:self-auto shrink-0">
+              <span className="w-2 h-2 rounded-full bg-ng-light-blue animate-pulse" />
+              <span>8 Teams Qualified</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Pool 1 Card */}
+            <div className="bg-gradient-to-br from-ng-navy via-ng-blue/40 to-ng-navy rounded-xl border border-blue-500/30 p-5 relative overflow-hidden shadow-lg">
+              <div className="flex items-center justify-between mb-4 border-b border-gray-700/60 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-blue-400 animate-pulse" />
+                  <h4 className="text-sm font-black text-white uppercase italic tracking-wider">
+                    {t.standings.pool1Title || 'Pool 1 (Seeds #1, #4, #5, #8)'}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-black uppercase text-blue-400 bg-blue-500/10 px-2.5 py-0.5 rounded border border-blue-500/20">
+                  Pool A
+                </span>
+              </div>
+              <div className="space-y-2.5">
+                {pool1Seeded.map(({ regTeam, seed, regWinPct }) => (
+                  <button
+                    key={regTeam.id}
+                    onClick={() => setSelectedTeam(regTeam)}
+                    className="w-full flex items-center justify-between bg-ng-navy/60 hover:bg-ng-blue/60 p-2.5 rounded-lg border border-gray-700/50 hover:border-ng-light-blue/40 transition-all text-left group"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black flex items-center justify-center shrink-0 border border-blue-500/30">
+                        #{seed}
+                      </span>
+                      <span className="text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>
+                        {getTeamInitial(regTeam.id)}
+                      </span>
+                      <span className="text-xs font-bold text-white group-hover:text-ng-light-blue truncate">
+                        {renderTeamName(regTeam.id)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0 ml-2">
+                      <span className="text-[11px] font-medium text-gray-400">
+                        {regTeam.wins}-{regTeam.losses}-{regTeam.ties}
+                      </span>
+                      <span className="text-xs font-black text-ng-light-blue bg-ng-light-blue/10 px-2 py-0.5 rounded border border-ng-light-blue/20">
+                        {(regWinPct * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Pool 2 Card */}
+            <div className="bg-gradient-to-br from-ng-navy via-ng-blue/40 to-ng-navy rounded-xl border border-purple-500/30 p-5 relative overflow-hidden shadow-lg">
+              <div className="flex items-center justify-between mb-4 border-b border-gray-700/60 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-purple-400 animate-pulse" />
+                  <h4 className="text-sm font-black text-white uppercase italic tracking-wider">
+                    {t.standings.pool2Title || 'Pool 2 (Seeds #2, #3, #6, #7)'}
+                  </h4>
+                </div>
+                <span className="text-[10px] font-black uppercase text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded border border-purple-500/20">
+                  Pool B
+                </span>
+              </div>
+              <div className="space-y-2.5">
+                {pool2Seeded.map(({ regTeam, seed, regWinPct }) => (
+                  <button
+                    key={regTeam.id}
+                    onClick={() => setSelectedTeam(regTeam)}
+                    className="w-full flex items-center justify-between bg-ng-navy/60 hover:bg-ng-blue/60 p-2.5 rounded-lg border border-gray-700/50 hover:border-ng-light-blue/40 transition-all text-left group"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <span className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-black flex items-center justify-center shrink-0 border border-purple-500/30">
+                        #{seed}
+                      </span>
+                      <span className="text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>
+                        {getTeamInitial(regTeam.id)}
+                      </span>
+                      <span className="text-xs font-bold text-white group-hover:text-ng-light-blue truncate">
+                        {renderTeamName(regTeam.id)}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0 ml-2">
+                      <span className="text-[11px] font-medium text-gray-400">
+                        {regTeam.wins}-{regTeam.losses}-{regTeam.ties}
+                      </span>
+                      <span className="text-xs font-black text-ng-light-blue bg-ng-light-blue/10 px-2 py-0.5 rounded border border-ng-light-blue/20">
+                        {(regWinPct * 100).toFixed(1)}%
+                      </span>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      </>
+      )}
 
       {/* Player of the Month Section */}
       <div className="mb-12">
@@ -1007,9 +1673,6 @@ const Standings: React.FC = () => {
            )}
         </div>
       </div>
-
-        </>
-      )}
 
       {/* Team Modal */}
       {selectedTeam && (

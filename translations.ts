@@ -149,6 +149,14 @@ export const translations = {
       gameLogs: 'Game Logs',
       opponent: 'Opponent',
       pim: 'PIM',
+      playoffPoolsTitle: 'Playoff Pools Seeding',
+      playoffPoolsSub: 'Seeding determined by Regular Season Win % (Pool A: Seeds #1, #4, #5, #8 | Pool B: Seeds #2, #3, #6, #7)',
+      pool1Title: 'Pool A (Seeds #1, #4, #5, #8)',
+      pool2Title: 'Pool B (Seeds #2, #3, #6, #7)',
+      regWinPct: 'Reg. Win %',
+      seed: 'Seed',
+      poolView: 'Playoff Pools',
+      combinedView: 'Overall Standings',
       months: [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
@@ -440,7 +448,10 @@ export const translations = {
             {
               title: '10.1 Qualification',
               items: [
-                'Playoff format depends on the number of teams and season structure.'
+                'Playoff seeding is determined strictly by regular season win percentage.',
+                'The 8 teams are divided into 2 pools of 4 teams based on win percentage seeding:',
+                '• Pool A: Seeds #1, #4, #5, #8',
+                '• Pool B: Seeds #2, #3, #6, #7'
               ]
             },
             {
@@ -658,6 +669,14 @@ export const translations = {
       gameLogs: 'Journal des Matchs',
       opponent: 'Adversaire',
       pim: 'PEN',
+      playoffPoolsTitle: 'Qualification des Pools de Séries',
+      playoffPoolsSub: 'Classement basé sur le % de victoires en saison régulière (Pool A : Positions #1, #4, #5, #8 | Pool B : Positions #2, #3, #6, #7)',
+      pool1Title: 'Pool A (Positions #1, #4, #5, #8)',
+      pool2Title: 'Pool B (Positions #2, #3, #6, #7)',
+      regWinPct: '% Vic. Rég.',
+      seed: 'Position',
+      poolView: 'Pools de Séries',
+      combinedView: 'Classement Général',
       months: [
         'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
         'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
@@ -951,7 +970,10 @@ export const translations = {
             {
               title: '10.1 Qualification',
               items: [
-                'Le format des séries éliminatoires dépend du nombre d\'équipes et de la structure de la saison.'
+                'Le classement des séries éliminatoires est déterminé par le pourcentage de victoires de la saison régulière.',
+                'Les 8 équipes sont divisées en 2 pools de 4 équipes selon le pourcentage de victoires :',
+                '• Pool A : Positions #1, #4, #5, #8',
+                '• Pool B : Positions #2, #3, #6, #7'
               ]
             },
             {
