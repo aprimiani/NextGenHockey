@@ -49,9 +49,15 @@ const Manager: React.FC = () => {
   } = useLeagueData();
 
   const getTeamName = (id: string) => {
+    if (!id) return '';
     if (id === 'sub') return 'League Sub';
     if (id.toLowerCase() === 'tbd') return 'TBD';
-    return teams.find(t => t.id === id)?.name || 'Unknown';
+    if (id === 'pool_a_1st' || id.toLowerCase() === 'pool a 1st') return 'Pool A 1st';
+    if (id === 'pool_a_2nd' || id.toLowerCase() === 'pool a 2nd') return 'Pool A 2nd';
+    if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') return 'Pool B 1st';
+    if (id === 'pool_b_2nd' || id.toLowerCase() === 'pool b 2nd') return 'Pool B 2nd';
+    if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') return 'Winner';
+    return teams.find(t => t.id === id)?.name || id;
   };
   
   const [activeTab, setActiveTab] = useState<'schedule' | 'teams' | 'players' | 'goalies' | 'pom' | 'deployment'>('schedule');

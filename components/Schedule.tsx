@@ -34,11 +34,27 @@ const Schedule: React.FC = () => {
   }, [location.state, schedule]);
 
   const getTeamName = (id: string) => {
+    if (!id) return '';
     if (id === 'sub') return 'League Sub';
     if (id.toLowerCase() === 'tbd') {
       return language === 'fr' ? 'À déterminer' : 'TBD';
     }
-    return teams.find(t => t.id === id)?.name || t.schedule.unknown;
+    if (id === 'pool_a_1st' || id.toLowerCase() === 'pool a 1st') {
+      return language === 'fr' ? 'Pool A 1er' : 'Pool A 1st';
+    }
+    if (id === 'pool_a_2nd' || id.toLowerCase() === 'pool a 2nd') {
+      return language === 'fr' ? 'Pool A 2e' : 'Pool A 2nd';
+    }
+    if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') {
+      return language === 'fr' ? 'Pool B 1er' : 'Pool B 1st';
+    }
+    if (id === 'pool_b_2nd' || id.toLowerCase() === 'pool b 2nd') {
+      return language === 'fr' ? 'Pool B 2e' : 'Pool B 2nd';
+    }
+    if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') {
+      return language === 'fr' ? 'Gagnant' : 'Winner';
+    }
+    return teams.find(t => t.id === id)?.name || id;
   };
   const renderTeamName = (id: string) => {
     const name = getTeamName(id);
@@ -52,12 +68,20 @@ const Schedule: React.FC = () => {
     return name;
   };
   const getTeamColor = (id: string) => {
-    if (id.toLowerCase() === 'tbd') return '#6b7280';
+    if (!id || id.toLowerCase() === 'tbd') return '#6b7280';
+    if (id.startsWith('pool_') || id.startsWith('winner') || id.toLowerCase().includes('pool') || id.toLowerCase().includes('winner')) {
+      return '#f59e0b';
+    }
     return teams.find(t => t.id === id)?.logoColor || '#ccc';
   };
   const getTeamLogo = (id: string) => teams.find(t => t.id === id)?.logoUrl;
   const getTeamInitial = (id: string) => {
-    if (id.toLowerCase() === 'tbd') return '?';
+    if (!id || id.toLowerCase() === 'tbd') return '?';
+    if (id === 'pool_a_1st' || id.toLowerCase() === 'pool a 1st') return '1A';
+    if (id === 'pool_a_2nd' || id.toLowerCase() === 'pool a 2nd') return '2A';
+    if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') return '1B';
+    if (id === 'pool_b_2nd' || id.toLowerCase() === 'pool b 2nd') return '2B';
+    if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') return '🏆';
     const name = getTeamName(id);
     if (name.toLowerCase() === 'team l') return 'L';
     if (name.toLowerCase() === '86ers') return '86';
