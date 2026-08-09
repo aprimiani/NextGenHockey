@@ -163,9 +163,9 @@ const Schedule: React.FC = () => {
       if (id.toLowerCase() === 'bench' || id.toLowerCase() === 'banc') {
         return language === 'fr' ? 'Banc' : 'Bench';
       }
-      return players.find(p => p.id === id)?.name || id;
+      return players.find(p => p.id === id)?.name || goalies.find(g => g.id === id)?.name || id;
     };
-    const getGoalieName = (id: string) => goalies.find(g => g.id === id)?.name || id;
+    const getGoalieName = (id: string) => goalies.find(g => g.id === id)?.name || players.find(p => p.id === id)?.name || id;
 
     const parseTimeToSeconds = (tStr: string | undefined): number => {
       if (!tStr) return 0;
