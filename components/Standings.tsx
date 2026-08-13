@@ -218,67 +218,147 @@ const Standings: React.FC = () => {
   }, [teams, players, goalies, schedule, gameRecaps]);
 
   const winterStats = useMemo(() => {
-    return {
-      teams: teams.map(t => ({
+    const winterTeamsList = teams.filter(t => t.id.startsWith('w_')).map(t => {
+      const wGames = schedule.filter(g => g.status === 'played' && (g.homeTeamId === t.id || g.awayTeamId === t.id));
+      let gp = 0, wins = 0, losses = 0, ties = 0, points = 0, goalsFor = 0, goalsAgainst = 0;
+      wGames.forEach(g => {
+        gp++;
+        const isHome = g.homeTeamId === t.id;
+        const myScore = isHome ? (g.homeScore || 0) : (g.awayScore || 0);
+        const oppScore = isHome ? (g.awayScore || 0) : (g.homeScore || 0);
+        goalsFor += myScore;
+        goalsAgainst += oppScore;
+        if (myScore > oppScore) { wins++; points += 2; }
+        else if (myScore < oppScore) { losses++; }
+        else { ties++; points += 1; }
+      });
+      return {
         ...t,
-        gp: 0,
-        wins: 0,
-        losses: 0,
-        ties: 0,
-        points: 0,
-        goalsFor: 0,
-        goalsAgainst: 0
-      })),
-      players: players.map(p => ({
-        ...p,
-        gp: 0,
-        goals: 0,
-        assists: 0,
-        points: 0
-      })),
-      goalies: goalies.map(g => ({
-        ...g,
-        gp: 0,
-        wins: 0,
-        losses: 0,
-        draws: 0,
-        saves: 0,
-        shotsAgainst: 0,
-        goalsAgainst: 0,
-        shutouts: 0,
-        goals: 0,
-        assists: 0,
-        points: 0
-      }))
+        gp,
+        wins,
+        losses,
+        ties,
+        points,
+        goalsFor,
+        goalsAgainst
+      };
+    });
+
+    const winterPlayersList = players
+      .filter(p => p.seasonTeamIds?.['winter_2026_2027'] || p.teamId.startsWith('w_'))
+      .map(p => {
+        const winterTeam = p.seasonTeamIds?.['winter_2026_2027'] || p.teamId;
+        const winterSecondary = p.seasonSecondaryTeamIds?.['winter_2026_2027'] || [];
+        
+        let gp = 0, goals = 0, assists = 0, points = 0;
+        const playedWinterGames = schedule.filter(g => g.status === 'played' && (g.homeTeamId.startsWith('w_') || g.awayTeamId.startsWith('w_')));
+        playedWinterGames.forEach(g => {
+          const recap = gameRecaps[g.id];
+          let playedThisGame = false;
+          if (recap?.events) {
+            recap.events.forEach(e => {
+              if (e.type === 'goal') {
+                if (e.player === p.id) { goals++; points++; playedThisGame = true; }
+                if (e.assist === p.id || e.assist2 === p.id) { assists++; points++; playedThisGame = true; }
+              }
+            });
+          }
+          if (playedThisGame) gp++;
+        });
+
+        return {
+          ...p,
+          teamId: winterTeam,
+          secondaryTeamIds: winterSecondary,
+          gp,
+          goals,
+          assists,
+          points
+        };
+      });
+
+    const winterGoaliesList = goalies
+      .filter(g => g.seasonTeamIds?.['winter_2026_2027'] || g.teamId.startsWith('w_'))
+      .map(g => {
+        const winterTeam = g.seasonTeamIds?.['winter_2026_2027'] || g.teamId;
+        const winterSecondary = g.seasonSecondaryTeamIds?.['winter_2026_2027'] || [];
+
+        let gp = 0, wins = 0, losses = 0, draws = 0, saves = 0, shotsAgainst = 0, goalsAgainst = 0, shutouts = 0;
+        const playedWinterGames = schedule.filter(gm => gm.status === 'played' && (gm.homeTeamId.startsWith('w_') || gm.awayTeamId.startsWith('w_')));
+        playedWinterGames.forEach(gm => {
+          const recap = gameRecaps[gm.id];
+          if (recap?.goalieStats) {
+            const isHomeG = recap.goalieStats.homeGoalie?.playerId === g.id;
+            const isAwayG = recap.goalieStats.awayGoalie?.playerId === g.id;
+            if (isHomeG || isAwayG) {
+              gp++;
+              const stats = isHomeG ? recap.goalieStats.homeGoalie : recap.goalieStats.awayGoalie;
+              shotsAgainst += stats.shotsFaced || 0;
+              goalsAgainst += stats.goalsAgainst || 0;
+              saves += stats.saves || 0;
+              const myScore = isHomeG ? gm.homeScore : gm.awayScore;
+              const oppScore = isHomeG ? gm.awayScore : gm.homeScore;
+              if (myScore !== undefined && oppScore !== undefined) {
+                if (myScore > oppScore) wins++;
+                else if (myScore < oppScore) losses++;
+                else draws++;
+              }
+              if ((stats.goalsAgainst || 0) === 0) shutouts++;
+            }
+          }
+        });
+
+        return {
+          ...g,
+          teamId: winterTeam,
+          secondaryTeamIds: winterSecondary,
+          gp,
+          wins,
+          losses,
+          draws,
+          saves,
+          shotsAgainst,
+          goalsAgainst,
+          shutouts,
+          goals: 0,
+          assists: 0,
+          points: 0
+        };
+      });
+
+    return {
+      teams: winterTeamsList,
+      players: winterPlayersList,
+      goalies: winterGoaliesList
     };
-  }, [teams, players, goalies]);
+  }, [teams, players, goalies, schedule, gameRecaps]);
 
   const activeTeamsList = useMemo(() => {
-    if (selectedSeason === 'summer_2026_reg') return teams;
-    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.teams;
+    if (selectedSeason === 'summer_2026_reg') return teams.filter(t => !t.id.startsWith('w_'));
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.teams.filter(t => !t.id.startsWith('w_'));
     return winterStats.teams;
   }, [selectedSeason, teams, playoffStats, winterStats]);
 
   const activePlayersList = useMemo(() => {
-    if (selectedSeason === 'summer_2026_reg') return players;
-    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.players;
+    if (selectedSeason === 'summer_2026_reg') return players.filter(p => !p.teamId.startsWith('w_'));
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.players.filter(p => !p.teamId.startsWith('w_'));
     return winterStats.players;
   }, [selectedSeason, players, playoffStats, winterStats]);
 
   const activeGoaliesList = useMemo(() => {
-    if (selectedSeason === 'summer_2026_reg') return goalies;
-    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.goalies;
+    if (selectedSeason === 'summer_2026_reg') return goalies.filter(g => !g.teamId.startsWith('w_'));
+    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.goalies.filter(g => !g.teamId.startsWith('w_'));
     return winterStats.goalies;
   }, [selectedSeason, goalies, playoffStats, winterStats]);
 
   const activeScheduleList = useMemo(() => {
     if (selectedSeason === 'summer_2026_reg') {
-      return schedule.filter(g => !g.isPlayoff);
+      return schedule.filter(g => !g.isPlayoff && !g.homeTeamId.startsWith('w_'));
     }
     if (selectedSeason === 'summer_2026_playoffs') {
-      return schedule.filter(g => g.isPlayoff);
+      return schedule.filter(g => g.isPlayoff && !g.homeTeamId.startsWith('w_'));
     }
-    return [];
+    return schedule.filter(g => g.homeTeamId.startsWith('w_') || g.awayTeamId.startsWith('w_'));
   }, [selectedSeason, schedule]);
 
   // Sorting State
@@ -646,25 +726,7 @@ const Standings: React.FC = () => {
         </div>
       </div>
 
-      {selectedSeason === 'winter_2026_2027' ? (
-        <div className="text-center py-20 px-6 bg-ng-blue/20 rounded-3xl border border-dashed border-gray-700 shadow-xl relative overflow-hidden">
-          <div className="bg-amber-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-500/30">
-            <Trophy className="text-amber-400" size={28} />
-          </div>
-          <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-tight mb-2">
-            {language === 'fr' ? "Saison d'Hiver 2026-2027 - À venir" : "Winter Season 2026-2027 - Coming Soon"}
-          </h3>
-          <p className="text-sm text-gray-400 max-w-md mx-auto leading-relaxed mb-6">
-            {language === 'fr' 
-              ? "Les statistiques pour la saison d'hiver 2026-2027 seront disponibles dès le coup d'envoi du premier match officiel de la ligue!" 
-              : "Statistics for the Winter 2026-2027 season will be available as soon as the first official league game kicks off!"}
-          </p>
-          <div className="inline-flex items-center gap-2 bg-ng-light-blue/10 text-ng-light-blue text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-ng-light-blue/20">
-            <span className="w-2 h-2 rounded-full bg-ng-light-blue animate-ping" />
-            {language === 'fr' ? "Aucune donnée enregistrée" : "No data recorded yet"}
-          </div>
-        </div>
-      ) : selectedSeason === 'summer_2026_playoffs' && playoffViewMode === 'pools' ? (
+      {selectedSeason === 'summer_2026_playoffs' && playoffViewMode === 'pools' ? (
         <>
           {/* Playoff Mode View Switcher */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 bg-ng-blue/30 p-4 rounded-2xl border border-gray-700/80 shadow-lg">
@@ -1984,7 +2046,7 @@ const Standings: React.FC = () => {
                                         className="hover:text-ng-light-blue transition-colors outline-none flex items-center gap-2"
                                       >
                                         <span>{p.name}</span>
-                                        {p.teamId !== selectedTeam.id && p.name !== 'Lucas Molinaro' && (
+                                        {p.teamId !== selectedTeam.id && p.name !== 'Lucas Molinaro' && p.name !== 'Michael-Joseph Primiani' && (
                                           <span className="text-[8px] bg-amber-500/10 text-amber-500 border border-amber-500/30 px-1.5 py-0.5 rounded font-black uppercase">Sub</span>
                                         )}
                                       </button>
@@ -2557,59 +2619,75 @@ const Standings: React.FC = () => {
                               </thead>
                               <tbody className="divide-y divide-gray-800/60 text-xs">
                                 {/* Season 1: Regular Season Summer 2026 */}
-                                <tr className="hover:bg-white/5 transition-colors">
-                                  <td className="py-3 px-3.5">
-                                    <div className="font-bold text-white text-xs sm:text-sm">
-                                      {language === "fr" ? "Été 2026" : "Summer 2026"}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
-                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{resolvedPlayerObj.gp}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedPlayerObj.goals}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedPlayerObj.assists}</td>
-                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{resolvedPlayerObj.points}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">
-                                    {skaterLogs.reduce((acc, log) => acc + log.penalties, 0) > 0 
-                                      ? `${skaterLogs.reduce((acc, log) => acc + log.penalties, 0)}:00` 
-                                      : "0:00"}
-                                  </td>
-                                </tr>
+                                {(() => {
+                                  const summerP = players.find(x => (x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName) && !x.teamId.startsWith('w_'));
+                                  const summerTeamName = summerP ? getTeamName(summerP.teamId) : '-';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-white text-xs sm:text-sm">
+                                          {language === "fr" ? "Été 2026" : "Summer 2026"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                          {summerTeamName} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{summerP ? summerP.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{summerP ? summerP.goals : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{summerP ? summerP.assists : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{summerP ? summerP.points : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
+                                    </tr>
+                                  );
+                                })()}
 
                                 {/* Season 2: Summer Playoffs 2026 */}
-                                <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
-                                  <td className="py-3 px-3.5">
-                                    <div className="font-bold text-white text-xs sm:text-sm">
-                                      {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
-                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
-                                </tr>
+                                {(() => {
+                                  const playoffP = playoffStats.players.find(x => x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName);
+                                  const summerP = players.find(x => (x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName) && !x.teamId.startsWith('w_'));
+                                  const summerTeamName = summerP ? getTeamName(summerP.teamId) : '-';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-white text-xs sm:text-sm">
+                                          {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                          {summerTeamName} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{playoffP ? playoffP.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{playoffP ? playoffP.goals : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{playoffP ? playoffP.assists : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{playoffP ? playoffP.points : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
+                                    </tr>
+                                  );
+                                })()}
 
-                                {/* Season 3: Fall-Winter 2026-2027 (Registered Future Season) */}
-                                <tr className="hover:bg-white/5 transition-colors">
-                                  <td className="py-3 px-3.5">
-                                    <div className="font-bold text-gray-300 text-xs sm:text-sm">
-                                      {language === "fr" ? "Automne-Hiver 2026-2027" : "Fall-Winter 2026-2027"}
-                                    </div>
-                                    <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">
-                                      {getTeamName(activeTeamId)} - {language === "fr" ? "LIGNE NEXT-GEN (INSCRIT)" : "NEXT-GEN LEAGUE (REGISTERED)"}
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
-                                </tr>
+                                {/* Season 3: Winter 2026-2027 */}
+                                {(() => {
+                                  const winterP = winterStats.players.find(x => x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName);
+                                  const winterTeamId = winterP ? winterP.teamId : (rawPerson.seasonTeamIds?.['winter_2026_2027'] || (rawPerson.teamId.startsWith('w_') ? rawPerson.teamId : undefined));
+                                  const winterTeamName = winterTeamId ? getTeamName(winterTeamId) : '-';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-gray-300 text-xs sm:text-sm">
+                                          {language === "fr" ? "Hiver 2026-2027" : "Winter 2026-2027"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">
+                                          {winterTeamName} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterP ? winterP.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterP ? winterP.goals : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterP ? winterP.assists : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{winterP ? winterP.points : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
+                                    </tr>
+                                  );
+                                })()}
                               </tbody>
                             </table>
                           </div>
@@ -2630,40 +2708,80 @@ const Standings: React.FC = () => {
                               </thead>
                               <tbody className="divide-y divide-gray-800/60 text-xs">
                                 {/* Season 1: Regular Season Summer 2026 */}
-                                <tr className="hover:bg-white/5 transition-colors">
-                                  <td className="py-3 px-3.5">
-                                    <div className="font-bold text-white text-xs sm:text-sm">
-                                      {language === "fr" ? "Été 2026" : "Summer 2026"}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
-                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{resolvedGoalieObj.gp}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedGoalieObj.wins}-{resolvedGoalieObj.losses}-{resolvedGoalieObj.draws}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedGoalieObj.shotsAgainst}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-red-400">{resolvedGoalieObj.goalsAgainst}</td>
-                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{goalieSvPct}</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{gaa}</td>
-                                </tr>
+                                {(() => {
+                                  const summerG = goalies.find(x => (x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName) && !x.teamId.startsWith('w_'));
+                                  const summerTeamName = summerG ? getTeamName(summerG.teamId) : '-';
+                                  const gSv = summerG && summerG.shotsAgainst > 0 ? ((summerG.saves / summerG.shotsAgainst)).toFixed(3).replace(/^0+/, '') : '.000';
+                                  const gGaa = summerG && summerG.gp > 0 ? (summerG.goalsAgainst / summerG.gp).toFixed(2) : '0.00';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-white text-xs sm:text-sm">
+                                          {language === "fr" ? "Été 2026" : "Summer 2026"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                          {summerTeamName} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{summerG ? summerG.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{summerG ? `${summerG.wins}-${summerG.losses}-${summerG.draws}` : '0-0-0'}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{summerG ? summerG.shotsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-red-400">{summerG ? summerG.goalsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{gSv}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{gGaa}</td>
+                                    </tr>
+                                  );
+                                })()}
 
                                 {/* Season 2: Summer Playoffs 2026 */}
-                                <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
-                                  <td className="py-3 px-3.5">
-                                    <div className="font-bold text-white text-xs sm:text-sm">
-                                      {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
-                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
-                                    </div>
-                                  </td>
-                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0-0-0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
-                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">.000</td>
-                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0.00</td>
-                                </tr>
+                                {(() => {
+                                  const playoffG = playoffStats.goalies.find(x => x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName);
+                                  const summerG = goalies.find(x => (x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName) && !x.teamId.startsWith('w_'));
+                                  const summerTeamName = summerG ? getTeamName(summerG.teamId) : '-';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-white text-xs sm:text-sm">
+                                          {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                          {summerTeamName} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{playoffG ? playoffG.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{playoffG ? `${playoffG.wins}-${playoffG.losses}-${playoffG.draws}` : '0-0-0'}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{playoffG ? playoffG.shotsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-red-400">{playoffG ? playoffG.goalsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">.000</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">0.00</td>
+                                    </tr>
+                                  );
+                                })()}
+
+                                {/* Season 3: Winter 2026-2027 */}
+                                {(() => {
+                                  const winterG = winterStats.goalies.find(x => x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName);
+                                  const winterTeamId = winterG ? winterG.teamId : (rawPerson.seasonTeamIds?.['winter_2026_2027'] || (rawPerson.teamId.startsWith('w_') ? rawPerson.teamId : undefined));
+                                  const winterTeamName = winterTeamId ? getTeamName(winterTeamId) : '-';
+                                  return (
+                                    <tr className="hover:bg-white/5 transition-colors">
+                                      <td className="py-3 px-3.5">
+                                        <div className="font-bold text-gray-300 text-xs sm:text-sm">
+                                          {language === "fr" ? "Hiver 2026-2027" : "Winter 2026-2027"}
+                                        </div>
+                                        <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">
+                                          {winterTeamName} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterG ? winterG.gp : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterG ? `${winterG.wins}-${winterG.losses}-${winterG.draws}` : '0-0-0'}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{winterG ? winterG.shotsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-red-400">{winterG ? winterG.goalsAgainst : 0}</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">.000</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">0.00</td>
+                                    </tr>
+                                  );
+                                })()}
                               </tbody>
                             </table>
                           </div>

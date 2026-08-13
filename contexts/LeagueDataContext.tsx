@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v86');
+    const hasReset = localStorage.getItem('ng_force_reset_v99_winter_roster_screenshot');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v86', 'true');
+      localStorage.setItem('ng_force_reset_v99_winter_roster_screenshot', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');
@@ -81,8 +81,58 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     
     if (savedSchedule) setScheduleState(JSON.parse(savedSchedule));
 
-    if (savedPlayers) setPlayersState(JSON.parse(savedPlayers));
-    if (savedGoalies) setGoaliesState(JSON.parse(savedGoalies));
+    if (savedPlayers) {
+      const parsed: PlayerStats[] = JSON.parse(savedPlayers);
+      const merged = [...parsed];
+      ALL_PLAYERS.forEach(defaultP => {
+        const idx = merged.findIndex(p => p.id === defaultP.id || p.name.toLowerCase().trim() === defaultP.name.toLowerCase().trim());
+        if (idx === -1) {
+          merged.push(defaultP);
+        } else {
+          merged[idx] = {
+            ...merged[idx],
+            seasonTeamIds: {
+              ...(defaultP.seasonTeamIds || {}),
+              ...(merged[idx].seasonTeamIds || {})
+            },
+            seasonSecondaryTeamIds: {
+              ...(defaultP.seasonSecondaryTeamIds || {}),
+              ...(merged[idx].seasonSecondaryTeamIds || {})
+            }
+          };
+        }
+      });
+      setPlayersState(merged);
+    } else {
+      setPlayersState(ALL_PLAYERS);
+    }
+
+    if (savedGoalies) {
+      const parsed: GoalieStats[] = JSON.parse(savedGoalies);
+      const merged = [...parsed];
+      GOALIE_STATS.forEach(defaultG => {
+        const idx = merged.findIndex(g => g.id === defaultG.id || g.name.toLowerCase().trim() === defaultG.name.toLowerCase().trim());
+        if (idx === -1) {
+          merged.push(defaultG);
+        } else {
+          merged[idx] = {
+            ...merged[idx],
+            seasonTeamIds: {
+              ...(defaultG.seasonTeamIds || {}),
+              ...(merged[idx].seasonTeamIds || {})
+            },
+            seasonSecondaryTeamIds: {
+              ...(defaultG.seasonSecondaryTeamIds || {}),
+              ...(merged[idx].seasonSecondaryTeamIds || {})
+            }
+          };
+        }
+      });
+      setGoaliesState(merged);
+    } else {
+      setGoaliesState(GOALIE_STATS);
+    }
+
     if (savedRecaps) setGameRecapsState(JSON.parse(savedRecaps));
     if (savedGallery) setGalleryState(JSON.parse(savedGallery));
     if (savedPOM) setPlayerOfMonthState(JSON.parse(savedPOM));

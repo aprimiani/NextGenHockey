@@ -38,8 +38,7 @@ export const PRICING_DATA = {
   ]
 };
 
-export const TEAMS: Team[] = [
-  {
+export const TEAMS: Team[] = [{
     "id": "1",
     "name": "Bots",
     "gp": 12,
@@ -134,6 +133,54 @@ export const TEAMS: Team[] = [
     "goalsFor": 14,
     "goalsAgainst": 43,
     "logoColor": "#f5f5dc"
+  },
+  {
+    "id": "w_timbits",
+    "name": "Les Timbits",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#ef4444"
+  },
+  {
+    "id": "w_bots",
+    "name": "Bots",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#3b82f6"
+  },
+  {
+    "id": "w_kraken",
+    "name": "Kraken Beer",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#111827"
+  },
+  {
+    "id": "w_seamen",
+    "name": "The Seamen",
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "points": 0,
+    "goalsFor": 0,
+    "goalsAgainst": 0,
+    "logoColor": "#ffffff"
   }
 ];
 
@@ -779,6 +826,114 @@ export const SCHEDULE: Game[] = [
     "isPlayoff": true,
     "playoffRoundEn": "Finals",
     "playoffRoundFr": "Finale"
+  },
+  {
+    "id": "g_w_1",
+    "date": "2026-09-07",
+    "time": "22:00",
+    "homeTeamId": "w_kraken",
+    "awayTeamId": "w_timbits",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_2",
+    "date": "2026-09-08",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_bots",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_3",
+    "date": "2026-09-14",
+    "time": "22:00",
+    "homeTeamId": "w_timbits",
+    "awayTeamId": "w_bots",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_4",
+    "date": "2026-09-15",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_kraken",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_5",
+    "date": "2026-09-21",
+    "time": "22:00",
+    "homeTeamId": "w_bots",
+    "awayTeamId": "w_kraken",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_6",
+    "date": "2026-09-22",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_timbits",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_7",
+    "date": "2026-09-28",
+    "time": "22:00",
+    "homeTeamId": "w_kraken",
+    "awayTeamId": "w_timbits",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_8",
+    "date": "2026-09-29",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_bots",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_9",
+    "date": "2026-10-05",
+    "time": "22:00",
+    "homeTeamId": "w_timbits",
+    "awayTeamId": "w_bots",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_10",
+    "date": "2026-10-06",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_kraken",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_11",
+    "date": "2026-10-12",
+    "time": "22:00",
+    "homeTeamId": "w_bots",
+    "awayTeamId": "w_kraken",
+    "location": "Sportium",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_12",
+    "date": "2026-10-13",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_timbits",
+    "location": "Sportium",
+    "status": "scheduled"
   }
 ];
 
@@ -817,7 +972,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 4,
     "goals": 0,
     "assists": 0,
-    "points": 0
+    "points": 0,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    }
   },
   {
     "id": "p_maverick_bergeron_178005",
@@ -866,7 +1024,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "secondaryTeamIds": [
       "6",
       "2"
-    ]
+    ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1775579858742",
@@ -990,7 +1151,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 10,
     "goals": 4,
     "assists": 1,
-    "points": 5
+    "points": 5,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    }
   },
   {
     "id": "p_christopher_hebert",
@@ -1098,7 +1262,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 11,
     "secondaryTeamIds": [
       "4"
-    ]
+    ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1775591027631",
@@ -1111,6 +1278,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_1775579857302",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    },
     "name": "Jacob Riel",
     "teamId": "5",
     "secondaryTeamIds": [
@@ -1163,6 +1333,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_1771962941457",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
     "name": "Kevin Croteau",
     "teamId": "2",
     "gp": 12,
@@ -1229,7 +1402,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 15,
     "goals": 4,
     "assists": 8,
-    "points": 12
+    "points": 12,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    }
   },
   {
     "id": "p_1775591029324",
@@ -1295,7 +1476,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 10,
     "goals": 2,
     "assists": 9,
-    "points": 11
+    "points": 11,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    }
   },
   {
     "id": "p_1775579857978",
@@ -1340,7 +1524,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 6,
     "goals": 2,
     "assists": 3,
-    "points": 5
+    "points": 5,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    }
   },
   {
     "id": "p_1771962945887",
@@ -1379,7 +1571,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 8,
     "goals": 2,
     "assists": 2,
-    "points": 4
+    "points": 4,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1775579861768",
@@ -1442,7 +1637,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 10,
     "goals": 2,
     "assists": 3,
-    "points": 5
+    "points": 5,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1773774610374",
@@ -1496,7 +1694,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 8,
     "goals": 10,
     "assists": 4,
-    "points": 14
+    "points": 14,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1767082317648",
@@ -1505,7 +1706,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 10,
     "goals": 5,
     "assists": 3,
-    "points": 8
+    "points": 8,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1773774489039",
@@ -1574,7 +1778,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 2,
     "goals": 0,
     "assists": 0,
-    "points": 0
+    "points": 0,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "p_1778475185005",
@@ -1841,6 +2048,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_joshua_sylvain",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
     "name": "Joshua Sylvain",
     "teamId": "6",
     "gp": 6,
@@ -2196,6 +2406,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_dylan_molinaro_sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
     "name": "Dylan Molinaro",
     "teamId": "sub",
     "secondaryTeamIds": [
@@ -2302,7 +2515,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 1,
     "goals": 0,
     "assists": 0,
-    "points": 0
+    "points": 0,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    }
   },
   {
     "id": "p_alex_lachapelle_sub",
@@ -2480,6 +2696,258 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 1,
     "assists": 0,
     "points": 1
+  },
+  {
+    "id": "w_p_antoine_perreault",
+    "name": "Antoine Perreault",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_antoine_bertrand",
+    "name": "Antoine Bertrand",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_raphael_rivet",
+    "name": "Raphael Rivet",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_etienne_routhier",
+    "name": "Étienne Routhier",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_jean_christophe_malo_pepin",
+    "name": "Jean Christophe Malo-Pepin",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_benjamin_sasseville",
+    "name": "Benjamin Sasseville",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_jacob_fournier",
+    "name": "Jacob Fournier",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_thomas_burton",
+    "name": "Thomas Burton",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_ben_siegl",
+    "name": "Ben Siegl",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_arjun_srivastava",
+    "name": "Arjun Srivastava",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_thomas_desveaux",
+    "name": "Thomas Desveaux",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_jacob_lacombe",
+    "name": "Jacob Lacombe",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_evan_getty",
+    "name": "Evan Getty",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_brendan_walsh",
+    "name": "Brendan Walsh",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_noah_goyens",
+    "name": "Noah Goyens",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_william_goyens",
+    "name": "William Goyens",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_noah_bonspille",
+    "name": "Noah Bonspille",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_olivier_sylvain",
+    "name": "Olivier Sylvain",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_alexandre_derome",
+    "name": "Alexandre Derome",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_devin_menary",
+    "name": "Devin Menary",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_owen_dunn",
+    "name": "Owen Dunn",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -2540,7 +3008,10 @@ export const GOALIE_STATS: GoalieStats[] = [
     "draws": 0,
     "saves": 181,
     "shotsAgainst": 217,
-    "goalsAgainst": 36
+    "goalsAgainst": 36,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    }
   },
   {
     "id": "goalie_1771963002603",
@@ -2583,7 +3054,10 @@ export const GOALIE_STATS: GoalieStats[] = [
     "draws": 0,
     "saves": 126,
     "shotsAgainst": 169,
-    "goalsAgainst": 43
+    "goalsAgainst": 43,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    }
   },
   {
     "id": "goalie_1775582169664",
@@ -2598,7 +3072,10 @@ export const GOALIE_STATS: GoalieStats[] = [
     "draws": 2,
     "saves": 244,
     "shotsAgainst": 312,
-    "goalsAgainst": 68
+    "goalsAgainst": 68,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    }
   },
   {
     "id": "p_1778475186257",
@@ -2637,7 +3114,10 @@ export const GOALIE_STATS: GoalieStats[] = [
     "draws": 0,
     "saves": 20,
     "shotsAgainst": 26,
-    "goalsAgainst": 6
+    "goalsAgainst": 6,
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    }
   },
   {
     "id": "goalie_mathy_tessier",

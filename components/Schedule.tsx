@@ -92,11 +92,11 @@ const Schedule: React.FC = () => {
     let games = schedule;
     
     if (selectedSeason === 'summer_2026_reg') {
-      games = schedule.filter(g => !g.isPlayoff);
+      games = schedule.filter(g => !g.isPlayoff && !g.homeTeamId.startsWith('w_'));
     } else if (selectedSeason === 'summer_2026_playoffs') {
-      games = schedule.filter(g => g.isPlayoff);
+      games = schedule.filter(g => g.isPlayoff && !g.homeTeamId.startsWith('w_'));
     } else if (selectedSeason === 'winter_2026_2027') {
-      return [];
+      games = schedule.filter(g => g.homeTeamId.startsWith('w_') || g.awayTeamId.startsWith('w_'));
     }
 
     return games.filter(g => g.status === filter).sort((a, b) => {
@@ -458,7 +458,7 @@ const Schedule: React.FC = () => {
           </h2>
           <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-3 pl-8">
             {selectedSeason === 'winter_2026_2027' 
-              ? (language === 'fr' ? "PROCHAINE SAISON" : "UPCOMING SEASON") 
+              ? (language === 'fr' ? "SAISON D'HIVER 2026-2027" : "WINTER SEASON 2026-2027") 
               : t.schedule.seasonStart}
           </p>
         </div>
@@ -488,45 +488,25 @@ const Schedule: React.FC = () => {
           </div>
 
           {/* Filter Tabs */}
-          {selectedSeason !== 'winter_2026_2027' && (
-            <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl overflow-x-auto max-w-full">
-              <button
-                onClick={() => setFilter('scheduled')}
-                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
-              >
-                {t.schedule.filterUpcoming}
-              </button>
-              <button
-                onClick={() => setFilter('played')}
-                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
-              >
-                {t.schedule.filterResults}
-              </button>
-            </div>
-          )}
+          <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl overflow-x-auto max-w-full">
+            <button
+              onClick={() => setFilter('scheduled')}
+              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+            >
+              {t.schedule.filterUpcoming}
+            </button>
+            <button
+              onClick={() => setFilter('played')}
+              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+            >
+              {t.schedule.filterResults}
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="grid gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom duration-500">
-        {selectedSeason === 'winter_2026_2027' ? (
-          <div className="text-center py-16 px-6 bg-ng-blue/20 rounded-3xl border border-dashed border-gray-700 shadow-xl relative overflow-hidden">
-            <div className="bg-amber-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 border border-amber-500/30">
-              <Trophy className="text-amber-400" size={28} />
-            </div>
-            <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic tracking-tight mb-2">
-              {language === 'fr' ? "Saison d'Hiver 2026-2027 - À venir" : "Winter Season 2026-2027 - Coming Soon"}
-            </h3>
-            <p className="text-sm text-gray-400 max-w-md mx-auto leading-relaxed mb-6">
-              {language === 'fr' 
-                ? "L'horaire de la saison d'hiver est en cours de finalisation par l'administration de la ligue. Restez à l'affût pour le dévoilement officiel du calendrier de la saison!" 
-                : "The Winter season schedule is currently being finalized by the league administration. Stay tuned for the official calendar release!"}
-            </p>
-            <div className="inline-flex items-center gap-2 bg-ng-light-blue/10 text-ng-light-blue text-xs font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-ng-light-blue/20">
-              <span className="w-2 h-2 rounded-full bg-ng-light-blue animate-ping" />
-              {language === 'fr' ? "Inscriptions Ouvertes" : "Registration Open"}
-            </div>
-          </div>
-        ) : filteredGames.length > 0 ? (
+        {filteredGames.length > 0 ? (
           filteredGames.map((game) => {
             const isSemiOrFinal = game.isPlayoff && (
               game.playoffRoundEn?.toLowerCase().includes('semi') || 
