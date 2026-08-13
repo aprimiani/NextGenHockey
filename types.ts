@@ -43,6 +43,13 @@ export interface PlayerStats {
   goals: number;
   assists: number;
   points: number;
+  rating?: string;
+  goalieRating?: string;
+  shoots?: string;
+  birthDate?: string;
+  weight?: string;
+  height?: string;
+  photoUrl?: string;
 }
 
 export interface GoalieStats {
@@ -61,6 +68,13 @@ export interface GoalieStats {
   goals?: number;
   assists?: number;
   points?: number;
+  rating?: string;
+  goalieRating?: string;
+  shoots?: string;
+  birthDate?: string;
+  weight?: string;
+  height?: string;
+  photoUrl?: string;
 }
 
 export interface GameEvent {

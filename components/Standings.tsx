@@ -16,6 +16,7 @@ const Standings: React.FC = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerStats | null>(null);
   const [selectedGoalie, setSelectedGoalie] = useState<GoalieStats | null>(null);
   const [modalRole, setModalRole] = useState<'skater' | 'goalie'>('skater');
+  const [modalProfileTab, setModalProfileTab] = useState<'recent' | 'career'>('career');
 
   const openPlayerProfile = (p: PlayerStats) => {
     setSelectedPlayer(p);
@@ -28,6 +29,21 @@ const Standings: React.FC = () => {
     setSelectedPlayer(null);
     setModalRole('goalie');
   };
+
+  // Lock background body scroll when player/goalie modal is active
+  useEffect(() => {
+    if (selectedPlayer || selectedGoalie) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [selectedPlayer, selectedGoalie]);
 
   const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_reg');
 
@@ -2265,29 +2281,30 @@ const Standings: React.FC = () => {
 
         return (
           <div 
-            className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
             onClick={closeModal}
           >
              <div 
-               className="bg-ng-navy border border-gray-700 w-full max-w-lg rounded-2xl shadow-2xl relative animate-in zoom-in duration-300 max-h-[90vh] overflow-y-auto scrollbar-thin"
+               className="bg-[#181a1d] border border-gray-700/80 w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl shadow-2xl relative animate-in zoom-in duration-300 max-h-[85vh] my-auto flex flex-col overflow-hidden"
                onClick={(e) => e.stopPropagation()}
              >
+                  {/* Top Header Section */}
                   <div 
-                    className="p-5 relative overflow-hidden flex flex-col items-center text-center"
+                    className="p-3.5 sm:p-5 relative overflow-hidden flex flex-col items-center text-center flex-shrink-0"
                     style={{ backgroundColor: `${getTeamColor(activeTeamId)}20`, borderBottom: `2px solid ${getTeamColor(activeTeamId)}` }}
                   >
-                    <button onClick={closeModal} className="absolute top-4 right-4 p-2 hover:bg-white/10 rounded-full transition-colors text-white z-10">
-                      <X size={20} />
+                    <button onClick={closeModal} className="absolute top-3 right-3 p-1.5 hover:bg-white/10 rounded-full transition-colors text-white z-10" aria-label="Close">
+                      <X size={18} />
                     </button>
-                    
-                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-3 border-4" style={{ borderColor: getTeamColor(activeTeamId), backgroundColor: getTeamColor(activeTeamId) }}>
-                      <span className="text-3xl font-black text-white italic pr-1">
+
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 border-2 sm:border-4 shadow-lg" style={{ borderColor: getTeamColor(activeTeamId), backgroundColor: getTeamColor(activeTeamId) }}>
+                      <span className="text-xl sm:text-3xl font-black text-white italic pr-0.5">
                         {getTeamName(activeTeamId).charAt(0)}
                       </span>
                     </div>
                     
-                    <h2 className="text-2xl font-black text-white uppercase italic leading-tight mb-1">{rawPerson.name}</h2>
-                    <div className="flex flex-col items-center gap-1 mb-2">
+                    <h2 className="text-lg sm:text-2xl font-black text-white uppercase italic leading-tight mb-1">{rawPerson.name}</h2>
+                    <div className="flex flex-col items-center gap-1 mb-1">
                       <div className="flex items-center gap-2 flex-wrap justify-center">
                         {hasBothRoles ? (
                           <>
@@ -2302,7 +2319,7 @@ const Standings: React.FC = () => {
                         <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">{renderTeamName(activeTeamId)}</span>
                       </div>
                       {allSecondaryTeamIds.length > 0 && (
-                        <div className="flex flex-wrap justify-center items-center gap-1 mt-1">
+                        <div className="flex flex-wrap justify-center items-center gap-1 mt-0.5">
                           <span className="text-[9px] text-gray-500 uppercase font-black tracking-widest mr-1">Subs:</span>
                           {allSecondaryTeamIds.map((tid: string) => (
                             <span key={tid} className="bg-ng-light-blue/20 text-ng-light-blue text-[9px] font-black px-1.5 py-0.5 rounded border border-ng-light-blue/30 uppercase tracking-wider">{renderTeamName(tid)}</span>
@@ -2313,11 +2330,11 @@ const Standings: React.FC = () => {
 
                     {/* Role Switcher Tabs for Dual-Role Players */}
                     {hasBothRoles && (
-                      <div className="flex items-center justify-center p-1 bg-black/40 rounded-xl border border-gray-700/60 w-full max-w-xs my-2">
+                      <div className="flex items-center justify-center p-1 bg-black/40 rounded-xl border border-gray-700/60 w-full max-w-xs my-1">
                         <button
                           type="button"
                           onClick={() => setModalRole("skater")}
-                          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                          className={`flex-1 py-1 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                             activeView === "skater"
                               ? "bg-white/20 text-white shadow-md font-black"
                               : "text-gray-400 hover:text-gray-200"
@@ -2330,7 +2347,7 @@ const Standings: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setModalRole("goalie")}
-                          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                          className={`flex-1 py-1 px-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
                             activeView === "goalie"
                               ? "bg-ng-light-blue text-ng-navy shadow-md font-black"
                               : "text-gray-400 hover:text-gray-200"
@@ -2345,185 +2362,313 @@ const Standings: React.FC = () => {
 
                     {/* Top Summary Cards */}
                     {activeView === "skater" ? (
-                      <div className="grid grid-cols-2 gap-3 w-full mt-2">
-                        <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
-                          <div className="text-2xl font-black text-ng-light-blue">{resolvedPlayerObj.points}</div>
-                          <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.points}</div>
+                      <div className="grid grid-cols-2 gap-2.5 w-full max-w-xs mx-auto mt-2">
+                        <div className="bg-ng-navy/60 p-2 sm:p-2.5 rounded-xl border border-gray-700/80 shadow-md">
+                          <div className="text-xl sm:text-2xl font-black text-ng-light-blue">{resolvedPlayerObj.points}</div>
+                          <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{t.standings.points}</div>
                         </div>
-                        <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
-                          <div className="text-2xl font-black text-white">
+                        <div className="bg-ng-navy/60 p-2 sm:p-2.5 rounded-xl border border-gray-700/80 shadow-md">
+                          <div className="text-xl sm:text-2xl font-black text-white">
                             {sortedPlayers.findIndex(p => p.id === resolvedPlayerObj.id || p.name.toLowerCase().trim() === normalizedName) >= 0
                               ? `#${sortedPlayers.findIndex(p => p.id === resolvedPlayerObj.id || p.name.toLowerCase().trim() === normalizedName) + 1}`
                               : "-"}
                           </div>
-                          <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.leagueRank}</div>
+                          <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{t.standings.leagueRank}</div>
                         </div>
                       </div>
                     ) : (
-                      <div className="grid grid-cols-2 gap-3 w-full mt-2">
-                        <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
-                          <div className="text-2xl font-black text-ng-light-blue">{gaa}</div>
-                          <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.gaa}</div>
+                      <div className="grid grid-cols-2 gap-2.5 w-full max-w-xs mx-auto mt-2">
+                        <div className="bg-ng-navy/60 p-2 sm:p-2.5 rounded-xl border border-gray-700/80 shadow-md">
+                          <div className="text-xl sm:text-2xl font-black text-ng-light-blue">{gaa}</div>
+                          <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{t.standings.gaa}</div>
                         </div>
-                        <div className="bg-ng-navy/50 p-3 rounded-xl border border-gray-700">
-                          <div className="text-2xl font-black text-white">
+                        <div className="bg-ng-navy/60 p-2 sm:p-2.5 rounded-xl border border-gray-700/80 shadow-md">
+                          <div className="text-xl sm:text-2xl font-black text-white">
                             {sortedGoalies.findIndex(g => g.id === resolvedGoalieObj.id || g.name.toLowerCase().trim() === normalizedName) >= 0
                               ? `#${sortedGoalies.findIndex(g => g.id === resolvedGoalieObj.id || g.name.toLowerCase().trim() === normalizedName) + 1}`
                               : "-"}
                           </div>
-                          <div className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.leagueRank}</div>
+                          <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 tracking-wider">{t.standings.leagueRank}</div>
                         </div>
                       </div>
                     )}
                   </div>
-                  
-                  {/* Detailed Stats Grid */}
-                  {activeView === "skater" ? (
-                    <div className="p-4 grid grid-cols-3 gap-3">
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{resolvedPlayerObj.gp}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.gp}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{resolvedPlayerObj.goals}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.goals}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{resolvedPlayerObj.assists}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.assists}</div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="p-4 grid grid-cols-3 gap-3">
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{resolvedGoalieObj.gp}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.gp}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{resolvedGoalieObj.wins}-{resolvedGoalieObj.losses}-{resolvedGoalieObj.draws}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.record}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-lg font-bold text-white">{goalieSvPct}</div>
-                        <div className="text-[9px] uppercase font-bold text-gray-500 tracking-wider">{t.standings.svPct}</div>
-                      </div>
-                    </div>
-                  )}
 
-                  {/* Game Logs Section */}
-                  <div className="border-t border-gray-700/50 p-5">
-                    <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                      <Calendar size={14} className="text-ng-light-blue" />
-                      {t.standings.gameLogs} {hasBothRoles ? (activeView === "skater" ? (language === "fr" ? "(Joueur)" : "(Skater)") : (language === "fr" ? "(Gardien)" : "(Goalie)")) : ""}
-                    </h3>
-                    
-                    {activeView === "skater" ? (
-                      skaterLogs.length === 0 ? (
-                        <p className="text-xs text-gray-500 italic text-center py-2">
-                          {language === "fr" ? "Aucun match joué." : "No games played yet."}
-                        </p>
-                      ) : (
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-left border-collapse">
-                            <thead>
-                              <tr className="border-b border-gray-800 text-[9px] uppercase font-bold text-gray-500 tracking-wider">
-                                <th className="py-1.5">{language === "fr" ? "Date" : "Date"}</th>
-                                <th className="py-1.5">{t.standings.opponent}</th>
-                                <th className="py-1.5 text-center">{t.standings.goals}</th>
-                                <th className="py-1.5 text-center">{t.standings.assists}</th>
-                                <th className="py-1.5 text-center">{t.standings.points}</th>
-                                <th className="py-1.5 text-center">{t.standings.pim}</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-800/30">
-                              {skaterLogs.map(({ game, goals, assists, points, penalties, opponentTeamId, isSuspended, suspInfo }) => {
-                                const [y, m, d] = game.date.split("-");
-                                const monthName = t.standings.months[parseInt(m) - 1] || m;
-                                const formattedDate = language === "fr" 
-                                  ? `${parseInt(d)} ${monthName}` 
-                                  : `${monthName} ${parseInt(d)}`;
-                                
-                                return (
-                                  <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
-                                    <td className="py-2 font-medium text-gray-300">{formattedDate}</td>
-                                    <td className="py-2 flex items-center gap-1.5">
-                                      <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
-                                      <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
-                                    </td>
-                                    <td className="py-2 text-center text-gray-300 font-mono font-semibold">{isSuspended ? "-" : goals}</td>
-                                    <td className="py-2 text-center text-gray-300 font-mono font-semibold">{isSuspended ? "-" : assists}</td>
-                                    <td className="py-2 text-center text-ng-light-blue font-mono font-black">{isSuspended ? "-" : points}</td>
-                                    <td className="py-2 text-center text-gray-400 font-mono">
-                                      {isSuspended && suspInfo ? (
-                                        <span className="text-red-400 font-black bg-red-950/40 border border-red-800/30 px-1.5 py-0.5 rounded text-[9px] tracking-wide inline-block">
-                                          {suspInfo.isRemainder ? (
-                                            language === "fr" ? "Reste" : "Remainder"
+                  {/* Main Navigation Tabs: "Dernières parties" / "En carrière" */}
+                  <div className="grid grid-cols-2 border-b border-gray-800 bg-gray-950 flex-shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setModalProfileTab("recent")}
+                      className={`py-2.5 px-3 text-xs sm:text-sm font-black uppercase tracking-wider transition-all text-center border-r border-gray-800 ${
+                        modalProfileTab === "recent"
+                          ? "bg-[#f97316] text-white shadow-lg border-b-2 border-orange-400"
+                          : "bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800/80"
+                      }`}
+                    >
+                      {language === "fr" ? "Dernières parties" : "Last 5 Games"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setModalProfileTab("career")}
+                      className={`py-2.5 px-3 text-xs sm:text-sm font-black uppercase tracking-wider transition-all text-center ${
+                        modalProfileTab === "career"
+                          ? "bg-[#f97316] text-white shadow-lg border-b-2 border-orange-400"
+                          : "bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800/80"
+                      }`}
+                    >
+                      {language === "fr" ? "En carrière" : "Career Stats"}
+                    </button>
+                  </div>
+
+                  {/* Tab Content Body */}
+                  <div className="p-3 sm:p-4 flex-1 overflow-y-auto overflow-x-auto min-h-0">
+                    {modalProfileTab === "recent" ? (
+                      /* TAB 1: Last 5 Games ("Dernières parties") */
+                      <div>
+                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                          <Calendar size={14} className="text-orange-500" />
+                          {language === "fr" ? "Dernières 5 parties" : "Last 5 Played Games"}
+                        </h3>
+                        
+                        {activeView === "skater" ? (
+                          skaterLogs.length === 0 ? (
+                            <p className="text-xs text-gray-500 italic text-center py-6">
+                              {language === "fr" ? "Aucun match joué." : "No games played yet."}
+                            </p>
+                          ) : (
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-left border-collapse">
+                                <thead>
+                                  <tr className="border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400 tracking-wider bg-gray-900/60">
+                                    <th className="py-2 px-2">{language === "fr" ? "Date" : "Date"}</th>
+                                    <th className="py-2 px-2">{t.standings.opponent}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.goals}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.assists}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.points}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.pim}</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-800/40">
+                                  {skaterLogs.slice(0, 5).map(({ game, goals, assists, points, penalties, opponentTeamId, isSuspended, suspInfo }) => {
+                                    const [y, m, d] = game.date.split("-");
+                                    const monthName = t.standings.months[parseInt(m) - 1] || m;
+                                    const formattedDate = language === "fr" 
+                                      ? `${parseInt(d)} ${monthName}` 
+                                      : `${monthName} ${parseInt(d)}`;
+                                    
+                                    return (
+                                      <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
+                                        <td className="py-2.5 px-2 font-medium text-gray-300 whitespace-nowrap">{formattedDate}</td>
+                                        <td className="py-2.5 px-2 flex items-center gap-2">
+                                          <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
+                                          <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
+                                        </td>
+                                        <td className="py-2.5 px-2 text-center text-gray-200 font-mono font-semibold">{isSuspended ? "-" : goals}</td>
+                                        <td className="py-2.5 px-2 text-center text-gray-200 font-mono font-semibold">{isSuspended ? "-" : assists}</td>
+                                        <td className="py-2.5 px-2 text-center text-orange-400 font-mono font-black">{isSuspended ? "-" : points}</td>
+                                        <td className="py-2.5 px-2 text-center text-gray-400 font-mono">
+                                          {isSuspended && suspInfo ? (
+                                            <span className="text-red-400 font-black bg-red-950/40 border border-red-800/30 px-1.5 py-0.5 rounded text-[9px] tracking-wide inline-block">
+                                              {suspInfo.isRemainder ? (
+                                                language === "fr" ? "Reste" : "Remainder"
+                                              ) : (
+                                                `${suspInfo.current}/${suspInfo.total}`
+                                              )}
+                                            </span>
                                           ) : (
-                                            `${suspInfo.current}/${suspInfo.total}`
+                                            penalties > 0 ? `${penalties}:00` : "0:00"
                                           )}
-                                        </span>
-                                      ) : (
-                                        penalties > 0 ? `${penalties}m` : "-"
-                                      )}
-                                    </td>
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          )
+                        ) : (
+                          goalieLogs.length === 0 ? (
+                            <p className="text-xs text-gray-500 italic text-center py-6">
+                              {language === "fr" ? "Aucun match joué." : "No games played yet."}
+                            </p>
+                          ) : (
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-left border-collapse">
+                                <thead>
+                                  <tr className="border-b border-gray-800 text-[10px] uppercase font-bold text-gray-400 tracking-wider bg-gray-900/60">
+                                    <th className="py-2 px-2">{language === "fr" ? "Date" : "Date"}</th>
+                                    <th className="py-2 px-2">{t.standings.opponent}</th>
+                                    <th className="py-2 px-2 text-center">{language === "fr" ? "Rés." : "Res."}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.shotsAgainst}</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.goalsAgainstShort}</th>
+                                    <th className="py-2 px-2 text-center">SVS</th>
+                                    <th className="py-2 px-2 text-center">{t.standings.svPct}</th>
                                   </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      )
+                                </thead>
+                                <tbody className="divide-y divide-gray-800/40">
+                                  {goalieLogs.slice(0, 5).map(({ game, opponentTeamId, result, score, shotsAgainst, goalsAgainst, saves, savePct }) => {
+                                    const [y, m, d] = game.date.split("-");
+                                    const monthName = t.standings.months[parseInt(m) - 1] || m;
+                                    const formattedDate = language === "fr" 
+                                      ? `${parseInt(d)} ${monthName}` 
+                                      : `${monthName} ${parseInt(d)}`;
+                                    
+                                    return (
+                                      <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
+                                        <td className="py-2.5 px-2 font-medium text-gray-300 whitespace-nowrap">{formattedDate}</td>
+                                        <td className="py-2.5 px-2 flex items-center gap-2">
+                                          <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
+                                          <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
+                                        </td>
+                                        <td className="py-2.5 px-2 text-center">
+                                          <div className="flex flex-col items-center">
+                                            <span className={`text-[9px] font-black px-1.5 py-0.5 rounded ${result === "W" ? "bg-green-500/20 text-green-400" : (result === "L" ? "bg-red-500/20 text-red-400" : "bg-gray-500/20 text-gray-400")}`}>{result}</span>
+                                            <span className="text-[9px] text-gray-500 font-mono font-semibold mt-0.5">{score}</span>
+                                          </div>
+                                        </td>
+                                        <td className="py-2.5 px-2 text-center text-gray-300 font-mono">{shotsAgainst}</td>
+                                        <td className="py-2.5 px-2 text-center text-red-400 font-mono">{goalsAgainst}</td>
+                                        <td className="py-2.5 px-2 text-center text-green-400 font-mono">{saves}</td>
+                                        <td className="py-2.5 px-2 text-center text-orange-400 font-mono font-black">{savePct}</td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          )
+                        )}
+                      </div>
                     ) : (
-                      goalieLogs.length === 0 ? (
-                        <p className="text-xs text-gray-500 italic text-center py-2">
-                          {language === "fr" ? "Aucun match joué." : "No games played yet."}
-                        </p>
-                      ) : (
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-left border-collapse">
-                            <thead>
-                              <tr className="border-b border-gray-800 text-[9px] uppercase font-bold text-gray-500 tracking-wider">
-                                <th className="py-1.5">{language === "fr" ? "Date" : "Date"}</th>
-                                <th className="py-1.5">{t.standings.opponent}</th>
-                                <th className="py-1.5 text-center">{language === "fr" ? "Rés." : "Res."}</th>
-                                <th className="py-1.5 text-center">{t.standings.shotsAgainst}</th>
-                                <th className="py-1.5 text-center">{t.standings.goalsAgainstShort}</th>
-                                <th className="py-1.5 text-center">SVS</th>
-                                <th className="py-1.5 text-center">{t.standings.svPct}</th>
-                              </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-800/30">
-                              {goalieLogs.map(({ game, opponentTeamId, result, score, shotsAgainst, goalsAgainst, saves, savePct }) => {
-                                const [y, m, d] = game.date.split("-");
-                                const monthName = t.standings.months[parseInt(m) - 1] || m;
-                                const formattedDate = language === "fr" 
-                                  ? `${parseInt(d)} ${monthName}` 
-                                  : `${monthName} ${parseInt(d)}`;
-                                
-                                return (
-                                  <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
-                                    <td className="py-2 font-medium text-gray-300">{formattedDate}</td>
-                                    <td className="py-2 flex items-center gap-1.5">
-                                      <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
-                                      <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
-                                    </td>
-                                    <td className="py-2 text-center">
-                                      <div className="flex flex-col items-center">
-                                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded ${result === "W" ? "bg-green-500/20 text-green-400" : (result === "L" ? "bg-red-500/20 text-red-400" : "bg-gray-500/20 text-gray-400")}`}>{result}</span>
-                                        <span className="text-[9px] text-gray-500 font-mono font-semibold mt-0.5">{score}</span>
-                                      </div>
-                                    </td>
-                                    <td className="py-2 text-center text-gray-300 font-mono">{shotsAgainst}</td>
-                                    <td className="py-2 text-center text-red-400 font-mono">{goalsAgainst}</td>
-                                    <td className="py-2 text-center text-green-400 font-mono">{saves}</td>
-                                    <td className="py-2 text-center text-ng-light-blue font-mono font-black">{savePct}</td>
-                                  </tr>
-                                );
-                              })}
-                            </tbody>
-                          </table>
-                        </div>
-                      )
+                      /* TAB 2: Career Stats ("En carrière") */
+                      <div>
+                        {activeView === "skater" ? (
+                          <div className="overflow-x-auto rounded-xl border border-gray-800 shadow-md">
+                            <table className="w-full text-left border-collapse bg-gray-900/40">
+                              <thead>
+                                <tr className="bg-black text-white text-[10px] sm:text-xs font-black uppercase tracking-wider border-b border-gray-800">
+                                  <th className="py-3 px-3.5">{language === "fr" ? "Année  Saison" : "Year  Season"}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.gp}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.goals}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.assists}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.points}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.pim}</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-800/60 text-xs">
+                                {/* Season 1: Regular Season Summer 2026 */}
+                                <tr className="hover:bg-white/5 transition-colors">
+                                  <td className="py-3 px-3.5">
+                                    <div className="font-bold text-white text-xs sm:text-sm">
+                                      {language === "fr" ? "Été 2026" : "Summer 2026"}
+                                    </div>
+                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{resolvedPlayerObj.gp}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedPlayerObj.goals}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedPlayerObj.assists}</td>
+                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{resolvedPlayerObj.points}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">
+                                    {skaterLogs.reduce((acc, log) => acc + log.penalties, 0) > 0 
+                                      ? `${skaterLogs.reduce((acc, log) => acc + log.penalties, 0)}:00` 
+                                      : "0:00"}
+                                  </td>
+                                </tr>
+
+                                {/* Season 2: Summer Playoffs 2026 */}
+                                <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
+                                  <td className="py-3 px-3.5">
+                                    <div className="font-bold text-white text-xs sm:text-sm">
+                                      {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
+                                    </div>
+                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
+                                </tr>
+
+                                {/* Season 3: Fall-Winter 2026-2027 (Registered Future Season) */}
+                                <tr className="hover:bg-white/5 transition-colors">
+                                  <td className="py-3 px-3.5">
+                                    <div className="font-bold text-gray-300 text-xs sm:text-sm">
+                                      {language === "fr" ? "Automne-Hiver 2026-2027" : "Fall-Winter 2026-2027"}
+                                    </div>
+                                    <div className="text-[10px] text-gray-500 font-semibold uppercase tracking-wider">
+                                      {getTeamName(activeTeamId)} - {language === "fr" ? "LIGNE NEXT-GEN (INSCRIT)" : "NEXT-GEN LEAGUE (REGISTERED)"}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-400">0:00</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        ) : (
+                          /* Goalie Career Stats */
+                          <div className="overflow-x-auto rounded-xl border border-gray-800 shadow-md">
+                            <table className="w-full text-left border-collapse bg-gray-900/40">
+                              <thead>
+                                <tr className="bg-black text-white text-[10px] sm:text-xs font-black uppercase tracking-wider border-b border-gray-800">
+                                  <th className="py-3 px-3.5">{language === "fr" ? "Année  Saison" : "Year  Season"}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.gp}</th>
+                                  <th className="py-3 px-2 text-center">{language === "fr" ? "Fiche (V-D-N)" : "Record (W-L-T)"}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.shotsAgainst}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.goalsAgainstShort}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.svPct}</th>
+                                  <th className="py-3 px-2 text-center">{t.standings.gaa}</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-800/60 text-xs">
+                                {/* Season 1: Regular Season Summer 2026 */}
+                                <tr className="hover:bg-white/5 transition-colors">
+                                  <td className="py-3 px-3.5">
+                                    <div className="font-bold text-white text-xs sm:text-sm">
+                                      {language === "fr" ? "Été 2026" : "Summer 2026"}
+                                    </div>
+                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SAISON RÉGULIÈRE" : "REGULAR SEASON"}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">{resolvedGoalieObj.gp}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedGoalieObj.wins}-{resolvedGoalieObj.losses}-{resolvedGoalieObj.draws}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{resolvedGoalieObj.shotsAgainst}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-red-400">{resolvedGoalieObj.goalsAgainst}</td>
+                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{goalieSvPct}</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">{gaa}</td>
+                                </tr>
+
+                                {/* Season 2: Summer Playoffs 2026 */}
+                                <tr className="hover:bg-white/5 transition-colors bg-gray-900/20">
+                                  <td className="py-3 px-3.5">
+                                    <div className="font-bold text-white text-xs sm:text-sm">
+                                      {language === "fr" ? "Séries Été 2026" : "Summer Playoffs 2026"}
+                                    </div>
+                                    <div className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">
+                                      {getTeamName(activeTeamId)} - {language === "fr" ? "SÉRIES ÉLIMINATOIRES" : "PLAYOFFS"}
+                                    </div>
+                                  </td>
+                                  <td className="py-3 px-2 text-center font-mono font-bold text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0-0-0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0</td>
+                                  <td className="py-3 px-2 text-center font-mono font-black text-orange-400">.000</td>
+                                  <td className="py-3 px-2 text-center font-mono text-gray-200">0.00</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
              </div>
