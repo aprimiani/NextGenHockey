@@ -3,22 +3,16 @@ import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } fr
 export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
 
 export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
-  "playerId": "goalie_1773774693729",
+  "playerId": "p_1775579857302",
   "month": 6,
   "year": 2026,
-  "gp": 4,
-  "goals": 0,
-  "assists": 0,
-  "points": 0,
+  "gp": 8,
+  "goals": 10,
+  "assists": 5,
+  "points": 15,
   "prizeEn": "Free 6 inch trio from Subway Delson + Howies Hockey Towel!",
   "prizeFr": "Trio sandwich 6 pouces de Subway Delson + serviette Howies Hockey !",
-  "isGoalie": true,
-  "wins": 2,
-  "losses": 2,
-  "draws": 0,
-  "savePct": 0.923,
-  "gaa": 2.25,
-  "shutouts": 1
+  "isGoalie": false
 };
 
 export const PRICING_DATA = {
@@ -833,7 +827,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -842,7 +836,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_bots",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -851,7 +845,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -860,7 +854,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -869,7 +863,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_bots",
     "awayTeamId": "w_kraken",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -878,7 +872,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_timbits",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -887,7 +881,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -896,7 +890,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_bots",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -905,7 +899,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -914,7 +908,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -923,7 +917,7 @@ export const SCHEDULE: Game[] = [
     "time": "22:00",
     "homeTeamId": "w_bots",
     "awayTeamId": "w_kraken",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
   {
@@ -932,7 +926,7 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_timbits",
-    "location": "Sportium",
+    "location": "Centre Sportif Delson",
     "status": "scheduled"
   }
 ];
@@ -1284,8 +1278,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "name": "Jacob Riel",
     "teamId": "5",
     "secondaryTeamIds": [
-      "t_1775579370484",
-      "t_1775579415800"
+      "t_1775579370484"
     ],
     "gp": 17,
     "goals": 23,

@@ -55,7 +55,7 @@ const Standings: React.FC = () => {
 
   const playoffStats = useMemo(() => {
     const playoffTeamsMap: Record<string, Team> = {};
-    teams.forEach(t => {
+    teams.filter(t => !t.id.startsWith('w_')).forEach(t => {
       playoffTeamsMap[t.id] = {
         ...t,
         gp: 0,
@@ -69,7 +69,7 @@ const Standings: React.FC = () => {
     });
 
     const playoffPlayersMap: Record<string, PlayerStats> = {};
-    players.forEach(p => {
+    players.filter(p => !p.teamId.startsWith('w_')).forEach(p => {
       playoffPlayersMap[p.id] = {
         ...p,
         gp: 0,
@@ -80,7 +80,7 @@ const Standings: React.FC = () => {
     });
 
     const playoffGoaliesMap: Record<string, GoalieStats> = {};
-    goalies.forEach(g => {
+    goalies.filter(g => !g.teamId.startsWith('w_')).forEach(g => {
       playoffGoaliesMap[g.id] = {
         ...g,
         gp: 0,
@@ -442,9 +442,10 @@ const Standings: React.FC = () => {
     });
   }
 
-  // Regular Season Ranked Teams by Win Percentage for Playoff Seeding
+  // Regular Season Ranked Teams by Win Percentage for Playoff Seeding (Summer 2026 only)
   const regSeasonRankedTeams = useMemo(() => {
-    return [...teams].sort((a, b) => {
+    const summerTeams = teams.filter(t => !t.id.startsWith('w_'));
+    return [...summerTeams].sort((a, b) => {
       const winPctA = a.gp > 0 ? a.wins / a.gp : 0;
       const winPctB = b.gp > 0 ? b.wins / b.gp : 0;
       if (winPctB !== winPctA) return winPctB - winPctA;
@@ -1453,7 +1454,7 @@ const Standings: React.FC = () => {
                           {name}
                         </button>
                         <div className="text-xs font-bold text-gray-400 uppercase tracking-widest text-center sm:text-left mt-0.5">
-                          {renderTeamName(teamId)}
+                          {renderTeamName(teamId)}{p?.secondaryTeamIds && p.secondaryTeamIds.length > 0 ? ` & ${p.secondaryTeamIds.map(tid => renderTeamName(tid)).join(' & ')}` : (g?.secondaryTeamIds && g.secondaryTeamIds.length > 0 ? ` & ${g.secondaryTeamIds.map(tid => renderTeamName(tid)).join(' & ')}` : '')}
                         </div>
                       </>
                     );

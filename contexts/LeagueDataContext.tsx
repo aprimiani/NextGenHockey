@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v99_winter_roster_screenshot');
+    const hasReset = localStorage.getItem('ng_force_reset_v102_pom_july_jacob_riel');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v99_winter_roster_screenshot', 'true');
+      localStorage.setItem('ng_force_reset_v102_pom_july_jacob_riel', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');
@@ -79,7 +79,18 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       setTeamsState(parsed);
     }
     
-    if (savedSchedule) setScheduleState(JSON.parse(savedSchedule));
+    if (savedSchedule) {
+      const parsed: Game[] = JSON.parse(savedSchedule);
+      const updatedSchedule = parsed.map(g => {
+        if (g.homeTeamId?.startsWith('w_') || g.awayTeamId?.startsWith('w_') || g.id?.startsWith('g_w_')) {
+          return { ...g, location: 'Centre Sportif Delson' };
+        }
+        return g;
+      });
+      setScheduleState(updatedSchedule);
+    } else {
+      setScheduleState(SCHEDULE);
+    }
 
     if (savedPlayers) {
       const parsed: PlayerStats[] = JSON.parse(savedPlayers);
