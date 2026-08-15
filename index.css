@@ -19,9 +19,39 @@
 }
 
 @layer base {
-  body {
-    @apply font-sans bg-ng-navy text-ng-white m-0;
+  html {
+    scroll-behavior: smooth;
   }
+  body {
+    @apply font-sans bg-ng-navy text-ng-white m-0 antialiased selection:bg-ng-light-blue selection:text-ng-navy;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  /* Make all table stats numbers monospaced/tabular for perfect column alignment */
+  table td, table th, .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Glass & Glow Utilities */
+.glass-panel {
+  background: rgba(30, 41, 59, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(30, 41, 59, 0.65);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.12);
+  transform: translateY(-1px);
 }
 
 /* Custom sleek theme scrollbars matching website colors */

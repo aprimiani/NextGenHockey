@@ -154,7 +154,7 @@ export const TEAMS: Team[] = [{
   },
   {
     "id": "w_kraken",
-    "name": "Kraken Beer",
+    "name": "Kraken Beers",
     "gp": 0,
     "wins": 0,
     "losses": 0,

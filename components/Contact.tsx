@@ -52,24 +52,36 @@ const Contact: React.FC = () => {
           {t.contact.subtitle}
         </p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 shadow-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="bg-slate-900/70 backdrop-blur-md rounded-2xl border border-slate-700/80 p-6 sm:p-8 shadow-2xl">
           {submitted ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-8 animate-in fade-in duration-500">
-              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4"><CheckCircle className="w-8 h-8 text-green-500" /></div>
-              <h3 className="text-2xl font-bold text-white mb-2">{t.contact.successTitle}</h3>
-              <p className="text-gray-300 mb-8">{t.contact.successText}</p>
-              <button onClick={() => setSubmitted(false)} className="text-ng-light-blue hover:text-white font-medium underline">{t.contact.sendAnother}</button>
+              <div className="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mb-4 border border-green-500/40 shadow-lg shadow-green-500/20"><CheckCircle className="w-8 h-8 text-green-400" /></div>
+              <h3 className="text-2xl font-bold text-white mb-2 font-display">{t.contact.successTitle}</h3>
+              <p className="text-gray-300 mb-8 max-w-sm">{t.contact.successText}</p>
+              <button onClick={() => setSubmitted(false)} className="text-ng-light-blue hover:text-white font-bold text-sm underline underline-offset-4 transition-colors">{t.contact.sendAnother}</button>
             </div>
           ) : (
             <>
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center"><Mail className="mr-2 text-ng-light-blue" />{t.contact.formTitle}</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.name}</label><input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none transition-all" /></div>
-                <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.email}</label><input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none transition-all" /></div>
-                <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.subject}</label><input type="text" name="subject" required value={formData.subject} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none transition-all" /></div>
-                <div><label className="block text-sm font-medium text-gray-300 mb-1">{t.contact.message}</label><textarea name="message" rows={4} required value={formData.message} onChange={handleChange} className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue focus:outline-none resize-none transition-all"></textarea></div>
-                <button type="submit" disabled={isSubmitting} className="w-full bg-ng-light-blue hover:bg-ng-accent text-ng-navy font-black py-4 rounded-lg transition-all flex items-center justify-center disabled:opacity-50 uppercase tracking-widest italic shadow-lg shadow-ng-light-blue/20">
+              <h3 className="text-xl font-black text-white mb-6 flex items-center font-display uppercase tracking-wide"><Mail className="mr-2.5 text-ng-light-blue" size={22} />{t.contact.formTitle}</h3>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">{t.contact.name}</label>
+                  <input type="text" name="name" required value={formData.name} onChange={handleChange} className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">{t.contact.email}</label>
+                  <input type="email" name="email" required value={formData.email} onChange={handleChange} className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">{t.contact.subject}</label>
+                  <input type="text" name="subject" required value={formData.subject} onChange={handleChange} className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner" />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">{t.contact.message}</label>
+                  <textarea name="message" rows={4} required value={formData.message} onChange={handleChange} className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none resize-none transition-all text-sm shadow-inner"></textarea>
+                </div>
+                <button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-ng-light-blue via-sky-400 to-ng-accent hover:brightness-110 text-ng-navy font-black py-4 rounded-xl transition-all duration-200 flex items-center justify-center disabled:opacity-50 uppercase tracking-widest font-display shadow-lg shadow-ng-light-blue/25 hover:shadow-xl hover:shadow-ng-light-blue/35 active:scale-[0.99] text-base border border-white/20">
                   <Send className="w-5 h-5 mr-2" /> {isSubmitting ? t.contact.sending : t.contact.submit}
                 </button>
               </form>
@@ -77,21 +89,21 @@ const Contact: React.FC = () => {
           )}
         </div>
         
-        <div className="bg-ng-blue/30 p-8 rounded-xl border border-gray-700 shadow-xl self-start overflow-hidden">
-          <h3 className="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4 flex items-center gap-2 italic uppercase tracking-tighter"><Mail size={20} className="text-ng-light-blue" />{t.contact.directInfo}</h3>
+        <div className="bg-slate-900/70 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-slate-700/80 shadow-2xl self-start overflow-hidden">
+          <h3 className="text-xl font-black text-white mb-6 border-b border-gray-700/80 pb-4 flex items-center gap-2 font-display uppercase tracking-wide"><Mail size={20} className="text-ng-light-blue" />{t.contact.directInfo}</h3>
           <div className="flex items-start">
-            <div className="bg-ng-light-blue/10 p-4 rounded-lg mr-4 sm:mr-5 border border-ng-light-blue/20 shadow-inner shrink-0"><Mail className="w-6 h-6 sm:w-7 sm:h-7 text-ng-light-blue" /></div>
+            <div className="bg-ng-light-blue/15 p-4 rounded-xl mr-4 sm:mr-5 border border-ng-light-blue/25 shadow-inner shrink-0"><Mail className="w-6 h-6 sm:w-7 sm:h-7 text-ng-light-blue" /></div>
             <div className="min-w-0 flex-1">
               <p className="text-[10px] text-ng-light-blue font-black uppercase tracking-[0.2em] mb-1">{t.contact.directOutreach}</p>
-              <p className="text-xs text-gray-500 font-black uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mb-1">{t.contact.emailLabel}</p>
               <a 
                 href="mailto:nextgenhky@outlook.com" 
-                className="text-white text-lg sm:text-xl md:text-2xl font-black hover:text-ng-light-blue transition-colors break-all block leading-tight"
+                className="text-white text-lg sm:text-xl md:text-2xl font-black hover:text-ng-light-blue transition-colors break-all block leading-tight font-display"
               >
                 nextgenhky@outlook.com
               </a>
-              <p className="text-sm text-gray-400 mt-2 uppercase font-bold tracking-tight">Alessandro Primiani</p>
-              <p className="text-xs text-ng-light-blue/70 font-bold uppercase tracking-widest">{t.contact.directorRole}</p>
+              <p className="text-sm text-gray-300 mt-3 uppercase font-bold tracking-tight">Alessandro Primiani</p>
+              <p className="text-xs text-ng-light-blue/80 font-bold uppercase tracking-widest">{t.contact.directorRole}</p>
             </div>
           </div>
         </div>

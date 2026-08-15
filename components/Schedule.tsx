@@ -82,10 +82,35 @@ const Schedule: React.FC = () => {
     if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') return '1B';
     if (id === 'pool_b_2nd' || id.toLowerCase() === 'pool b 2nd') return '2B';
     if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') return '🏆';
+    if (id === 'w_timbits') return 'T';
+    if (id === 'w_seamen') return 'S';
+    if (id === 'w_kraken') return 'K';
     const name = getTeamName(id);
-    if (name.toLowerCase() === 'team l') return 'L';
-    if (name.toLowerCase() === '86ers') return '86';
-    return name.substring(0, 1);
+    const lower = name.toLowerCase().trim();
+    if (lower === 'les timbits' || lower.startsWith('les timbit')) return 'T';
+    if (lower === 'the seamen' || lower.startsWith('the seamen')) return 'S';
+    if (lower.includes('kraken')) return 'K';
+    if (lower === 'team l') return 'L';
+    if (lower === '86ers' || lower === 'the 86ers') return '86';
+    return name.substring(0, 1).toUpperCase();
+  };
+
+  const getTeamLetterStyle = (id: string, baseColor?: string) => {
+    const color = baseColor || getTeamColor(id);
+    const isDark = id === 'w_kraken' || 
+                   color === '#111827' || 
+                   color === '#000000' || 
+                   color === '#0f172a' || 
+                   color.toLowerCase() === '#111827' ||
+                   getTeamName(id).toLowerCase().includes('kraken');
+    
+    if (isDark) {
+      return {
+        color: '#000000',
+        textShadow: '-1px 0 0 #ffffff, 1px 0 0 #ffffff, 0 -1px 0 #ffffff, 0 1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff',
+      };
+    }
+    return { color };
   };
 
   const filteredGames = useMemo(() => {
@@ -223,7 +248,7 @@ const Schedule: React.FC = () => {
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.homeScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(game.homeTeamId) }}>{getTeamInitial(game.homeTeamId)}</span>
+                          <span className="text-[9px] font-black italic mr-1.5" style={getTeamLetterStyle(game.homeTeamId)}>{getTeamInitial(game.homeTeamId)}</span>
                           <div className="text-gray-400 text-sm font-bold uppercase">{renderTeamName(game.homeTeamId)}</div>
                         </div>
                      </div>
@@ -231,7 +256,7 @@ const Schedule: React.FC = () => {
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.awayScore}</div>
                         <div className="flex items-center justify-center gap-1">
-                          <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(game.awayTeamId) }}>{getTeamInitial(game.awayTeamId)}</span>
+                          <span className="text-[9px] font-black italic mr-1.5" style={getTeamLetterStyle(game.awayTeamId)}>{getTeamInitial(game.awayTeamId)}</span>
                           <div className="text-gray-400 text-sm font-bold uppercase">{renderTeamName(game.awayTeamId)}</div>
                         </div>
                      </div>
@@ -254,7 +279,7 @@ const Schedule: React.FC = () => {
                                     
                                     <div className="flex items-center space-x-3">
                                         <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700">
-                                            <span className="text-xs font-black italic" style={{ color: getTeamColor(event.teamId) }}>
+                                            <span className="text-xs font-black italic" style={getTeamLetterStyle(event.teamId)}>
                                                 {getTeamInitial(event.teamId)}
                                             </span>
                                         </div>
@@ -326,7 +351,7 @@ const Schedule: React.FC = () => {
                                       
                                       <div className="flex items-center space-x-3">
                                           <div className="w-8 h-8 rounded-full bg-red-900/20 flex items-center justify-center shrink-0 border border-red-900/30">
-                                              <span className="text-xs font-black italic" style={{ color: getTeamColor(event.teamId) }}>
+                                              <span className="text-xs font-black italic" style={getTeamLetterStyle(event.teamId)}>
                                                   {getTeamInitial(event.teamId)}
                                               </span>
                                           </div>
@@ -368,7 +393,7 @@ const Schedule: React.FC = () => {
                                         <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-700/50">
                                             <div className="flex items-center gap-2">
                                                 <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center shrink-0 border border-gray-700">
-                                                    <span className="text-[10px] font-black italic" style={{ color: getTeamColor(teamId) }}>
+                                                    <span className="text-[10px] font-black italic" style={getTeamLetterStyle(teamId)}>
                                                         {getTeamInitial(teamId)}
                                                     </span>
                                                 </div>
@@ -422,7 +447,7 @@ const Schedule: React.FC = () => {
                                             <tr key={side} className="hover:bg-white/5 transition-colors">
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center gap-2">
-                                                        <span className="text-[10px] font-black italic" style={{ color: getTeamColor(teamId) }}>{getTeamInitial(teamId)}</span>
+                                                        <span className="text-[10px] font-black italic" style={getTeamLetterStyle(teamId)}>{getTeamInitial(teamId)}</span>
                                                         <span className="text-sm font-bold text-gray-300">{renderTeamName(teamId)}</span>
                                                     </div>
                                                 </td>
@@ -453,17 +478,17 @@ const Schedule: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-6">
         <div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display drop-shadow-[0_2px_8px_rgba(56,189,248,0.15)]">
             {t.schedule.title}
           </h2>
-          <p className="text-ng-light-blue font-bold uppercase tracking-widest text-sm mt-3 pl-8">
-            {selectedSeason === 'winter_2026_2027' 
-              ? (language === 'fr' ? "SAISON D'HIVER 2026-2027" : "WINTER SEASON 2026-2027") 
-              : t.schedule.seasonStart}
-          </p>
+          {selectedSeason === 'winter_2026_2027' && (
+            <p className="text-ng-light-blue font-black uppercase tracking-widest text-xs sm:text-sm mt-3 pl-8">
+              {language === 'fr' ? "SAISON D'HIVER 2026-2027" : "WINTER SEASON 2026-2027"}
+            </p>
+          )}
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
           {/* Season Selector */}
           <div className="relative">
             <select
@@ -474,7 +499,7 @@ const Schedule: React.FC = () => {
                   setFilter('scheduled');
                 }
               }}
-              className="appearance-none bg-ng-blue/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 sm:py-3.5 rounded-2xl border-2 border-gray-700 hover:border-ng-light-blue/50 focus:outline-none focus:border-ng-light-blue cursor-pointer transition-all shadow-xl w-full"
+              className="appearance-none bg-slate-900/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 sm:py-3.5 rounded-2xl border border-slate-700 hover:border-ng-light-blue/60 focus:outline-none focus:ring-2 focus:ring-ng-light-blue/40 cursor-pointer transition-all shadow-xl w-full"
             >
               {seasonsList.map((s) => (
                 <option key={s.id} value={s.id} className="bg-ng-navy text-white text-xs sm:text-sm font-sans uppercase">
@@ -488,16 +513,16 @@ const Schedule: React.FC = () => {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex bg-ng-blue/50 p-1 rounded-2xl border border-gray-700 shadow-xl overflow-x-auto max-w-full">
+          <div className="flex bg-slate-900/70 p-1 rounded-2xl border border-slate-700/80 shadow-xl overflow-x-auto max-w-full">
             <button
               onClick={() => setFilter('scheduled')}
-              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy shadow-md shadow-ng-light-blue/25' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
             >
               {t.schedule.filterUpcoming}
             </button>
             <button
               onClick={() => setFilter('played')}
-              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-ng-light-blue text-ng-navy shadow-lg shadow-ng-light-blue/20' : 'text-gray-400 hover:text-white'}`}
+              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy shadow-md shadow-ng-light-blue/25' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
             >
               {t.schedule.filterResults}
             </button>
@@ -518,8 +543,8 @@ const Schedule: React.FC = () => {
                 key={game.id} 
                 className={
                   isSemiOrFinal 
-                    ? "group bg-gradient-to-r from-amber-500/5 via-ng-blue/30 to-amber-500/5 rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:bg-ng-blue/40 transition-all duration-300 shadow-[0_0_15px_rgba(245,158,11,0.1)] relative overflow-hidden"
-                    : "group bg-ng-blue/30 rounded-2xl border border-gray-700 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/50 hover:bg-ng-blue/50 transition-all duration-300 shadow-lg"
+                    ? "group bg-gradient-to-r from-amber-500/10 via-slate-900/80 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
+                    : "group bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/60 hover:shadow-xl hover:shadow-ng-light-blue/5 transition-all duration-300 shadow-lg"
                 }
               >
                 {isSemiOrFinal && (
@@ -553,7 +578,7 @@ const Schedule: React.FC = () => {
                     <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
                       {renderTeamName(game.homeTeamId)}
                     </span>
-                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.homeTeamId) }}>
+                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.homeTeamId)}>
                       {getTeamInitial(game.homeTeamId)}
                     </span>
                   </div>
@@ -581,7 +606,7 @@ const Schedule: React.FC = () => {
                   
                   {/* Away Team */}
                   <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
-                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={{ color: getTeamColor(game.awayTeamId) }}>
+                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.awayTeamId)}>
                       {getTeamInitial(game.awayTeamId)}
                     </span>
                     <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">

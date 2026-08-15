@@ -119,29 +119,29 @@ const Registration: React.FC = () => {
 
         <div className="max-w-xl mx-auto">
           {/* Winter Season Pricing Card */}
-          <div className="bg-ng-light-blue/10 border-2 border-ng-light-blue rounded-3xl p-8 relative overflow-hidden group hover:border-ng-accent transition-all flex flex-col items-center text-center shadow-2xl">
-            <div className="absolute top-0 right-0 bg-ng-light-blue text-ng-navy font-black text-xs uppercase px-5 py-1.5 italic shadow-lg">
+          <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/60 backdrop-blur-md border-2 border-ng-light-blue/80 rounded-3xl p-8 relative overflow-hidden group hover:border-ng-light-blue transition-all flex flex-col items-center text-center shadow-2xl shadow-ng-light-blue/10">
+            <div className="absolute top-0 right-0 bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy font-black text-xs uppercase px-5 py-1.5 italic shadow-lg border-b border-l border-white/20">
                {language === 'en' ? 'Winter Season' : "Saison d'Hiver"}
             </div>
             
-            <div className="text-5xl font-black text-white mb-2 tracking-tight">
+            <div className="text-5xl font-black text-white mb-2 tracking-tight drop-shadow-[0_2px_8px_rgba(56,189,248,0.2)]">
               $8,525<span className="text-sm font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mb-6">
-              <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/20">
+              <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/30 shadow-sm">
                 <Calendar size={16} />
                 {t.register.seasonStart}
               </div>
               {t.register.signupDeadline && (
-                <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-black uppercase tracking-widest bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/20">
+                <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-black uppercase tracking-widest bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/30 shadow-sm">
                   <Info size={16} />
                   {t.register.signupDeadline}
                 </div>
               )}
             </div>
             
-            <div className="w-full pt-6 border-t border-ng-light-blue/20">
+            <div className="w-full pt-6 border-t border-slate-700/80">
                <h4 className="text-xs text-gray-400 uppercase font-black tracking-widest mb-4">
                  {t.register.whatsIncluded}
                </h4>
@@ -165,26 +165,26 @@ const Registration: React.FC = () => {
               <Sparkles className="text-ng-light-blue" size={24} />
               {t.register.formTitle}
           </h3>
-          <div className="w-12 h-1 bg-ng-light-blue mt-1"></div>
+          <div className="w-12 h-1 bg-gradient-to-r from-ng-light-blue to-ng-accent rounded-full mt-1"></div>
       </div>
 
-      <div className="bg-ng-blue/30 backdrop-blur-sm shadow-xl rounded-2xl border border-gray-700 overflow-hidden">
+      <div className="bg-slate-900/70 backdrop-blur-md shadow-2xl rounded-2xl border border-slate-700/80 overflow-hidden">
         {/* Charity Badge Header */}
-        <div className="bg-pink-500/10 p-4 border-b border-pink-500/20 flex items-center justify-center gap-3">
-           <Heart className="text-pink-500" size={18} fill="currentColor" />
-           <span className="text-pink-500 text-xs font-black uppercase tracking-widest italic text-center leading-tight">{t.register.depositInfo}</span>
-           <Sparkles className="text-pink-400 hidden sm:block" size={14} />
+        <div className="bg-pink-500/10 p-4 border-b border-pink-500/25 flex items-center justify-center gap-3">
+           <Heart className="text-pink-400 shrink-0" size={18} fill="currentColor" />
+           <span className="text-pink-300 text-xs font-black uppercase tracking-widest italic text-center leading-tight">{t.register.depositInfo}</span>
+           <Sparkles className="text-pink-400 hidden sm:block shrink-0" size={14} />
         </div>
 
-        <div className="px-6 py-8">
+        <div className="px-6 py-8 sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             
-            <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="grid grid-cols-1 gap-y-5 gap-x-4 sm:grid-cols-6">
               <div className="sm:col-span-6">
-                <label htmlFor="team_name" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="team_name" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.teamName}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     type="text"
                     name="team_name"
@@ -192,17 +192,17 @@ const Registration: React.FC = () => {
                     required
                     value={formData.team_name}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                     placeholder={t.register.placeholders.teamName}
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-3">
-                <label htmlFor="captain_name" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="captain_name" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.captainName}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     type="text"
                     name="captain_name"
@@ -210,16 +210,16 @@ const Registration: React.FC = () => {
                     required
                     value={formData.captain_name}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-3">
-                <label htmlFor="estimated_roster_size" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="estimated_roster_size" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.rosterSize}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     type="number"
                     name="estimated_roster_size"
@@ -228,16 +228,16 @@ const Registration: React.FC = () => {
                     max="20"
                     value={formData.estimated_roster_size}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-3">
-                <label htmlFor="email_address" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="email_address" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.email}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     id="email_address"
                     name="email_address"
@@ -246,16 +246,16 @@ const Registration: React.FC = () => {
                     required
                     value={formData.email_address}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                   />
                 </div>
               </div>
 
                <div className="sm:col-span-3">
-                <label htmlFor="phone_number" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="phone_number" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.phone}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     id="phone_number"
                     name="phone_number"
@@ -263,16 +263,16 @@ const Registration: React.FC = () => {
                     required
                     value={formData.phone_number}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                   />
                 </div>
               </div>
 
               <div className="sm:col-span-6">
-                <label htmlFor="last_level_played" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="last_level_played" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.skillLevel}
                 </label>
-                <div className="mt-1">
+                <div>
                   <input
                     type="text"
                     id="last_level_played"
@@ -281,22 +281,22 @@ const Registration: React.FC = () => {
                     value={formData.last_level_played}
                     onChange={handleChange}
                     placeholder={t.register.placeholders.skillLevel}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
                   />
                 </div>
               </div>
 
                <div className="sm:col-span-6">
-                <label htmlFor="preferred_language" className="block text-sm font-medium text-gray-300">
+                <label htmlFor="preferred_language" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
                   {t.register.preferredLanguage}
                 </label>
-                <div className="mt-1">
+                <div>
                   <select
                     id="preferred_language"
                     name="preferred_language"
                     value={formData.preferred_language}
                     onChange={handleChange}
-                    className="shadow-sm focus:ring-ng-light-blue focus:border-ng-light-blue block w-full sm:text-sm border-gray-600 bg-gray-800 text-white rounded-md p-2.5"
+                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm cursor-pointer shadow-inner"
                   >
                     <option value="en">{t.register.langEnglish}</option>
                     <option value="fr">{t.register.langFrench}</option>
@@ -305,12 +305,12 @@ const Registration: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-5">
+            <div className="pt-4">
               <div className="flex justify-end">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto inline-flex justify-center py-4 px-10 border border-transparent shadow-lg text-base font-black rounded-xl text-ng-navy bg-ng-light-blue hover:bg-ng-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ng-light-blue transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed italic uppercase tracking-widest"
+                  className="w-full sm:w-auto inline-flex justify-center py-4 px-10 border border-white/20 shadow-xl text-base font-black rounded-xl text-ng-navy bg-gradient-to-r from-ng-light-blue via-sky-400 to-ng-accent hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ng-light-blue transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest font-display shadow-ng-light-blue/25"
                 >
                   {isSubmitting ? 'Submitting...' : t.register.submit}
                 </button>

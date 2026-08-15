@@ -24,10 +24,10 @@ const Sponsors: React.FC = () => {
     return (
       <div 
         key={idx} 
-        className={`group bg-ng-blue/30 rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:shadow-2xl ${partner.isPrize ? prizeBorderClass : 'border-gray-700 hover:border-ng-light-blue hover:shadow-ng-light-blue/10'}`}
+        className={`group bg-slate-900/60 backdrop-blur-md rounded-2xl border flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl ${partner.isPrize ? prizeBorderClass : 'border-slate-700/70 hover:border-ng-light-blue/60 hover:shadow-ng-light-blue/10'}`}
       >
         {/* Header / Category */}
-        <div className={`p-4 flex justify-between items-center border-b ${partner.isPrize ? prizeHeaderBgClass : 'bg-ng-navy border-gray-700'}`}>
+        <div className={`p-4 flex justify-between items-center border-b ${partner.isPrize ? prizeHeaderBgClass : 'bg-slate-950/60 border-slate-700/80'}`}>
           <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'}`}>
             {partner.category}
           </span>
@@ -38,31 +38,31 @@ const Sponsors: React.FC = () => {
           )}
         </div>
 
-        <div className="p-8 flex-grow flex flex-col">
-          <h3 className="text-2xl font-black text-white uppercase italic mb-4">
+        <div className="p-6 sm:p-8 flex-grow flex flex-col">
+          <h3 className="text-xl sm:text-2xl font-black text-white uppercase italic mb-3 font-display">
             {partner.name}
           </h3>
-          <p className="text-gray-400 text-sm leading-relaxed mb-6">
+          <p className="text-gray-300 text-sm leading-relaxed mb-6">
             {partner.description}
           </p>
 
           {/* Perk Box */}
-          <div className={`border rounded-xl p-5 relative transition-colors mb-6 ${partner.isPrize ? prizePerkBgClass : 'bg-ng-light-blue/10 border-ng-light-blue/20 group-hover:bg-ng-light-blue/20'}`}>
-            <div className={`absolute -top-3 left-4 text-ng-navy text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1 ${partner.isPrize ? prizePerkLabelClass : 'bg-ng-light-blue'}`}>
+          <div className={`border rounded-xl p-4 sm:p-5 relative transition-colors mb-6 ${partner.isPrize ? prizePerkBgClass : 'bg-ng-light-blue/10 border-ng-light-blue/30 group-hover:bg-ng-light-blue/15'}`}>
+            <div className={`absolute -top-3 left-4 text-ng-navy text-[10px] font-black px-2.5 py-0.5 rounded flex items-center gap-1 shadow-sm ${partner.isPrize ? prizePerkLabelClass : 'bg-gradient-to-r from-ng-light-blue to-ng-accent'}`}>
               {partner.isPrize ? <Trophy size={10} /> : <Gift size={10} />} 
               {partner.isPrize ? t.sponsors.prizeTitle : t.sponsors.perkTitle}
             </div>
-            <p className="text-white font-bold text-sm">
+            <p className="text-white font-bold text-sm leading-snug">
               {partner.perk}
             </p>
           </div>
 
           {/* Address Display */}
-          <div className="mt-auto">
+          <div className="mt-auto pt-2">
             {partner.address ? (
               <div className="flex items-start gap-2 text-gray-400 text-xs">
                  <MapPin size={14} className={`${partner.isPrize ? prizeTextClass : 'text-ng-light-blue'} shrink-0 mt-0.5`} />
-                 <span className="italic">{partner.address}</span>
+                 <span className="italic leading-tight">{partner.address}</span>
               </div>
             ) : partner.website && (
               <div className="flex items-start gap-2 text-gray-400 text-xs">
@@ -73,20 +73,20 @@ const Sponsors: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-4 bg-ng-navy/50 border-t border-gray-700 mt-auto">
+        <div className="p-4 bg-slate-950/50 border-t border-slate-700/80 mt-auto">
            {partner.website ? (
              <a 
                href={partner.website}
                target="_blank"
                rel="noopener noreferrer"
-               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
+               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-ng-light-blue transition-colors py-1"
              >
                {t.sponsors.viewWebsite} <ExternalLink size={14} />
              </a>
            ) : (
              <button 
                onClick={() => handleAddressClick(partner.address)}
-               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-white transition-colors"
+               className="w-full flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-gray-400 hover:text-ng-light-blue transition-colors py-1"
               >
                {t.sponsors.viewAddress} <MapPin size={14} />
              </button>
@@ -105,28 +105,6 @@ const Sponsors: React.FC = () => {
         <p className="mt-6 text-xl text-gray-300 pl-8 border-l-8 border-transparent">
           {t.sponsors.subtitle}
         </p>
-      </div>
-
-      {/* Opening Day Special Banner */}
-      <div className="mb-8 bg-ng-light-blue/10 border border-ng-light-blue/20 rounded-lg p-2.5 sm:p-3.5 relative overflow-hidden group hover:border-ng-light-blue/40 transition-all duration-500 max-w-2xl mx-auto shadow-sm">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-ng-light-blue/5 rounded-full -mr-12 -mt-12 blur-xl group-hover:bg-ng-light-blue/10 transition-all duration-500"></div>
-        <div className="relative flex flex-col md:flex-row items-center gap-3 md:gap-5">
-          <div className="flex-shrink-0 bg-ng-light-blue text-ng-navy p-2 rounded-md rotate-2 group-hover:rotate-0 transition-transform duration-500 shadow-sm shadow-ng-light-blue/20">
-            <Gift size={16} className="animate-pulse" />
-          </div>
-          <div className="flex-grow text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-1.5 text-ng-light-blue mb-0.5">
-              <Star size={10} className="fill-ng-light-blue animate-spin-slow" />
-              <span className="text-[8px] font-black uppercase tracking-[0.2em]">{t.sponsors.openingDaySpecialTitle}</span>
-            </div>
-            <h3 className="text-base sm:text-lg font-black text-white uppercase italic tracking-tighter mb-0.5 leading-tight transition-colors group-hover:text-ng-light-blue">
-              {t.sponsors.openingDaySpecialTitle}
-            </h3>
-            <p className="text-gray-400 text-xs sm:text-sm font-medium leading-tight max-w-xl">
-              {t.sponsors.openingDaySpecialText}
-            </p>
-          </div>
-        </div>
       </div>
 
       {/* Partners Groups */}

@@ -14,73 +14,91 @@ const Rules: React.FC = () => {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* General Regulations - Clickable (NOW FIRST) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {/* General Regulations - Clickable */}
         <div 
           onClick={() => setShowRulebook(true)}
-          className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue transition-all cursor-pointer hover:shadow-lg hover:shadow-ng-light-blue/10 group"
+          className="bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-6 sm:p-8 hover:border-green-500/60 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-green-500/10 group flex flex-col justify-between"
         >
-          <div className="flex items-center mb-6">
-            <div className="bg-green-500/20 p-3 rounded-lg group-hover:bg-green-500/30 transition-colors">
-              <FileText className="w-8 h-8 text-green-500" />
+          <div>
+            <div className="flex items-center mb-5">
+              <div className="bg-green-500/15 border border-green-500/30 p-3.5 rounded-xl group-hover:bg-green-500/25 group-hover:border-green-500/50 transition-colors shrink-0 shadow-inner">
+                <FileText className="w-7 h-7 text-green-400" />
+              </div>
+              <h3 className="ml-4 text-xl sm:text-2xl font-black text-white group-hover:text-green-400 transition-colors font-display uppercase tracking-wide">{t.rules.regsTitle}</h3>
             </div>
-            <h3 className="ml-4 text-2xl font-bold text-white group-hover:text-ng-light-blue transition-colors">{t.rules.regsTitle}</h3>
+            <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+              {t.rules.regsText}
+            </p>
           </div>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {t.rules.regsText}
-          </p>
+          <div className="mt-6 pt-4 border-t border-slate-700/60 flex items-center text-xs font-black uppercase tracking-widest text-green-400 group-hover:translate-x-1 transition-transform">
+            <span>{t.rulebook.modalTitle} &rarr;</span>
+          </div>
         </div>
 
         {/* Safety */}
-        <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue/50 transition-colors">
-          <div className="flex items-center mb-6">
-            <div className="bg-ng-light-blue/20 p-3 rounded-lg">
-              <Shield className="w-8 h-8 text-ng-light-blue" />
+        <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-6 sm:p-8 hover:border-ng-light-blue/60 hover:shadow-2xl hover:shadow-ng-light-blue/10 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div className="flex items-center mb-5">
+              <div className="bg-ng-light-blue/15 border border-ng-light-blue/30 p-3.5 rounded-xl group-hover:bg-ng-light-blue/25 group-hover:border-ng-light-blue/50 transition-colors shrink-0 shadow-inner">
+                <Shield className="w-7 h-7 text-ng-light-blue" />
+              </div>
+              <h3 className="ml-4 text-xl sm:text-2xl font-black text-white group-hover:text-ng-light-blue transition-colors font-display uppercase tracking-wide">{t.rules.safetyTitle}</h3>
             </div>
-            <h3 className="ml-4 text-2xl font-bold text-white">{t.rules.safetyTitle}</h3>
+            <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+              {t.rules.safetyText}
+            </p>
           </div>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {t.rules.safetyText}
-          </p>
         </div>
 
         {/* Non-Contact */}
-        <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue/50 transition-colors">
-          <div className="flex items-center mb-6">
-            <div className="bg-red-500/20 p-3 rounded-lg">
-              <Ban className="w-8 h-8 text-red-500" />
+        <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-6 sm:p-8 hover:border-red-500/60 hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div className="flex items-center mb-5">
+              <div className="bg-red-500/15 border border-red-500/30 p-3.5 rounded-xl group-hover:bg-red-500/25 group-hover:border-red-500/50 transition-colors shrink-0 shadow-inner">
+                <Ban className="w-7 h-7 text-red-400" />
+              </div>
+              <h3 className="ml-4 text-xl sm:text-2xl font-black text-white group-hover:text-red-400 transition-colors font-display uppercase tracking-wide">{t.rules.contactTitle}</h3>
             </div>
-            <h3 className="ml-4 text-2xl font-bold text-white">{t.rules.contactTitle}</h3>
+            <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+              {t.rules.contactText}
+            </p>
           </div>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {t.rules.contactText}
-          </p>
         </div>
 
         {/* Game Format */}
-        <div className="bg-ng-blue/30 rounded-xl border border-gray-700 p-8 hover:border-ng-light-blue/50 transition-colors">
-          <div className="flex items-center mb-6">
-            <div className="bg-yellow-500/20 p-3 rounded-lg">
-              <Clock className="w-8 h-8 text-yellow-500" />
+        <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-6 sm:p-8 hover:border-yellow-500/60 hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div className="flex items-center mb-5">
+              <div className="bg-yellow-500/15 border border-yellow-500/30 p-3.5 rounded-xl group-hover:bg-yellow-500/25 group-hover:border-yellow-500/50 transition-colors shrink-0 shadow-inner">
+                <Clock className="w-7 h-7 text-yellow-400" />
+              </div>
+              <h3 className="ml-4 text-xl sm:text-2xl font-black text-white group-hover:text-yellow-400 transition-colors font-display uppercase tracking-wide">{t.rules.formatTitle}</h3>
             </div>
-            <h3 className="ml-4 text-2xl font-bold text-white">{t.rules.formatTitle}</h3>
+            <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+              {t.rules.formatText}
+            </p>
           </div>
-          <p className="text-gray-300 leading-relaxed text-lg">
-            {t.rules.formatText}
-          </p>
         </div>
       </div>
 
       {/* Rulebook Modal */}
       {showRulebook && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-ng-navy border border-gray-700 w-full max-w-4xl max-h-[90vh] rounded-xl shadow-2xl flex flex-col relative animate-in fade-in zoom-in duration-200">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setShowRulebook(false)}
+        >
+          <div 
+            className="bg-ng-navy border border-gray-700 w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col relative animate-in zoom-in-95 duration-200 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-700 bg-ng-blue sticky top-0 z-10">
-              <h2 className="text-2xl font-bold text-white">{t.rulebook.modalTitle}</h2>
+            <div className="flex items-center justify-between p-6 border-b border-gray-700 bg-ng-blue/90 sticky top-0 z-10">
+              <h2 className="text-xl sm:text-2xl font-black text-white font-display uppercase tracking-wide">{t.rulebook.modalTitle}</h2>
               <button 
                 onClick={() => setShowRulebook(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                aria-label="Close rulebook"
+                className="text-gray-400 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
               >
                 <X size={24} />
               </button>

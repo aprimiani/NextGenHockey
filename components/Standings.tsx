@@ -659,10 +659,35 @@ const Standings: React.FC = () => {
     if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') return '1B';
     if (id === 'pool_b_2nd' || id.toLowerCase() === 'pool b 2nd') return '2B';
     if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') return '🏆';
+    if (id === 'w_timbits') return 'T';
+    if (id === 'w_seamen') return 'S';
+    if (id === 'w_kraken') return 'K';
     const name = getTeamName(id);
-    if (name.toLowerCase() === 'team l') return 'L';
-    if (name.toLowerCase() === '86ers') return '86';
-    return name.substring(0, 1);
+    const lower = name.toLowerCase().trim();
+    if (lower === 'les timbits' || lower.startsWith('les timbit')) return 'T';
+    if (lower === 'the seamen' || lower.startsWith('the seamen')) return 'S';
+    if (lower.includes('kraken')) return 'K';
+    if (lower === 'team l') return 'L';
+    if (lower === '86ers' || lower === 'the 86ers') return '86';
+    return name.substring(0, 1).toUpperCase();
+  };
+
+  const getTeamLetterStyle = (id: string, baseColor?: string) => {
+    const color = baseColor || getTeamColor(id);
+    const isDark = id === 'w_kraken' || 
+                   color === '#111827' || 
+                   color === '#000000' || 
+                   color === '#0f172a' || 
+                   color.toLowerCase() === '#111827' ||
+                   getTeamName(id).toLowerCase().includes('kraken');
+    
+    if (isDark) {
+      return {
+        color: '#000000',
+        textShadow: '-1px 0 0 #ffffff, 1px 0 0 #ffffff, 0 -1px 0 #ffffff, 0 1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff',
+      };
+    }
+    return { color };
   };
 
   const formatDate = (dateString: string) => {
@@ -907,7 +932,7 @@ const Standings: React.FC = () => {
                             onClick={() => setSelectedTeam(regTeam)}
                             className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                           >
-                            <span className="mr-2 text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>{getTeamInitial(regTeam.id)}</span>
+                            <span className="mr-2 text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>{getTeamInitial(regTeam.id)}</span>
                             <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
                           </button>
                         </td>
@@ -1078,7 +1103,7 @@ const Standings: React.FC = () => {
                             onClick={() => setSelectedTeam(regTeam)}
                             className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                           >
-                            <span className="mr-2 text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>{getTeamInitial(regTeam.id)}</span>
+                            <span className="mr-2 text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>{getTeamInitial(regTeam.id)}</span>
                             <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
                           </button>
                         </td>
@@ -1274,7 +1299,7 @@ const Standings: React.FC = () => {
                          onClick={() => setSelectedTeam(team)}
                          className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                        >
-                         <span className="mr-1 md:mr-2 text-[11px] md:text-xs font-black italic shrink-0" style={{ color: team.logoColor }}>{getTeamInitial(team.id)}</span>
+                         <span className="mr-1 md:mr-2 text-[11px] md:text-xs font-black italic shrink-0" style={getTeamLetterStyle(team.id, team.logoColor)}>{getTeamInitial(team.id)}</span>
                          <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
                        </button>
                     </td>
@@ -1345,7 +1370,7 @@ const Standings: React.FC = () => {
                       <span className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-xs font-black flex items-center justify-center shrink-0 border border-blue-500/30">
                         #{seed}
                       </span>
-                      <span className="text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>
+                      <span className="text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>
                         {getTeamInitial(regTeam.id)}
                       </span>
                       <span className="text-xs font-bold text-white group-hover:text-ng-light-blue truncate">
@@ -1389,7 +1414,7 @@ const Standings: React.FC = () => {
                       <span className="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-xs font-black flex items-center justify-center shrink-0 border border-purple-500/30">
                         #{seed}
                       </span>
-                      <span className="text-xs font-black italic shrink-0" style={{ color: regTeam.logoColor }}>
+                      <span className="text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>
                         {getTeamInitial(regTeam.id)}
                       </span>
                       <span className="text-xs font-bold text-white group-hover:text-ng-light-blue truncate">
@@ -1620,7 +1645,7 @@ const Standings: React.FC = () => {
                                  <span>{player.name}</span>
                                </button>
                                <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                 <span className="text-[8px] font-black italic px-1 py-0.25 rounded bg-white/5 border border-white/10" style={{ color: getTeamColor(player.teamId) }}>
+                                 <span className="text-[8px] font-black italic px-1 py-0.25 rounded bg-white/5 border border-white/10" style={getTeamLetterStyle(player.teamId)}>
                                    {getTeamInitial(player.teamId)}
                                  </span>
                                  {player.secondaryTeamIds && player.secondaryTeamIds.length > 0 && (
@@ -1630,7 +1655,7 @@ const Standings: React.FC = () => {
                              </div>
                           </td>
                           <td className="hidden sm:table-cell px-3 md:px-4 py-2 text-xs md:text-[15px] text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                             <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(player.teamId) }}>{getTeamInitial(player.teamId)}</span>
+                             <span className="text-[11px] font-black italic mr-2" style={getTeamLetterStyle(player.teamId)}>{getTeamInitial(player.teamId)}</span>
                              {renderTeamName(player.teamId)}{player.secondaryTeamIds && player.secondaryTeamIds.length > 0 ? ` + ${player.secondaryTeamIds.length}` : ''}
                           </td>
                           <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-center text-gray-400 whitespace-nowrap">{player.gp}</td>
@@ -1759,13 +1784,13 @@ const Standings: React.FC = () => {
                              <div className="flex flex-col items-start">
                                <button onClick={() => openGoalieProfile(goalie)} className="hover:text-ng-light-blue transition-colors outline-none text-left"><span>{goalie.name}</span></button>
                                <div className="sm:hidden flex items-center gap-1 mt-0.5">
-                                 <span className="text-[9px] font-black italic mr-1.5" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
+                                 <span className="text-[9px] font-black italic mr-1.5" style={getTeamLetterStyle(goalie.teamId)}>{getTeamInitial(goalie.teamId)}</span>
                                  <span className="text-[10px] text-gray-500 font-medium uppercase">{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
                                </div>
                              </div>
                            </td>
                            <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[15px] text-gray-300 flex items-center gap-2 whitespace-nowrap">
-                               <span className="text-[11px] font-black italic mr-2" style={{ color: getTeamColor(goalie.teamId) }}>{getTeamInitial(goalie.teamId)}</span>
+                               <span className="text-[11px] font-black italic mr-2" style={getTeamLetterStyle(goalie.teamId)}>{getTeamInitial(goalie.teamId)}</span>
                                <span>{renderTeamName(goalie.teamId)}{goalie.secondaryTeamIds && goalie.secondaryTeamIds.length > 0 ? ` + ${goalie.secondaryTeamIds.length}` : ''}</span>
                            </td>
                            <td className="px-1.5 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-400 whitespace-nowrap">{goalie.gp}</td>
@@ -1805,7 +1830,7 @@ const Standings: React.FC = () => {
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
               >
                 <div className="flex items-center gap-4">
-                  <span className="text-3xl md:text-4xl font-black italic shrink-0" style={{ color: selectedTeam.logoColor }}>
+                  <span className="text-3xl md:text-4xl font-black italic shrink-0" style={getTeamLetterStyle(selectedTeam.id, selectedTeam.logoColor)}>
                     {getTeamInitial(selectedTeam.id)}
                   </span>
                   <div>
@@ -2360,9 +2385,9 @@ const Standings: React.FC = () => {
                       <X size={18} />
                     </button>
 
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 border-2 sm:border-4 shadow-lg" style={{ borderColor: getTeamColor(activeTeamId), backgroundColor: getTeamColor(activeTeamId) }}>
-                      <span className="text-xl sm:text-3xl font-black text-white italic pr-0.5">
-                        {getTeamName(activeTeamId).charAt(0)}
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 border-2 sm:border-4 shadow-lg" style={{ borderColor: getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' ? '#ffffff' : getTeamColor(activeTeamId), backgroundColor: getTeamColor(activeTeamId) }}>
+                      <span className="text-xl sm:text-3xl font-black text-white italic pr-0.5" style={getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' ? { textShadow: '-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff' } : undefined}>
+                        {getTeamInitial(activeTeamId)}
                       </span>
                     </div>
                     
