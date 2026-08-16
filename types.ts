@@ -101,16 +101,20 @@ export interface GameRecapData {
     homeGoalie: { 
       playerId: string; 
       shotsFaced: number; 
-      goalsAgainst: number;
+      goalsAgainst: number; 
       saves: number; // Calculated
     };
     awayGoalie: { 
       playerId: string; 
       shotsFaced: number; 
-      goalsAgainst: number;
+      goalsAgainst: number; 
       saves: number; // Calculated
     };
-  }
+  };
+  roster?: {
+    homePlayers?: string[];
+    awayPlayers?: string[];
+  };
 }
 
 export interface GalleryImage {

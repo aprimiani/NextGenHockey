@@ -648,10 +648,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "6",
     "awayTeamId": "1",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 1",
-    "playoffRoundFr": "Matchs 1"
+    "playoffRoundFr": "Matchs 1",
+    "homeScore": 1,
+    "awayScore": 4
   },
   {
     "id": "g_20260816_2",
@@ -660,10 +662,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "5",
     "awayTeamId": "2",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 1",
-    "playoffRoundFr": "Matchs 1"
+    "playoffRoundFr": "Matchs 1",
+    "homeScore": 2,
+    "awayScore": 3
   },
   {
     "id": "g_20260816_3",
@@ -1015,10 +1019,6 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 5,
     "assists": 12,
     "points": 17,
-    "secondaryTeamIds": [
-      "6",
-      "2"
-    ],
     "seasonTeamIds": {
       "winter_2026_2027": "w_bots"
     }
@@ -1037,8 +1037,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "name": "Alexandre Marchand",
     "teamId": "2",
     "secondaryTeamIds": [
-      "t_1775579370484",
-      "5"
+      "t_1775579370484"
     ],
     "gp": 8,
     "goals": 3,
@@ -1377,8 +1376,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "name": "Loik Lemieux-Roy",
     "teamId": "4",
     "secondaryTeamIds": [
-      "1",
-      "2"
+      "6"
     ],
     "gp": 15,
     "goals": 6,
@@ -1637,12 +1635,16 @@ export const ALL_PLAYERS: PlayerStats[] = [
   },
   {
     "id": "p_1773774610374",
-    "name": "Vincent Gagnon",
+    "name": "Vincent Daraiche",
     "teamId": "4",
-    "gp": 12,
+    "secondaryTeamIds": [
+      "t_1775579415800",
+      "6"
+    ],
+    "gp": 13,
     "goals": 1,
-    "assists": 3,
-    "points": 4
+    "assists": 4,
+    "points": 5
   },
   {
     "id": "p_1775579859505",
@@ -1666,6 +1668,9 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1773774609841",
     "name": "William Gauthier",
     "teamId": "4",
+    "secondaryTeamIds": [
+      "6"
+    ],
     "gp": 12,
     "goals": 4,
     "assists": 7,
@@ -2405,7 +2410,6 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "name": "Dylan Molinaro",
     "teamId": "sub",
     "secondaryTeamIds": [
-      "6",
       "1"
     ],
     "gp": 3,
@@ -2487,16 +2491,16 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 1
   },
   {
-    "id": "p_vincent_daraiche_sub",
-    "name": "Vincent Daraiche",
+    "id": "p_charles_etienne_sub",
+    "name": "Charles Etienne",
     "teamId": "sub",
     "secondaryTeamIds": [
-      "t_1775579415800"
+      "6"
     ],
-    "gp": 1,
+    "gp": 0,
     "goals": 0,
-    "assists": 1,
-    "points": 1
+    "assists": 0,
+    "points": 0
   },
   {
     "id": "p_ethan_black_sub",
@@ -2629,6 +2633,30 @@ export const ALL_PLAYERS: PlayerStats[] = [
       "5"
     ],
     "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_alexanne_boyer_sub",
+    "name": "Alexanne Boyer",
+    "teamId": "sub",
+    "secondaryTeamIds": [
+      "5"
+    ],
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "goalie_nicolas_jubinville_sub",
+    "name": "Nicolas Jubinville",
+    "teamId": "sub",
+    "secondaryTeamIds": [
+      "2"
+    ],
+    "gp": 0,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3137,6 +3165,21 @@ export const GOALIE_STATS: GoalieStats[] = [
     "saves": 17,
     "assists": 1,
     "points": 1
+  },
+  {
+    "id": "goalie_nicolas_jubinville_sub",
+    "name": "Nicolas Jubinville",
+    "teamId": "sub",
+    "secondaryTeamIds": [
+      "2"
+    ],
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0,
+    "saves": 0
   }
 ];
 
@@ -7303,7 +7346,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "time": "12:10",
         "teamId": "t_1775579415800",
         "player": "p_1775591027128",
-        "assist": "p_vincent_daraiche_sub",
+        "assist": "p_1773774610374",
         "assist2": "",
         "details": ""
       },
@@ -8704,6 +8747,256 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "goalsAgainst": 7,
         "saves": 26
       }
+    }
+  },
+  "g_20260816_1": {
+    "gameId": "g_20260816_1",
+    "events": [
+      {
+        "id": "e_g_20260816_1_p1_1",
+        "type": "penalty",
+        "period": 1,
+        "time": "10:30",
+        "teamId": "1",
+        "player": "p_dylan_molinaro_sub",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260816_1_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "13:22",
+        "teamId": "1",
+        "player": "p_1767082324693",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_1_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "2:45",
+        "teamId": "6",
+        "player": "p_1773774609841",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_1_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "8:15",
+        "teamId": "1",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "p3",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_1_p2_1",
+        "type": "penalty",
+        "period": 3,
+        "time": "5:15",
+        "teamId": "1",
+        "player": "p_1767082286306",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260816_1_g4",
+        "type": "goal",
+        "period": 3,
+        "time": "1:05",
+        "teamId": "1",
+        "player": "p_1767082323831",
+        "assist": "p_1767082310061",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_1_g5",
+        "type": "goal",
+        "period": 3,
+        "time": "14:43",
+        "teamId": "1",
+        "player": "p_1767082324693",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 27,
+        "goalsAgainst": 4,
+        "saves": 23
+      },
+      "awayGoalie": {
+        "playerId": "g1",
+        "shotsFaced": 12,
+        "goalsAgainst": 0,
+        "saves": 12
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p_alexandre_beaudry_178001",
+        "p_alexandre_stefanson_178002",
+        "p_vincent_belanger_178003",
+        "p_nicholas_giacalone_178004",
+        "p_maverick_bergeron_178005",
+        "p_sydina_gaye_178007",
+        "p_william_bilodeau_178008",
+        "p_joshua_sylvain",
+        "p_1773774484701",
+        "p_1773774609841",
+        "p_1773774610374",
+        "p_charles_etienne_sub"
+      ],
+      "awayPlayers": [
+        "p2",
+        "p_1767082310061",
+        "p3",
+        "p_1767082302464",
+        "p_1767082317648",
+        "p_1767082324693",
+        "p_1767082286306",
+        "p_1767082323831",
+        "p1",
+        "p_dylan_molinaro_sub"
+      ]
+    }
+  },
+  "g_20260816_2": {
+    "gameId": "g_20260816_2",
+    "events": [
+      {
+        "id": "e_g_20260816_2_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "7:54",
+        "teamId": "5",
+        "player": "p_maxime_lavoie",
+        "assist": "p_anthony_thibeault",
+        "assist2": "p_alexanne_boyer_sub",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_2_p1_1",
+        "type": "penalty",
+        "period": 2,
+        "time": "14:08",
+        "teamId": "5",
+        "player": "goalie_mathy_tessier",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260816_2_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "14:52",
+        "teamId": "2",
+        "player": "p_felix_ferland",
+        "assist": "p_1771962869757",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_2_p2_1",
+        "type": "penalty",
+        "period": 3,
+        "time": "4:50",
+        "teamId": "2",
+        "player": "p_1771962944635",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260816_2_g3",
+        "type": "goal",
+        "period": 3,
+        "time": "6:51",
+        "teamId": "2",
+        "player": "p_1771962945887",
+        "assist": "p_isaac_martel_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_2_g4",
+        "type": "goal",
+        "period": 3,
+        "time": "8:02",
+        "teamId": "2",
+        "player": "p_1771962945887",
+        "assist": "p_1771962869757",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260816_2_p3_1",
+        "type": "penalty",
+        "period": 3,
+        "time": "8:35",
+        "teamId": "5",
+        "player": "p_anthony_thibeault",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260816_2_g5",
+        "type": "goal",
+        "period": 3,
+        "time": "14:40",
+        "teamId": "5",
+        "player": "p_maxime_lavoie",
+        "assist": "p_mia_vaananen_sub",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_mathy_tessier",
+        "shotsFaced": 41,
+        "goalsAgainst": 3,
+        "saves": 38
+      },
+      "awayGoalie": {
+        "playerId": "goalie_nicolas_jubinville_sub",
+        "shotsFaced": 17,
+        "goalsAgainst": 2,
+        "saves": 15
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p_maxime_lavoie",
+        "p_shahin_ouest",
+        "p_xavier_leduc",
+        "p_xavier_ladouceur",
+        "p_anthony_thibeault",
+        "p_jules_gurky",
+        "p_mia_vaananen_sub",
+        "p_alexanne_boyer_sub",
+        "p_charles_rivest_sub"
+      ],
+      "awayPlayers": [
+        "p_1767082325178",
+        "p_1771962869757",
+        "p_1771962944635",
+        "p_1771962890109",
+        "p_1771962941457",
+        "p_1771962945887",
+        "p_kevin_murray_sub",
+        "p_felix_ferland",
+        "p_isaac_martel_sub"
+      ]
     }
   }
 };

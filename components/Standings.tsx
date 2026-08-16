@@ -45,7 +45,7 @@ const Standings: React.FC = () => {
     };
   }, [selectedPlayer, selectedGoalie]);
 
-  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_reg');
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_playoffs');
 
   const seasonsList = [
     { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
@@ -137,20 +137,34 @@ const Standings: React.FC = () => {
         }
       }
 
-      players.forEach(p => {
-        if (p.teamId === homeId || p.secondaryTeamIds?.includes(homeId)) {
-          if (playoffPlayersMap[p.id]) {
-            playoffPlayersMap[p.id].gp++;
-          }
-        }
-        if (p.teamId === awayId || p.secondaryTeamIds?.includes(awayId)) {
-          if (playoffPlayersMap[p.id]) {
-            playoffPlayersMap[p.id].gp++;
-          }
-        }
-      });
-
       const recap = gameRecaps[game.id];
+      if (recap?.roster) {
+        const homeAttendees = recap.roster.homePlayers || [];
+        const awayAttendees = recap.roster.awayPlayers || [];
+        homeAttendees.forEach(pid => {
+          if (playoffPlayersMap[pid]) {
+            playoffPlayersMap[pid].gp++;
+          }
+        });
+        awayAttendees.forEach(pid => {
+          if (playoffPlayersMap[pid]) {
+            playoffPlayersMap[pid].gp++;
+          }
+        });
+      } else {
+        players.forEach(p => {
+          if (p.teamId === homeId) {
+            if (playoffPlayersMap[p.id]) {
+              playoffPlayersMap[p.id].gp++;
+            }
+          }
+          if (p.teamId === awayId) {
+            if (playoffPlayersMap[p.id]) {
+              playoffPlayersMap[p.id].gp++;
+            }
+          }
+        });
+      }
       if (recap?.events) {
         recap.events.forEach(e => {
           if (e.type === 'goal') {
@@ -825,15 +839,6 @@ const Standings: React.FC = () => {
                       </div>
                     </th>
                     <th 
-                      className="px-3 py-3 text-center text-xs font-bold text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
-                      onClick={() => handleSort(pool1Sort, setPool1Sort, 'regWinPct')}
-                    >
-                      <div className="flex items-center justify-center">
-                        {t.standings.regWinPct || 'Reg. W%'}
-                        <SortIcon sort={pool1Sort} column="regWinPct" />
-                      </div>
-                    </th>
-                    <th 
                       className="px-3 py-3 text-center text-xs font-bold text-gray-400 uppercase tracking-tight cursor-pointer group hover:text-white"
                       onClick={() => handleSort(pool1Sort, setPool1Sort, 'gp')}
                     >
@@ -917,7 +922,7 @@ const Standings: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-700">
-                  {sortedPool1.map(({ regTeam, playoffTeam, seed, regWinPct }) => {
+                  {sortedPool1.map(({ regTeam, playoffTeam, seed }) => {
                     const diff = playoffTeam.goalsFor - playoffTeam.goalsAgainst;
                     const playWinPct = playoffTeam.gp > 0 ? (playoffTeam.wins / playoffTeam.gp) * 100 : 0;
                     return (
@@ -935,9 +940,6 @@ const Standings: React.FC = () => {
                             <span className="mr-2 text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>{getTeamInitial(regTeam.id)}</span>
                             <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
                           </button>
-                        </td>
-                        <td className="px-3 py-3 text-center text-xs font-black text-ng-light-blue bg-ng-light-blue/5">
-                          {(regWinPct * 100).toFixed(1)}%
                         </td>
                         <td className="px-3 py-3 text-center text-xs text-gray-300 font-bold">{playoffTeam.gp}</td>
                         <td className="px-3 py-3 text-center text-xs text-green-400 font-semibold">{playoffTeam.wins}</td>
@@ -993,15 +995,6 @@ const Standings: React.FC = () => {
                       <div className="flex items-center">
                         {t.standings.team}
                         <SortIcon sort={pool2Sort} column="name" />
-                      </div>
-                    </th>
-                    <th 
-                      className="px-3 py-3 text-center text-xs font-bold text-ng-light-blue uppercase tracking-tight cursor-pointer group hover:text-white"
-                      onClick={() => handleSort(pool2Sort, setPool2Sort, 'regWinPct')}
-                    >
-                      <div className="flex items-center justify-center">
-                        {t.standings.regWinPct || 'Reg. W%'}
-                        <SortIcon sort={pool2Sort} column="regWinPct" />
                       </div>
                     </th>
                     <th 
@@ -1088,7 +1081,7 @@ const Standings: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-700">
-                  {sortedPool2.map(({ regTeam, playoffTeam, seed, regWinPct }) => {
+                  {sortedPool2.map(({ regTeam, playoffTeam, seed }) => {
                     const diff = playoffTeam.goalsFor - playoffTeam.goalsAgainst;
                     const playWinPct = playoffTeam.gp > 0 ? (playoffTeam.wins / playoffTeam.gp) * 100 : 0;
                     return (
@@ -1106,9 +1099,6 @@ const Standings: React.FC = () => {
                             <span className="mr-2 text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>{getTeamInitial(regTeam.id)}</span>
                             <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
                           </button>
-                        </td>
-                        <td className="px-3 py-3 text-center text-xs font-black text-ng-light-blue bg-ng-light-blue/5">
-                          {(regWinPct * 100).toFixed(1)}%
                         </td>
                         <td className="px-3 py-3 text-center text-xs text-gray-300 font-bold">{playoffTeam.gp}</td>
                         <td className="px-3 py-3 text-center text-xs text-green-400 font-semibold">{playoffTeam.wins}</td>

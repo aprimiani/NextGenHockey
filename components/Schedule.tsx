@@ -11,7 +11,7 @@ const Schedule: React.FC = () => {
   const { schedule, teams, players, goalies, gameRecaps, loading } = useLeagueData();
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'scheduled' | 'played'>('scheduled');
-  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_reg');
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_playoffs');
 
   const seasonsList = [
     { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
