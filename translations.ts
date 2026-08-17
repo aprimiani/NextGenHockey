@@ -1189,10 +1189,17 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
     'elbowing': { en: 'Elbowing', fr: 'Donner du coude' },
     'donner du coude': { en: 'Elbowing', fr: 'Donner du coude' },
     
-    'mise en échec illégale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
-    'mise en echec illegale': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
+    'mise en échec illégale': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    'mise en echec illegale': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    'mise en échec illégal': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    'mise en echec illegal': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    'mise en échec': { en: 'Body check', fr: 'Mise en échec' },
+    'mise en echec': { en: 'Body check', fr: 'Mise en échec' },
     'illegal body check': { en: 'Illegal body check', fr: 'Mise en échec illégale' },
     'illegal check': { en: 'Illegal check', fr: 'Mise en échec illégale' },
+    'illegal hit': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    '10min illegal hit': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
+    '10 min illegal hit': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
     'slash': { en: 'Slashing', fr: 'Coup de bâton' },
     'powerplay': { en: 'Powerplay', fr: 'Avantage numérique' },
     'coup à la tête': { en: 'Head contact', fr: 'Coup à la tête' },
@@ -1256,6 +1263,7 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
       .replace(/elbowing/gi, 'donner du coude')
       .replace(/illegal body check/gi, 'mise en échec illégale')
       .replace(/illegal check/gi, 'mise en échec illégale')
+      .replace(/illegal hit/gi, 'mise en échec illégale')
       .replace(/minor/gi, 'mineure')
       .replace(/major/gi, 'majeure')
       .replace(/fighting/gi, 'bagarre')
