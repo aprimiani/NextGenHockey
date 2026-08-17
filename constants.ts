@@ -1043,9 +1043,6 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1767082325178",
     "name": "Alexandre Marchand",
     "teamId": "2",
-    "secondaryTeamIds": [
-      "t_1775579370484"
-    ],
     "gp": 8,
     "goals": 3,
     "assists": 6,
