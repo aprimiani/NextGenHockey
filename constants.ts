@@ -756,7 +756,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260830_1",
     "date": "2026-08-30",
-    "time": "16:00",
+    "time": "15:00",
     "homeTeamId": "6",
     "awayTeamId": "5",
     "location": "Sportium",
@@ -768,7 +768,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260830_2",
     "date": "2026-08-30",
-    "time": "17:00",
+    "time": "16:00",
     "homeTeamId": "3",
     "awayTeamId": "t_1775579370484",
     "location": "Sportium",
@@ -780,7 +780,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260830_3",
     "date": "2026-08-30",
-    "time": "18:00",
+    "time": "17:00",
     "homeTeamId": "2",
     "awayTeamId": "1",
     "location": "Sportium",
@@ -792,7 +792,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260830_4",
     "date": "2026-08-30",
-    "time": "19:00",
+    "time": "18:00",
     "homeTeamId": "4",
     "awayTeamId": "t_1775579415800",
     "location": "Sportium",
@@ -816,7 +816,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260906_2",
     "date": "2026-09-06",
-    "time": "17:20",
+    "time": "17:00",
     "homeTeamId": "pool_b_1st",
     "awayTeamId": "pool_a_2nd",
     "location": "Sportium",
@@ -828,7 +828,7 @@ export const SCHEDULE: Game[] = [
   {
     "id": "g_20260906_3",
     "date": "2026-09-06",
-    "time": "18:30",
+    "time": "18:00",
     "homeTeamId": "winner_semi_1",
     "awayTeamId": "winner_semi_2",
     "location": "Sportium",
