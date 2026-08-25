@@ -9361,7 +9361,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "teamId": "2",
         "player": "p_1772917092637",
         "assist": "p_1771962944635",
-        "assist2": "",
+        "assist2": "p_1771962869757",
         "details": ""
       },
       {
