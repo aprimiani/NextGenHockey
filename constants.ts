@@ -704,10 +704,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "6",
     "awayTeamId": "2",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 2",
-    "playoffRoundFr": "Matchs 2"
+    "playoffRoundFr": "Matchs 2",
+    "homeScore": 0,
+    "awayScore": 7
   },
   {
     "id": "g_20260823_2",
@@ -716,10 +718,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "t_1775579415800",
     "awayTeamId": "3",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 2",
-    "playoffRoundFr": "Matchs 2"
+    "playoffRoundFr": "Matchs 2",
+    "homeScore": 3,
+    "awayScore": 4
   },
   {
     "id": "g_20260823_3",
@@ -728,10 +732,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "4",
     "awayTeamId": "t_1775579370484",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 2",
-    "playoffRoundFr": "Matchs 2"
+    "playoffRoundFr": "Matchs 2",
+    "homeScore": 10,
+    "awayScore": 1
   },
   {
     "id": "g_20260823_4",
@@ -740,10 +746,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "1",
     "awayTeamId": "5",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Games 2",
-    "playoffRoundFr": "Matchs 2"
+    "playoffRoundFr": "Matchs 2",
+    "homeScore": 7,
+    "awayScore": 2
   },
   {
     "id": "g_20260830_1",
@@ -2733,6 +2741,15 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 1,
     "assists": 0,
     "points": 1
+  },
+  {
+    "id": "p_michael_grenier",
+    "name": "Michael Grenier",
+    "teamId": "t_1775579415800",
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   },
   {
     "id": "w_p_antoine_perreault",
@@ -9320,6 +9337,629 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1772917093420",
         "p_1772917204934",
         "p_1772917204341"
+      ]
+    }
+  },
+  "g_20260823_1": {
+    "gameId": "g_20260823_1",
+    "events": [
+      {
+        "id": "e_g_20260823_1_p1_1",
+        "type": "penalty",
+        "period": 1,
+        "time": "0:00",
+        "teamId": "2",
+        "player": "goalie_1771963002603",
+        "details": "Delay of game",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_1_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "7:25",
+        "teamId": "2",
+        "player": "p_1772917092637",
+        "assist": "p_1771962944635",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "9:02",
+        "teamId": "2",
+        "player": "p_1771962869757",
+        "assist": "p_1767082325178",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "10:45",
+        "teamId": "2",
+        "player": "p_1773774484701",
+        "assist": "p_1775579856558",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g4",
+        "type": "goal",
+        "period": 3,
+        "time": "4:52",
+        "teamId": "2",
+        "player": "p_1775579856558",
+        "assist": "p_1767082325178",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g5",
+        "type": "goal",
+        "period": 3,
+        "time": "8:25",
+        "teamId": "2",
+        "player": "p_1771962869757",
+        "assist": "p_1773774610374",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "14:25",
+        "teamId": "2",
+        "player": "p_1771962869757",
+        "assist": "p_1773774610374",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_1_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "14:38",
+        "teamId": "2",
+        "player": "p_1771962869757",
+        "assist": "p_1775579856558",
+        "assist2": "p_1771962944635",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 38,
+        "goalsAgainst": 7,
+        "saves": 31
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1771963002603",
+        "shotsFaced": 20,
+        "goalsAgainst": 0,
+        "saves": 20
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p3",
+        "p_alexandre_beaudry_178001",
+        "p_alexandre_stefanson_178002",
+        "p_nicholas_giacalone_178004",
+        "p_sydina_gaye_178007",
+        "p_william_bilodeau_178008",
+        "p_joshua_sylvain",
+        "p2",
+        "p_dylan_molinaro_sub",
+        "p_william_malmedy_sub"
+      ],
+      "awayPlayers": [
+        "p_1767082325178",
+        "p_1771962869757",
+        "p_1771962942416",
+        "p_1771962944635",
+        "p_1771962890109",
+        "p_1771962941457",
+        "p1",
+        "p_1773774484701",
+        "p_1773774610374",
+        "p_1772917092637",
+        "p_1775579856558"
+      ]
+    }
+  },
+  "g_20260823_2": {
+    "gameId": "g_20260823_2",
+    "events": [
+      {
+        "id": "e_g_20260823_2_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "11:15",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591152854",
+        "assist": "p_davin_lee_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "12:15",
+        "teamId": "t_1775579415800",
+        "player": "p_1775591152854",
+        "assist": "p_1775591027128",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "5:45",
+        "teamId": "t_1775579415800",
+        "player": "p_1773774484701",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_p1_1",
+        "type": "penalty",
+        "period": 2,
+        "time": "6:55",
+        "teamId": "3",
+        "player": "p_1772917089971",
+        "details": "Slashing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_2_p2_1",
+        "type": "penalty",
+        "period": 2,
+        "time": "9:35",
+        "teamId": "3",
+        "player": "p_1772917204934",
+        "details": "Cross checking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_2_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "11:15",
+        "teamId": "3",
+        "player": "p_1772917094310",
+        "assist": "p_1772917065337",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_g5",
+        "type": "goal",
+        "period": 3,
+        "time": "3:45",
+        "teamId": "3",
+        "player": "p_1772917089971",
+        "assist": "p_1772917092637",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "5:48",
+        "teamId": "3",
+        "player": "p_1772917204341",
+        "assist": "p_1772917204934",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_2_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "11:45",
+        "teamId": "3",
+        "player": "p_1772917092637",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1773774693729",
+        "shotsFaced": 25,
+        "goalsAgainst": 4,
+        "saves": 21
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1776783555439",
+        "shotsFaced": 24,
+        "goalsAgainst": 3,
+        "saves": 21
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p_1775591152854",
+        "p_1775591027128",
+        "p_1775591029324",
+        "p_1775591101053",
+        "p_1775591028160",
+        "p2",
+        "p_davin_lee_sub",
+        "p_1773774610374",
+        "p_1773774484701",
+        "p_michael_grenier"
+      ],
+      "awayPlayers": [
+        "p_1772917065337",
+        "p_1772917091771",
+        "p_1772917089971",
+        "p_1772917094310",
+        "p_1772917205487",
+        "p_1772917089084",
+        "p_1772917090874",
+        "p_1772917092637",
+        "p_1772917093420",
+        "p_1772917204934",
+        "p_1772917204341"
+      ]
+    }
+  },
+  "g_20260823_3": {
+    "gameId": "g_20260823_3",
+    "events": [
+      {
+        "id": "e_g_20260823_3_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "4:55",
+        "teamId": "4",
+        "player": "p_1773774483853",
+        "assist": "p_1773774486160",
+        "assist2": "p_1773774313607",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "11:48",
+        "teamId": "4",
+        "player": "p_1773774486881",
+        "assist": "p_1773774485424",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:55",
+        "teamId": "4",
+        "player": "p_1773774488345",
+        "assist": "p_1773774483853",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_p1_1",
+        "type": "penalty",
+        "period": 2,
+        "time": "1:07",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_3_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "11:27",
+        "teamId": "t_1775579370484",
+        "player": "p_1775579856558",
+        "assist": "p_mathis_maurice_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "12:00",
+        "teamId": "4",
+        "player": "p_1773774485424",
+        "assist": "p_1773774486160",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "12:28",
+        "teamId": "4",
+        "player": "p_1773774485424",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g7",
+        "type": "goal",
+        "period": 2,
+        "time": "13:55",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "assist": "p_1773774486160",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "1:55",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "assist": "p_1773774488345",
+        "assist2": "p_1773774483853",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "2:25",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "assist": "p_1773774610374",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_p2_1",
+        "type": "penalty",
+        "period": 3,
+        "time": "4:30",
+        "teamId": "4",
+        "player": "p_1773774485424",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_3_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "5:15",
+        "teamId": "4",
+        "player": "p_1773774486160",
+        "assist": "p_1773774486881",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_3_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "6:25",
+        "teamId": "4",
+        "player": "p_1773774486160",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1773774693729",
+        "shotsFaced": 24,
+        "goalsAgainst": 1,
+        "saves": 23
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 32,
+        "goalsAgainst": 10,
+        "saves": 22
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p_1773774313607",
+        "p_1773774487631",
+        "p_1773774484701",
+        "p_1773774488345",
+        "p_1773774483853",
+        "p_1773774486881",
+        "p_1773774610374",
+        "p_1773774609841",
+        "p_1773774489039",
+        "p_1773774485424",
+        "p_1773774486160",
+        "p_1778475248942"
+      ],
+      "awayPlayers": [
+        "p_1775582149892",
+        "p_1775579857302",
+        "p_1775579856558",
+        "p_1775580097968",
+        "p_1775579857978",
+        "p_1775579861062",
+        "p_1775579861768",
+        "p_1775579860292",
+        "p_1775579859505",
+        "p_1775579858742",
+        "p_mathis_maurice_sub",
+        "p_christopher_hebert"
+      ]
+    }
+  },
+  "g_20260823_4": {
+    "gameId": "g_20260823_4",
+    "events": [
+      {
+        "id": "e_g_20260823_4_p1_1",
+        "type": "penalty",
+        "period": 1,
+        "time": "6:02",
+        "teamId": "1",
+        "player": "p_1767082310061",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260823_4_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "8:35",
+        "teamId": "5",
+        "player": "p_maxime_lavoie",
+        "assist": "p_michael_stejmann_sub",
+        "assist2": "p_alexis_lachance",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "13:05",
+        "teamId": "1",
+        "player": "p_1773774483853",
+        "assist": "p_1767082323831",
+        "assist2": "p2",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "2:35",
+        "teamId": "1",
+        "player": "p_1773774483853",
+        "assist": "p_1767082323831",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "4:35",
+        "teamId": "5",
+        "player": "p_maxime_lavoie",
+        "assist": "p_alexis_lachance",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "12:35",
+        "teamId": "1",
+        "player": "p_1767082317648",
+        "assist": "p_xavier_lussier",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "13:55",
+        "teamId": "1",
+        "player": "p1",
+        "assist": "p_1767082302464",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "2:55",
+        "teamId": "1",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "p_xavier_lussier",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "8:02",
+        "teamId": "1",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260823_4_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "9:22",
+        "teamId": "1",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "p_1767082317648",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 23,
+        "goalsAgainst": 2,
+        "saves": 21
+      },
+      "awayGoalie": {
+        "playerId": "goalie_mathy_tessier",
+        "shotsFaced": 29,
+        "goalsAgainst": 7,
+        "saves": 22
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p2",
+        "p_1767082310061",
+        "p3",
+        "p_1767082302464",
+        "p_1767082317648",
+        "p_1767082323831",
+        "p1",
+        "p_dylan_molinaro_sub",
+        "p_xavier_lussier",
+        "p_1773774483853"
+      ],
+      "awayPlayers": [
+        "p_1775579857302",
+        "p_louis_charle_lavoie",
+        "p_maxime_lavoie",
+        "p_shahin_ouest",
+        "p_alexis_lachance",
+        "p_xavier_leduc",
+        "p_xavier_ladouceur",
+        "p_anthony_thibeault",
+        "p_jules_gurky",
+        "p_michael_stejmann_sub",
+        "p_alexanne_boyer_sub",
+        "p_charles_rivest_sub",
+        "p_1778475248942"
       ]
     }
   }

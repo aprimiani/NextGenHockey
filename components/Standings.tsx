@@ -444,7 +444,11 @@ const Standings: React.FC = () => {
   if (teamSort.key === 'points') {
     sortedTeams.sort((a, b) => {
       if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
-      return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+      if (b.wins !== a.wins) return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+      const diffA = a.goalsFor - a.goalsAgainst;
+      const diffB = b.goalsFor - b.goalsAgainst;
+      if (diffB !== diffA) return teamSort.dir === 'asc' ? diffA - diffB : diffB - diffA;
+      return teamSort.dir === 'asc' ? a.goalsFor - b.goalsFor : b.goalsFor - a.goalsFor;
     });
   } else if (teamSort.key === 'winPct') {
     sortedTeams.sort((a, b) => {
@@ -452,7 +456,11 @@ const Standings: React.FC = () => {
       const winPctB = b.gp > 0 ? b.wins / b.gp : 0;
       if (winPctA !== winPctB) return teamSort.dir === 'asc' ? winPctA - winPctB : winPctB - winPctA;
       if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
-      return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+      if (b.wins !== a.wins) return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
+      const diffA = a.goalsFor - a.goalsAgainst;
+      const diffB = b.goalsFor - b.goalsAgainst;
+      if (diffB !== diffA) return teamSort.dir === 'asc' ? diffA - diffB : diffB - diffA;
+      return teamSort.dir === 'asc' ? a.goalsFor - b.goalsFor : b.goalsFor - a.goalsFor;
     });
   }
 
@@ -565,9 +573,41 @@ const Standings: React.FC = () => {
         return sort.dir === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
       }
 
+      if (sort.key === 'points') {
+        if (b.playoffTeam.points !== a.playoffTeam.points) {
+          return sort.dir === 'asc' ? a.playoffTeam.points - b.playoffTeam.points : b.playoffTeam.points - a.playoffTeam.points;
+        }
+        // Tiebreaker 1: Wins
+        if (b.playoffTeam.wins !== a.playoffTeam.wins) {
+          return sort.dir === 'asc' ? a.playoffTeam.wins - b.playoffTeam.wins : b.playoffTeam.wins - a.playoffTeam.wins;
+        }
+        // Tiebreaker 2: Goal differential
+        const diffA = a.playoffTeam.goalsFor - a.playoffTeam.goalsAgainst;
+        const diffB = b.playoffTeam.goalsFor - b.playoffTeam.goalsAgainst;
+        if (diffB !== diffA) {
+          return sort.dir === 'asc' ? diffA - diffB : diffB - diffA;
+        }
+        // Tiebreaker 3: Goals For
+        if (b.playoffTeam.goalsFor !== a.playoffTeam.goalsFor) {
+          return sort.dir === 'asc' ? a.playoffTeam.goalsFor - b.playoffTeam.goalsFor : b.playoffTeam.goalsFor - a.playoffTeam.goalsFor;
+        }
+        return a.seed - b.seed;
+      }
+
       if (valA === valB) {
         if (b.playoffTeam.points !== a.playoffTeam.points) {
           return b.playoffTeam.points - a.playoffTeam.points;
+        }
+        if (b.playoffTeam.wins !== a.playoffTeam.wins) {
+          return b.playoffTeam.wins - a.playoffTeam.wins;
+        }
+        const diffA = a.playoffTeam.goalsFor - a.playoffTeam.goalsAgainst;
+        const diffB = b.playoffTeam.goalsFor - b.playoffTeam.goalsAgainst;
+        if (diffB !== diffA) {
+          return diffB - diffA;
+        }
+        if (b.playoffTeam.goalsFor !== a.playoffTeam.goalsFor) {
+          return b.playoffTeam.goalsFor - a.playoffTeam.goalsFor;
         }
         return a.seed - b.seed;
       }
