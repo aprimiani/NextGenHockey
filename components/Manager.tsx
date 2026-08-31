@@ -289,32 +289,34 @@ const Manager: React.FC = () => {
           });
           
           // 5. Process Goalie Stats
-          const hGoalie = newGoalies.find(g => g.id === recap.goalieStats.homeGoalie.playerId);
-          const aGoalie = newGoalies.find(g => g.id === recap.goalieStats.awayGoalie.playerId);
+          if (recap.goalieStats) {
+            const hGoalie = recap.goalieStats.homeGoalie ? newGoalies.find(g => g.id === recap.goalieStats?.homeGoalie?.playerId) : undefined;
+            const aGoalie = recap.goalieStats.awayGoalie ? newGoalies.find(g => g.id === recap.goalieStats?.awayGoalie?.playerId) : undefined;
 
-          if (hGoalie) {
-            hGoalie.gp++;
-            hGoalie.shotsAgainst += recap.goalieStats.homeGoalie.shotsFaced;
-            hGoalie.goalsAgainst += recap.goalieStats.homeGoalie.goalsAgainst;
-            hGoalie.saves += recap.goalieStats.homeGoalie.saves;
-            if (recap.goalieStats.homeGoalie.goalsAgainst === 0) {
-              hGoalie.shutouts = (hGoalie.shutouts || 0) + 1;
+            if (hGoalie && recap.goalieStats.homeGoalie) {
+              hGoalie.gp++;
+              hGoalie.shotsAgainst += recap.goalieStats.homeGoalie.shotsFaced || 0;
+              hGoalie.goalsAgainst += recap.goalieStats.homeGoalie.goalsAgainst || 0;
+              hGoalie.saves += recap.goalieStats.homeGoalie.saves || 0;
+              if (recap.goalieStats.homeGoalie.goalsAgainst === 0 && (recap.goalieStats.homeGoalie.shotsFaced || 0) > 0) {
+                hGoalie.shutouts = (hGoalie.shutouts || 0) + 1;
+              }
+              if (homeScore > awayScore) hGoalie.wins++;
+              else if (homeScore < awayScore) hGoalie.losses++;
+              else hGoalie.draws++;
             }
-            if (homeScore > awayScore) hGoalie.wins++;
-            else if (homeScore < awayScore) hGoalie.losses++;
-            else hGoalie.draws++;
-          }
-          if (aGoalie) {
-            aGoalie.gp++;
-            aGoalie.shotsAgainst += recap.goalieStats.awayGoalie.shotsFaced;
-            aGoalie.goalsAgainst += recap.goalieStats.awayGoalie.goalsAgainst;
-            aGoalie.saves += recap.goalieStats.awayGoalie.saves;
-            if (recap.goalieStats.awayGoalie.goalsAgainst === 0) {
-              aGoalie.shutouts = (aGoalie.shutouts || 0) + 1;
+            if (aGoalie && recap.goalieStats.awayGoalie) {
+              aGoalie.gp++;
+              aGoalie.shotsAgainst += recap.goalieStats.awayGoalie.shotsFaced || 0;
+              aGoalie.goalsAgainst += recap.goalieStats.awayGoalie.goalsAgainst || 0;
+              aGoalie.saves += recap.goalieStats.awayGoalie.saves || 0;
+              if (recap.goalieStats.awayGoalie.goalsAgainst === 0 && (recap.goalieStats.awayGoalie.shotsFaced || 0) > 0) {
+                aGoalie.shutouts = (aGoalie.shutouts || 0) + 1;
+              }
+              if (awayScore > homeScore) aGoalie.wins++;
+              else if (awayScore < homeScore) aGoalie.losses++;
+              else aGoalie.draws++;
             }
-            if (awayScore > homeScore) aGoalie.wins++;
-            else if (awayScore < homeScore) aGoalie.losses++;
-            else aGoalie.draws++;
           }
         }
       }
@@ -379,7 +381,14 @@ const Manager: React.FC = () => {
       const current = prev[editingRecapId];
       const updated = { ...current };
       if (field === 'goalieStats') {
-        updated.goalieStats[subField as 'homeGoalie' | 'awayGoalie'] = { ...updated.goalieStats[subField as 'homeGoalie' | 'awayGoalie'], ...value };
+        const currentGoalieStats = updated.goalieStats || {};
+        updated.goalieStats = {
+          ...currentGoalieStats,
+          [subField as 'homeGoalie' | 'awayGoalie']: {
+            ...(currentGoalieStats[subField as 'homeGoalie' | 'awayGoalie'] || { playerId: '', shotsFaced: 0, goalsAgainst: 0, saves: 0 }),
+            ...value
+          }
+        };
       }
       return { ...prev, [editingRecapId]: updated };
     });
@@ -679,7 +688,7 @@ const Manager: React.FC = () => {
                   {['homeGoalie', 'awayGoalie'].map((side) => {
                     const teamId = side === 'homeGoalie' ? schedule.find(g => g.id === editingRecapId)?.homeTeamId : schedule.find(g => g.id === editingRecapId)?.awayTeamId;
                     const teamGoalies = goalies.filter(g => g.teamId === teamId);
-                    const stats = (gameRecaps[editingRecapId].goalieStats as any)[side];
+                    const stats = (gameRecaps[editingRecapId]?.goalieStats as any)?.[side] || { playerId: '', shotsFaced: 0, goalsAgainst: 0, saves: 0 };
                     const svPct = stats.shotsFaced > 0 ? (stats.saves / stats.shotsFaced).toFixed(3) : '.000';
 
                     return (

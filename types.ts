@@ -97,14 +97,14 @@ export interface GameEvent {
 export interface GameRecapData {
   gameId: string;
   events: GameEvent[];
-  goalieStats: {
-    homeGoalie: { 
+  goalieStats?: {
+    homeGoalie?: { 
       playerId: string; 
       shotsFaced: number; 
       goalsAgainst: number; 
       saves: number; // Calculated
     };
-    awayGoalie: { 
+    awayGoalie?: { 
       playerId: string; 
       shotsFaced: number; 
       goalsAgainst: number; 

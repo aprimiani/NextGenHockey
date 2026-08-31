@@ -199,7 +199,7 @@ const Standings: React.FC = () => {
           } else {
             g.draws++;
           }
-          if ((homeGoalie.goalsAgainst || 0) === 0) {
+          if ((homeGoalie.goalsAgainst || 0) === 0 && (homeGoalie.shotsFaced || 0) > 0) {
             g.shutouts = (g.shutouts || 0) + 1;
           }
         }
@@ -217,7 +217,7 @@ const Standings: React.FC = () => {
           } else {
             g.draws++;
           }
-          if ((awayGoalie.goalsAgainst || 0) === 0) {
+          if ((awayGoalie.goalsAgainst || 0) === 0 && (awayGoalie.shotsFaced || 0) > 0) {
             g.shutouts = (g.shutouts || 0) + 1;
           }
         }
@@ -305,19 +305,21 @@ const Standings: React.FC = () => {
             const isHomeG = recap.goalieStats.homeGoalie?.playerId === g.id;
             const isAwayG = recap.goalieStats.awayGoalie?.playerId === g.id;
             if (isHomeG || isAwayG) {
-              gp++;
               const stats = isHomeG ? recap.goalieStats.homeGoalie : recap.goalieStats.awayGoalie;
-              shotsAgainst += stats.shotsFaced || 0;
-              goalsAgainst += stats.goalsAgainst || 0;
-              saves += stats.saves || 0;
-              const myScore = isHomeG ? gm.homeScore : gm.awayScore;
-              const oppScore = isHomeG ? gm.awayScore : gm.homeScore;
-              if (myScore !== undefined && oppScore !== undefined) {
-                if (myScore > oppScore) wins++;
-                else if (myScore < oppScore) losses++;
-                else draws++;
+              if (stats) {
+                gp++;
+                shotsAgainst += stats.shotsFaced || 0;
+                goalsAgainst += stats.goalsAgainst || 0;
+                saves += stats.saves || 0;
+                const myScore = isHomeG ? gm.homeScore : gm.awayScore;
+                const oppScore = isHomeG ? gm.awayScore : gm.homeScore;
+                if (myScore !== undefined && oppScore !== undefined) {
+                  if (myScore > oppScore) wins++;
+                  else if (myScore < oppScore) losses++;
+                  else draws++;
+                }
+                if ((stats.goalsAgainst || 0) === 0 && (stats.shotsFaced || 0) > 0) shutouts++;
               }
-              if ((stats.goalsAgainst || 0) === 0) shutouts++;
             }
           }
         });
@@ -2334,7 +2336,7 @@ const Standings: React.FC = () => {
         const goalieLogs = goalieGames.map(g => {
           const recap = gameRecaps[g.id];
           const isHome = recap.goalieStats?.homeGoalie?.playerId && playerIdList.includes(recap.goalieStats.homeGoalie.playerId);
-          const stats = isHome ? recap.goalieStats.homeGoalie : recap.goalieStats.awayGoalie;
+          const stats = isHome ? recap.goalieStats?.homeGoalie : recap.goalieStats?.awayGoalie;
           
           const opponentTeamId = isHome ? g.awayTeamId : g.homeTeamId;
           const myTeamId = isHome ? g.homeTeamId : g.awayTeamId;

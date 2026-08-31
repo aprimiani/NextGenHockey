@@ -375,7 +375,8 @@ const Schedule: React.FC = () => {
                   </div>
                 )}
 
-                <div>
+                {selectedRecap.goalieStats && (selectedRecap.goalieStats.homeGoalie || selectedRecap.goalieStats.awayGoalie) && (
+                  <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.goalieStats}</h3>
                     <div className="space-y-4">
                         {/* Mobile view: Cards */}
@@ -384,7 +385,8 @@ const Schedule: React.FC = () => {
                                 { side: 'homeGoalie', teamId: game.homeTeamId },
                                 { side: 'awayGoalie', teamId: game.awayTeamId }
                             ].map(({ side, teamId }) => {
-                                const stats = (selectedRecap.goalieStats as any)[side];
+                                const stats = (selectedRecap.goalieStats as any)?.[side];
+                                if (!stats) return null;
                                 const svPct = stats.shotsFaced > 0 
                                     ? (stats.saves / stats.shotsFaced).toFixed(3) 
                                     : '.000';
@@ -404,15 +406,15 @@ const Schedule: React.FC = () => {
                                         <div className="grid grid-cols-4 gap-2 text-center">
                                             <div className="flex flex-col">
                                                 <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.shotsAgainst}</span>
-                                                <span className="text-gray-300 font-mono text-sm">{stats.shotsFaced}</span>
+                                                <span className="text-gray-300 font-mono text-sm">{stats.shotsFaced || 0}</span>
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.goalsAgainstShort}</span>
-                                                <span className="text-gray-300 font-mono text-sm">{stats.goalsAgainst}</span>
+                                                <span className="text-gray-300 font-mono text-sm">{stats.goalsAgainst || 0}</span>
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.schedule.saves.substring(0, 3)}</span>
-                                                <span className="text-ng-light-blue font-mono text-sm font-bold">{stats.saves}</span>
+                                                <span className="text-ng-light-blue font-mono text-sm font-bold">{stats.saves || 0}</span>
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-1">{t.standings.svPct}</span>
@@ -442,7 +444,8 @@ const Schedule: React.FC = () => {
                                         { side: 'homeGoalie', teamId: game.homeTeamId },
                                         { side: 'awayGoalie', teamId: game.awayTeamId }
                                     ].map(({ side, teamId }) => {
-                                        const stats = (selectedRecap.goalieStats as any)[side];
+                                        const stats = (selectedRecap.goalieStats as any)?.[side];
+                                        if (!stats) return null;
                                         return (
                                             <tr key={side} className="hover:bg-white/5 transition-colors">
                                                 <td className="px-6 py-4 whitespace-nowrap">
@@ -452,9 +455,9 @@ const Schedule: React.FC = () => {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-white">{getGoalieName(stats.playerId)}</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.shotsFaced}</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.goalsAgainst}</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-ng-light-blue font-mono font-bold">{stats.saves}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.shotsFaced || 0}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-300 font-mono">{stats.goalsAgainst || 0}</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-ng-light-blue font-mono font-bold">{stats.saves || 0}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-yellow-500 font-mono font-bold">
                                                     {stats.shotsFaced > 0 
                                                         ? (stats.saves / stats.shotsFaced).toFixed(3) 
@@ -467,7 +470,8 @@ const Schedule: React.FC = () => {
                             </table>
                         </div>
                     </div>
-                 </div>
+                  </div>
+                )}
             </div>
         </div>
       </div>
