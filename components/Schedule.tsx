@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
-import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translatePenalty } from '../translations';
 
@@ -11,12 +11,12 @@ const Schedule: React.FC = () => {
   const { schedule, teams, players, goalies, gameRecaps, loading } = useLeagueData();
   const [selectedGameId, setSelectedGameId] = useState<string | null>(null);
   const [filter, setFilter] = useState<'scheduled' | 'played'>('scheduled');
-  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_playoffs');
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('winter_2026_2027');
 
   const seasonsList = [
-    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
-    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
     { id: 'winter_2026_2027', label: language === 'fr' ? "Saison d'Hiver 2026-2027" : 'Winter Season 2026-2027' },
+    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
+    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
   ] as const;
 
   useEffect(() => {
@@ -29,6 +29,16 @@ const Schedule: React.FC = () => {
         setFilter('played');
       } else if (game?.status === 'scheduled') {
         setFilter('scheduled');
+      }
+
+      if (game) {
+        if (game.homeTeamId.startsWith('w_') || game.awayTeamId.startsWith('w_')) {
+          setSelectedSeason('winter_2026_2027');
+        } else if (game.isPlayoff) {
+          setSelectedSeason('summer_2026_playoffs');
+        } else {
+          setSelectedSeason('summer_2026_reg');
+        }
       }
     }
   }, [location.state, schedule]);
@@ -142,12 +152,27 @@ const Schedule: React.FC = () => {
     } catch (e) { return dateString; }
   };
 
-  // If initial load and no upcoming games, default to results
+  // Automatically select the appropriate tab (Upcoming vs Results) when switching seasons
   React.useEffect(() => {
-    if (schedule.length > 0 && schedule.filter(g => g.status === 'scheduled').length === 0) {
-      setFilter('played');
+    if (schedule.length > 0) {
+      let seasonGames = schedule;
+      if (selectedSeason === 'summer_2026_reg') {
+        seasonGames = schedule.filter(g => !g.isPlayoff && !g.homeTeamId.startsWith('w_'));
+      } else if (selectedSeason === 'summer_2026_playoffs') {
+        seasonGames = schedule.filter(g => g.isPlayoff && !g.homeTeamId.startsWith('w_'));
+      } else if (selectedSeason === 'winter_2026_2027') {
+        seasonGames = schedule.filter(g => g.homeTeamId.startsWith('w_') || g.awayTeamId.startsWith('w_'));
+      }
+
+      const hasScheduled = seasonGames.some(g => g.status === 'scheduled');
+      const hasPlayed = seasonGames.some(g => g.status === 'played');
+      if (!hasScheduled && hasPlayed) {
+        setFilter('played');
+      } else if (hasScheduled && !hasPlayed) {
+        setFilter('scheduled');
+      }
     }
-  }, [schedule]);
+  }, [schedule, selectedSeason]);
 
   if (loading) return <div className="flex justify-center items-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-ng-light-blue"></div></div>;
 
@@ -242,6 +267,17 @@ const Schedule: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button onClick={() => setSelectedGameId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs"><ArrowLeft className="mr-2" size={20} />{t.schedule.backToSchedule}</button>
         <div className="bg-ng-blue/30 rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
+            {game.id === 'g_20260906_3' && (
+              <div className="bg-gradient-to-r from-amber-500/30 via-yellow-500/20 to-amber-500/30 border-b border-amber-500/40 py-3 px-6 text-center flex flex-wrap items-center justify-center gap-3">
+                <Trophy className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
+                <span className="text-amber-300 text-xs sm:text-sm font-black uppercase tracking-widest font-display">
+                  {language === 'fr' 
+                    ? '🏆 GRANDE FINALE — MILF HUNTERS COURONNÉS CHAMPIONS ÉTÉ 2026! 🏆' 
+                    : '🏆 GRAND FINALS — MILF HUNTERS CROWNED SUMMER 2026 CHAMPIONS! 🏆'}
+                </span>
+                <Trophy className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
+              </div>
+            )}
             <div className="bg-ng-navy p-6 border-b border-gray-700 text-center">
                 <h2 className="text-2xl font-bold text-white mb-2">{t.schedule.gameRecap}</h2>
                 <div className="flex items-center justify-center space-x-8">
@@ -534,6 +570,45 @@ const Schedule: React.FC = () => {
         </div>
       </div>
 
+      {/* Summer 2026 Champions Celebration Banner - Compact & Visible across all seasons */}
+      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-slate-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500/0 via-amber-400/80 to-amber-500/0" />
+        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 w-full sm:w-auto text-left">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-500 p-0.5 shadow-md shadow-amber-500/25 shrink-0">
+              <div className="w-full h-full bg-ng-navy rounded-[10px] flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-amber-400 animate-bounce" />
+              </div>
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-black uppercase tracking-wider mb-0.5">
+                <Sparkles size={11} className="text-yellow-400 shrink-0" />
+                <span>{language === 'fr' ? 'Champions Séries Été 2026' : 'Summer 2026 Playoff Champions'}</span>
+              </div>
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-sm sm:text-base font-black uppercase italic tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-400 font-display">
+                  Milf Hunters
+                </span>
+                <span className="text-gray-400 text-xs hidden sm:inline">
+                  {language === 'fr' ? '— Grande Finale (8-2 vs Red Light)' : '— Grand Finals (8-2 vs Red Light)'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => {
+              setSelectedSeason('summer_2026_playoffs');
+              setSelectedGameId('g_20260906_3');
+            }}
+            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-ng-navy font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
+          >
+            <Trophy size={13} />
+            <span>{language === 'fr' ? 'Voir Résumé Finale' : 'View Finals Recap'}</span>
+          </button>
+        </div>
+      </div>
+
       <div className="grid gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom duration-500">
         {filteredGames.length > 0 ? (
           filteredGames.map((game) => {
@@ -613,9 +688,19 @@ const Schedule: React.FC = () => {
                     <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.awayTeamId)}>
                       {getTeamInitial(game.awayTeamId)}
                     </span>
-                    <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
-                      {renderTeamName(game.awayTeamId)}
-                    </span>
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
+                          {renderTeamName(game.awayTeamId)}
+                        </span>
+                        {game.id === 'g_20260906_3' && (
+                          <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-black uppercase text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 rounded-full shadow-md animate-pulse shrink-0">
+                            <Trophy size={11} className="text-amber-400" />
+                            <span>{language === 'fr' ? 'Champions' : 'Champions'}</span>
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
 

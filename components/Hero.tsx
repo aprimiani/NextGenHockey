@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Shield, DollarSign, Heart, Sparkles } from 'lucide-react';
+import { Shield, DollarSign, Heart, Sparkles, Trophy } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Hero: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <div className="relative overflow-hidden">
@@ -14,8 +14,17 @@ const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-32">
         
-        {/* Social Media Promo Ribbon */}
-        <div className="flex justify-center lg:justify-start mb-8 animate-in fade-in slide-in-from-top duration-1000">
+        {/* Champions & Promo Ribbons */}
+        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 animate-in fade-in slide-in-from-top duration-1000">
+           <NavLink 
+             to="/schedule"
+             state={{ selectedGameId: 'g_20260906_3' }}
+             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-ng-navy font-black text-[10px] sm:text-xs uppercase tracking-[0.15em] shadow-lg shadow-amber-500/25 hover:scale-105 transition-all group italic border border-yellow-300/50"
+           >
+             <Trophy size={13} className="text-ng-navy animate-bounce shrink-0" />
+             <span>{language === 'fr' ? '🏆 Champions Séries Été 2026 : Milf Hunters!' : '🏆 Summer 2026 Champions: Milf Hunters!'}</span>
+           </NavLink>
+
            <a 
              href="https://www.instagram.com/nxtgenhky/#" 
              target="_blank" 

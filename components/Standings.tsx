@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers } from 'lucide-react';
+import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 import { PLAYER_OF_THE_MONTH } from '../constants';
 
@@ -45,12 +45,12 @@ const Standings: React.FC = () => {
     };
   }, [selectedPlayer, selectedGoalie]);
 
-  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('summer_2026_playoffs');
+  const [selectedSeason, setSelectedSeason] = useState<'summer_2026_reg' | 'summer_2026_playoffs' | 'winter_2026_2027'>('winter_2026_2027');
 
   const seasonsList = [
-    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
-    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
     { id: 'winter_2026_2027', label: language === 'fr' ? "Saison d'Hiver 2026-2027" : 'Winter Season 2026-2027' },
+    { id: 'summer_2026_playoffs', label: language === 'fr' ? 'Séries Éliminatoires Été 2026' : 'Summer Playoffs 2026' },
+    { id: 'summer_2026_reg', label: language === 'fr' ? 'Saison Régulière Été 2026' : 'Summer Regular Season 2026' },
   ] as const;
 
   const playoffStats = useMemo(() => {
@@ -808,6 +808,44 @@ const Standings: React.FC = () => {
         </div>
       </div>
 
+      {/* Summer 2026 Champions Celebration Banner - Compact & Consistent with Calendar */}
+      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-slate-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500/0 via-amber-400/80 to-amber-500/0" />
+        <div className="relative flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-center gap-3 w-full sm:w-auto text-left">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-500 p-0.5 shadow-md shadow-amber-500/25 shrink-0">
+              <div className="w-full h-full bg-ng-navy rounded-[10px] flex items-center justify-center">
+                <Trophy className="w-5 h-5 text-amber-400 animate-bounce" />
+              </div>
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-[10px] font-black uppercase tracking-wider mb-0.5">
+                <Sparkles size={11} className="text-yellow-400 shrink-0" />
+                <span>{language === 'fr' ? 'Champions Séries Été 2026' : 'Summer 2026 Playoff Champions'}</span>
+              </div>
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-sm sm:text-base font-black uppercase italic tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-amber-300 to-yellow-400 font-display">
+                  Milf Hunters
+                </span>
+                <span className="text-gray-400 text-xs hidden sm:inline">
+                  {language === 'fr' ? '— Grande Finale (8-2 vs Red Light)' : '— Grand Finals (8-2 vs Red Light)'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => {
+              navigate('/schedule', { state: { selectedGameId: 'g_20260906_3' } });
+            }}
+            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-ng-navy font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
+          >
+            <Trophy size={13} />
+            <span>{language === 'fr' ? 'Voir Résumé Finale' : 'View Finals Recap'}</span>
+          </button>
+        </div>
+      </div>
+
       {selectedSeason === 'summer_2026_playoffs' && playoffViewMode === 'pools' ? (
         <>
           {/* Playoff Mode View Switcher */}
@@ -1139,7 +1177,15 @@ const Standings: React.FC = () => {
                             className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                           >
                             <span className="mr-2 text-xs font-black italic shrink-0" style={getTeamLetterStyle(regTeam.id, regTeam.logoColor)}>{getTeamInitial(regTeam.id)}</span>
-                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <div className="text-xs sm:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight">{renderTeamName(regTeam.id)}</div>
+                              {selectedSeason === 'summer_2026_playoffs' && regTeam.id === '3' && (
+                                <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2 py-0.5 rounded-full shadow-sm animate-pulse">
+                                  <Trophy size={10} className="text-amber-400" />
+                                  <span>{language === 'fr' ? 'Champions' : 'Champions'}</span>
+                                </span>
+                              )}
+                            </div>
                           </button>
                         </td>
                         <td className="px-3 py-3 text-center text-xs text-gray-300 font-bold">{playoffTeam.gp}</td>
@@ -1332,7 +1378,15 @@ const Standings: React.FC = () => {
                          className="flex items-center text-left hover:text-ng-light-blue transition-colors outline-none"
                        >
                          <span className="mr-1 md:mr-2 text-[11px] md:text-xs font-black italic shrink-0" style={getTeamLetterStyle(team.id, team.logoColor)}>{getTeamInitial(team.id)}</span>
-                         <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
+                         <div className="flex items-center gap-1.5 flex-wrap">
+                           <div className="text-xs sm:text-[13px] md:text-sm font-bold text-white group-hover:text-ng-light-blue leading-tight truncate max-w-[80px] xs:max-w-[100px] sm:max-w-[150px] md:max-w-none">{renderTeamName(team.id)}</div>
+                           {selectedSeason === 'summer_2026_playoffs' && team.id === '3' && (
+                             <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase text-amber-300 bg-amber-500/20 border border-amber-500/40 px-1.5 sm:px-2 py-0.5 rounded-full shadow-sm animate-pulse">
+                               <Trophy size={10} className="text-amber-400" />
+                               <span>{language === 'fr' ? 'Champions' : 'Champions'}</span>
+                             </span>
+                           )}
+                         </div>
                        </button>
                     </td>
                     <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300 font-bold">{team.gp}</td>

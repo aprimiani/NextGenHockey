@@ -3,13 +3,13 @@ import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } fr
 export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
 
 export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
-  "playerId": "p_1775579857302",
-  "month": 6,
+  "playerId": "p_1771962869757",
+  "month": 7,
   "year": 2026,
-  "gp": 8,
-  "goals": 10,
-  "assists": 5,
-  "points": 15,
+  "gp": 3,
+  "goals": 6,
+  "assists": 3,
+  "points": 9,
   "prizeEn": "Free 6 inch trio from Subway Delson + Howies Hockey Towel!",
   "prizeFr": "Trio sandwich 6 pouces de Subway Delson + serviette Howies Hockey !",
   "isGoalie": false
@@ -844,10 +844,12 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "4",
     "awayTeamId": "3",
     "location": "Sportium",
-    "status": "scheduled",
+    "status": "played",
     "isPlayoff": true,
     "playoffRoundEn": "Finals",
-    "playoffRoundFr": "Finale"
+    "playoffRoundFr": "Finale",
+    "homeScore": 2,
+    "awayScore": 8
   },
   {
     "id": "g_w_1",
@@ -11054,6 +11056,234 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1775579856558",
         "p_isaac_martel_sub",
         "p_kevin_murray_sub"
+      ]
+    }
+  },
+  "g_20260906_3": {
+    "gameId": "g_20260906_3",
+    "events": [
+      {
+        "id": "e_g_20260906_3_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "01:50",
+        "teamId": "3",
+        "player": "p_1772917089971",
+        "details": "Slashing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_p2",
+        "type": "penalty",
+        "period": 1,
+        "time": "06:36",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_p3",
+        "type": "penalty",
+        "period": 1,
+        "time": "10:25",
+        "teamId": "4",
+        "player": "p_1773774485424",
+        "details": "Roughing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "13:25",
+        "teamId": "3",
+        "player": "p_1772917204341",
+        "assist": "p_1772917065337",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_p4",
+        "type": "penalty",
+        "period": 1,
+        "time": "13:45",
+        "teamId": "4",
+        "player": "p_1773774488345",
+        "details": "Cross-checking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "01:45",
+        "teamId": "3",
+        "player": "p_1772917205487",
+        "assist": "p_1772917094310",
+        "assist2": "p_1772917089084",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "02:34",
+        "teamId": "3",
+        "player": "p_1772917094310",
+        "assist": "p_1772917089971",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "06:57",
+        "teamId": "3",
+        "player": "p_1772917094310",
+        "assist": "p_1772917204934",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "09:30",
+        "teamId": "3",
+        "player": "p_1772917093420",
+        "assist": "p_1772917204341",
+        "assist2": "p_1772917094310",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "14:20",
+        "teamId": "4",
+        "player": "p_1773774486160",
+        "assist": "p_1773774313607",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g7",
+        "type": "goal",
+        "period": 2,
+        "time": "14:40",
+        "teamId": "3",
+        "player": "p_1772917091771",
+        "assist": "p_1772917204341",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "00:15",
+        "teamId": "3",
+        "player": "p_1772917094310",
+        "assist": "p_1772917204934",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "05:15",
+        "teamId": "4",
+        "player": "p_1773774488345",
+        "assist": "p_1773774485424",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "07:40",
+        "teamId": "3",
+        "player": "p_1772917089971",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_20260906_3_p5",
+        "type": "penalty",
+        "period": 3,
+        "time": "09:30",
+        "teamId": "3",
+        "player": "p_1772917090874",
+        "details": "Slashing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_p6",
+        "type": "penalty",
+        "period": 3,
+        "time": "09:30",
+        "teamId": "4",
+        "player": "p_1773774313607",
+        "details": "Slashing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_20260906_3_p7",
+        "type": "penalty",
+        "period": 3,
+        "time": "10:54",
+        "teamId": "4",
+        "player": "p_1773774489039",
+        "details": "Coup à la tête",
+        "penaltyMinutes": 2
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1773774693729",
+        "shotsFaced": 27,
+        "goalsAgainst": 8,
+        "saves": 19
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1776783555439",
+        "shotsFaced": 21,
+        "goalsAgainst": 2,
+        "saves": 19
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "p_1773774313607",
+        "p_1773774487631",
+        "p_1773774484701",
+        "p_1773774488345",
+        "p_1773774483853",
+        "p_1773774486881",
+        "p_1773774610374",
+        "p_1773774609841",
+        "p_1773774489039",
+        "p_1773774485424",
+        "p_1773774486160",
+        "p_1778475248942"
+      ],
+      "awayPlayers": [
+        "p_1772917065337",
+        "p_1772917091771",
+        "p_1772917089971",
+        "p_1772917094310",
+        "p_1772917205487",
+        "p_1772917089084",
+        "p_1772917090874",
+        "p_1772917092637",
+        "p_1772917093420",
+        "p_1772917204934",
+        "p_1772917204341"
       ]
     }
   }
