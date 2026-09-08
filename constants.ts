@@ -131,13 +131,13 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_timbits",
     "name": "Les Timbits",
-    "gp": 0,
+    "gp": 1,
     "wins": 0,
-    "losses": 0,
+    "losses": 1,
     "ties": 0,
     "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "goalsFor": 3,
+    "goalsAgainst": 4,
     "logoColor": "#ef4444"
   },
   {
@@ -155,13 +155,13 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_kraken",
     "name": "Kraken Beers",
-    "gp": 0,
-    "wins": 0,
+    "gp": 1,
+    "wins": 1,
     "losses": 0,
     "ties": 0,
-    "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "points": 2,
+    "goalsFor": 4,
+    "goalsAgainst": 3,
     "logoColor": "#111827"
   },
   {
@@ -858,7 +858,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 4,
+    "awayScore": 3
   },
   {
     "id": "g_w_2",
@@ -1095,7 +1097,12 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 5,
     "goals": 3,
     "assists": 1,
-    "points": 4
+    "points": 4,
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    }
   },
   {
     "id": "p_alexandre_stefanson_178002",
@@ -1565,7 +1572,12 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 11,
     "goals": 8,
     "assists": 8,
-    "points": 16
+    "points": 16,
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    }
   },
   {
     "id": "p_1775579856558",
@@ -2922,10 +2934,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 1,
     "assists": 0,
-    "points": 0
+    "points": 1
   },
   {
     "id": "w_p_antoine_bertrand",
@@ -2934,7 +2946,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -2958,10 +2970,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_jean_christophe_malo_pepin",
@@ -2970,10 +2982,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_benjamin_sasseville",
@@ -2982,10 +2994,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_jacob_fournier",
@@ -2994,7 +3006,19 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
     },
-    "gp": 0,
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "w_p_francois_fontaine",
+    "name": "Francois Fontaine",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3006,10 +3030,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 2,
     "assists": 0,
-    "points": 0
+    "points": 2
   },
   {
     "id": "w_p_ben_siegl",
@@ -3018,10 +3042,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 2,
     "assists": 0,
-    "points": 0
+    "points": 2
   },
   {
     "id": "w_p_arjun_srivastava",
@@ -3030,10 +3054,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_thomas_desveaux",
@@ -3042,7 +3066,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3054,7 +3078,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3066,10 +3090,22 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_kraken"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
+  },
+  {
+    "id": "w_p_giustino_porco",
+    "name": "Giustino Porco",
+    "teamId": "w_kraken",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_kraken"
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_brendan_walsh",
@@ -11284,6 +11320,148 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1772917093420",
         "p_1772917204934",
         "p_1772917204341"
+      ]
+    }
+  },
+  "g_w_1": {
+    "gameId": "g_w_1",
+    "events": [
+      {
+        "id": "e_g_w_1_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "02:15",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_burton",
+        "assist": "w_p_arjun_srivastava",
+        "assist2": "w_p_giustino_porco",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "02:30",
+        "teamId": "w_timbits",
+        "player": "p_1773774488345",
+        "assist": "w_p_etienne_routhier",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "08:40",
+        "teamId": "w_timbits",
+        "player": "w_p_antoine_perreault",
+        "assist": "w_p_benjamin_sasseville",
+        "assist2": "w_p_jean_christophe_malo_pepin",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "10:28",
+        "teamId": "w_timbits",
+        "player": "p_1773774488345",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_p1",
+        "type": "penalty",
+        "period": 2,
+        "time": "13:30",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_1_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "14:06",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_evan_getty",
+        "assist2": "p_joshua_sylvain",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_p2",
+        "type": "penalty",
+        "period": 2,
+        "time": "14:31",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_1_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "01:45",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_burton",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_1_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "09:05",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 33,
+        "goalsAgainst": 3,
+        "saves": 30
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 35,
+        "goalsAgainst": 4,
+        "saves": 31
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_evan_getty",
+        "w_p_thomas_desveaux",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p_alexandre_beaudry_178001"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_jacob_fournier",
+        "w_p_benjamin_sasseville",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "p_1773774488345"
       ]
     }
   }

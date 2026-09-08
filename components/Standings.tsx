@@ -259,9 +259,9 @@ const Standings: React.FC = () => {
     });
 
     const winterPlayersList = players
-      .filter(p => p.seasonTeamIds?.['winter_2026_2027'] || p.teamId.startsWith('w_'))
+      .filter(p => p.seasonTeamIds?.['winter_2026_2027'] || p.teamId.startsWith('w_') || (p.seasonSecondaryTeamIds?.['winter_2026_2027'] && p.seasonSecondaryTeamIds['winter_2026_2027'].length > 0))
       .map(p => {
-        const winterTeam = p.seasonTeamIds?.['winter_2026_2027'] || p.teamId;
+        const winterTeam = p.seasonTeamIds?.['winter_2026_2027'] || (p.teamId.startsWith('w_') ? p.teamId : (p.seasonSecondaryTeamIds?.['winter_2026_2027']?.[0] || p.teamId));
         const winterSecondary = p.seasonSecondaryTeamIds?.['winter_2026_2027'] || [];
         
         let gp = 0, goals = 0, assists = 0, points = 0;
@@ -269,11 +269,19 @@ const Standings: React.FC = () => {
         playedWinterGames.forEach(g => {
           const recap = gameRecaps[g.id];
           let playedThisGame = false;
+          if (recap?.roster) {
+            if (recap.roster.homePlayers?.includes(p.id) || recap.roster.awayPlayers?.includes(p.id)) {
+              playedThisGame = true;
+            }
+          }
           if (recap?.events) {
             recap.events.forEach(e => {
               if (e.type === 'goal') {
                 if (e.player === p.id) { goals++; points++; playedThisGame = true; }
                 if (e.assist === p.id || e.assist2 === p.id) { assists++; points++; playedThisGame = true; }
+              }
+              if (e.type === 'penalty' && e.player === p.id) {
+                playedThisGame = true;
               }
             });
           }
@@ -2323,10 +2331,19 @@ const Standings: React.FC = () => {
         // 1. Skater game logs
         const playerGames = activeScheduleList.filter(g => {
           if (g.status !== "played") return false;
+          const recap = gameRecaps[g.id];
+          if (recap?.roster) {
+            const inRoster = recap.roster.homePlayers?.some(pid => playerIdList.includes(pid)) ||
+                             recap.roster.awayPlayers?.some(pid => playerIdList.includes(pid));
+            if (inRoster) return true;
+            if (recap.events?.some(e => playerIdList.includes(e.player) || (e.assist && playerIdList.includes(e.assist)) || (e.assist2 && playerIdList.includes(e.assist2)))) {
+              return true;
+            }
+            return false;
+          }
           const isOnHomeTeam = g.homeTeamId === activeTeamId || allSecondaryTeamIds.includes(g.homeTeamId);
           const isOnAwayTeam = g.awayTeamId === activeTeamId || allSecondaryTeamIds.includes(g.awayTeamId);
           if (isOnHomeTeam || isOnAwayTeam) return true;
-          const recap = gameRecaps[g.id];
           if (recap?.events) {
             return recap.events.some(e => 
               playerIdList.includes(e.player) || 
