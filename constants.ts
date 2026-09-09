@@ -143,13 +143,13 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_bots",
     "name": "Bots",
-    "gp": 0,
-    "wins": 0,
+    "gp": 1,
+    "wins": 1,
     "losses": 0,
     "ties": 0,
-    "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "points": 2,
+    "goalsFor": 8,
+    "goalsAgainst": 3,
     "logoColor": "#3b82f6"
   },
   {
@@ -167,13 +167,13 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_seamen",
     "name": "The Seamen",
-    "gp": 0,
+    "gp": 1,
     "wins": 0,
-    "losses": 0,
+    "losses": 1,
     "ties": 0,
     "points": 0,
-    "goalsFor": 0,
-    "goalsAgainst": 0,
+    "goalsFor": 3,
+    "goalsAgainst": 8,
     "logoColor": "#ffffff"
   }
 ];
@@ -869,7 +869,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 3,
+    "awayScore": 8
   },
   {
     "id": "g_w_3",
@@ -3114,10 +3116,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 1,
     "assists": 0,
-    "points": 0
+    "points": 1
   },
   {
     "id": "w_p_noah_goyens",
@@ -3126,10 +3128,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_william_goyens",
@@ -3138,7 +3140,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3150,10 +3152,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
-    "assists": 0,
-    "points": 0
+    "assists": 1,
+    "points": 1
   },
   {
     "id": "w_p_olivier_sylvain",
@@ -3162,7 +3164,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3174,7 +3176,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
@@ -3186,10 +3188,10 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
-    "goals": 0,
+    "gp": 1,
+    "goals": 1,
     "assists": 0,
-    "points": 0
+    "points": 1
   },
   {
     "id": "w_p_owen_dunn",
@@ -3198,10 +3200,22 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_seamen"
     },
-    "gp": 0,
+    "gp": 1,
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "w_p_joshua_laekas",
+    "name": "Joshua Laekas",
+    "teamId": "w_bots",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_bots"
+    },
+    "gp": 1,
+    "goals": 4,
+    "assists": 0,
+    "points": 4
   }
 ];
 
@@ -11462,6 +11476,204 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "w_p_francois_fontaine",
         "w_p_antoine_bertrand",
         "p_1773774488345"
+      ]
+    }
+  },
+  "g_w_2": {
+    "gameId": "g_w_2",
+    "events": [
+      {
+        "id": "e_g_w_2_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "03:54",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p_1775579857302",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "06:00",
+        "teamId": "w_seamen",
+        "player": "w_p_devin_menary",
+        "assist": "w_p_noah_bonspille",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:51",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "04:54",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p_1767082323831",
+        "assist2": "p_1778475181683",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "05:58",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1778475181683",
+        "assist2": "p3",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "08:23",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "w_p_noah_goyens",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g7",
+        "type": "goal",
+        "period": 2,
+        "time": "09:48",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p_1775579857302",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g8",
+        "type": "goal",
+        "period": 2,
+        "time": "14:27",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "03:59",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "p_dylan_molinaro_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_p1",
+        "type": "penalty",
+        "period": 3,
+        "time": "05:40",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "details": "Slashing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_2_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "09:43",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p2",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_2_p2",
+        "type": "penalty",
+        "period": 3,
+        "time": "11:40",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "details": "Unsportsmanlike Conduct",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_2_p3",
+        "type": "penalty",
+        "period": 3,
+        "time": "11:40",
+        "teamId": "w_bots",
+        "player": "p2",
+        "details": "Roughing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_2_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "14:55",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 31,
+        "goalsAgainst": 8,
+        "saves": 23
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 30,
+        "goalsAgainst": 3,
+        "saves": 27
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_alexandre_derome",
+        "w_p_devin_menary",
+        "w_p_owen_dunn"
+      ],
+      "awayPlayers": [
+        "goalie_1767082104234",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p_1767082302464",
+        "p2",
+        "p_1767082323831",
+        "p_1767082317648",
+        "p_1778475181683",
+        "w_p_joshua_laekas",
+        "p1"
       ]
     }
   }
