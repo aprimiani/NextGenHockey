@@ -751,6 +751,14 @@ const Standings: React.FC = () => {
         textShadow: '-1px 0 0 #ffffff, 1px 0 0 #ffffff, 0 -1px 0 #ffffff, 0 1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff',
       };
     }
+    
+    if (id === 'w_seamen' || getTeamName(id).toLowerCase().includes('seamen')) {
+      return {
+        color: '#ebdcb9',
+        textShadow: '-1.5px 0 0 #15803d, 1.5px 0 0 #15803d, 0 -1.5px 0 #15803d, 0 1.5px 0 #15803d, -1px -1px 0 #15803d, 1px -1px 0 #15803d, -1px 1px 0 #15803d, 1px 1px 0 #15803d',
+      };
+    }
+
     return { color };
   };
 
@@ -1921,7 +1929,7 @@ const Standings: React.FC = () => {
            >
               <div 
                 className="p-6 relative overflow-hidden flex items-center justify-between"
-                style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.logoColor}` }}
+                style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.secondaryColor || (selectedTeam.id === 'w_seamen' ? '#15803d' : selectedTeam.logoColor)}` }}
               >
                 <div className="flex items-center gap-4">
                   <span className="text-3xl md:text-4xl font-black italic shrink-0" style={getTeamLetterStyle(selectedTeam.id, selectedTeam.logoColor)}>
@@ -2488,8 +2496,27 @@ const Standings: React.FC = () => {
                       <X size={18} />
                     </button>
 
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 border-2 sm:border-4 shadow-lg" style={{ borderColor: getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' ? '#ffffff' : getTeamColor(activeTeamId), backgroundColor: getTeamColor(activeTeamId) }}>
-                      <span className="text-xl sm:text-3xl font-black text-white italic pr-0.5" style={getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' ? { textShadow: '-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff' } : undefined}>
+                    <div 
+                      className="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-1.5 sm:mb-2 border-2 sm:border-4 shadow-lg" 
+                      style={{ 
+                        borderColor: activeTeamId === 'w_seamen' || getTeamName(activeTeamId).toLowerCase().includes('seamen') 
+                          ? '#15803d' 
+                          : (getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' ? '#ffffff' : getTeamColor(activeTeamId)), 
+                        backgroundColor: activeTeamId === 'w_seamen' || getTeamName(activeTeamId).toLowerCase().includes('seamen')
+                          ? '#ebdcb9'
+                          : getTeamColor(activeTeamId) 
+                      }}
+                    >
+                      <span 
+                        className="text-xl sm:text-3xl font-black italic pr-0.5" 
+                        style={
+                          activeTeamId === 'w_seamen' || getTeamName(activeTeamId).toLowerCase().includes('seamen')
+                            ? { color: '#15803d' }
+                            : (getTeamColor(activeTeamId) === '#111827' || getTeamColor(activeTeamId) === '#000000' 
+                                ? { color: '#ffffff', textShadow: '-1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff' } 
+                                : { color: '#ffffff' })
+                        }
+                      >
                         {getTeamInitial(activeTeamId)}
                       </span>
                     </div>
@@ -2651,7 +2678,14 @@ const Standings: React.FC = () => {
                                       <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
                                         <td className="py-2.5 px-2 font-medium text-gray-300 whitespace-nowrap">{formattedDate}</td>
                                         <td className="py-2.5 px-2 flex items-center gap-2">
-                                          <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
+                                          <span 
+                                            className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" 
+                                            style={{ 
+                                              backgroundColor: getTeamColor(opponentTeamId),
+                                              borderColor: opponentTeamId === 'w_seamen' ? '#15803d' : undefined,
+                                              borderWidth: opponentTeamId === 'w_seamen' ? '1px' : 0
+                                            }} 
+                                          />
                                           <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
                                         </td>
                                         <td className="py-2.5 px-2 text-center text-gray-200 font-mono font-semibold">{isSuspended ? "-" : goals}</td>
@@ -2708,7 +2742,14 @@ const Standings: React.FC = () => {
                                       <tr key={game.id} className="text-xs hover:bg-white/5 transition-colors">
                                         <td className="py-2.5 px-2 font-medium text-gray-300 whitespace-nowrap">{formattedDate}</td>
                                         <td className="py-2.5 px-2 flex items-center gap-2">
-                                          <span className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: getTeamColor(opponentTeamId) }} />
+                                          <span 
+                                            className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0" 
+                                            style={{ 
+                                              backgroundColor: getTeamColor(opponentTeamId),
+                                              borderColor: opponentTeamId === 'w_seamen' ? '#15803d' : undefined,
+                                              borderWidth: opponentTeamId === 'w_seamen' ? '1px' : 0
+                                            }} 
+                                          />
                                           <span className="text-white font-bold">{getTeamName(opponentTeamId)}</span>
                                         </td>
                                         <td className="py-2.5 px-2 text-center">

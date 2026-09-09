@@ -120,6 +120,14 @@ const Schedule: React.FC = () => {
         textShadow: '-1px 0 0 #ffffff, 1px 0 0 #ffffff, 0 -1px 0 #ffffff, 0 1px 0 #ffffff, -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff',
       };
     }
+    
+    if (id === 'w_seamen' || getTeamName(id).toLowerCase().includes('seamen')) {
+      return {
+        color: '#ebdcb9',
+        textShadow: '-1.5px 0 0 #15803d, 1.5px 0 0 #15803d, 0 -1.5px 0 #15803d, 0 1.5px 0 #15803d, -1px -1px 0 #15803d, 1px -1px 0 #15803d, -1px 1px 0 #15803d, 1px 1px 0 #15803d',
+      };
+    }
+
     return { color };
   };
 
@@ -345,7 +353,11 @@ const Schedule: React.FC = () => {
                                         <div className="bg-gray-950/50 border border-gray-800/80 px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-mono select-none">
                                             <span 
                                                 className={event.teamId === game.homeTeamId ? "font-black text-[11px] tracking-wide" : "text-gray-500 font-medium text-[10px]"}
-                                                style={event.teamId === game.homeTeamId ? { color: getTeamColor(game.homeTeamId), textShadow: `0 0 6px ${getTeamColor(game.homeTeamId)}` } : undefined}
+                                                style={event.teamId === game.homeTeamId 
+                                                    ? (game.homeTeamId === 'w_seamen' 
+                                                        ? { color: '#ebdcb9', textShadow: '0 0 6px #15803d' } 
+                                                        : { color: getTeamColor(game.homeTeamId), textShadow: `0 0 6px ${getTeamColor(game.homeTeamId)}` }) 
+                                                    : undefined}
                                             >
                                                 {homeInitial}
                                             </span>
@@ -358,7 +370,11 @@ const Schedule: React.FC = () => {
                                             </span>
                                             <span 
                                                 className={event.teamId === game.awayTeamId ? "font-black text-[11px] tracking-wide" : "text-gray-500 font-medium text-[10px]"}
-                                                style={event.teamId === game.awayTeamId ? { color: getTeamColor(game.awayTeamId), textShadow: `0 0 6px ${getTeamColor(game.awayTeamId)}` } : undefined}
+                                                style={event.teamId === game.awayTeamId 
+                                                    ? (game.awayTeamId === 'w_seamen' 
+                                                        ? { color: '#ebdcb9', textShadow: '0 0 6px #15803d' } 
+                                                        : { color: getTeamColor(game.awayTeamId), textShadow: `0 0 6px ${getTeamColor(game.awayTeamId)}` }) 
+                                                    : undefined}
                                             >
                                                 {awayInitial}
                                             </span>
