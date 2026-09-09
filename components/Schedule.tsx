@@ -328,7 +328,16 @@ const Schedule: React.FC = () => {
                                             </span>
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none mb-1">{t.schedule.scorer}</span>
+                                            <div className="flex items-center gap-1.5 mb-1">
+                                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none">{t.schedule.scorer}</span>
+                                                {event.details && (
+                                                    <span className="bg-amber-500/15 border border-amber-500/30 text-amber-400 text-[9px] font-bold px-1.5 py-0.5 rounded leading-none uppercase tracking-wider">
+                                                        {event.details.toLowerCase().includes('empty net') 
+                                                            ? (language === 'fr' ? 'Filet désert' : 'Empty Net') 
+                                                            : event.details}
+                                                    </span>
+                                                )}
+                                            </div>
                                             <span className="text-white font-bold text-base md:text-lg">{getPlayerName(event.player)}</span>
                                         </div>
                                     </div>

@@ -11632,14 +11632,14 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "player": "p_1775579857302",
         "assist": "p1",
         "assist2": "",
-        "details": ""
+        "details": "Empty Net"
       }
     ],
     "goalieStats": {
       "homeGoalie": {
         "playerId": "goalie_adam_rizk",
-        "shotsFaced": 31,
-        "goalsAgainst": 8,
+        "shotsFaced": 30,
+        "goalsAgainst": 7,
         "saves": 23
       },
       "awayGoalie": {
