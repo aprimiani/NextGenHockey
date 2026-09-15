@@ -876,12 +876,14 @@ export const SCHEDULE: Game[] = [
   },
   {
     "id": "g_w_3",
-    "date": "2026-09-14",
+    "date": "2026-09-15",
     "time": "22:00",
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 3,
+    "awayScore": 8
   },
   {
     "id": "g_w_4",
@@ -1381,6 +1383,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1771962890109",
     "name": "Félix Dupuis",
     "teamId": "2",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
     "gp": 9,
     "goals": 6,
     "assists": 1,
@@ -1808,6 +1818,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
       "t_1775579415800",
       "6"
     ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
     "gp": 13,
     "goals": 1,
     "assists": 4,
@@ -3228,6 +3246,14 @@ export const GOALIE_STATS: GoalieStats[] = [
     "secondaryTeamIds": [
       "1"
     ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
+    },
     "gp": 15,
     "wins": 1,
     "losses": 10,
@@ -11665,6 +11691,174 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       ],
       "awayPlayers": [
         "goalie_1767082104234",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p_1767082302464",
+        "p2",
+        "p_1767082323831",
+        "p_1767082317648",
+        "p_1778475181683",
+        "w_p_joshua_laekas",
+        "p1"
+      ]
+    }
+  },
+  "g_w_3": {
+    "gameId": "g_w_3",
+    "events": [
+      {
+        "id": "e_g_w_3_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "06:06",
+        "teamId": "w_bots",
+        "player": "p_1778475181683",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "07:07",
+        "teamId": "w_timbits",
+        "player": "w_p_jean_christophe_malo_pepin",
+        "assist": "w_p_jacob_fournier",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "10:17",
+        "teamId": "w_bots",
+        "player": "p2",
+        "assist": "p1",
+        "assist2": "p3",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "05:07",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "w_p_joshua_laekas",
+        "assist2": "p_1775579857302",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "10:48",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p_1775579857302",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "14:07",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p_1767082323831",
+        "assist2": "p_1778475181683",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g7",
+        "type": "goal",
+        "period": 2,
+        "time": "15:51",
+        "teamId": "w_bots",
+        "player": "w_p_joshua_laekas",
+        "assist": "p_1775579857302",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "04:07",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1778475181683",
+        "assist2": "p_1767082310061",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "06:33",
+        "teamId": "w_bots",
+        "player": "p3",
+        "assist": "w_p_joshua_laekas",
+        "assist2": "p_1775579857302",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "11:20",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "assist": "w_p_raphael_rivet",
+        "assist2": "p_1773774610374",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_3_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "12:14",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "assist": "w_p_raphael_rivet",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 38,
+        "goalsAgainst": 8,
+        "saves": 30
+      },
+      "awayGoalie": {
+        "playerId": "g1",
+        "shotsFaced": 29,
+        "goalsAgainst": 3,
+        "saves": 26
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1775582169664",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_jacob_fournier",
+        "w_p_benjamin_sasseville",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1771962890109",
+        "p_1773774610374"
+      ],
+      "awayPlayers": [
+        "g1",
         "p_1767082310061",
         "p_1775579857302",
         "p3",
