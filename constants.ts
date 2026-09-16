@@ -876,7 +876,7 @@ export const SCHEDULE: Game[] = [
   },
   {
     "id": "g_w_3",
-    "date": "2026-09-15",
+    "date": "2026-09-14",
     "time": "22:00",
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
@@ -892,7 +892,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 5,
+    "awayScore": 2
   },
   {
     "id": "g_w_5",
@@ -3231,10 +3233,66 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "seasonTeamIds": {
       "winter_2026_2027": "w_bots"
     },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
     "gp": 1,
     "goals": 4,
     "assists": 0,
     "points": 4
+  },
+  {
+    "id": "p_liam_john_mckelvey_sub",
+    "name": "Liam John Mckelvey",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_seamen"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 1,
+    "points": 1
+  },
+  {
+    "id": "p_nathan_lapointe_sub",
+    "name": "Nathan Lapointe",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 1,
+    "assists": 0,
+    "points": 1
+  },
+  {
+    "id": "p_ben_carr_sub",
+    "name": "Ben Carr",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -11869,6 +11927,170 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1778475181683",
         "w_p_joshua_laekas",
         "p1"
+      ]
+    }
+  },
+  "g_w_4": {
+    "gameId": "g_w_4",
+    "events": [
+      {
+        "id": "e_g_w_4_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "04:30",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "08:30",
+        "teamId": "w_kraken",
+        "player": "w_p_arjun_srivastava",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_4_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "10:35",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "p_liam_john_mckelvey_sub",
+        "assist2": "w_p_owen_dunn",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "11:10",
+        "teamId": "w_kraken",
+        "player": "p_nathan_lapointe_sub",
+        "assist": "p_joshua_sylvain",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "00:00",
+        "teamId": "w_kraken",
+        "player": "w_p_joshua_laekas",
+        "assist": "p3",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "03:45",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "w_p_noah_bonspille",
+        "assist2": "p_dylan_molinaro_sub",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_p2",
+        "type": "penalty",
+        "period": 2,
+        "time": "10:10",
+        "teamId": "w_kraken",
+        "player": "p_nathan_lapointe_sub",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_4_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "13:00",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "w_p_olivier_sylvain",
+        "assist2": "w_p_noah_goyens",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_p3",
+        "type": "penalty",
+        "period": 2,
+        "time": "14:30",
+        "teamId": "w_seamen",
+        "player": "p_ethan_black_sub",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_4_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "12:55",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_4_p4",
+        "type": "penalty",
+        "period": 3,
+        "time": "15:23",
+        "teamId": "w_kraken",
+        "player": "w_p_joshua_laekas",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 28,
+        "goalsAgainst": 2,
+        "saves": 26
+      },
+      "awayGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 30,
+        "goalsAgainst": 5,
+        "saves": 25
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_alexandre_derome",
+        "w_p_owen_dunn",
+        "p_liam_john_mckelvey_sub"
+      ],
+      "awayPlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p_nicholas_giacalone_178004",
+        "w_p_joshua_laekas",
+        "p_nathan_lapointe_sub",
+        "p_ben_carr_sub"
       ]
     }
   }
