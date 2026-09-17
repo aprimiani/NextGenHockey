@@ -250,7 +250,7 @@ export const translations = {
       contactTitle: 'Non-Contact Policy',
       contactText: "Next Gen Hockey is a strict non-contact league. Intentional body checking is not permitted and will result in penalties. Roughing, fighting, or intent to injure will result in immediate ejection and league review.",
       formatTitle: 'Game Format',
-      formatText: 'Each game begins with a 3-minute warmup, with a buzzer sounding at the 1-minute mark to collect pucks. Games consist of three 15-minute running-time periods. All regular-season games that are tied at the final buzzer end in a draw.',
+      formatText: 'Each game begins with a 3-minute warmup, with a buzzer sounding at the 1-minute mark to collect pucks. Games consist of three (3) 16-minute periods officiated by two (2) certified referees. All regular-season games that are tied at the final buzzer end in a draw.',
       regsTitle: 'Rulebook',
       regsText: 'Detailed overview of league governance, equipment standards, and code of conduct. Click to view the full rulebook.',
     },
@@ -340,7 +340,7 @@ export const translations = {
             {
               title: '5.2 Period Structure',
               items: [
-                'Games consist of three (3) 15-minute periods, all running time.',
+                'Games consist of three (3) 16-minute periods officiated by two (2) certified referees.',
                 'The clock does not stop unless the referee determines otherwise for safety reasons.'
               ]
             },
@@ -772,7 +772,7 @@ export const translations = {
       contactTitle: 'Politique Sans Contact',
       contactText: "Next Gen Hockey est une ligue strictement sans contact. La mise en échec intentionnelle est interdite. La rudesse, les bagarres ou l'intention de blesser entraîneront une expulsion immédiate.",
       formatTitle: 'Format des Matchs',
-      formatText: 'Chaque match commence par un échauffement de 3 minutes, avec une sonnerie à 1 minute pour ramasser les rondelles. Les matchs se composent de trois périodes de 15 minutes à temps continu. Tous les matchs de saison régulière qui sont à égalité à la sonnerie finale se terminent par un match nul.',
+      formatText: 'Chaque match commence par un échauffement de 3 minutes, avec une sonnerie à 1 minute pour ramasser les rondelles. Les matchs se composent de trois (3) périodes de 16 minutes arbitrées par deux (2) arbitres certifiés. Tous les matchs de saison régulière qui sont à égalité à la sonnerie finale se terminent par un match nul.',
       regsTitle: 'Règlements',
       regsText: 'Aperçu détaillé de la gouvernance, de l\'équipement et du code de conduite. Cliquez pour voir le règlement complet.',
     },
@@ -862,7 +862,7 @@ export const translations = {
             {
               title: '5.2 Structure des périodes',
               items: [
-                'Les matchs se composent de trois (3) périodes de 15 minutes, toutes à temps continu.',
+                'Les matchs se composent de trois (3) périodes de 16 minutes arbitrées par deux (2) arbitres certifiés.',
                 'Le chrono ne s\'arrête pas, sauf décision de l\'arbitre pour des raisons de sécurité.'
               ]
             },

@@ -1,324 +1,326 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Trophy, CheckCircle, Send, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
-import { EMAILJS_CONFIG, PRICING_DATA } from '../constants';
-import { Heart, Sparkles, CheckCircle2, Calendar, DollarSign, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { EMAILJS_CONFIG } from '../constants';
 
-const Registration: React.FC = () => {
-  const { t, language } = useLanguage();
+export const Registration: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { language } = useLanguage();
+  const isFr = language === 'fr';
+
+  // Read ?sport= query param ('hockey' | 'soccer')
+  const initialSportParam = searchParams.get('sport')?.toLowerCase();
+  const [selectedSport, setSelectedSport] = useState<'hockey' | 'soccer'>(
+    initialSportParam === 'soccer' ? 'soccer' : 'hockey'
+  );
+
+  // Sync state if URL query param changes
+  useEffect(() => {
+    const param = searchParams.get('sport')?.toLowerCase();
+    if (param === 'soccer' && selectedSport !== 'soccer') {
+      setSelectedSport('soccer');
+    } else if (param === 'hockey' && selectedSport !== 'hockey') {
+      setSelectedSport('hockey');
+    }
+  }, [searchParams]);
+
+  // Handle sport dropdown change
+  const handleSportSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value as 'hockey' | 'soccer';
+    setSelectedSport(val);
+    setSearchParams({ sport: val });
+  };
+
+  // Form states - exclusively the requested fields
   const [formData, setFormData] = useState({
     team_name: '',
     captain_name: '',
     email_address: '',
     phone_number: '',
+    estimated_roster_size: '',
     last_level_played: '',
-    estimated_roster_size: '10',
-    preferred_language: language
+    preferred_language: language === 'fr' ? 'fr' : 'en',
   });
+
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const formatDate = (dateString: string) => {
-    try {
-      const date = new Date(dateString + 'T12:00:00');
-      return date.toLocaleDateString(language === 'fr' ? 'fr-CA' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    } catch (e) { return dateString; }
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (EMAILJS_CONFIG.SERVICE_ID.includes('YOUR_')) {
-        alert("Registration email functionality is not configured yet. Please update constants.ts with your EmailJS keys.");
-        setIsSubmitting(false);
-        return;
+    const sportLabel = selectedSport === 'hockey' ? 'Next Gen Hockey' : 'Next Gen Soccer';
+    const templateParams = {
+      sport: sportLabel,
+      team_name: formData.team_name,
+      captain_name: formData.captain_name,
+      email_address: formData.email_address,
+      phone_number: formData.phone_number,
+      estimated_roster_size: formData.estimated_roster_size,
+      last_level_played: formData.last_level_played,
+      preferred_language: formData.preferred_language === 'fr' ? 'Français' : 'English',
+      submitted_at: new Date().toLocaleString(),
+      to_name: "Alessandro Primiani",
+      to_email: "info@nxtgnsports.ca"
+    };
+
+    // Fallback if EmailJS is not yet configured with production keys
+    if (!EMAILJS_CONFIG.SERVICE_ID || EMAILJS_CONFIG.SERVICE_ID.includes('YOUR_')) {
+      const body = `NextGen Sports Registration:\n\nSport: ${sportLabel}\nTeam Name: ${formData.team_name}\nTeam Captain Name: ${formData.captain_name}\nEmail: ${formData.email_address}\nPhone Number: ${formData.phone_number}\nEstimated Team Size: ${formData.estimated_roster_size}\nLast Level Played: ${formData.last_level_played}\nPreferred Language: ${formData.preferred_language === 'fr' ? 'Français' : 'English'}`;
+      window.location.href = `mailto:info@nxtgnsports.ca?subject=${encodeURIComponent(`[Registration] ${sportLabel} - ${formData.team_name}`)}&body=${encodeURIComponent(body)}`;
+      setIsSubmitting(false);
+      return;
     }
 
     try {
-        const templateParams = {
-            ...formData,
-            submitted_at: new Date().toLocaleString(),
-            to_name: "Alessandro Primiani"
-        };
-
-        await emailjs.send(
-            EMAILJS_CONFIG.SERVICE_ID,
-            EMAILJS_CONFIG.REGISTRATION_TEMPLATE_ID,
-            templateParams,
-            EMAILJS_CONFIG.PUBLIC_KEY
-        );
-        setSubmitted(true);
-    } catch (error: any) {
-        console.error('Email error object:', error);
-        const errorMessage = error?.text || error?.message || 'An unknown error occurred';
-        alert(`Sorry, we couldn't submit your registration. Error details: ${errorMessage}`);
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.REGISTRATION_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      setSubmitted(true);
+      setFormData({
+        team_name: '',
+        captain_name: '',
+        email_address: '',
+        phone_number: '',
+        estimated_roster_size: '',
+        last_level_played: '',
+        preferred_language: language === 'fr' ? 'fr' : 'en',
+      });
+    } catch {
+      const body = `NextGen Sports Registration:\n\nSport: ${sportLabel}\nTeam Name: ${formData.team_name}\nTeam Captain Name: ${formData.captain_name}\nEmail: ${formData.email_address}\nPhone Number: ${formData.phone_number}\nEstimated Team Size: ${formData.estimated_roster_size}\nLast Level Played: ${formData.last_level_played}\nPreferred Language: ${formData.preferred_language === 'fr' ? 'Français' : 'English'}`;
+      window.location.href = `mailto:info@nxtgnsports.ca?subject=${encodeURIComponent(`[Registration] ${sportLabel} - ${formData.team_name}`)}&body=${encodeURIComponent(body)}`;
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
-  if (submitted) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="bg-ng-blue/30 border border-green-500/50 p-8 rounded-2xl">
-          <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      {/* Central Title */}
+      <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/30 mb-4">
+          <Trophy size={13} className="text-amber-400" />
+          <span>{isFr ? 'Inscription Officielle • NextGen Sports' : 'Official Registration • NextGen Sports'}</span>
+        </div>
+        <h1 className="text-3xl sm:text-5xl font-black text-white font-display uppercase tracking-tight italic mb-3">
+          {isFr ? 'Inscription d\'Équipe' : 'Team Registration'}
+        </h1>
+        <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+          {isFr
+            ? 'Remplissez les informations ci-dessous pour inscrire votre équipe à la ligue officielle NextGen Sports.'
+            : 'Fill in the information below to register your team for the official NextGen Sports league.'}
+        </p>
+      </div>
+
+      {/* Main Container */}
+      {submitted ? (
+        <div className="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-8 sm:p-12 text-center animate-in fade-in duration-500 shadow-2xl">
+          <div className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-emerald-500/40 shadow-lg shadow-emerald-500/20">
+            <CheckCircle className="w-8 h-8 text-emerald-400" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-4">{t.register.successTitle}</h2>
-          <p className="text-gray-300 text-lg mb-6">
-            {t.register.successTextPart1} <strong>{formData.team_name}</strong>. {t.register.successTextPart2} <strong>{formData.email_address}</strong> {t.register.successTextPart3}
+          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase italic font-display mb-3">
+            {isFr ? 'Inscription Transmise !' : 'Registration Submitted!'}
+          </h2>
+          <p className="text-gray-300 max-w-lg mx-auto mb-8 text-sm leading-relaxed">
+            {isFr
+              ? `Merci ! Votre demande d'inscription pour ${selectedSport === 'hockey' ? 'Next Gen Hockey' : 'Next Gen Soccer'} a été reçue. Notre directeur d'organisation vous contactera sous peu.`
+              : `Thank you! Your team registration for ${selectedSport === 'hockey' ? 'Next Gen Hockey' : 'Next Gen Soccer'} has been submitted. Our league director will be in touch shortly.`}
           </p>
-          <button 
+          <button
+            type="button"
             onClick={() => setSubmitted(false)}
-            className="text-ng-light-blue hover:text-white underline"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-amber-400 text-zinc-950 hover:bg-amber-300 transition-colors shadow-lg cursor-pointer"
           >
-            {t.register.registerAnother}
+            <span>{isFr ? 'Soumettre une autre inscription' : 'Submit Another Registration'}</span>
           </button>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="mb-12">
-        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal font-display border-l-8 border-ng-light-blue pl-6">
-          {t.register.title}
-        </h2>
-        <p className="mt-4 text-gray-400 font-medium pl-8 border-l-8 border-transparent">
-          {t.register.subtitle}
-        </p>
-        <div className="mt-6 ml-8 flex flex-wrap gap-3">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-ng-light-blue/10 border border-ng-light-blue/30 text-ng-light-blue text-xs font-black uppercase tracking-widest italic animate-in fade-in duration-500">
-            <Calendar size={14} />
-            {t.register.seasonStart}
-          </div>
-          {t.register.signupDeadline && (
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-black uppercase tracking-widest italic animate-in fade-in duration-500">
-              <Info size={14} />
-              {t.register.signupDeadline}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Pricing and Deadlines Section */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-           <h3 className="text-xl font-bold text-white uppercase tracking-wider flex items-center gap-2">
-             <DollarSign className="text-ng-light-blue" size={24} />
-             {t.register.pricingTitle}
-           </h3>
-           <span className="hidden sm:block text-[10px] text-gray-500 uppercase font-black tracking-widest italic">{t.register.pricingSubtitle}</span>
-        </div>
-
-        <div className="max-w-xl mx-auto">
-          {/* Winter Season Pricing Card */}
-          <div className="bg-gradient-to-b from-slate-900/90 to-slate-900/60 backdrop-blur-md border-2 border-ng-light-blue/80 rounded-3xl p-8 relative overflow-hidden group hover:border-ng-light-blue transition-all flex flex-col items-center text-center shadow-2xl shadow-ng-light-blue/10">
-            <div className="absolute top-0 right-0 bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy font-black text-xs uppercase px-5 py-1.5 italic shadow-lg border-b border-l border-white/20">
-               {language === 'en' ? 'Winter Season' : "Saison d'Hiver"}
-            </div>
-            
-            <div className="text-5xl font-black text-white mb-2 tracking-tight drop-shadow-[0_2px_8px_rgba(56,189,248,0.2)]">
-              $8,525<span className="text-sm font-normal text-gray-400 ml-1">/{t.register.perTeam}</span>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mb-6">
-              <div className="flex items-center justify-center gap-2 text-ng-light-blue text-sm font-black uppercase tracking-widest bg-ng-light-blue/10 px-4 py-1.5 rounded-full border border-ng-light-blue/30 shadow-sm">
-                <Calendar size={16} />
-                {t.register.seasonStart}
-              </div>
-              {t.register.signupDeadline && (
-                <div className="flex items-center justify-center gap-2 text-red-400 text-sm font-black uppercase tracking-widest bg-red-500/10 px-4 py-1.5 rounded-full border border-red-500/30 shadow-sm">
-                  <Info size={16} />
-                  {t.register.signupDeadline}
-                </div>
-              )}
-            </div>
-            
-            <div className="w-full pt-6 border-t border-slate-700/80">
-               <h4 className="text-xs text-gray-400 uppercase font-black tracking-widest mb-4">
-                 {t.register.whatsIncluded}
-               </h4>
-               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-left">
-                  {t.register.includedFeatures.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2.5 text-xs font-bold text-gray-200 uppercase">
-                      <CheckCircle2 size={16} className="text-ng-light-blue shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-               </ul>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-      <div className="mb-6">
-          <h3 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-2">
-              <Sparkles className="text-ng-light-blue" size={24} />
-              {t.register.formTitle}
-          </h3>
-          <div className="w-12 h-1 bg-gradient-to-r from-ng-light-blue to-ng-accent rounded-full mt-1"></div>
-      </div>
-
-      <div className="bg-slate-900/70 backdrop-blur-md shadow-2xl rounded-2xl border border-slate-700/80 overflow-hidden">
-        {/* Charity Badge Header */}
-        <div className="bg-pink-500/10 p-4 border-b border-pink-500/25 flex items-center justify-center gap-3">
-           <Heart className="text-pink-400 shrink-0" size={18} fill="currentColor" />
-           <span className="text-pink-300 text-xs font-black uppercase tracking-widest italic text-center leading-tight">{t.register.depositInfo}</span>
-           <Sparkles className="text-pink-400 hidden sm:block shrink-0" size={14} />
-        </div>
-
-        <div className="px-6 py-8 sm:p-8">
+      ) : (
+        <div className="bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800 p-6 sm:p-10 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
-            
-            <div className="grid grid-cols-1 gap-y-5 gap-x-4 sm:grid-cols-6">
-              <div className="sm:col-span-6">
-                <label htmlFor="team_name" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.teamName}
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    name="team_name"
-                    id="team_name"
-                    required
-                    value={formData.team_name}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                    placeholder={t.register.placeholders.teamName}
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3">
-                <label htmlFor="captain_name" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.captainName}
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    name="captain_name"
-                    id="captain_name"
-                    required
-                    value={formData.captain_name}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3">
-                <label htmlFor="estimated_roster_size" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.rosterSize}
-                </label>
-                <div>
-                  <input
-                    type="number"
-                    name="estimated_roster_size"
-                    id="estimated_roster_size"
-                    min="5"
-                    max="20"
-                    value={formData.estimated_roster_size}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-3">
-                <label htmlFor="email_address" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.email}
-                </label>
-                <div>
-                  <input
-                    id="email_address"
-                    name="email_address"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    value={formData.email_address}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                  />
-                </div>
-              </div>
-
-               <div className="sm:col-span-3">
-                <label htmlFor="phone_number" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.phone}
-                </label>
-                <div>
-                  <input
-                    id="phone_number"
-                    name="phone_number"
-                    type="tel"
-                    required
-                    value={formData.phone_number}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-6">
-                <label htmlFor="last_level_played" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.skillLevel}
-                </label>
-                <div>
-                  <input
-                    type="text"
-                    id="last_level_played"
-                    name="last_level_played"
-                    required
-                    value={formData.last_level_played}
-                    onChange={handleChange}
-                    placeholder={t.register.placeholders.skillLevel}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm shadow-inner"
-                  />
-                </div>
-              </div>
-
-               <div className="sm:col-span-6">
-                <label htmlFor="preferred_language" className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">
-                  {t.register.preferredLanguage}
-                </label>
-                <div>
-                  <select
-                    id="preferred_language"
-                    name="preferred_language"
-                    value={formData.preferred_language}
-                    onChange={handleChange}
-                    className="w-full bg-slate-950/60 border border-slate-700/80 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-ng-light-blue/40 focus:border-ng-light-blue focus:outline-none transition-all text-sm cursor-pointer shadow-inner"
-                  >
-                    <option value="en">{t.register.langEnglish}</option>
-                    <option value="fr">{t.register.langFrench}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4">
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto inline-flex justify-center py-4 px-10 border border-white/20 shadow-xl text-base font-black rounded-xl text-ng-navy bg-gradient-to-r from-ng-light-blue via-sky-400 to-ng-accent hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ng-light-blue transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest font-display shadow-ng-light-blue/25"
+            {/* Sport Dropdown Selection */}
+            <div>
+              <label htmlFor="reg-sport-select" className="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">
+                {isFr ? 'Sport / Ligue *' : 'Sport / League *'}
+              </label>
+              <div className="relative">
+                <select
+                  id="reg-sport-select"
+                  name="sport"
+                  value={selectedSport}
+                  onChange={handleSportSelect}
+                  className="w-full appearance-none bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3.5 text-white text-sm font-semibold focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all cursor-pointer pr-10"
                 >
-                  {isSubmitting ? 'Submitting...' : t.register.submit}
-                </button>
+                  <option value="hockey">🏒 Next Gen Hockey</option>
+                  <option value="soccer">⚽ Next Gen Soccer</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-400">
+                  <ChevronDown size={18} />
+                </div>
               </div>
             </div>
+
+            {/* Row 1: Team Name & Team Captain Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="reg-team-name" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Nom de l\'équipe *' : 'Team Name *'}
+                </label>
+                <input
+                  id="reg-team-name"
+                  type="text"
+                  name="team_name"
+                  required
+                  value={formData.team_name}
+                  onChange={handleChange}
+                  placeholder={selectedSport === 'hockey' ? (isFr ? 'Ex: Les Gladiateurs' : 'e.g. The Titans') : (isFr ? 'Ex: FC Rive-Sud' : 'e.g. South Shore FC')}
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="reg-captain-name" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Nom du capitaine de l\'équipe *' : 'Team Captain Name *'}
+                </label>
+                <input
+                  id="reg-captain-name"
+                  type="text"
+                  name="captain_name"
+                  required
+                  value={formData.captain_name}
+                  onChange={handleChange}
+                  placeholder={isFr ? 'Ex: Alessandro Primiani' : 'e.g. John Doe'}
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Row 2: Email & Phone Number */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="reg-email" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Courriel *' : 'Email *'}
+                </label>
+                <input
+                  id="reg-email"
+                  type="email"
+                  name="email_address"
+                  required
+                  value={formData.email_address}
+                  onChange={handleChange}
+                  placeholder="nom@exemple.com"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="reg-phone" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Numéro de téléphone *' : 'Phone Number *'}
+                </label>
+                <input
+                  id="reg-phone"
+                  type="tel"
+                  name="phone_number"
+                  required
+                  value={formData.phone_number}
+                  onChange={handleChange}
+                  placeholder="(514) 000-0000"
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Row 3: Estimated Team Size & Last Level Played */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label htmlFor="reg-roster" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Taille estimée de l\'équipe *' : 'Estimated Team Size *'}
+                </label>
+                <input
+                  id="reg-roster"
+                  type="number"
+                  name="estimated_roster_size"
+                  min="1"
+                  max="30"
+                  required
+                  value={formData.estimated_roster_size}
+                  onChange={handleChange}
+                  placeholder={selectedSport === 'hockey' ? '12' : '10'}
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="reg-level" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                  {isFr ? 'Dernier niveau joué *' : 'Last Level Played *'}
+                </label>
+                <input
+                  id="reg-level"
+                  type="text"
+                  name="last_level_played"
+                  required
+                  value={formData.last_level_played}
+                  onChange={handleChange}
+                  placeholder={selectedSport === 'hockey' ? (isFr ? 'Ex: Midget BB, Junior, D, Récréatif' : 'e.g. Midget BB, Junior, D, Rec') : (isFr ? 'Ex: AAA, Senior AA, Récréatif, D1' : 'e.g. AAA, Senior AA, Rec, D1')}
+                  className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-700 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Row 4: Language Preferred */}
+            <div>
+              <label htmlFor="reg-language" className="block text-xs font-black uppercase tracking-wider text-gray-300 mb-2">
+                {isFr ? 'Langue préférée *' : 'Language Preferred *'}
+              </label>
+              <div className="relative">
+                <select
+                  id="reg-language"
+                  name="preferred_language"
+                  value={formData.preferred_language}
+                  onChange={handleChange}
+                  className="w-full appearance-none bg-zinc-950 border border-zinc-700 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-all cursor-pointer pr-10"
+                >
+                  <option value="fr">Français</option>
+                  <option value="en">English</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-zinc-400">
+                  <ChevronDown size={18} />
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              id="reg-submit-btn"
+              type="submit"
+              disabled={isSubmitting}
+              className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer shadow-xl ${
+                selectedSport === 'hockey'
+                  ? 'bg-sky-400 hover:bg-sky-300 text-zinc-950 shadow-sky-500/25'
+                  : 'bg-lime-400 hover:bg-lime-300 text-zinc-950 shadow-lime-500/25'
+              }`}
+            >
+              <span>
+                {isSubmitting
+                  ? (isFr ? 'Envoi en cours...' : 'Submitting...')
+                  : (isFr
+                      ? `Inscrire l'équipe • ${selectedSport === 'hockey' ? 'Next Gen Hockey' : 'Next Gen Soccer'}`
+                      : `Register Team • ${selectedSport === 'hockey' ? 'Next Gen Hockey' : 'Next Gen Soccer'}`)}
+              </span>
+              <Send size={16} />
+            </button>
           </form>
         </div>
-      </div>
+      )}
     </div>
   );
 };

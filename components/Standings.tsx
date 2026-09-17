@@ -798,39 +798,48 @@ const Standings: React.FC = () => {
         }
       `}</style>
       
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 gap-6">
         <div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-sky-500/10 text-sky-400 border border-sky-500/30 mb-3">
+            <Trophy size={13} className="text-sky-400" />
+            <span>{language === 'fr' ? "Classements & Statistiques" : "Standings & Stats"}</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight font-display mb-3">
             {t.standings.title}
-          </h2>
+          </h1>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            {language === 'fr'
+              ? "Classements officiels des équipes, différentiels, fiches d'alignement et meneurs individuels."
+              : "Official team standings, differentials, roster sheets, and individual league leaders."}
+          </p>
         </div>
 
         {/* Season Selector */}
-        <div className="relative self-start md:self-auto min-w-[240px]">
+        <div className="relative self-start lg:self-auto min-w-[220px]">
           <select
             value={selectedSeason}
             onChange={(e) => setSelectedSeason(e.target.value as any)}
-            className="appearance-none bg-ng-blue/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 rounded-2xl border-2 border-gray-700 hover:border-ng-light-blue/50 focus:outline-none focus:border-ng-light-blue cursor-pointer transition-all shadow-xl w-full"
+            className="appearance-none bg-zinc-900/90 text-white font-black uppercase tracking-wider text-xs sm:text-sm pl-4 pr-10 py-3 rounded-xl border border-zinc-800 hover:border-sky-500/50 focus:outline-none focus:border-sky-400 cursor-pointer transition-all shadow-xl w-full"
           >
             {seasonsList.map((s) => (
-              <option key={s.id} value={s.id} className="bg-ng-navy text-white text-xs sm:text-sm font-sans uppercase">
+              <option key={s.id} value={s.id} className="bg-zinc-900 text-white text-xs sm:text-sm font-sans uppercase">
                 {s.label}
               </option>
             ))}
           </select>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ng-light-blue">
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-sky-400">
             <ChevronDown size={16} />
           </div>
         </div>
       </div>
 
       {/* Summer 2026 Champions Celebration Banner - Compact & Consistent with Calendar */}
-      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-slate-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
+      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-zinc-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500/0 via-amber-400/80 to-amber-500/0" />
         <div className="relative flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto text-left">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-500 p-0.5 shadow-md shadow-amber-500/25 shrink-0">
-              <div className="w-full h-full bg-ng-navy rounded-[10px] flex items-center justify-center">
+              <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-amber-400 animate-bounce" />
               </div>
             </div>
@@ -854,7 +863,7 @@ const Standings: React.FC = () => {
             onClick={() => {
               navigate('/schedule', { state: { selectedGameId: 'g_20260906_3' } });
             }}
-            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-ng-navy font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
+            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-zinc-950 font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
           >
             <Trophy size={13} />
             <span>{language === 'fr' ? 'Voir Résumé Finale' : 'View Finals Recap'}</span>
@@ -1262,13 +1271,13 @@ const Standings: React.FC = () => {
             </div>
           </div>
         )}
-      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl mb-8 relative overflow-hidden">
+      <div className="bg-zinc-900/60 rounded-2xl border border-zinc-800 shadow-xl mb-8 relative overflow-hidden">
         <div 
           className="overflow-x-auto hide-scrollbar" 
           style={scrollbarHideStyle}
         >
-          <table className="w-full divide-y divide-gray-700 min-w-full">
-            <thead className="bg-ng-blue">
+          <table className="w-full divide-y divide-zinc-800 min-w-full">
+            <thead className="bg-zinc-950/90 border-b border-zinc-800">
               <tr>
                 <th 
                   scope="col" 
@@ -1657,16 +1666,24 @@ const Standings: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-ng-blue/30 rounded-lg border border-gray-700 shadow-xl overflow-hidden">
-        <div className="flex border-b border-gray-700">
+      <div className="bg-zinc-900/60 rounded-2xl border border-zinc-800 shadow-xl overflow-hidden">
+        <div className="flex border-b border-zinc-800 bg-zinc-950/60 p-1.5 gap-1.5">
           <button
-            className={`flex-1 py-4 text-center font-bold text-sm uppercase tracking-wider transition-colors ${activeTab === 'players' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
+            className={`flex-1 py-3 text-center font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all cursor-pointer ${
+              activeTab === 'players' 
+                ? 'bg-sky-400 text-zinc-950 shadow-md shadow-sky-500/20' 
+                : 'text-gray-400 hover:text-white hover:bg-zinc-800/60'
+            }`}
             onClick={() => setActiveTab('players')}
           >
             {t.standings.playersTab}
           </button>
           <button
-            className={`flex-1 py-4 text-center font-bold text-sm uppercase tracking-wider transition-colors ${activeTab === 'goalies' ? 'bg-ng-light-blue text-ng-navy' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
+            className={`flex-1 py-3 text-center font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all cursor-pointer ${
+              activeTab === 'goalies' 
+                ? 'bg-sky-400 text-zinc-950 shadow-md shadow-sky-500/20' 
+                : 'text-gray-400 hover:text-white hover:bg-zinc-800/60'
+            }`}
             onClick={() => setActiveTab('goalies')}
           >
             {t.standings.goaliesTab}
@@ -1920,35 +1937,35 @@ const Standings: React.FC = () => {
       {/* Team Modal */}
       {selectedTeam && (
         <div 
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setSelectedTeam(null)}
         >
            <div 
-             className="bg-ng-navy border border-gray-700 w-full max-w-6xl max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300"
+             className="bg-zinc-900 border border-zinc-700 w-full max-w-6xl max-h-[92vh] sm:max-h-[90vh] rounded-2xl shadow-2xl overflow-hidden flex flex-col relative animate-in zoom-in duration-300"
              onClick={(e) => e.stopPropagation()}
            >
               <div 
-                className="p-6 relative overflow-hidden flex items-center justify-between"
+                className="p-4 sm:p-6 relative overflow-hidden flex items-center justify-between"
                 style={{ backgroundColor: `${selectedTeam.logoColor}20`, borderBottom: `2px solid ${selectedTeam.secondaryColor || (selectedTeam.id === 'w_seamen' ? '#15803d' : selectedTeam.logoColor)}` }}
               >
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl md:text-4xl font-black italic shrink-0" style={getTeamLetterStyle(selectedTeam.id, selectedTeam.logoColor)}>
+                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-black italic shrink-0" style={getTeamLetterStyle(selectedTeam.id, selectedTeam.logoColor)}>
                     {getTeamInitial(selectedTeam.id)}
                   </span>
-                  <div>
-                    <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic leading-tight">{renderTeamName(selectedTeam.id)}</h2>
-                    <div className="flex gap-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">
+                  <div className="min-w-0">
+                    <h2 className="text-lg sm:text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic leading-tight truncate">{renderTeamName(selectedTeam.id)}</h2>
+                    <div className="flex gap-3 sm:gap-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5 sm:mt-1">
                       <span>{selectedTeam.wins}W - {selectedTeam.losses}L - {selectedTeam.ties}D</span>
-                      <span className="text-ng-light-blue">{selectedTeam.points} {t.standings.pts}</span>
+                      <span className="text-sky-400">{selectedTeam.points} {t.standings.pts}</span>
                     </div>
                   </div>
                 </div>
-                <button onClick={() => setSelectedTeam(null)} className="p-2 hover:bg-white/10 rounded-full transition-colors text-white shrink-0">
-                  <X size={28} />
+                <button onClick={() => setSelectedTeam(null)} className="min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-white/10 rounded-full transition-colors text-white shrink-0 ml-2" aria-label="Close modal">
+                  <X size={24} />
                 </button>
               </div>
 
-              <div className="overflow-y-auto p-4 md:p-10 space-y-12 text-gray-300 hide-scrollbar" style={scrollbarHideStyle}>
+              <div className="overflow-y-auto p-3 sm:p-6 md:p-10 space-y-6 sm:space-y-12 text-gray-300 hide-scrollbar" style={scrollbarHideStyle}>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                   {[
                     { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
@@ -2480,11 +2497,11 @@ const Standings: React.FC = () => {
 
         return (
           <div 
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
             onClick={closeModal}
           >
              <div 
-               className="bg-[#181a1d] border border-gray-700/80 w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl shadow-2xl relative animate-in zoom-in duration-300 max-h-[85vh] my-auto flex flex-col overflow-hidden"
+               className="bg-zinc-900 border border-zinc-700 w-full max-w-md sm:max-w-lg rounded-2xl sm:rounded-3xl shadow-2xl relative animate-in zoom-in duration-300 max-h-[90vh] sm:max-h-[85vh] my-auto flex flex-col overflow-hidden"
                onClick={(e) => e.stopPropagation()}
              >
                   {/* Top Header Section */}
@@ -2492,8 +2509,12 @@ const Standings: React.FC = () => {
                     className="p-3.5 sm:p-5 relative overflow-hidden flex flex-col items-center text-center flex-shrink-0"
                     style={{ backgroundColor: `${getTeamColor(activeTeamId)}20`, borderBottom: `2px solid ${getTeamColor(activeTeamId)}` }}
                   >
-                    <button onClick={closeModal} className="absolute top-3 right-3 p-1.5 hover:bg-white/10 rounded-full transition-colors text-white z-10" aria-label="Close">
-                      <X size={18} />
+                    <button 
+                      onClick={closeModal} 
+                      className="absolute top-2 right-2 sm:top-3 sm:right-3 min-w-[44px] min-h-[44px] p-2 hover:bg-white/10 rounded-full transition-colors text-white z-10 flex items-center justify-center" 
+                      aria-label="Close"
+                    >
+                      <X size={20} />
                     </button>
 
                     <div 

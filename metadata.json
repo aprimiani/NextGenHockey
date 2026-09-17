@@ -1,6 +1,6 @@
 {
   "name": "Next Gen Hockey League",
-  "description": "The premier recreational hockey league for safer, affordable, and community-driven play.",
+  "description": "NextGen Sports: The premier multisport athletic organization on Montreal's South Shore featuring NextGen Hockey and NextGen Soccer.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -273,8 +273,8 @@ const Schedule: React.FC = () => {
 
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <button onClick={() => setSelectedGameId(null)} className="flex items-center text-ng-light-blue hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs"><ArrowLeft className="mr-2" size={20} />{t.schedule.backToSchedule}</button>
-        <div className="bg-ng-blue/30 rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
+        <button onClick={() => setSelectedGameId(null)} className="flex items-center text-sky-400 hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs cursor-pointer"><ArrowLeft className="mr-2" size={18} />{t.schedule.backToSchedule}</button>
+        <div className="bg-zinc-900/80 backdrop-blur-md rounded-2xl border border-zinc-800 overflow-hidden shadow-2xl">
             {game.id === 'g_20260906_3' && (
               <div className="bg-gradient-to-r from-amber-500/30 via-yellow-500/20 to-amber-500/30 border-b border-amber-500/40 py-3 px-6 text-center flex flex-wrap items-center justify-center gap-3">
                 <Trophy className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
@@ -286,8 +286,8 @@ const Schedule: React.FC = () => {
                 <Trophy className="w-5 h-5 text-amber-400 shrink-0 animate-bounce" />
               </div>
             )}
-            <div className="bg-ng-navy p-6 border-b border-gray-700 text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">{t.schedule.gameRecap}</h2>
+            <div className="bg-zinc-950/90 p-6 border-b border-zinc-800 text-center">
+                <h2 className="text-2xl font-bold text-white mb-2 font-display">{t.schedule.gameRecap}</h2>
                 <div className="flex items-center justify-center space-x-8">
                      <div className="text-center">
                         <div className="text-3xl font-bold text-white">{game.homeScore}</div>
@@ -540,22 +540,30 @@ const Schedule: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-12 gap-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 gap-6">
         <div>
-          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display drop-shadow-[0_2px_8px_rgba(56,189,248,0.15)]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-sky-500/10 text-sky-400 border border-sky-500/30 mb-3">
+            <Calendar size={13} className="text-sky-400" />
+            <span>
+              {selectedSeason === 'winter_2026_2027' 
+                ? (language === 'fr' ? "Saison d'Hiver 2026-2027" : "Winter Season 2026-2027")
+                : (language === 'fr' ? "Calendrier Officiel" : "Official Schedule")}
+            </span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-black text-white uppercase italic tracking-tight font-display mb-3">
             {t.schedule.title}
-          </h2>
-          {selectedSeason === 'winter_2026_2027' && (
-            <p className="text-ng-light-blue font-black uppercase tracking-widest text-xs sm:text-sm mt-3 pl-8">
-              {language === 'fr' ? "SAISON D'HIVER 2026-2027" : "WINTER SEASON 2026-2027"}
-            </p>
-          )}
+          </h1>
+          <p className="text-gray-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            {language === 'fr'
+              ? "Horaires des rencontres de la ligue, fiches de matchs et pointages officiels au Centre Sportif de Delson."
+              : "Game schedules, matchup details, and official score summaries at Centre Sportif de Delson."}
+          </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Season Selector */}
-          <div className="relative">
+          <div className="relative min-w-[210px]">
             <select
               value={selectedSeason}
               onChange={(e) => {
@@ -564,30 +572,38 @@ const Schedule: React.FC = () => {
                   setFilter('scheduled');
                 }
               }}
-              className="appearance-none bg-slate-900/80 text-white font-black uppercase tracking-widest text-xs sm:text-sm pl-4 pr-10 py-3 sm:py-3.5 rounded-2xl border border-slate-700 hover:border-ng-light-blue/60 focus:outline-none focus:ring-2 focus:ring-ng-light-blue/40 cursor-pointer transition-all shadow-xl w-full"
+              className="appearance-none bg-zinc-900/90 text-white font-black uppercase tracking-wider text-xs sm:text-sm pl-4 pr-10 py-3 rounded-xl border border-zinc-800 hover:border-sky-500/50 focus:outline-none focus:border-sky-400 cursor-pointer transition-all shadow-xl w-full"
             >
               {seasonsList.map((s) => (
-                <option key={s.id} value={s.id} className="bg-ng-navy text-white text-xs sm:text-sm font-sans uppercase">
+                <option key={s.id} value={s.id} className="bg-zinc-900 text-white text-xs sm:text-sm font-sans uppercase">
                   {s.label}
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ng-light-blue">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-sky-400">
               <ChevronDown size={16} />
             </div>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex bg-slate-900/70 p-1 rounded-2xl border border-slate-700/80 shadow-xl overflow-x-auto max-w-full">
+          <div className="flex items-center bg-zinc-900/90 p-1.5 rounded-xl border border-zinc-800">
             <button
               onClick={() => setFilter('scheduled')}
-              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'scheduled' ? 'bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy shadow-md shadow-ng-light-blue/25' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+              className={`px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                filter === 'scheduled' 
+                  ? 'bg-sky-400 text-zinc-950 shadow-md shadow-sky-500/20' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
             >
               {t.schedule.filterUpcoming}
             </button>
             <button
               onClick={() => setFilter('played')}
-              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap ${filter === 'played' ? 'bg-gradient-to-r from-ng-light-blue to-ng-accent text-ng-navy shadow-md shadow-ng-light-blue/25' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}
+              className={`px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
+                filter === 'played' 
+                  ? 'bg-sky-400 text-zinc-950 shadow-md shadow-sky-500/20' 
+                  : 'text-gray-400 hover:text-white'
+              }`}
             >
               {t.schedule.filterResults}
             </button>
@@ -596,12 +612,12 @@ const Schedule: React.FC = () => {
       </div>
 
       {/* Summer 2026 Champions Celebration Banner - Compact & Visible across all seasons */}
-      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-slate-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
+      <div className="relative overflow-hidden mb-6 rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/15 via-zinc-900/90 to-amber-500/15 p-3.5 sm:p-4 shadow-lg shadow-amber-500/10 backdrop-blur-md animate-in fade-in duration-300">
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500/0 via-amber-400/80 to-amber-500/0" />
         <div className="relative flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <div className="flex items-center gap-3 w-full sm:w-auto text-left">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-500 p-0.5 shadow-md shadow-amber-500/25 shrink-0">
-              <div className="w-full h-full bg-ng-navy rounded-[10px] flex items-center justify-center">
+              <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-amber-400 animate-bounce" />
               </div>
             </div>
@@ -626,7 +642,7 @@ const Schedule: React.FC = () => {
               setSelectedSeason('summer_2026_playoffs');
               setSelectedGameId('g_20260906_3');
             }}
-            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-ng-navy font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
+            className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-zinc-950 font-black text-xs uppercase tracking-wider shadow-md shadow-amber-500/20 hover:brightness-110 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-yellow-300/40 whitespace-nowrap"
           >
             <Trophy size={13} />
             <span>{language === 'fr' ? 'Voir Résumé Finale' : 'View Finals Recap'}</span>
@@ -647,8 +663,8 @@ const Schedule: React.FC = () => {
                 key={game.id} 
                 className={
                   isSemiOrFinal 
-                    ? "group bg-gradient-to-r from-amber-500/10 via-slate-900/80 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
-                    : "group bg-slate-900/60 backdrop-blur-md rounded-2xl border border-slate-700/70 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-ng-light-blue/60 hover:shadow-xl hover:shadow-ng-light-blue/5 transition-all duration-300 shadow-lg"
+                    ? "group bg-gradient-to-r from-amber-500/10 via-zinc-900/90 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
+                    : "group bg-zinc-900/60 backdrop-blur-md rounded-2xl border border-zinc-800 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 shadow-lg"
                 }
               >
                 {isSemiOrFinal && (
