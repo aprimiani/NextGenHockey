@@ -4,6 +4,7 @@ import { Trophy, CheckCircle, Send, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../constants';
+import { SEO } from './SEO';
 
 export const Registration: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -106,6 +107,12 @@ export const Registration: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      <SEO
+        title={isFr ? "Inscription d'équipe | Next Gen Hockey et Soccer Montréal" : "Team Registration | Next Gen Hockey & Soccer Montreal"}
+        description={isFr ? "Inscrivez votre équipe à Next Gen Hockey ou Next Gen Soccer. Ligues récréatives et compétitives adultes sur la Rive-Sud de Montréal. Inscrivez-vous!" : "Register your team for Next Gen Hockey or Next Gen Soccer. Competitive adult and recreational leagues on Montreal's South Shore. Sign up your squad today!"}
+        canonical="https://nxtgnsports.ca/register"
+        ogType="website"
+      />
       {/* Central Title */}
       <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/30 mb-4">

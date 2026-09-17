@@ -3,6 +3,7 @@ import { Calendar, Clock, MapPin, Filter, ArrowRight, ShieldCheck, AlertCircle }
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_SCHEDULE, SOCCER_CURRENT_SEASON } from '../../soccerData';
+import { SEO } from '../SEO';
 
 export const SoccerSchedule: React.FC = () => {
   const { language } = useLanguage();
@@ -20,6 +21,12 @@ export const SoccerSchedule: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#070b08] text-white py-12">
+      <SEO
+        title={isFr ? 'Calendrier des rencontres | Next Gen Soccer Montréal' : 'Match Schedule & Results | Next Gen Soccer Montreal'}
+        description={isFr ? 'Consultez l\'horaire officiel des matchs de soccer 7v7, terrains et résultats au Complexe Sportif Delson | Sainte-Catherine pour Next Gen Soccer.' : 'Follow the 7v7 soccer match schedule, pitch assignments, and live results at Complexe Sportif Delson | Sainte-Catherine for Next Gen Soccer.'}
+        canonical="https://nxtgnsports.ca/soccer/calendrier"
+        ogType="website"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10">

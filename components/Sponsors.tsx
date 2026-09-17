@@ -2,9 +2,10 @@ import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { MapPin, Star, Gift, ArrowRight, Trophy, ExternalLink } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { SEO } from './SEO';
 
 const Sponsors: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const handleAddressClick = (address: string) => {
     if (!address) return;
@@ -98,10 +99,16 @@ const Sponsors: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO
+        title={language === 'fr' ? 'Commanditaires & Privilèges | Next Gen Hockey Rive-Sud' : 'Hockey Sponsors & Discounts | Next Gen Hockey South Shore'}
+        description={language === 'fr' ? 'Découvrez les commanditaires officiels et rabais exclusifs pour les joueurs de Next Gen Hockey à Delson sur la Rive-Sud, et notre engagement caritatif.' : 'Explore official sponsors and exclusive player discounts for Next Gen Hockey in Delson and Montreal\'s South Shore, plus our Children\'s Hospital partnership.'}
+        canonical="https://nxtgnsports.ca/hockey/sponsors"
+        ogType="website"
+      />
       <div className="mb-16">
-        <h2 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
+        <h1 className="text-2xl sm:text-4xl font-black text-white uppercase italic tracking-normal border-l-8 border-ng-light-blue pl-6 font-display">
           {t.sponsors.title}
-        </h2>
+        </h1>
         <p className="mt-6 text-xl text-gray-300 pl-8 border-l-8 border-transparent">
           {t.sponsors.subtitle}
         </p>

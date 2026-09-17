@@ -4,6 +4,7 @@ import { useLeagueData } from '../contexts/LeagueDataContext';
 import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translatePenalty } from '../translations';
+import { SEO } from './SEO';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
@@ -541,6 +542,12 @@ const Schedule: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <SEO
+        title={language === 'fr' ? 'Calendrier & Résultats des matchs | Next Gen Hockey' : 'Game Schedule & Results | Next Gen Hockey Montreal'}
+        description={language === 'fr' ? 'Consultez les horaires des matchs, pointages en direct et feuilles de match de Next Gen Hockey à l\'Aréna de Delson sur la Rive-Sud de Montréal.' : 'Check upcoming adult hockey games, live scores, and game recaps for Next Gen Hockey at Delson Arena on Montreal\'s South Shore.'}
+        canonical="https://nxtgnsports.ca/hockey/schedule"
+        ogType="website"
+      />
       <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 sm:mb-12 gap-6">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-sky-500/10 text-sky-400 border border-sky-500/30 mb-3">

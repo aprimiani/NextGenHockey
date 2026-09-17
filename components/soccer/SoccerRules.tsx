@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_RULES } from '../../soccerData';
+import { SEO } from '../SEO';
 
 export const SoccerRules: React.FC = () => {
   const { language } = useLanguage();
@@ -46,6 +47,12 @@ export const SoccerRules: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#070b08] text-white py-12">
+      <SEO
+        title={isFr ? 'Règlements officiels 7v7 | Next Gen Soccer Rive-Sud' : 'Official 7v7 Rules | Next Gen Soccer South Shore'}
+        description={isFr ? 'Consultez les règlements officiels de soccer 7v7 sur gazon synthétique, durées de match et code de conduite sportive de Next Gen Soccer à Delson, QC.' : 'Consult the official 7v7 turf soccer regulations, fair play guidelines, match durations, and code of conduct for Next Gen Soccer in Delson, Quebec.'}
+        canonical="https://nxtgnsports.ca/soccer/reglements"
+        ogType="article"
+      />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-10 text-center max-w-3xl mx-auto">

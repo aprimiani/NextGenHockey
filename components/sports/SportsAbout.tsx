@@ -5,6 +5,7 @@ import { NextGenSportsLogo } from '../logos/NextGenSportsLogo';
 import { NextGenHockeyLogo } from '../logos/NextGenHockeyLogo';
 import { NextGenSoccerLogo } from '../logos/NextGenSoccerLogo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { SEO } from '../SEO';
 
 export const SportsAbout: React.FC = () => {
   const { language } = useLanguage();
@@ -12,6 +13,12 @@ export const SportsAbout: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#07080b] text-white py-12 sm:py-16">
+      <SEO
+        title={isFr ? 'À propos de Next Gen Sports | Organisation sportive Montréal' : 'About Next Gen Sports | Montreal Adult Sports Organization'}
+        description={isFr ? 'Découvrez la mission de Next Gen Sports sur la Rive-Sud de Montréal. Une communauté sportive unie à travers le hockey sur glace et le soccer 7 contre 7.' : 'Discover Next Gen Sports. Founded on Montreal\'s South Shore, we unite young adult and recreational athletes through organized ice hockey and 7v7 soccer leagues.'}
+        canonical="https://nxtgnsports.ca/about"
+        ogType="article"
+      />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">

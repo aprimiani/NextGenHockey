@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Trophy, Gift, MapPin, ExternalLink, ArrowRight, Star } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { SEO } from '../SEO';
 
 export const SportsPartners: React.FC = () => {
   const { language, t } = useLanguage();
@@ -49,6 +50,12 @@ export const SportsPartners: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#07080b] text-white py-12 sm:py-16">
+      <SEO
+        title={isFr ? 'Partenaires officiels & Enfants malades | Next Gen Sports' : 'Official Partners & Charity | Next Gen Sports Montreal'}
+        description={isFr ? 'Next Gen Sports s\'associe à la Fondation du Children de Montréal et aux commerces de la Rive-Sud pour soutenir les soins pédiatriques et nos athlètes.' : 'Next Gen Sports partners with the Montreal Children\'s Hospital Foundation and South Shore businesses to support pediatric health and local community athletes.'}
+        canonical="https://nxtgnsports.ca/partners"
+        ogType="website"
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">

@@ -6,12 +6,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>NextGen Sports | NextGen Hockey & NextGen Soccer</title>
-    <meta name="description" content="NextGen Sports is the premier multisport organization on Montreal's South Shore, featuring competitive ice hockey and 7v7 turf soccer leagues." />
+    <title>Next Gen Sports | Hockey & Soccer Leagues in Montreal</title>
+    <meta name="description" content="Join Next Gen Sports, the premier recreational sports organization in Montreal and South Shore Quebec. Compete in adult ice hockey and 7v7 turf soccer leagues." />
     <link rel="canonical" href="https://nxtgnsports.ca/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Next Gen Sports" />
     <meta property="og:url" content="https://nxtgnsports.ca/" />
-    <meta property="og:title" content="NextGen Sports | NextGen Hockey & NextGen Soccer" />
-    <meta property="og:description" content="NextGen Sports is the premier multisport organization on Montreal's South Shore, featuring competitive ice hockey and 7v7 turf soccer leagues." />
+    <meta property="og:title" content="Next Gen Sports | Hockey & Soccer Leagues in Montreal" />
+    <meta property="og:description" content="Join Next Gen Sports, the premier recreational sports organization in Montreal and South Shore Quebec. Compete in adult ice hockey and 7v7 turf soccer leagues." />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:locale:alternate" content="fr_CA" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Next Gen Sports | Hockey & Soccer Leagues in Montreal" />
+    <meta name="twitter:description" content="Join Next Gen Sports, the premier recreational sports organization in Montreal and South Shore Quebec. Compete in adult ice hockey and 7v7 turf soccer leagues." />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SportsOrganization",
+          "@id": "https://nxtgnsports.ca/#organization",
+          "name": "Next Gen Sports",
+          "alternateName": ["NextGen Sports", "Next Gen Hockey", "Next Gen Soccer"],
+          "url": "https://nxtgnsports.ca/",
+          "email": "info@nxtgnsports.ca",
+          "description": "Premier recreational sports organization on Montreal's South Shore, operating adult ice hockey and 7v7 turf soccer leagues.",
+          "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Montreal, QC"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "South Shore Montreal, QC"
+            }
+          ],
+          "sport": ["Ice Hockey", "Soccer"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://nxtgnsports.ca/#website",
+          "url": "https://nxtgnsports.ca/",
+          "name": "Next Gen Sports",
+          "description": "Recreational Hockey and Soccer Leagues in Montreal and South Shore Quebec",
+          "publisher": {
+            "@id": "https://nxtgnsports.ca/#organization"
+          },
+          "inLanguage": ["en-CA", "fr-CA"]
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <!-- Deployment Trigger: 2026-04-21 -->

@@ -37,7 +37,7 @@ const Gallery: React.FC = () => {
             >
               <img 
                 src={image.url} 
-                alt={image.caption || 'Hockey action'} 
+                alt={image.caption || 'Next Gen Hockey game action and player highlights in Montreal'} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-ng-navy/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -75,7 +75,7 @@ const Gallery: React.FC = () => {
           
           <img 
             src={selectedImage} 
-            alt="Full size action" 
+            alt="Next Gen Hockey full size match photography" 
             className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl animate-in zoom-in-95 duration-200 border border-gray-800"
             onClick={(e) => e.stopPropagation()}
           />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Shield, Ban, Clock, FileText, X } from 'lucide-react';
+import { SEO } from './SEO';
 
 const Rules: React.FC = () => {
   const { t, language } = useLanguage();
@@ -8,6 +9,12 @@ const Rules: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <SEO
+        title={language === 'fr' ? 'Règlements officiels | Ligue Next Gen Hockey Montréal' : 'Official League Rules | Next Gen Hockey Montreal'}
+        description={language === 'fr' ? 'Consultez les règlements officiels de la ligue Next Gen Hockey. Priorité au jeu sans contact, sécurité des joueurs et saine compétition à Delson, QC.' : 'Read the official regulations and governance for Next Gen Hockey. Prioritizing non-contact play, player safety, and fair competition in Montreal, Quebec.'}
+        canonical="https://nxtgnsports.ca/hockey/rules"
+        ogType="article"
+      />
       {/* Header aligned with the rest of the site */}
       <div className="mb-8 sm:mb-12">
         <div className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-sky-500/10 text-sky-400 border border-sky-500/30 mb-3">

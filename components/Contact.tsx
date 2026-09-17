@@ -3,6 +3,7 @@ import { Mail, Send, CheckCircle, Phone, Trophy } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import emailjs from '@emailjs/browser';
 import { EMAILJS_CONFIG } from '../constants';
+import { SEO } from './SEO';
 
 const Contact: React.FC = () => {
   const { language } = useLanguage();
@@ -67,6 +68,24 @@ const Contact: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      <SEO
+        title={isFr ? 'Contactez Next Gen Sports | Ligues Montréal & Rive-Sud' : 'Contact Next Gen Sports | Montreal & South Shore Leagues'}
+        description={isFr ? 'Des questions sur nos ligues de hockey ou soccer sur la Rive-Sud de Montréal? Contactez l\'équipe de direction Next Gen Sports pour tout renseignement.' : 'Have questions about our Montreal adult hockey or soccer leagues? Contact Next Gen Sports for league inquiries, team registrations, and player support.'}
+        canonical="https://nxtgnsports.ca/contact"
+        ogType="website"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": isFr ? "Contactez Next Gen Sports" : "Contact Next Gen Sports",
+          "url": "https://nxtgnsports.ca/contact",
+          "mainEntity": {
+            "@type": "SportsOrganization",
+            "name": "Next Gen Sports",
+            "email": "info@nxtgnsports.ca",
+            "url": "https://nxtgnsports.ca/"
+          }
+        }}
+      />
       {/* Central Header */}
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/30 mb-4">

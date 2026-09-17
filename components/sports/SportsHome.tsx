@@ -21,6 +21,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { sportsTranslations } from '../../sportsTranslations';
 import { SCHEDULE, TEAMS } from '../../constants';
 import { SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
+import { SEO } from '../SEO';
 
 export const SportsHome: React.FC = () => {
   const { language } = useLanguage();
@@ -95,6 +96,12 @@ export const SportsHome: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#07080b] text-white selection:bg-amber-500 selection:text-black">
+      <SEO
+        title={language === 'fr' ? 'Next Gen Sports | Ligues de hockey et soccer à Montréal' : 'Next Gen Sports | Hockey & Soccer Leagues in Montreal'}
+        description={language === 'fr' ? 'Rejoignez Next Gen Sports, organisation récréative sportive sur la Rive-Sud de Montréal. Ligues adultes compétitives de hockey sur glace et soccer 7v7.' : 'Join Next Gen Sports, the premier recreational sports organization in Montreal and South Shore Quebec. Compete in adult ice hockey and 7v7 turf soccer leagues.'}
+        canonical="https://nxtgnsports.ca/"
+        ogType="website"
+      />
       {/* ---------------------------------------------------- */}
       {/* 1. HERO SECTION: DUAL SPORT SYNERGY                   */}
       {/* ---------------------------------------------------- */}

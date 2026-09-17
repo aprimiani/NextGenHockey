@@ -13,6 +13,7 @@ import {
 import { NextGenHockeyLogo } from './logos/NextGenHockeyLogo';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useLeagueData } from '../contexts/LeagueDataContext';
+import { SEO } from './SEO';
 
 export const Hero: React.FC = () => {
   const { t, language } = useLanguage();
@@ -25,6 +26,36 @@ export const Hero: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#07090e] text-white">
+      <SEO
+        title={isFr ? 'Next Gen Hockey | Ligue de hockey adulte à Montréal' : 'Next Gen Hockey | Adult Hockey League in Montreal'}
+        description={isFr ? 'Participez à Next Gen Hockey, la ligue récréative adulte de hockey à l\'Aréna de Delson sur la Rive-Sud de Montréal. Statistiques en direct, arbitres certifiés et séries.' : 'Play in Next Gen Hockey, Montreal\'s premier adult recreational hockey league at Delson Arena. Live digital stats, certified referees, and playoffs.'}
+        canonical="https://nxtgnsports.ca/hockey"
+        ogType="website"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "SportsClub",
+          "name": "Next Gen Hockey",
+          "parentOrganization": {
+            "@type": "SportsOrganization",
+            "name": "Next Gen Sports",
+            "url": "https://nxtgnsports.ca/"
+          },
+          "url": "https://nxtgnsports.ca/hockey",
+          "sport": "Ice Hockey",
+          "location": {
+            "@type": "Place",
+            "name": "Delson Arena",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "100 Av. de Delson",
+              "addressLocality": "Delson",
+              "addressRegion": "QC",
+              "postalCode": "J5B 1S3",
+              "addressCountry": "CA"
+            }
+          }
+        }}
+      />
       {/* -------------------------------------------------- */}
       {/* 1. HERO SECTION                                    */}
       {/* -------------------------------------------------- */}

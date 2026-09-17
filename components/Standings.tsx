@@ -5,6 +5,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 import { PLAYER_OF_THE_MONTH } from '../constants';
+import { SEO } from './SEO';
 
 const Standings: React.FC = () => {
   const { t, language } = useLanguage();
@@ -784,6 +785,12 @@ const Standings: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <SEO
+        title={language === 'fr' ? 'Classements & Statistiques | Next Gen Hockey Montréal' : 'Standings & Player Stats | Next Gen Hockey Montreal'}
+        description={language === 'fr' ? 'Consultez les classements des équipes, meneurs de points, buts et fiches des gardiens de la ligue de hockey adulte Next Gen sur la Rive-Sud de Montréal.' : 'View live team standings, player leaderboards, points, and goalie stats for the Next Gen adult hockey league on Montreal\'s South Shore in Quebec.'}
+        canonical="https://nxtgnsports.ca/hockey/standings"
+        ogType="website"
+      />
       <style>{`
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .fade-right::after {

@@ -17,6 +17,7 @@ import { NextGenSoccerLogo } from '../logos/NextGenSoccerLogo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { sportsTranslations } from '../../sportsTranslations';
 import { SOCCER_CURRENT_SEASON, SOCCER_SCHEDULE } from '../../soccerData';
+import { SEO } from '../SEO';
 
 export const SoccerHome: React.FC = () => {
   const { language } = useLanguage();
@@ -25,6 +26,36 @@ export const SoccerHome: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#070b08] text-white">
+      <SEO
+        title={isFr ? 'Next Gen Soccer | Ligue de soccer 7v7 à Montréal' : 'Next Gen Soccer | Soccer League in Montreal'}
+        description={isFr ? 'Rejoignez Next Gen Soccer, ligue compétitive de soccer 7v7 sur gazon synthétique au Complexe Sportif Delson sur la Rive-Sud de Montréal. Arbitres certifiés.' : 'Join Next Gen Soccer, the premier 7v7 adult synthetic turf soccer league in Delson on Montreal\'s South Shore. Certified referees and full season stats tracking.'}
+        canonical="https://nxtgnsports.ca/soccer"
+        ogType="website"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "SportsClub",
+          "name": "Next Gen Soccer",
+          "parentOrganization": {
+            "@type": "SportsOrganization",
+            "name": "Next Gen Sports",
+            "url": "https://nxtgnsports.ca/"
+          },
+          "url": "https://nxtgnsports.ca/soccer",
+          "sport": "Soccer",
+          "location": {
+            "@type": "Place",
+            "name": "Complexe Sportif Delson | Sainte-Catherine",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "75 Bd Georges Gagné N",
+              "addressLocality": "Delson",
+              "addressRegion": "QC",
+              "postalCode": "J5B 2E5",
+              "addressCountry": "CA"
+            }
+          }
+        }}
+      />
       {/* -------------------------------------------------- */}
       {/* 1. HERO SECTION                                     */}
       {/* -------------------------------------------------- */}
