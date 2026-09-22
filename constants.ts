@@ -131,49 +131,49 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_timbits",
     "name": "Les Timbits",
-    "gp": 1,
+    "gp": 2,
     "wins": 0,
-    "losses": 1,
+    "losses": 2,
     "ties": 0,
     "points": 0,
-    "goalsFor": 3,
-    "goalsAgainst": 4,
+    "goalsFor": 6,
+    "goalsAgainst": 12,
     "logoColor": "#ef4444"
   },
   {
     "id": "w_bots",
     "name": "Bots",
-    "gp": 1,
-    "wins": 1,
+    "gp": 3,
+    "wins": 3,
     "losses": 0,
     "ties": 0,
-    "points": 2,
-    "goalsFor": 8,
-    "goalsAgainst": 3,
+    "points": 6,
+    "goalsFor": 22,
+    "goalsAgainst": 7,
     "logoColor": "#3b82f6"
   },
   {
     "id": "w_kraken",
     "name": "Kraken Beers",
-    "gp": 1,
+    "gp": 3,
     "wins": 1,
-    "losses": 0,
+    "losses": 2,
     "ties": 0,
     "points": 2,
-    "goalsFor": 4,
-    "goalsAgainst": 3,
+    "goalsFor": 7,
+    "goalsAgainst": 14,
     "logoColor": "#111827"
   },
   {
     "id": "w_seamen",
     "name": "The Seamen",
-    "gp": 1,
-    "wins": 0,
+    "gp": 2,
+    "wins": 1,
     "losses": 1,
     "ties": 0,
-    "points": 0,
-    "goalsFor": 3,
-    "goalsAgainst": 8,
+    "points": 2,
+    "goalsFor": 8,
+    "goalsAgainst": 10,
     "logoColor": "#ebdcb9",
     "secondaryColor": "#15803d"
   }
@@ -903,7 +903,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_bots",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 1
   },
   {
     "id": "g_w_6",
@@ -1913,6 +1915,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "secondaryTeamIds": [
       "1"
     ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
+    },
     "gp": 2,
     "goals": 0,
     "assists": 0,
@@ -3229,12 +3239,13 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "w_p_joshua_laekas",
     "name": "Joshua Laekas",
-    "teamId": "w_bots",
+    "teamId": "w_timbits",
     "seasonTeamIds": {
-      "winter_2026_2027": "w_bots"
+      "winter_2026_2027": "w_timbits"
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
+        "w_bots",
         "w_kraken"
       ]
     },
@@ -3293,6 +3304,23 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_keean_herring_sub",
+    "name": "Keean Herring",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -3309,7 +3337,8 @@ export const GOALIE_STATS: GoalieStats[] = [
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
-        "w_bots"
+        "w_bots",
+        "w_kraken"
       ]
     },
     "gp": 15,
@@ -12091,6 +12120,161 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "w_p_joshua_laekas",
         "p_nathan_lapointe_sub",
         "p_ben_carr_sub"
+      ]
+    }
+  },
+  "g_w_5": {
+    "gameId": "g_w_5",
+    "events": [
+      {
+        "id": "e_g_w_5_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "03:41",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1775579857302",
+        "assist2": "p2",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "09:05",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_5_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "15:57",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "p_ben_carr_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "02:38",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_p2",
+        "type": "penalty",
+        "period": 2,
+        "time": "05:55",
+        "teamId": "w_kraken",
+        "player": "p_keean_herring_sub",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_5_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "08:45",
+        "teamId": "w_bots",
+        "player": "p2",
+        "assist": "p_1767082323831",
+        "assist2": "p_1778475181683",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "12:10",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_p3",
+        "type": "penalty",
+        "period": 2,
+        "time": "13:45",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_burton",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_5_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "08:35",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1767082317648",
+        "assist2": "p_1767082310061",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_5_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "14:15",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p3",
+        "assist2": "p2",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 21,
+        "goalsAgainst": 1,
+        "saves": 20
+      },
+      "awayGoalie": {
+        "playerId": "g1",
+        "shotsFaced": 40,
+        "goalsAgainst": 6,
+        "saves": 34
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1767082104234",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p_1767082302464",
+        "p2",
+        "p_1767082323831",
+        "p_1767082317648",
+        "p_1778475181683",
+        "p1",
+        "p_1778425131558"
+      ],
+      "awayPlayers": [
+        "g1",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_evan_getty",
+        "w_p_thomas_desveaux",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p_nicholas_giacalone_178004",
+        "p_ben_carr_sub",
+        "p_keean_herring_sub"
       ]
     }
   }
