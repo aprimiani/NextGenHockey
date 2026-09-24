@@ -337,5 +337,76 @@ export const SOCCER_RULES: SoccerRuleCategory[] = [
         detailFr: 'La ligue se réserve le droit de vérifier l\'admissibilité de tout joueur avant ou pendant les séries éliminatoires.'
       }
     ]
+  },
+  {
+    id: 'complex',
+    titleEn: '11. Sports Complex Regulations',
+    titleFr: '11. Règlements du Complexe Sportif',
+    icon: 'Building2',
+    rules: [
+      {
+        subheadingEn: 'Footwear on the pitch',
+        subheadingFr: 'Chaussures sur le terrain',
+        badgeEn: 'Mandatory',
+        badgeFr: 'Obligatoire',
+        badgeType: 'lime',
+        en: 'Appropriate athletic footwear is mandatory on the pitch. Outdoor shoes, boots, and **metal cleats are strictly prohibited**.',
+        fr: 'Les **chaussures de sport appropriées sont obligatoires** sur le terrain. Les chaussures d\'extérieur, bottes et **crampons métalliques sont interdits**.'
+      },
+      {
+        subheadingEn: 'Food & Chewing Gum',
+        subheadingFr: 'Nourriture & Gomme',
+        badgeEn: 'Prohibited',
+        badgeFr: 'Interdit',
+        badgeType: 'red',
+        en: 'Food and **chewing gum are strictly prohibited** on the pitch.',
+        fr: 'La nourriture et la **gomme à mâcher sont interdites** sur le terrain.'
+      },
+      {
+        subheadingEn: 'Jewelry & Accessories',
+        subheadingFr: 'Bijoux & Accessoires',
+        badgeEn: 'Must be removed',
+        badgeFr: 'À retirer',
+        badgeType: 'orange',
+        en: '**All jewelry must be removed** before participating in a match.',
+        fr: 'Les **bijoux doivent être retirés** avant de participer à un match.'
+      },
+      {
+        subheadingEn: 'Facility & Staff Respect',
+        subheadingFr: 'Installations & Personnel',
+        en: 'Players must **respect the facility and staff** of the Complexe Sportif Delson–Sainte-Catherine at all times.',
+        fr: 'Les joueurs doivent **respecter les installations et le personnel** du Complexe Sportif Delson–Sainte-Catherine en tout temps.'
+      },
+      {
+        subheadingEn: 'Premises Cleanliness',
+        subheadingFr: 'Propreté des lieux',
+        en: 'Each team is **responsible for leaving the premises clean** after their activity.',
+        fr: 'Chaque équipe est responsable de **laisser les lieux propres** après son activité.'
+      },
+      {
+        subheadingEn: 'Prohibited Items & Materials',
+        subheadingFr: 'Objets & Matières interdits',
+        badgeEn: 'Prohibited',
+        badgeFr: 'Interdit',
+        badgeType: 'red',
+        en: 'Confetti, metallic sparkles, smoke bombs, and **helium balloons are prohibited**.',
+        fr: 'Les confettis, brillants métalliques, fumigènes et **ballons gonflés à l\'hélium sont interdits**.'
+      },
+      {
+        subheadingEn: 'Intoxicating Substances',
+        subheadingFr: 'Substances intoxicantes',
+        badgeEn: 'Strictly Prohibited',
+        badgeFr: 'Strictement interdit',
+        badgeType: 'red',
+        en: 'The use of **drugs or intoxicating substances is strictly prohibited** on the premises.',
+        fr: 'L\'utilisation de **drogues ou de substances intoxicantes est strictement interdite** sur le site.'
+      },
+      {
+        subheadingEn: 'Personal Belongings',
+        subheadingFr: 'Effets personnels',
+        en: 'Players are **responsible for their personal belongings**. The complex is not responsible for any theft or damage.',
+        fr: 'Les joueurs sont **responsables de leurs effets personnels**. Le complexe n\'est pas responsable des vols ou dommages.'
+      }
+    ]
   }
 ];

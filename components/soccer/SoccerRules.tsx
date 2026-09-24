@@ -10,7 +10,8 @@ import {
   HandMetal, 
   Trophy, 
   UserCheck, 
-  Check 
+  Check,
+  Building2 
 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_RULES } from '../../soccerData';
@@ -32,6 +33,7 @@ export const SoccerRules: React.FC = () => {
       case 'HandMetal': return <HandMetal size={20} className="text-lime-400" />;
       case 'Trophy': return <Trophy size={20} className="text-yellow-400" />;
       case 'UserCheck': return <UserCheck size={20} className="text-lime-400" />;
+      case 'Building2': return <Building2 size={20} className="text-lime-400" />;
       default: return <Shield size={20} className="text-lime-400" />;
     }
   };
