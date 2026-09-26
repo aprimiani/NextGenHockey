@@ -28,6 +28,20 @@ export const SportsHome: React.FC = () => {
   const t = sportsTranslations[language];
   const [sportFilter, setSportFilter] = useState<'all' | 'hockey' | 'soccer'>('all');
 
+  const formatDate = (dateStr: string) => {
+    try {
+      const d = new Date(dateStr + 'T12:00:00');
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString(language === 'fr' ? 'fr-CA' : 'en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
   // Format teams lookup
   const hockeyTeamsMap = React.useMemo(() => {
     return TEAMS.reduce((acc, t) => {
@@ -446,7 +460,7 @@ export const SportsHome: React.FC = () => {
                         <div className="flex items-center gap-3 text-xs text-gray-400">
                           <span className="flex items-center gap-1">
                             <Calendar size={13} className="text-zinc-500" />
-                            <span>{evt.date}</span>
+                            <span>{formatDate(evt.date)}</span>
                           </span>
                           <span className="flex items-center gap-1 font-bold text-gray-300">
                             <Clock size={13} className="text-zinc-500" />
@@ -456,21 +470,35 @@ export const SportsHome: React.FC = () => {
                       </div>
 
                       {/* Teams Matchup */}
-                      <div className="grid grid-cols-5 items-center py-3 my-2 text-center">
-                        <div className="col-span-2 text-left">
-                          <span className="font-black text-sm sm:text-base text-white uppercase italic truncate block">
-                            {evt.homeTeam}
-                          </span>
+                      <div className="grid grid-cols-[1fr_auto_1fr] sm:grid-cols-5 items-center gap-2 py-3 my-2 text-center">
+                        <div className="col-span-1 sm:col-span-2 text-left min-w-0">
+                          <div className="font-black uppercase italic text-white flex flex-col items-start leading-[1.1]">
+                            <div className="sm:hidden flex flex-col text-sm font-black">
+                              {evt.homeTeam.split(' ').map((w, idx) => (
+                                <span key={idx}>{w}</span>
+                              ))}
+                            </div>
+                            <span className="hidden sm:inline text-sm sm:text-base font-black">
+                              {evt.homeTeam}
+                            </span>
+                          </div>
                         </div>
-                        <div className="col-span-1">
-                          <span className="px-2 py-0.5 rounded text-[11px] font-black bg-zinc-800 text-zinc-400">
+                        <div className="col-span-1 flex justify-center shrink-0">
+                          <span className="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-black bg-zinc-800 text-zinc-400">
                             VS
                           </span>
                         </div>
-                        <div className="col-span-2 text-right">
-                          <span className="font-black text-sm sm:text-base text-white uppercase italic truncate block">
-                            {evt.awayTeam}
-                          </span>
+                        <div className="col-span-1 sm:col-span-2 text-right min-w-0">
+                          <div className="font-black uppercase italic text-white flex flex-col items-end leading-[1.1]">
+                            <div className="sm:hidden flex flex-col text-sm font-black text-right">
+                              {evt.awayTeam.split(' ').map((w, idx) => (
+                                <span key={idx}>{w}</span>
+                              ))}
+                            </div>
+                            <span className="hidden sm:inline text-sm sm:text-base font-black">
+                              {evt.awayTeam}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>

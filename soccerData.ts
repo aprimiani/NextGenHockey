@@ -72,10 +72,10 @@ export interface SoccerRuleCategory {
 }
 
 export const SOCCER_CURRENT_SEASON = {
-  id: 'spring_summer_2026',
-  nameEn: 'Spring / Summer 2026',
-  nameFr: 'Printemps / Été 2026',
-  startDate: '2026',
+  id: 'fall_2026',
+  nameEn: 'Fall 2026',
+  nameFr: 'Automne 2026',
+  startDate: '2026-10-04',
   location: 'Complexe Sportif Delson | Sainte-Catherine',
   address: '75 Bd Georges Gagné N, Delson, QC J5B 2E5',
   registrationOpen: true,
@@ -83,13 +83,106 @@ export const SOCCER_CURRENT_SEASON = {
   formatFr: 'Ligue Synthétique 7 c 7 (6 Joueurs + 1 Gardien)',
 };
 
-export const SOCCER_TEAMS: SoccerTeam[] = [];
+export const SOCCER_TEAMS: SoccerTeam[] = [
+  {
+    id: 's_bots',
+    name: 'Bots',
+    shortName: 'BOT',
+    color: '#0284c7',
+    division: '7v7 Open'
+  },
+  {
+    id: 's_turf_terrors',
+    name: 'Turf Terrors',
+    shortName: 'TT',
+    color: '#ef4444',
+    division: '7v7 Open'
+  },
+  {
+    id: 's_team_3',
+    name: 'Team 3',
+    shortName: 'T3',
+    color: '#f59e0b',
+    division: '7v7 Open'
+  },
+  {
+    id: 's_team_4',
+    name: 'Team 4',
+    shortName: 'T4',
+    color: '#8b5cf6',
+    division: '7v7 Open'
+  }
+];
 
-export const SOCCER_STANDINGS: SoccerTeamStanding[] = [];
+export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
+  { teamId: 's_bots', teamName: 'Bots', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
+  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
+  { teamId: 's_team_3', teamName: 'Team 3', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
+  { teamId: 's_team_4', teamName: 'Team 4', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 }
+];
 
 export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = [];
 
-export const SOCCER_SCHEDULE: SoccerMatch[] = [];
+export const SOCCER_SCHEDULE: SoccerMatch[] = [
+  // Week 1 - Sunday, October 4, 2026
+  {
+    id: 's_m_w1_1',
+    week: 1,
+    date: '2026-10-04',
+    time: '20:00',
+    homeTeamId: 's_bots',
+    awayTeamId: 's_turf_terrors',
+    homeTeamName: 'Bots',
+    awayTeamName: 'Turf Terrors',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open'
+  },
+  {
+    id: 's_m_w1_2',
+    week: 1,
+    date: '2026-10-04',
+    time: '21:00',
+    homeTeamId: 's_team_3',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Team 3',
+    awayTeamName: 'Team 4',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open'
+  },
+  // Week 2 - Sunday, October 11, 2026
+  {
+    id: 's_m_w2_1',
+    week: 2,
+    date: '2026-10-11',
+    time: '20:00',
+    homeTeamId: 's_team_3',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Team 3',
+    awayTeamName: 'Team 4',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open'
+  },
+  {
+    id: 's_m_w2_2',
+    week: 2,
+    date: '2026-10-11',
+    time: '21:00',
+    homeTeamId: 's_bots',
+    awayTeamId: 's_turf_terrors',
+    homeTeamName: 'Bots',
+    awayTeamName: 'Turf Terrors',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open'
+  }
+];
 
 export const SOCCER_RULES: SoccerRuleCategory[] = [
   {

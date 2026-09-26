@@ -24,6 +24,20 @@ export const SoccerHome: React.FC = () => {
   const isFr = language === 'fr';
   const t = sportsTranslations[language].soccerHome;
 
+  const formatDate = (dateStr: string) => {
+    try {
+      const d = new Date(dateStr + 'T12:00:00');
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString(isFr ? 'fr-CA' : 'en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+    } catch {
+      return dateStr;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#070b08] text-white">
       <SEO
@@ -292,7 +306,7 @@ export const SoccerHome: React.FC = () => {
                     <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-3 border-b border-zinc-800">
                       <span className="flex items-center gap-1">
                         <Calendar size={13} className="text-lime-400" />
-                        <span>{match.date}</span>
+                        <span>{formatDate(match.date)}</span>
                       </span>
                       <span className="flex items-center gap-1 font-bold text-white">
                         <Clock size={13} className="text-lime-400" />
@@ -301,16 +315,16 @@ export const SoccerHome: React.FC = () => {
                     </div>
 
                     <div className="space-y-2.5 py-2">
-                      <div className="flex items-center justify-between font-black text-sm text-white uppercase italic">
-                        <span className="truncate">{match.homeTeamName}</span>
-                        <span className="text-zinc-600 text-xs">DOM</span>
+                      <div className="flex items-center justify-between font-black text-sm text-white uppercase italic gap-2">
+                        <span className="break-words leading-tight">{match.homeTeamName}</span>
+                        <span className="text-zinc-600 text-xs shrink-0">DOM</span>
                       </div>
                       <div className="text-center text-[10px] font-black uppercase tracking-widest text-zinc-500">
                         VS
                       </div>
-                      <div className="flex items-center justify-between font-black text-sm text-white uppercase italic">
-                        <span className="truncate">{match.awayTeamName}</span>
-                        <span className="text-zinc-600 text-xs">EXT</span>
+                      <div className="flex items-center justify-between font-black text-sm text-white uppercase italic gap-2">
+                        <span className="break-words leading-tight">{match.awayTeamName}</span>
+                        <span className="text-zinc-600 text-xs shrink-0">EXT</span>
                       </div>
                     </div>
                   </div>
