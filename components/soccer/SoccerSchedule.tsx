@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Filter, ArrowRight, ShieldCheck, AlertCircle, Users, RotateCcw } from 'lucide-react';
+import { Calendar, Clock, MapPin, ArrowRight, ShieldCheck, AlertCircle, Users, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_SCHEDULE, SOCCER_CURRENT_SEASON, SOCCER_TEAMS } from '../../soccerData';
@@ -10,18 +10,30 @@ export const SoccerSchedule: React.FC = () => {
   const isFr = language === 'fr';
   const [activeTab, setActiveTab] = useState<'upcoming' | 'completed'>('upcoming');
   const [selectedTeam, setSelectedTeam] = useState<string>('all');
-  const [selectedWeek, setSelectedWeek] = useState<number | 'all'>('all');
 
-  const teamColors = React.useMemo(() => {
+  const teamMap = React.useMemo(() => {
     return SOCCER_TEAMS.reduce((acc, t) => {
-      acc[t.id] = t.color;
+      acc[t.id] = t;
       return acc;
-    }, {} as Record<string, string>);
+    }, {} as Record<string, typeof SOCCER_TEAMS[0]>);
   }, []);
 
-  const availableWeeks = React.useMemo(() => {
-    return Array.from(new Set(SOCCER_SCHEDULE.map(m => m.week))).sort((a, b) => a - b);
-  }, []);
+  const getTeamDotStyle = (teamId: string): React.CSSProperties => {
+    const team = teamMap[teamId];
+    if (!team) return { backgroundColor: '#22c55e' };
+    if (team.secondaryColor) {
+      return {
+        background: `linear-gradient(135deg, ${team.color} 50%, ${team.secondaryColor} 50%)`,
+        boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.3)'
+      };
+    }
+    return {
+      backgroundColor: team.color,
+      boxShadow: team.color.toLowerCase() === '#ffffff'
+        ? '0 0 0 1px rgba(161, 161, 170, 0.8)'
+        : '0 0 0 1px rgba(255, 255, 255, 0.2)'
+    };
+  };
 
   const formatDate = (dateStr: string) => {
     try {
@@ -42,10 +54,9 @@ export const SoccerSchedule: React.FC = () => {
     return SOCCER_SCHEDULE.filter(m => {
       const matchTab = activeTab === 'upcoming' ? m.status === 'upcoming' : m.status === 'completed';
       const matchTeam = selectedTeam === 'all' || m.homeTeamId === selectedTeam || m.awayTeamId === selectedTeam;
-      const matchWeek = selectedWeek === 'all' || m.week === selectedWeek;
-      return matchTab && matchTeam && matchWeek;
+      return matchTab && matchTeam;
     });
-  }, [activeTab, selectedTeam, selectedWeek]);
+  }, [activeTab, selectedTeam]);
 
   const activeTeamObj = React.useMemo(() => {
     return SOCCER_TEAMS.find(t => t.id === selectedTeam);
@@ -81,7 +92,7 @@ export const SoccerSchedule: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#070b08] text-white py-12">
+    <div className="min-h-screen bg-[#070b08] text-white py-12 overflow-x-hidden max-w-full w-full">
       <SEO
         title={isFr ? 'Calendrier des rencontres | Next Gen Soccer Montréal' : 'Match Schedule & Results | Next Gen Soccer Montreal'}
         description={isFr ? 'Consultez l\'horaire officiel des matchs de soccer 7v7, terrains et résultats au Complexe Sportif Delson | Sainte-Catherine pour Next Gen Soccer.' : 'Follow the 7v7 soccer match schedule, pitch assignments, and live results at Complexe Sportif Delson | Sainte-Catherine for Next Gen Soccer.'}
@@ -198,8 +209,8 @@ export const SoccerSchedule: React.FC = () => {
                       }`}
                     >
                       <span
-                        className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{ backgroundColor: team.color }}
+                        className="w-3 h-3 rounded-full shrink-0"
+                        style={getTeamDotStyle(team.id)}
                       />
                       <span>{team.name}</span>
                     </button>
@@ -207,86 +218,30 @@ export const SoccerSchedule: React.FC = () => {
                 })}
               </div>
 
-              {/* Main Controls Row */}
-              <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-zinc-900/60 p-3 rounded-2xl border border-zinc-800/80">
-                {/* Upcoming vs Completed */}
-                <div className="flex items-center gap-2 bg-zinc-950/80 p-1 rounded-xl border border-zinc-800 self-start sm:self-auto">
-                  <button
-                    onClick={() => setActiveTab('upcoming')}
-                    className={`px-4 sm:px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
-                      activeTab === 'upcoming'
-                        ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    {isFr ? 'Matchs à Venir' : 'Upcoming Matches'}
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('completed')}
-                    className={`px-4 sm:px-5 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
-                      activeTab === 'completed'
-                        ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    {isFr ? 'Matchs Complétés' : 'Completed Matches'}
-                  </button>
-                </div>
-
-                {/* Filter Dropdowns */}
-                <div className="flex flex-wrap items-center gap-3">
-                  {/* Team Dropdown */}
-                  <div className="flex items-center gap-2">
-                    <Users size={14} className="text-lime-400 shrink-0" />
-                    <select
-                      value={selectedTeam}
-                      onChange={(e) => setSelectedTeam(e.target.value)}
-                      aria-label={isFr ? 'Filtrer par équipe' : 'Filter by team'}
-                      className="bg-zinc-950 border border-zinc-700 text-gray-200 text-xs font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-lime-400 cursor-pointer"
-                    >
-                      <option value="all">{isFr ? 'Toutes les équipes' : 'All Teams'}</option>
-                      {SOCCER_TEAMS.map((team) => (
-                        <option key={team.id} value={team.id}>
-                          {team.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Week Filter */}
-                  <div className="flex items-center gap-2">
-                    <Filter size={14} className="text-lime-400 shrink-0" />
-                    <select
-                      value={selectedWeek}
-                      onChange={(e) => setSelectedWeek(e.target.value === 'all' ? 'all' : Number(e.target.value))}
-                      aria-label={isFr ? 'Filtrer par semaine' : 'Filter by week'}
-                      className="bg-zinc-950 border border-zinc-700 text-gray-200 text-xs font-bold rounded-xl px-3 py-2 focus:outline-none focus:border-lime-400 cursor-pointer"
-                    >
-                      <option value="all">{isFr ? 'Toutes les semaines' : 'All Weeks'}</option>
-                      {availableWeeks.map((w) => (
-                        <option key={w} value={w}>
-                          {isFr ? `Semaine ${w}` : `Week ${w}`}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Reset Filters button */}
-                  {(selectedTeam !== 'all' || selectedWeek !== 'all') && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedTeam('all');
-                        setSelectedWeek('all');
-                      }}
-                      className="px-3 py-2 text-xs font-bold text-gray-300 hover:text-white rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center gap-1.5 transition-all cursor-pointer"
-                      title={isFr ? 'Réinitialiser les filtres' : 'Reset filters'}
-                    >
-                      <RotateCcw size={12} className="text-lime-400" />
-                      <span>{isFr ? 'Effacer filtres' : 'Reset'}</span>
-                    </button>
-                  )}
-                </div>
+              {/* Match Status Tab Selector */}
+              <div className="flex items-center gap-2 bg-zinc-900/60 p-1.5 rounded-2xl border border-zinc-800/80 self-start">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('upcoming')}
+                  className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
+                    activeTab === 'upcoming'
+                      ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {isFr ? 'Matchs à Venir' : 'Upcoming Matches'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('completed')}
+                  className={`px-4 sm:px-5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
+                    activeTab === 'completed'
+                      ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {isFr ? 'Matchs Complétés' : 'Completed Matches'}
+                </button>
               </div>
 
               {/* Active Filter Notice */}
@@ -294,8 +249,8 @@ export const SoccerSchedule: React.FC = () => {
                 <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-lime-500/10 border border-lime-500/20 text-xs text-lime-300">
                   <div className="flex items-center gap-2">
                     <span
-                      className="w-2.5 h-2.5 rounded-full shrink-0"
-                      style={{ backgroundColor: activeTeamObj.color }}
+                      className="w-3 h-3 rounded-full shrink-0"
+                      style={getTeamDotStyle(activeTeamObj.id)}
                     />
                     <span>
                       {isFr
@@ -357,12 +312,12 @@ export const SoccerSchedule: React.FC = () => {
                           <div className="flex items-start gap-1.5 sm:gap-2 md:justify-end">
                             <span
                               className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
-                              style={{ backgroundColor: teamColors[match.homeTeamId] || '#0284c7' }}
+                              style={getTeamDotStyle(match.homeTeamId)}
                             />
                             {renderTeamName(match.homeTeamName, isHomeMatch, 'left')}
                             <span
                               className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
-                              style={{ backgroundColor: teamColors[match.homeTeamId] || '#0284c7' }}
+                              style={getTeamDotStyle(match.homeTeamId)}
                             />
                           </div>
                           <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
@@ -386,12 +341,12 @@ export const SoccerSchedule: React.FC = () => {
                           <div className="flex items-start gap-1.5 sm:gap-2 justify-end md:justify-start">
                             <span
                               className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
-                              style={{ backgroundColor: teamColors[match.awayTeamId] || '#8b5cf6' }}
+                              style={getTeamDotStyle(match.awayTeamId)}
                             />
                             {renderTeamName(match.awayTeamName, isAwayMatch, 'right')}
                             <span
                               className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
-                              style={{ backgroundColor: teamColors[match.awayTeamId] || '#8b5cf6' }}
+                              style={getTeamDotStyle(match.awayTeamId)}
                             />
                           </div>
                           <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
@@ -430,13 +385,10 @@ export const SoccerSchedule: React.FC = () => {
                     ? 'Essayez de changer les filtres ou de réinitialiser la sélection.'
                     : 'Try changing your filters or resetting the selection.'}
                 </p>
-                {(selectedTeam !== 'all' || selectedWeek !== 'all') && (
+                {selectedTeam !== 'all' && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setSelectedTeam('all');
-                      setSelectedWeek('all');
-                    }}
+                    onClick={() => setSelectedTeam('all')}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-lime-400 text-zinc-950 hover:bg-lime-300 transition-all cursor-pointer shadow-md"
                   >
                     <RotateCcw size={12} />

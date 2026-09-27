@@ -19,13 +19,14 @@ export const SoccerNavbar: React.FC = () => {
   const navLinks = [
     { label: tSoccer.home, path: '/soccer' },
     { label: tSoccer.stats, path: '/soccer/statistiques' },
+    { label: isFr ? 'Alignements' : 'Lineups', path: '/soccer/alignements' },
     { label: tSoccer.calendar, path: '/soccer/calendrier' },
     { label: tSoccer.rules, path: '/soccer/reglements' },
     { label: isFr ? 'Contact' : 'Contact Us', path: '/contact' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[#090e0b]/95 backdrop-blur-md border-b border-lime-500/20 text-white shadow-xl shadow-black/50">
+    <header className="sticky top-0 z-50 bg-[#090e0b]/95 backdrop-blur-md border-b border-lime-500/20 text-white shadow-xl shadow-black/50 w-full max-w-full overflow-x-hidden">
       {/* Top Sport Switcher Bar */}
       <div className="bg-[#050806] border-b border-lime-500/10 px-3 sm:px-4 py-1.5 sm:py-1 text-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between">

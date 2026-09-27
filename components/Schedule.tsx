@@ -713,12 +713,24 @@ const Schedule: React.FC = () => {
                   {/* VS / Score */}
                   <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
                     {game.status === 'played' ? (
-                      <div className={`px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl text-lg sm:text-3xl font-black tracking-widest shadow-2xl group-hover:scale-110 transition-transform ${
-                        isSemiOrFinal 
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
-                          : 'bg-ng-navy text-white border border-ng-light-blue/30'
-                      }`}>
-                        {game.homeScore}-{game.awayScore}
+                      <div className="flex flex-col items-center">
+                        <div className={`px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl text-lg sm:text-3xl font-black tracking-widest shadow-2xl group-hover:scale-110 transition-transform ${
+                          isSemiOrFinal 
+                            ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+                            : 'bg-ng-navy text-white border border-ng-light-blue/30'
+                        }`}>
+                          {game.homeScore}-{game.awayScore}
+                        </div>
+                        {(game.ending === 'ot' || game.isOvertime) && (
+                          <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
+                            {language === 'fr' ? 'PR' : 'OT'}
+                          </span>
+                        )}
+                        {(game.ending === 'so' || game.isShootout) && (
+                          <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
+                            {language === 'fr' ? 'TB' : 'SO'}
+                          </span>
+                        )}
                       </div>
                     ) : (
                       <div className={`px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl text-[8px] sm:text-sm font-black uppercase tracking-widest ${

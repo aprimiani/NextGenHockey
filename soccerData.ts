@@ -4,6 +4,7 @@ export interface SoccerTeam {
   shortName: string;
   logoUrl?: string;
   color: string;
+  secondaryColor?: string;
   division: string;
 }
 
@@ -22,6 +23,14 @@ export interface SoccerMatch {
   awayScore?: number;
   division: string;
   week: number;
+}
+
+export interface SoccerRosterPlayer {
+  id: string;
+  firstName: string;
+  lastName: string;
+  name: string;
+  teamId: string;
 }
 
 export interface SoccerPlayerStat {
@@ -85,43 +94,107 @@ export const SOCCER_CURRENT_SEASON = {
 
 export const SOCCER_TEAMS: SoccerTeam[] = [
   {
-    id: 's_bots',
-    name: 'Bots',
-    shortName: 'BOT',
-    color: '#0284c7',
+    id: 's_faahh_united',
+    name: 'Faah United',
+    shortName: 'FU',
+    color: '#6b7280',
+    secondaryColor: '#22c55e',
     division: '7v7 Open'
   },
   {
     id: 's_turf_terrors',
     name: 'Turf Terrors',
     shortName: 'TT',
-    color: '#ef4444',
+    color: '#16a34a',
     division: '7v7 Open'
   },
   {
-    id: 's_team_3',
-    name: 'Team 3',
-    shortName: 'T3',
-    color: '#f59e0b',
+    id: 's_blackjacks',
+    name: 'BlackJacks',
+    shortName: 'BJ',
+    color: '#0a0a0a',
+    secondaryColor: '#22c55e',
     division: '7v7 Open'
   },
   {
     id: 's_team_4',
     name: 'Team 4',
     shortName: 'T4',
-    color: '#8b5cf6',
+    color: '#ffffff',
     division: '7v7 Open'
   }
 ];
 
 export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
-  { teamId: 's_bots', teamName: 'Bots', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
+  { teamId: 's_faahh_united', teamName: 'Faah United', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
   { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
-  { teamId: 's_team_3', teamName: 'Team 3', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
+  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
   { teamId: 's_team_4', teamName: 'Team 4', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 }
 ];
 
-export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = [];
+export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
+  s_faahh_united: [
+    { id: 'fu_1', firstName: 'Michael-Joseph', lastName: 'Primiani', name: 'Michael-Joseph Primiani', teamId: 's_faahh_united' },
+    { id: 'fu_2', firstName: 'Gabriel', lastName: 'Savard', name: 'Gabriel Savard', teamId: 's_faahh_united' },
+    { id: 'fu_3', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_faahh_united' },
+    { id: 'fu_4', firstName: 'Benjamin', lastName: 'St-Cyr', name: 'Benjamin St-Cyr', teamId: 's_faahh_united' },
+    { id: 'fu_5', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_faahh_united' },
+    { id: 'fu_6', firstName: 'Simon', lastName: 'Yelle', name: 'Simon Yelle', teamId: 's_faahh_united' },
+    { id: 'fu_7', firstName: 'Meagan', lastName: 'St-Cyr', name: 'Meagan St-Cyr', teamId: 's_faahh_united' },
+    { id: 'fu_8', firstName: 'Thomas', lastName: 'Yelle', name: 'Thomas Yelle', teamId: 's_faahh_united' },
+    { id: 'fu_9', firstName: 'Simon', lastName: 'Berthiaume', name: 'Simon Berthiaume', teamId: 's_faahh_united' },
+    { id: 'fu_10', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_faahh_united' },
+    { id: 'fu_11', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_faahh_united' },
+    { id: 'fu_12', firstName: 'Calvin', lastName: 'Watt', name: 'Calvin Watt', teamId: 's_faahh_united' },
+  ],
+  s_blackjacks: [
+    { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks' },
+    { id: 'bj_2', firstName: 'Moustapha', lastName: 'Amar', name: 'Moustapha Amar', teamId: 's_blackjacks' },
+    { id: 'bj_3', firstName: 'Nathan', lastName: 'Essono', name: 'Nathan Essono', teamId: 's_blackjacks' },
+    { id: 'bj_4', firstName: 'Amelia', lastName: 'Benabid', name: 'Amelia Benabid', teamId: 's_blackjacks' },
+    { id: 'bj_5', firstName: 'Émy', lastName: 'Larivière', name: 'Émy Larivière', teamId: 's_blackjacks' },
+    { id: 'bj_6', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_blackjacks' },
+    { id: 'bj_7', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_blackjacks' },
+    { id: 'bj_8', firstName: 'Brandon', lastName: 'De Sousa', name: 'Brandon De Sousa', teamId: 's_blackjacks' },
+    { id: 'bj_9', firstName: 'Charlotte', lastName: 'Soucy', name: 'Charlotte Soucy', teamId: 's_blackjacks' },
+    { id: 'bj_10', firstName: 'Brenden', lastName: 'Thomas-Bynoe', name: 'Brenden Thomas-Bynoe', teamId: 's_blackjacks' },
+  ],
+  s_turf_terrors: [
+    { id: 'tt_1', firstName: 'Evan', lastName: 'Sinclair', name: 'Evan Sinclair', teamId: 's_turf_terrors' },
+    { id: 'tt_2', firstName: 'Zachary', lastName: 'Bailey', name: 'Zachary Bailey', teamId: 's_turf_terrors' },
+    { id: 'tt_3', firstName: 'Joshua', lastName: 'Bubis', name: 'Joshua Bubis', teamId: 's_turf_terrors' },
+    { id: 'tt_4', firstName: 'Benjamin', lastName: 'Morton', name: 'Benjamin Morton', teamId: 's_turf_terrors' },
+    { id: 'tt_5', firstName: 'Timothy', lastName: 'Gilmore', name: 'Timothy Gilmore', teamId: 's_turf_terrors' },
+    { id: 'tt_6', firstName: 'Jean Luc', lastName: 'Feliciano', name: 'Jean Luc Feliciano', teamId: 's_turf_terrors' },
+    { id: 'tt_7', firstName: 'Phenix', lastName: 'Mangerpan', name: 'Phenix Mangerpan', teamId: 's_turf_terrors' },
+    { id: 'tt_8', firstName: 'Tristan', lastName: 'Snowden', name: 'Tristan Snowden', teamId: 's_turf_terrors' },
+    { id: 'tt_9', firstName: 'Abigael', lastName: 'O\'Rourke', name: 'Abigael O\'Rourke', teamId: 's_turf_terrors' },
+    { id: 'tt_10', firstName: 'Ciera', lastName: 'MacDavid', name: 'Ciera MacDavid', teamId: 's_turf_terrors' },
+    { id: 'tt_11', firstName: 'Shawn', lastName: 'Chiniah', name: 'Shawn Chiniah', teamId: 's_turf_terrors' },
+    { id: 'tt_12', firstName: 'Lydia', lastName: 'Côté', name: 'Lydia Côté', teamId: 's_turf_terrors' },
+  ],
+  s_team_4: [
+    { id: 't4_1', firstName: 'Alexandre', lastName: 'Stefanson', name: 'Alexandre Stefanson', teamId: 's_team_4' },
+  ]
+};
+
+export const ALL_SOCCER_PLAYERS: SoccerRosterPlayer[] = Object.values(SOCCER_ROSTERS).flat();
+
+export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = ALL_SOCCER_PLAYERS.map(p => {
+  const team = SOCCER_TEAMS.find(t => t.id === p.teamId);
+  return {
+    id: p.id,
+    name: p.name,
+    teamId: p.teamId,
+    teamName: team?.name || '',
+    gp: 0,
+    goals: 0,
+    assists: 0,
+    points: 0,
+    yellowCards: 0,
+    redCards: 0
+  };
+});
 
 export const SOCCER_SCHEDULE: SoccerMatch[] = [
   // Week 1 - Sunday, October 4, 2026
@@ -130,9 +203,9 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     week: 1,
     date: '2026-10-04',
     time: '20:00',
-    homeTeamId: 's_bots',
+    homeTeamId: 's_faahh_united',
     awayTeamId: 's_turf_terrors',
-    homeTeamName: 'Bots',
+    homeTeamName: 'Faah United',
     awayTeamName: 'Turf Terrors',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
@@ -144,9 +217,9 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     week: 1,
     date: '2026-10-04',
     time: '21:00',
-    homeTeamId: 's_team_3',
+    homeTeamId: 's_blackjacks',
     awayTeamId: 's_team_4',
-    homeTeamName: 'Team 3',
+    homeTeamName: 'BlackJacks',
     awayTeamName: 'Team 4',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
@@ -159,9 +232,9 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     week: 2,
     date: '2026-10-11',
     time: '20:00',
-    homeTeamId: 's_team_3',
+    homeTeamId: 's_blackjacks',
     awayTeamId: 's_team_4',
-    homeTeamName: 'Team 3',
+    homeTeamName: 'BlackJacks',
     awayTeamName: 'Team 4',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
@@ -173,9 +246,9 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     week: 2,
     date: '2026-10-11',
     time: '21:00',
-    homeTeamId: 's_bots',
+    homeTeamId: 's_faahh_united',
     awayTeamId: 's_turf_terrors',
-    homeTeamName: 'Bots',
+    homeTeamName: 'Faah United',
     awayTeamName: 'Turf Terrors',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',

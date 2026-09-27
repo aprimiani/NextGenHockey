@@ -246,19 +246,52 @@ const Manager: React.FC = () => {
         awayTeam.goalsFor += awayScore;
         awayTeam.goalsAgainst += homeScore;
 
-        if (homeScore > awayScore) {
-          homeTeam.wins++;
-          homeTeam.points += 2;
-          awayTeam.losses++;
-        } else if (homeScore < awayScore) {
-          awayTeam.wins++;
-          awayTeam.points += 2;
-          homeTeam.losses++;
+        const isWinter = game.homeTeamId.startsWith('w_') || game.awayTeamId.startsWith('w_');
+        const isOT = game.ending === 'ot' || game.ending === 'so' || game.isOvertime || game.isShootout;
+
+        if (isWinter) {
+          if (homeScore > awayScore) {
+            homeTeam.wins++;
+            awayTeam.losses++;
+            if (isOT) {
+              homeTeam.points += 2; // Overtime/Shootout win
+              awayTeam.points += 1; // Overtime/Shootout loss
+            } else {
+              homeTeam.points += 3; // Regulation win
+              // Regulation loss = 0 points
+            }
+          } else if (homeScore < awayScore) {
+            awayTeam.wins++;
+            homeTeam.losses++;
+            if (isOT) {
+              awayTeam.points += 2; // Overtime/Shootout win
+              homeTeam.points += 1; // Overtime/Shootout loss
+            } else {
+              awayTeam.points += 3; // Regulation win
+              // Regulation loss = 0 points
+            }
+          } else {
+            homeTeam.ties++;
+            homeTeam.points += 1;
+            awayTeam.ties++;
+            awayTeam.points += 1;
+          }
         } else {
-          homeTeam.ties++;
-          homeTeam.points += 1;
-          awayTeam.ties++;
-          awayTeam.points += 1;
+          // Standard Summer season 2-point system
+          if (homeScore > awayScore) {
+            homeTeam.wins++;
+            homeTeam.points += 2;
+            awayTeam.losses++;
+          } else if (homeScore < awayScore) {
+            awayTeam.wins++;
+            awayTeam.points += 2;
+            homeTeam.losses++;
+          } else {
+            homeTeam.ties++;
+            homeTeam.points += 1;
+            awayTeam.ties++;
+            awayTeam.points += 1;
+          }
         }
 
         // 3. Increment GP for all players in the game (User Request: auto-add 1 GP to all team players)
@@ -796,6 +829,23 @@ const Manager: React.FC = () => {
                            <select value={game.awayTeamId} onChange={(e) => handleGameUpdate(game.id, 'awayTeamId', e.target.value)} className="flex-1 bg-gray-800 border-gray-700 rounded-lg p-2 text-xs text-white">{teams.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
                            <input type="number" placeholder="0" value={game.awayScore ?? ''} onChange={(e) => handleGameUpdate(game.id, 'awayScore', e.target.value === '' ? undefined : parseInt(e.target.value))} className="w-12 bg-gray-900 border-gray-700 rounded-lg p-2 text-center text-xs" />
                          </div>
+                          <div className="flex items-center justify-between gap-2 pt-1 border-t border-gray-800/80">
+                            <span className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Fin / Ending:</span>
+                            <select 
+                              value={game.ending || (game.isOvertime ? 'ot' : game.isShootout ? 'so' : 'regulation')} 
+                              onChange={(e) => {
+                                const val = e.target.value as 'regulation' | 'ot' | 'so';
+                                handleGameUpdate(game.id, 'ending', val);
+                                handleGameUpdate(game.id, 'isOvertime', val === 'ot');
+                                handleGameUpdate(game.id, 'isShootout', val === 'so');
+                              }}
+                              className="bg-gray-800 border-gray-700 rounded-lg px-2 py-1 text-[11px] text-white"
+                            >
+                              <option value="regulation">Régulier / Regulation (3 pts V)</option>
+                              <option value="ot">Prolongation / OT (2 pts V / 1 pt D)</option>
+                              <option value="so">Fusillade / SO (2 pts V / 1 pt D)</option>
+                            </select>
+                          </div>
                       </div>
                       <div className="flex flex-col gap-3 md:items-end">
                          <div className="flex items-center gap-2">

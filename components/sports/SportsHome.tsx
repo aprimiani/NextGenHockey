@@ -23,6 +23,21 @@ import { SCHEDULE, TEAMS } from '../../constants';
 import { SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
 
+interface SportsGameEvent {
+  id: string;
+  sport: 'hockey' | 'soccer';
+  date: string;
+  time: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeColor: string;
+  homeSecondaryColor?: string;
+  awayColor: string;
+  awaySecondaryColor?: string;
+  location: string;
+  link: string;
+}
+
 export const SportsHome: React.FC = () => {
   const { language } = useLanguage();
   const t = sportsTranslations[language];
@@ -58,13 +73,13 @@ export const SportsHome: React.FC = () => {
   }, []);
 
   // Upcoming Hockey games from constants.ts
-  const upcomingHockey = React.useMemo(() => {
+  const upcomingHockey = React.useMemo<SportsGameEvent[]>(() => {
     return SCHEDULE
       .filter(g => g.status === 'scheduled')
       .slice(0, 4)
       .map(g => ({
         id: g.id,
-        sport: 'hockey' as const,
+        sport: 'hockey',
         date: g.date,
         time: g.time,
         homeTeam: hockeyTeamsMap[g.homeTeamId]?.name || g.homeTeamId,
@@ -77,27 +92,29 @@ export const SportsHome: React.FC = () => {
   }, [hockeyTeamsMap]);
 
   // Upcoming Soccer games from soccerData.ts
-  const upcomingSoccer = React.useMemo(() => {
+  const upcomingSoccer = React.useMemo<SportsGameEvent[]>(() => {
     return SOCCER_SCHEDULE
       .filter(m => m.status === 'upcoming')
       .slice(0, 4)
       .map(m => ({
         id: m.id,
-        sport: 'soccer' as const,
+        sport: 'soccer',
         date: m.date,
         time: m.time,
         homeTeam: m.homeTeamName,
         awayTeam: m.awayTeamName,
         homeColor: soccerTeamsMap[m.homeTeamId]?.color || '#16a34a',
+        homeSecondaryColor: soccerTeamsMap[m.homeTeamId]?.secondaryColor,
         awayColor: soccerTeamsMap[m.awayTeamId]?.color || '#84cc16',
+        awaySecondaryColor: soccerTeamsMap[m.awayTeamId]?.secondaryColor,
         location: `${m.location} (${m.pitch})`,
         link: '/soccer/calendrier'
       }));
   }, [soccerTeamsMap]);
 
   // Combined and sorted upcoming events
-  const combinedEvents = React.useMemo(() => {
-    let list = [];
+  const combinedEvents = React.useMemo<SportsGameEvent[]>(() => {
+    let list: SportsGameEvent[] = [];
     if (sportFilter === 'all') {
       list = [...upcomingHockey, ...upcomingSoccer];
     } else if (sportFilter === 'hockey') {
@@ -472,15 +489,31 @@ export const SportsHome: React.FC = () => {
                       {/* Teams Matchup */}
                       <div className="grid grid-cols-[1fr_auto_1fr] sm:grid-cols-5 items-center gap-2 py-3 my-2 text-center">
                         <div className="col-span-1 sm:col-span-2 text-left min-w-0">
-                          <div className="font-black uppercase italic text-white flex flex-col items-start leading-[1.1]">
-                            <div className="sm:hidden flex flex-col text-sm font-black">
-                              {evt.homeTeam.split(' ').map((w, idx) => (
-                                <span key={idx}>{w}</span>
-                              ))}
+                          <div className="flex items-start gap-1.5 sm:gap-2">
+                            <span
+                              className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1"
+                              style={
+                                evt.homeSecondaryColor
+                                  ? {
+                                      background: `linear-gradient(135deg, ${evt.homeColor} 50%, ${evt.homeSecondaryColor} 50%)`,
+                                      boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.3)'
+                                    }
+                                  : {
+                                      backgroundColor: evt.homeColor,
+                                      boxShadow: evt.homeColor === '#ffffff' ? '0 0 0 1px rgba(161, 161, 170, 0.8)' : '0 0 0 1px rgba(255, 255, 255, 0.2)'
+                                    }
+                              }
+                            />
+                            <div className="font-black uppercase italic text-white flex flex-col items-start leading-[1.1]">
+                              <div className="sm:hidden flex flex-col text-sm font-black">
+                                {evt.homeTeam.split(' ').map((w, idx) => (
+                                  <span key={idx}>{w}</span>
+                                ))}
+                              </div>
+                              <span className="hidden sm:inline text-sm sm:text-base font-black">
+                                {evt.homeTeam}
+                              </span>
                             </div>
-                            <span className="hidden sm:inline text-sm sm:text-base font-black">
-                              {evt.homeTeam}
-                            </span>
                           </div>
                         </div>
                         <div className="col-span-1 flex justify-center shrink-0">
@@ -489,15 +522,31 @@ export const SportsHome: React.FC = () => {
                           </span>
                         </div>
                         <div className="col-span-1 sm:col-span-2 text-right min-w-0">
-                          <div className="font-black uppercase italic text-white flex flex-col items-end leading-[1.1]">
-                            <div className="sm:hidden flex flex-col text-sm font-black text-right">
-                              {evt.awayTeam.split(' ').map((w, idx) => (
-                                <span key={idx}>{w}</span>
-                              ))}
+                          <div className="flex items-start gap-1.5 sm:gap-2 justify-end">
+                            <div className="font-black uppercase italic text-white flex flex-col items-end leading-[1.1]">
+                              <div className="sm:hidden flex flex-col text-sm font-black text-right">
+                                {evt.awayTeam.split(' ').map((w, idx) => (
+                                  <span key={idx}>{w}</span>
+                                ))}
+                              </div>
+                              <span className="hidden sm:inline text-sm sm:text-base font-black">
+                                {evt.awayTeam}
+                              </span>
                             </div>
-                            <span className="hidden sm:inline text-sm sm:text-base font-black">
-                              {evt.awayTeam}
-                            </span>
+                            <span
+                              className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1"
+                              style={
+                                evt.awaySecondaryColor
+                                  ? {
+                                      background: `linear-gradient(135deg, ${evt.awayColor} 50%, ${evt.awaySecondaryColor} 50%)`,
+                                      boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.3)'
+                                    }
+                                  : {
+                                      backgroundColor: evt.awayColor,
+                                      boxShadow: evt.awayColor === '#ffffff' ? '0 0 0 1px rgba(161, 161, 170, 0.8)' : '0 0 0 1px rgba(255, 255, 255, 0.2)'
+                                    }
+                              }
+                            />
                           </div>
                         </div>
                       </div>

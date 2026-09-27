@@ -16,7 +16,7 @@ import {
 import { NextGenSoccerLogo } from '../logos/NextGenSoccerLogo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { sportsTranslations } from '../../sportsTranslations';
-import { SOCCER_CURRENT_SEASON, SOCCER_SCHEDULE } from '../../soccerData';
+import { SOCCER_CURRENT_SEASON, SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
 
 export const SoccerHome: React.FC = () => {
@@ -39,7 +39,7 @@ export const SoccerHome: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#070b08] text-white">
+    <div className="min-h-screen bg-[#070b08] text-white overflow-x-hidden max-w-full w-full">
       <SEO
         title={isFr ? 'Next Gen Soccer | Ligue de soccer 7v7 à Montréal' : 'Next Gen Soccer | Soccer League in Montreal'}
         description={isFr ? 'Rejoignez Next Gen Soccer, ligue compétitive de soccer 7v7 sur gazon synthétique au Complexe Sportif Delson sur la Rive-Sud de Montréal. Arbitres certifiés.' : 'Join Next Gen Soccer, the premier 7v7 adult synthetic turf soccer league in Delson on Montreal\'s South Shore. Certified referees and full season stats tracking.'}
@@ -128,11 +128,11 @@ export const SoccerHome: React.FC = () => {
       {/* -------------------------------------------------- */}
       <section className="py-16 bg-[#090e0b] border-b border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Tile 1: Stats */}
             <Link
               to="/soccer/statistiques"
-              className="p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
+              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-lime-500/10 border border-lime-500/20 text-lime-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -143,8 +143,8 @@ export const SoccerHome: React.FC = () => {
                 </h3>
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
                   {isFr
-                    ? 'Consultez les résultats, le classement général des équipes et le tableau des meilleurs buteurs et passeurs.'
-                    : 'Check match outcomes, team rankings, and the leaderboard for top goalscorers and playmakers.'}
+                    ? 'Consultez les résultats, le classement général et le tableau des meilleurs buteurs.'
+                    : 'Check match outcomes, team rankings, and the leaderboard for top scorers.'}
                 </p>
               </div>
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-lime-400">
@@ -153,10 +153,34 @@ export const SoccerHome: React.FC = () => {
               </div>
             </Link>
 
-            {/* Tile 2: Calendar */}
+            {/* Tile 2: Lineups */}
+            <Link
+              to="/soccer/alignements"
+              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-12 h-12 rounded-xl bg-lime-500/10 border border-lime-500/20 text-lime-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Users size={24} />
+                </div>
+                <h3 className="text-xl font-black uppercase italic font-display text-white mb-2 group-hover:text-lime-300 transition-colors">
+                  {isFr ? 'Alignements des Équipes' : 'Team Lineups'}
+                </h3>
+                <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
+                  {isFr
+                    ? 'Consultez la liste officielle des joueurs inscrits pour chaque équipe de la ligue 7v7.'
+                    : 'Browse official confirmed rosters and player lists for each 7v7 league team.'}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-lime-400">
+                <span>{isFr ? 'Voir les effectifs' : 'View full rosters'}</span>
+                <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
+              </div>
+            </Link>
+
+            {/* Tile 3: Calendar */}
             <Link
               to="/soccer/calendrier"
-              className="p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
+              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-lime-500/10 border border-lime-500/20 text-lime-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -167,8 +191,8 @@ export const SoccerHome: React.FC = () => {
                 </h3>
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-6">
                   {isFr
-                    ? 'Horaires des rencontres de la saison régulière et des séries éliminatoires sur le terrain synthétique.'
-                    : 'Fixture dates and kickoff times for regular season and playoff rounds on the turf pitch.'}
+                    ? 'Horaires des rencontres de la saison régulière sur le terrain synthétique de Delson.'
+                    : 'Fixture dates and kickoff times for regular season games on the Delson turf pitch.'}
                 </p>
               </div>
               <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-lime-400">
@@ -177,10 +201,10 @@ export const SoccerHome: React.FC = () => {
               </div>
             </Link>
 
-            {/* Tile 3: Rules */}
+            {/* Tile 4: Rules */}
             <Link
               to="/soccer/reglements"
-              className="p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
+              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/50 hover:shadow-xl hover:shadow-lime-500/10 transition-all duration-200 group flex flex-col justify-between"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-lime-500/10 border border-lime-500/20 text-lime-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -316,14 +340,58 @@ export const SoccerHome: React.FC = () => {
 
                     <div className="space-y-2.5 py-2">
                       <div className="flex items-center justify-between font-black text-sm text-white uppercase italic gap-2">
-                        <span className="break-words leading-tight">{match.homeTeamName}</span>
+                        <div className="flex items-center gap-2 min-w-0">
+                          {(() => {
+                            const team = SOCCER_TEAMS.find(t => t.id === match.homeTeamId);
+                            if (!team) return null;
+                            return (
+                              <span
+                                className="w-2.5 h-2.5 rounded-full shrink-0"
+                                style={
+                                  team.secondaryColor
+                                    ? {
+                                        background: `linear-gradient(135deg, ${team.color} 50%, ${team.secondaryColor} 50%)`,
+                                        boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.3)'
+                                      }
+                                    : {
+                                        backgroundColor: team.color,
+                                        boxShadow: team.color === '#ffffff' ? '0 0 0 1px rgba(161, 161, 170, 0.8)' : '0 0 0 1px rgba(255, 255, 255, 0.2)'
+                                      }
+                                }
+                              />
+                            );
+                          })()}
+                          <span className="break-words leading-tight">{match.homeTeamName}</span>
+                        </div>
                         <span className="text-zinc-600 text-xs shrink-0">DOM</span>
                       </div>
                       <div className="text-center text-[10px] font-black uppercase tracking-widest text-zinc-500">
                         VS
                       </div>
                       <div className="flex items-center justify-between font-black text-sm text-white uppercase italic gap-2">
-                        <span className="break-words leading-tight">{match.awayTeamName}</span>
+                        <div className="flex items-center gap-2 min-w-0">
+                          {(() => {
+                            const team = SOCCER_TEAMS.find(t => t.id === match.awayTeamId);
+                            if (!team) return null;
+                            return (
+                              <span
+                                className="w-2.5 h-2.5 rounded-full shrink-0"
+                                style={
+                                  team.secondaryColor
+                                    ? {
+                                        background: `linear-gradient(135deg, ${team.color} 50%, ${team.secondaryColor} 50%)`,
+                                        boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.3)'
+                                      }
+                                    : {
+                                        backgroundColor: team.color,
+                                        boxShadow: team.color === '#ffffff' ? '0 0 0 1px rgba(161, 161, 170, 0.8)' : '0 0 0 1px rgba(255, 255, 255, 0.2)'
+                                      }
+                                }
+                              />
+                            );
+                          })()}
+                          <span className="break-words leading-tight">{match.awayTeamName}</span>
+                        </div>
                         <span className="text-zinc-600 text-xs shrink-0">EXT</span>
                       </div>
                     </div>

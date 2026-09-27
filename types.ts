@@ -11,6 +11,10 @@ export interface Team {
   logoColor: string;
   secondaryColor?: string;
   logoUrl?: string;
+  regWins?: number;
+  otWins?: number;
+  otLosses?: number;
+  regLosses?: number;
 }
 
 export interface Game {
@@ -26,6 +30,9 @@ export interface Game {
   isPlayoff?: boolean;
   playoffRoundEn?: string;
   playoffRoundFr?: string;
+  ending?: 'regulation' | 'ot' | 'so';
+  isOvertime?: boolean;
+  isShootout?: boolean;
 }
 
 export interface Message {

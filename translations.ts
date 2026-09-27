@@ -109,8 +109,11 @@ export const translations = {
       team: 'Team',
       gp: 'GP',
       w: 'W',
+      rw: 'RW',
+      otw: 'OTW',
       l: 'L',
       t: 'D',
+      otl: 'OTL',
       pts: 'PTS',
       gf: 'GF',
       ga: 'GA',
@@ -433,11 +436,18 @@ export const translations = {
               ]
             },
             {
-              title: '9.3 Standings',
+              title: '9.3 Standings & Points System',
               items: [
-                'Win: 2 points',
-                'Draw: 1 point',
-                'Loss: 0 points'
+                'Winter Season (Official 3-Point System):',
+                '• Regulation Win: 3 points',
+                '• Overtime / Shootout Win: 2 points',
+                '• Overtime / Shootout Loss: 1 point',
+                '• Regulation Loss: 0 points',
+                '',
+                'Summer Season (2-Point System):',
+                '• Win: 2 points',
+                '• Draw: 1 point',
+                '• Loss: 0 points'
               ]
             }
           ]
@@ -629,8 +639,11 @@ export const translations = {
       team: 'Équipe',
       gp: 'PJ',
       w: 'V',
+      rw: 'VR',
+      otw: 'VP',
       l: 'D',
       t: 'N',
+      otl: 'DP',
       pts: 'PTS',
       gf: 'BP',
       ga: 'BC',
@@ -955,11 +968,18 @@ export const translations = {
               ]
             },
             {
-              title: '9.3 Classement',
+              title: '9.3 Classement & Système de Points',
               items: [
-                'Victoire : 2 points',
-                'Nul : 1 point',
-                'Défaite : 0 point'
+                'Saison d\'Hiver (Système officiel à 3 points) :',
+                '• Victoire en temps réglementaire : 3 points',
+                '• Victoire en prolongation / tirs de barrage : 2 points',
+                '• Défaite en prolongation / tirs de barrage : 1 point',
+                '• Défaite en temps réglementaire : 0 point',
+                '',
+                'Saison d\'Été (Système à 2 points) :',
+                '• Victoire : 2 points',
+                '• Match nul : 1 point',
+                '• Défaite : 0 point'
               ]
             }
           ]

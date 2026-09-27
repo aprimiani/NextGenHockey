@@ -24,6 +24,7 @@ import { SportsFooter } from './components/sports/SportsFooter';
 import { SoccerNavbar } from './components/soccer/SoccerNavbar';
 import { SoccerHome } from './components/soccer/SoccerHome';
 import { SoccerStats } from './components/soccer/SoccerStats';
+import { SoccerLineups } from './components/soccer/SoccerLineups';
 import { SoccerSchedule } from './components/soccer/SoccerSchedule';
 import { SoccerRules } from './components/soccer/SoccerRules';
 import { SoccerFooter } from './components/soccer/SoccerFooter';
@@ -48,9 +49,9 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   if (isSoccer) {
     return (
-      <div className="min-h-screen bg-[#070b08] flex flex-col font-sans">
+      <div className="min-h-screen bg-[#070b08] flex flex-col font-sans overflow-x-hidden max-w-full w-full">
         <SoccerNavbar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow overflow-x-hidden max-w-full w-full">{children}</main>
         <SoccerFooter />
       </div>
     );
@@ -58,9 +59,9 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   if (isSportsParent) {
     return (
-      <div className="min-h-screen bg-[#07080b] flex flex-col font-sans">
+      <div className="min-h-screen bg-[#07080b] flex flex-col font-sans overflow-x-hidden max-w-full w-full">
         <SportsNavbar />
-        <main className="flex-grow">{children}</main>
+        <main className="flex-grow overflow-x-hidden max-w-full w-full">{children}</main>
         <SportsFooter />
       </div>
     );
@@ -68,9 +69,9 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   // Default: Hockey environment
   return (
-    <div className="min-h-screen bg-ng-navy flex flex-col font-sans">
+    <div className="min-h-screen bg-ng-navy flex flex-col font-sans overflow-x-hidden max-w-full w-full">
       <Navbar />
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow overflow-x-hidden max-w-full w-full">{children}</main>
       <Footer />
     </div>
   );
@@ -111,6 +112,8 @@ function App() {
               {/* NEXTGEN SOCCER */}
               <Route path="/soccer" element={<SoccerHome />} />
               <Route path="/soccer/statistiques" element={<SoccerStats />} />
+              <Route path="/soccer/alignements" element={<SoccerLineups />} />
+              <Route path="/soccer/lineups" element={<SoccerLineups />} />
               <Route path="/soccer/calendrier" element={<SoccerSchedule />} />
               <Route path="/soccer/reglements" element={<SoccerRules />} />
 

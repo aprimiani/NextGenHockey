@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles } from 'lucide-react';
+import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles, Info } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 import { PLAYER_OF_THE_MONTH } from '../constants';
 import { SEO } from './SEO';
@@ -236,6 +236,7 @@ const Standings: React.FC = () => {
     const winterTeamsList = teams.filter(t => t.id.startsWith('w_')).map(t => {
       const wGames = schedule.filter(g => g.status === 'played' && (g.homeTeamId === t.id || g.awayTeamId === t.id));
       let gp = 0, wins = 0, losses = 0, ties = 0, points = 0, goalsFor = 0, goalsAgainst = 0;
+      let regWins = 0, otWins = 0, otLosses = 0, regLosses = 0;
       wGames.forEach(g => {
         gp++;
         const isHome = g.homeTeamId === t.id;
@@ -243,9 +244,31 @@ const Standings: React.FC = () => {
         const oppScore = isHome ? (g.awayScore || 0) : (g.homeScore || 0);
         goalsFor += myScore;
         goalsAgainst += oppScore;
-        if (myScore > oppScore) { wins++; points += 2; }
-        else if (myScore < oppScore) { losses++; }
-        else { ties++; points += 1; }
+
+        const isOT = g.ending === 'ot' || g.ending === 'so' || g.isOvertime || g.isShootout;
+
+        if (myScore > oppScore) {
+          wins++;
+          if (isOT) {
+            otWins++;
+            points += 2; // Overtime/shootout win: 2 points
+          } else {
+            regWins++;
+            points += 3; // Regulation time win: 3 points
+          }
+        } else if (myScore < oppScore) {
+          losses++;
+          if (isOT) {
+            otLosses++;
+            points += 1; // Loss in OT/shootout: 1 point
+          } else {
+            regLosses++;
+            points += 0; // Regulation loss: 0 points
+          }
+        } else {
+          ties++;
+          points += 1;
+        }
       });
       return {
         ...t,
@@ -253,6 +276,10 @@ const Standings: React.FC = () => {
         wins,
         losses,
         ties,
+        regWins,
+        otWins,
+        otLosses,
+        regLosses,
         points,
         goalsFor,
         goalsAgainst
@@ -455,6 +482,9 @@ const Standings: React.FC = () => {
   if (teamSort.key === 'points') {
     sortedTeams.sort((a, b) => {
       if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
+      const rwA = a.regWins ?? a.wins;
+      const rwB = b.regWins ?? b.wins;
+      if (rwB !== rwA) return teamSort.dir === 'asc' ? rwA - rwB : rwB - rwA;
       if (b.wins !== a.wins) return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
       const diffA = a.goalsFor - a.goalsAgainst;
       const diffB = b.goalsFor - b.goalsAgainst;
@@ -467,6 +497,9 @@ const Standings: React.FC = () => {
       const winPctB = b.gp > 0 ? b.wins / b.gp : 0;
       if (winPctA !== winPctB) return teamSort.dir === 'asc' ? winPctA - winPctB : winPctB - winPctA;
       if (b.points !== a.points) return teamSort.dir === 'asc' ? a.points - b.points : b.points - a.points;
+      const rwA = a.regWins ?? a.wins;
+      const rwB = b.regWins ?? b.wins;
+      if (rwB !== rwA) return teamSort.dir === 'asc' ? rwA - rwB : rwB - rwA;
       if (b.wins !== a.wins) return teamSort.dir === 'asc' ? a.wins - b.wins : b.wins - a.wins;
       const diffA = a.goalsFor - a.goalsAgainst;
       const diffB = b.goalsFor - b.goalsAgainst;
@@ -1278,6 +1311,30 @@ const Standings: React.FC = () => {
             </div>
           </div>
         )}
+
+        {selectedSeason === 'winter_2026_2027' && (
+          <div className="p-3.5 bg-ng-blue/30 border border-ng-light-blue/30 rounded-xl text-xs text-ng-light-blue mb-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 font-bold shrink-0">
+              <Info size={16} className="shrink-0 text-ng-light-blue" />
+              <span>{language === 'fr' ? 'Système de points officiel :' : 'Official Points System:'}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] sm:text-xs">
+              <span>
+                <strong className="text-green-400">{t.standings.rw || 'RW'}</strong>: {language === 'fr' ? 'Victoires Temps Régulier (3 pts)' : 'Regulation Wins (3 pts)'}
+              </span>
+              <span>
+                <strong className="text-teal-400">{t.standings.otw || 'OTW'}</strong>: {language === 'fr' ? 'Victoires Prolongation/Fusillade (2 pts)' : 'Extra-Time Wins (2 pts)'}
+              </span>
+              <span>
+                <strong className="text-amber-400">{t.standings.otl || 'OTL'}</strong>: {language === 'fr' ? 'Défaites Prolongation/Fusillade (1 pt)' : 'Extra-Time Losses (1 pt)'}
+              </span>
+              <span>
+                <strong className="text-red-400">{t.standings.l || 'L'}</strong>: {language === 'fr' ? 'Défaites Temps Régulier (0 pt)' : 'Regulation Losses (0 pts)'}
+              </span>
+            </div>
+          </div>
+        )}
+
       <div className="bg-zinc-900/60 rounded-2xl border border-zinc-800 shadow-xl mb-8 relative overflow-hidden">
         <div 
           className="overflow-x-auto hide-scrollbar" 
@@ -1316,20 +1373,48 @@ const Standings: React.FC = () => {
                     <SortIcon sort={teamSort} column="gp" />
                   </div>
                 </th>
+                {selectedSeason === 'winter_2026_2027' ? (
+                  <>
+                    <th 
+                      scope="col" 
+                      className="px-1.5 md:px-5 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                      onClick={() => handleSort(teamSort, setTeamSort, 'regWins')}
+                      title={language === 'fr' ? 'Victoires en temps régulier (3 pts)' : 'Regulation Wins (3 pts)'}
+                    >
+                      <div className="flex items-center justify-center">
+                        <span className="text-green-400 font-black">{t.standings.rw || 'RW'}</span>
+                        <SortIcon sort={teamSort} column="regWins" />
+                      </div>
+                    </th>
+                    <th 
+                      scope="col" 
+                      className="px-1.5 md:px-5 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                      onClick={() => handleSort(teamSort, setTeamSort, 'otWins')}
+                      title={language === 'fr' ? 'Victoires en prolongation / fusillade (2 pts)' : 'Extra-Time Wins - Overtime / Shootout (2 pts)'}
+                    >
+                      <div className="flex items-center justify-center">
+                        <span className="text-teal-400 font-black">{t.standings.otw || 'OTW'}</span>
+                        <SortIcon sort={teamSort} column="otWins" />
+                      </div>
+                    </th>
+                  </>
+                ) : (
+                  <th 
+                    scope="col" 
+                    className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                    onClick={() => handleSort(teamSort, setTeamSort, 'wins')}
+                  >
+                    <div className="flex items-center justify-center">
+                      {t.standings.w}
+                      <SortIcon sort={teamSort} column="wins" />
+                    </div>
+                  </th>
+                )}
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
-                  onClick={() => handleSort(teamSort, setTeamSort, 'wins')}
-                >
-                  <div className="flex items-center justify-center">
-                    {t.standings.w}
-                    <SortIcon sort={teamSort} column="wins" />
-                  </div>
-                </th>
-                <th 
-                  scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-5 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'losses')}
+                  title={selectedSeason === 'winter_2026_2027' ? (language === 'fr' ? 'Défaites en temps régulier (0 pt)' : 'Regulation Losses (0 pts)') : undefined}
                 >
                   <div className="flex items-center justify-center">
                     {t.standings.l}
@@ -1338,11 +1423,16 @@ const Standings: React.FC = () => {
                 </th>
                 <th 
                   scope="col" 
-                  className="px-1.5 md:px-6 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
+                  className="px-1.5 md:px-5 py-2.5 md:py-3 text-center text-xs md:text-sm font-bold text-gray-400 uppercase tracking-tight whitespace-nowrap cursor-pointer group"
                   onClick={() => handleSort(teamSort, setTeamSort, 'ties')}
+                  title={selectedSeason === 'winter_2026_2027' ? (language === 'fr' ? 'Défaites en prolongation / fusillade (1 pt)' : 'Extra-Time Losses - Overtime / Shootout (1 pt)') : undefined}
                 >
                   <div className="flex items-center justify-center">
-                    {t.standings.t}
+                    {selectedSeason === 'winter_2026_2027' ? (
+                      <span className="text-amber-400 font-bold">{t.standings.otl || (language === 'fr' ? 'DP' : 'OTL')}</span>
+                    ) : (
+                      t.standings.t
+                    )}
                     <SortIcon sort={teamSort} column="ties" />
                   </div>
                 </th>
@@ -1422,9 +1512,24 @@ const Standings: React.FC = () => {
                        </button>
                     </td>
                     <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300 font-bold">{team.gp}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-green-400 font-semibold">{team.wins}</td>
-                    <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-red-400">{team.losses}</td>
-                    <td className="px-1 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-400">{team.ties}</td>
+                    {selectedSeason === 'winter_2026_2027' ? (
+                      <>
+                        <td className="px-1.5 md:px-5 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-green-400 font-black">
+                          {team.regWins ?? 0}
+                        </td>
+                        <td className="px-1.5 md:px-5 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-teal-300 font-black">
+                          {team.otWins ?? 0}
+                        </td>
+                      </>
+                    ) : (
+                      <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-green-400 font-semibold">{team.wins}</td>
+                    )}
+                    <td className="px-1.5 md:px-5 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-red-400">
+                      {selectedSeason === 'winter_2026_2027' ? (team.regLosses ?? team.losses) : team.losses}
+                    </td>
+                    <td className="px-1 md:px-5 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-amber-400 font-bold">
+                      {selectedSeason === 'winter_2026_2027' ? (team.otLosses ?? 0) : team.ties}
+                    </td>
                     <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-white font-black bg-ng-light-blue/10">{team.points}</td>
                     <td className="px-1.5 md:px-6 py-3 whitespace-nowrap text-xs md:text-[15px] text-center text-gray-300">
                       {team.gp > 0 ? ((team.wins / team.gp) * 100).toFixed(1) + '%' : '0.0%'}
@@ -1962,7 +2067,13 @@ const Standings: React.FC = () => {
                   <div className="min-w-0">
                     <h2 className="text-lg sm:text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic leading-tight truncate">{renderTeamName(selectedTeam.id)}</h2>
                     <div className="flex gap-3 sm:gap-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest mt-0.5 sm:mt-1">
-                      <span>{selectedTeam.wins}W - {selectedTeam.losses}L - {selectedTeam.ties}D</span>
+                      {selectedSeason === 'winter_2026_2027' ? (
+                        <span>
+                          {selectedTeam.regWins ?? 0}RW - {selectedTeam.otWins ?? 0}OTW - {selectedTeam.regLosses ?? selectedTeam.losses}L - {selectedTeam.otLosses ?? 0}OTL
+                        </span>
+                      ) : (
+                        <span>{selectedTeam.wins}W - {selectedTeam.losses}L - {selectedTeam.ties}D</span>
+                      )}
                       <span className="text-sky-400">{selectedTeam.points} {t.standings.pts}</span>
                     </div>
                   </div>
@@ -1976,7 +2087,13 @@ const Standings: React.FC = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                   {[
                     { label: t.standings.gp, val: selectedTeam.gp, icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
-                    { label: t.standings.record, val: `${selectedTeam.wins}-${selectedTeam.losses}-${selectedTeam.ties}`, icon: <Trophy size={14} className="sm:w-4 sm:h-4" /> },
+                    { 
+                      label: t.standings.record, 
+                      val: selectedSeason === 'winter_2026_2027'
+                        ? `${selectedTeam.regWins ?? 0}RW-${selectedTeam.otWins ?? 0}OTW-${selectedTeam.regLosses ?? selectedTeam.losses}L-${selectedTeam.otLosses ?? 0}OTL`
+                        : `${selectedTeam.wins}-${selectedTeam.losses}-${selectedTeam.ties}`, 
+                      icon: <Trophy size={14} className="sm:w-4 sm:h-4" /> 
+                    },
                     { label: t.standings.pts, val: selectedTeam.points, icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
                     { label: t.standings.diff, val: (selectedTeam.goalsFor - selectedTeam.goalsAgainst > 0 ? '+' : '') + (selectedTeam.goalsFor - selectedTeam.goalsAgainst), icon: <LayoutList size={14} className="sm:w-4 sm:h-4" /> },
                   ].map((stat, i) => (
