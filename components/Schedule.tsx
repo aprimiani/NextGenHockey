@@ -143,7 +143,10 @@ const Schedule: React.FC = () => {
       games = schedule.filter(g => g.homeTeamId.startsWith('w_') || g.awayTeamId.startsWith('w_'));
     }
 
-    return games.filter(g => g.status === filter).sort((a, b) => {
+    return games.filter(g => {
+      if (filter === 'scheduled') return g.status === 'scheduled';
+      return g.status === 'played' || g.status === 'cancelled';
+    }).sort((a, b) => {
       // For upcoming: show nearest first
       if (filter === 'scheduled') return new Date(a.date).getTime() - new Date(b.date).getTime();
       // For results: show most recent first
@@ -665,24 +668,38 @@ const Schedule: React.FC = () => {
               game.playoffRoundEn?.toLowerCase().includes('final')
             );
             
+            const isCancelled = game.status === 'cancelled';
+
             return (
               <div 
                 key={game.id} 
                 className={
                   isSemiOrFinal 
                     ? "group bg-gradient-to-r from-amber-500/10 via-zinc-900/90 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
+                    : isCancelled
+                    ? "group bg-red-950/20 backdrop-blur-md rounded-2xl border border-red-500/30 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-red-500/50 transition-all duration-300 shadow-lg relative overflow-hidden"
                     : "group bg-zinc-900/60 backdrop-blur-md rounded-2xl border border-zinc-800 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 shadow-lg"
                 }
               >
                 {isSemiOrFinal && (
                   <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-500 animate-pulse" />
                 )}
+                {isCancelled && (
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-red-500/40" />
+                )}
                 
                 <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
                   <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
-                    <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0 ${isSemiOrFinal ? 'text-amber-400' : 'text-ng-light-blue'}`} />
+                    <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0 ${isSemiOrFinal ? 'text-amber-400' : isCancelled ? 'text-red-400' : 'text-ng-light-blue'}`} />
                     <span>{formatDate(game.date)}</span>
                   </div>
+                  {isCancelled && (
+                    <div className="flex items-center pl-6 sm:pl-8">
+                      <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic bg-red-500/20 text-red-400 border-red-500/40">
+                        {t.schedule.gameCancelled || (language === 'fr' ? 'Match Annulé' : 'Game Cancelled')}
+                      </span>
+                    </div>
+                  )}
                   {game.isPlayoff && (
                     <div className="flex items-center pl-6 sm:pl-8">
                       <span className={`flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic ${
@@ -732,6 +749,12 @@ const Schedule: React.FC = () => {
                           </span>
                         )}
                       </div>
+                    ) : isCancelled ? (
+                      <div className="flex flex-col items-center">
+                        <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest bg-red-950/80 text-red-400 border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.25)]">
+                          {t.schedule.cancelled || (language === 'fr' ? 'ANNULÉ' : 'CANCELLED')}
+                        </div>
+                      </div>
                     ) : (
                       <div className={`px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl text-[8px] sm:text-sm font-black uppercase tracking-widest ${
                         isSemiOrFinal 
@@ -778,6 +801,10 @@ const Schedule: React.FC = () => {
                       </button>
                     ) : game.status === 'played' ? (
                       <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
+                    ) : isCancelled ? (
+                      <div className="text-[9px] sm:text-[10px] font-black text-red-400 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-red-500/30 bg-red-500/10 rounded-lg italic w-full md:w-auto text-center">
+                        {language === 'fr' ? 'Partie Annulée' : 'Cancelled Game'}
+                      </div>
                     ) : null}
                 </div>
               </div>

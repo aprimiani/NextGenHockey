@@ -86,7 +86,10 @@ const Manager: React.FC = () => {
   }, [goalies, searchTerm]);
 
   const filteredSchedule = useMemo(() => {
-    return schedule.filter(g => g.status === scheduleFilter).sort((a, b) => {
+    return schedule.filter(g => {
+      if (scheduleFilter === 'scheduled') return g.status === 'scheduled';
+      return g.status === 'played' || g.status === 'cancelled';
+    }).sort((a, b) => {
         if (scheduleFilter === 'scheduled') return new Date(a.date).getTime() - new Date(b.date).getTime();
         return new Date(b.date).getTime() - new Date(a.date).getTime();
     });
@@ -849,7 +852,21 @@ const Manager: React.FC = () => {
                       </div>
                       <div className="flex flex-col gap-3 md:items-end">
                          <div className="flex items-center gap-2">
-                           <button onClick={() => handleGameUpdate(game.id, 'status', game.status === 'played' ? 'scheduled' : 'played')} className={`flex items-center gap-2 px-5 py-2 rounded-lg border text-[10px] font-black uppercase transition-all ${game.status === 'played' ? 'bg-green-600 text-white border-green-500' : 'bg-gray-800 text-gray-400 border-gray-700'}`}>{game.status === 'played' ? <ToggleRight size={16} /> : <ToggleLeft size={16} />} {game.status === 'played' ? 'Played' : 'Draft'}</button>
+                           <select
+                             value={game.status}
+                             onChange={(e) => handleGameUpdate(game.id, 'status', e.target.value as 'played' | 'scheduled' | 'cancelled')}
+                             className={`px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase transition-all ${
+                               game.status === 'played'
+                                 ? 'bg-green-600 text-white border-green-500'
+                                 : game.status === 'cancelled'
+                                 ? 'bg-red-600 text-white border-red-500'
+                                 : 'bg-gray-800 text-gray-300 border-gray-700'
+                             }`}
+                           >
+                             <option value="scheduled" className="bg-gray-900 text-white">Prévu / Scheduled</option>
+                             <option value="played" className="bg-gray-900 text-white">Joué / Played</option>
+                             <option value="cancelled" className="bg-gray-900 text-white">Annulé / Cancelled</option>
+                           </select>
                            <button 
                              type="button"
                              onClick={() => removeGame(game.id)} 

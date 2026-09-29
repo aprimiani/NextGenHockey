@@ -24,7 +24,7 @@ export interface Game {
   homeTeamId: string;
   awayTeamId: string;
   location: string;
-  status: 'played' | 'scheduled';
+  status: 'played' | 'scheduled' | 'cancelled';
   homeScore?: number;
   awayScore?: number;
   isPlayoff?: boolean;

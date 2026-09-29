@@ -2384,6 +2384,10 @@ const Standings: React.FC = () => {
                                     <span className={`text-[10px] sm:text-xs font-black px-1.5 sm:px-2 py-0.5 rounded ${result === 'W' ? 'bg-green-500/20 text-green-400' : (result === 'L' ? 'bg-red-500/20 text-red-400' : 'bg-gray-500/20 text-gray-400')}`}>{result}</span>
                                     <span className="text-xs sm:text-sm font-mono font-bold text-white whitespace-nowrap">{isHome ? `${g.homeScore}-${g.awayScore}` : `${g.awayScore}-${g.homeScore}`}</span>
                                   </div>
+                                ) : g.status === 'cancelled' ? (
+                                  <span className="text-[8px] sm:text-[10px] text-red-400 font-bold uppercase bg-red-500/10 border border-red-500/30 px-2 py-0.5 rounded">
+                                    {t.schedule.cancelled || (language === 'fr' ? 'Annulé' : 'Cancelled')}
+                                  </span>
                                 ) : (
                                   <span className="text-[8px] sm:text-[10px] text-gray-500 uppercase font-bold">{t.schedule.scheduled}</span>
                                 )}

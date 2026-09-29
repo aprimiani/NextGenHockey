@@ -925,7 +925,7 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "cancelled"
   },
   {
     "id": "g_w_8",
