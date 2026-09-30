@@ -38,6 +38,10 @@ export interface SoccerPlayerStat {
   name: string;
   teamName: string;
   teamId: string;
+  teamIds?: string[];
+  teamNames?: string[];
+  secondaryTeamId?: string;
+  secondaryTeamName?: string;
   number?: number;
   gp: number;
   goals: number;
@@ -180,21 +184,49 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
 
 export const ALL_SOCCER_PLAYERS: SoccerRosterPlayer[] = Object.values(SOCCER_ROSTERS).flat();
 
-export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = ALL_SOCCER_PLAYERS.map(p => {
-  const team = SOCCER_TEAMS.find(t => t.id === p.teamId);
-  return {
-    id: p.id,
-    name: p.name,
-    teamId: p.teamId,
-    teamName: team?.name || '',
-    gp: 0,
-    goals: 0,
-    assists: 0,
-    points: 0,
-    yellowCards: 0,
-    redCards: 0
-  };
-});
+export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
+  const map = new Map<string, SoccerPlayerStat>();
+
+  ALL_SOCCER_PLAYERS.forEach(p => {
+    const key = p.name.trim().toLowerCase();
+    const team = SOCCER_TEAMS.find(t => t.id === p.teamId);
+    const teamName = team?.name || '';
+
+    if (!map.has(key)) {
+      map.set(key, {
+        id: p.id,
+        name: p.name,
+        teamId: p.teamId,
+        teamName: teamName,
+        teamIds: [p.teamId],
+        teamNames: [teamName],
+        gp: 0,
+        goals: 0,
+        assists: 0,
+        points: 0,
+        yellowCards: 0,
+        redCards: 0
+      });
+    } else {
+      const existing = map.get(key)!;
+      if (!existing.teamIds) {
+        existing.teamIds = [existing.teamId];
+        existing.teamNames = [existing.teamName];
+      }
+      if (!existing.teamIds.includes(p.teamId)) {
+        existing.teamIds.push(p.teamId);
+        if (teamName && !existing.teamNames?.includes(teamName)) {
+          existing.teamNames?.push(teamName);
+        }
+        existing.secondaryTeamId = p.teamId;
+        existing.secondaryTeamName = teamName;
+        existing.teamName = existing.teamNames?.join(' / ') || `${existing.teamName} / ${teamName}`;
+      }
+    }
+  });
+
+  return Array.from(map.values());
+})();
 
 export const SOCCER_SCHEDULE: SoccerMatch[] = [
   // Week 1 - Sunday, October 4, 2026

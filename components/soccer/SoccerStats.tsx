@@ -12,6 +12,7 @@ export const SoccerStats: React.FC = () => {
   // Exactly ONE tab control for Standings & Player Statistics
   const [activeTab, setActiveTab] = useState<'standings' | 'players'>('standings');
   const [playerSearch, setPlayerSearch] = useState<string>('');
+  const [playerSortBy, setPlayerSortBy] = useState<'points' | 'goals' | 'assists'>('points');
 
   // Sorted Standings
   const sortedStandings = React.useMemo(() => {
@@ -39,14 +40,41 @@ export const SoccerStats: React.FC = () => {
     };
   };
 
+  // Ranked player stats according to active sort criteria
+  const rankedPlayers = React.useMemo(() => {
+    const list = [...SOCCER_PLAYER_STATS].sort((a, b) => {
+      if (playerSortBy === 'goals') {
+        if (b.goals !== a.goals) return b.goals - a.goals;
+        if (b.points !== a.points) return b.points - a.points;
+        if (b.assists !== a.assists) return b.assists - a.assists;
+      } else if (playerSortBy === 'assists') {
+        if (b.assists !== a.assists) return b.assists - a.assists;
+        if (b.points !== a.points) return b.points - a.points;
+        if (b.goals !== a.goals) return b.goals - a.goals;
+      } else {
+        // default: points
+        if (b.points !== a.points) return b.points - a.points;
+        if (b.goals !== a.goals) return b.goals - a.goals;
+        if (b.assists !== a.assists) return b.assists - a.assists;
+      }
+      if (a.gp !== b.gp) return a.gp - b.gp;
+      return a.name.localeCompare(b.name);
+    });
+
+    return list.map((p, idx) => ({
+      ...p,
+      rank: idx + 1
+    }));
+  }, [playerSortBy]);
+
   // Filtered player stats
   const filteredPlayers = React.useMemo(() => {
-    if (!playerSearch) return SOCCER_PLAYER_STATS;
-    const q = playerSearch.toLowerCase();
-    return SOCCER_PLAYER_STATS.filter(p =>
+    if (!playerSearch) return rankedPlayers;
+    const q = playerSearch.toLowerCase().trim();
+    return rankedPlayers.filter(p =>
       p.name.toLowerCase().includes(q) || p.teamName.toLowerCase().includes(q)
     );
-  }, [playerSearch]);
+  }, [rankedPlayers, playerSearch]);
 
   return (
     <div className="min-h-screen bg-[#070b08] text-white py-10 sm:py-12 overflow-x-hidden max-w-full w-full">
@@ -102,17 +130,58 @@ export const SoccerStats: React.FC = () => {
             </button>
           </div>
 
-          {/* Quick Notice / Search */}
+          {/* Quick Notice / Search & Sort Controls */}
           {activeTab === 'players' && (
-            <div className="relative w-full sm:w-64">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                value={playerSearch}
-                onChange={(e) => setPlayerSearch(e.target.value)}
-                placeholder={isFr ? 'Rechercher un joueur...' : 'Search player or team...'}
-                className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-lime-400"
-              />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+              <div className="inline-flex items-center gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs">
+                <span className="text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider">
+                  {isFr ? 'Trier par :' : 'Rank by:'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setPlayerSortBy('points')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    playerSortBy === 'points'
+                      ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  PTS
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlayerSortBy('goals')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    playerSortBy === 'goals'
+                      ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {isFr ? 'Buteurs (B)' : 'Goals (G)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPlayerSortBy('assists')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    playerSortBy === 'assists'
+                      ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {isFr ? 'Passes (P)' : 'Assists (A)'}
+                </button>
+              </div>
+
+              <div className="relative w-full sm:w-56">
+                <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                <input
+                  type="text"
+                  value={playerSearch}
+                  onChange={(e) => setPlayerSearch(e.target.value)}
+                  placeholder={isFr ? 'Rechercher un joueur...' : 'Search player or team...'}
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-lime-400"
+                />
+              </div>
             </div>
           )}
         </div>
@@ -201,33 +270,105 @@ export const SoccerStats: React.FC = () => {
         {activeTab === 'players' && (
           <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-full">
             <div className="overflow-x-auto w-full max-w-full scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[320px] sm:min-w-[520px]">
+              <table className="w-full text-left border-collapse min-w-[340px] sm:min-w-[560px]">
                 <thead>
                   <tr className="border-b border-zinc-800 bg-[#090f0a] text-[11px] font-black uppercase tracking-wider text-lime-400">
+                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center w-12 sm:w-16">#</th>
                     <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Joueur' : 'Player'}</th>
                     <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-4 text-center">PJ</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center">B</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center">P</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-5 text-center font-black text-white bg-lime-500/10">PTS</th>
+                    <th 
+                      onClick={() => setPlayerSortBy('goals')}
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                        playerSortBy === 'goals' ? 'text-white bg-lime-500/15' : 'hover:text-white'
+                      }`}
+                      title={isFr ? 'Trier par Buts' : 'Sort by Goals'}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        <span>B</span>
+                        {playerSortBy === 'goals' && <span className="text-[9px] text-lime-400">▼</span>}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => setPlayerSortBy('assists')}
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                        playerSortBy === 'assists' ? 'text-white bg-lime-500/15' : 'hover:text-white'
+                      }`}
+                      title={isFr ? 'Trier par Passes Décisives' : 'Sort by Assists'}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        <span>P</span>
+                        {playerSortBy === 'assists' && <span className="text-[9px] text-lime-400">▼</span>}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => setPlayerSortBy('points')}
+                      className={`py-3 sm:py-4 px-3 sm:px-5 text-center font-black cursor-pointer transition-colors select-none ${
+                        playerSortBy === 'points' ? 'text-white bg-lime-500/25' : 'text-white bg-lime-500/10 hover:bg-lime-500/20'
+                      }`}
+                      title={isFr ? 'Trier par Points' : 'Sort by Points'}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        <span>PTS</span>
+                        {playerSortBy === 'points' && <span className="text-[9px] text-lime-400">▼</span>}
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
                   {filteredPlayers.length > 0 ? (
                     filteredPlayers.map((player) => (
                       <tr key={player.id} className="hover:bg-white/5 transition-colors">
+                        <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
+                          {player.rank === 1 ? (
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
+                              1
+                            </span>
+                          ) : player.rank === 2 ? (
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-xs font-bold">
+                              2
+                            </span>
+                          ) : player.rank === 3 ? (
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-xs font-bold">
+                              3
+                            </span>
+                          ) : (
+                            <span className="text-gray-400">{player.rank}</span>
+                          )}
+                        </td>
                         <td className="py-3 sm:py-4 px-3 sm:px-6 font-bold text-white leading-snug break-words whitespace-normal">
                           {player.name}
                         </td>
                         <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300">
-                          <div className="flex items-center gap-1.5 sm:gap-2">
-                            <span className="w-2 h-2 rounded-full shrink-0" style={getTeamDotStyle(player.teamId)} />
-                            <span className="break-words leading-snug">{player.teamName}</span>
-                          </div>
+                          {player.teamIds && player.teamIds.length > 1 ? (
+                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                              {player.teamIds.map((tid, tIdx) => {
+                                const tName = player.teamNames?.[tIdx] || SOCCER_TEAMS.find(t => t.id === tid)?.name || tid;
+                                return (
+                                  <div key={tid} className="flex items-center gap-1.5 shrink-0">
+                                    <span className="w-2 h-2 rounded-full shrink-0" style={getTeamDotStyle(tid)} />
+                                    <span className="break-words leading-snug">{tName}</span>
+                                    {tIdx < (player.teamIds?.length || 0) - 1 && (
+                                      <span className="text-gray-500 font-bold text-xs ml-0.5">/</span>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1.5 sm:gap-2">
+                              <span className="w-2 h-2 rounded-full shrink-0" style={getTeamDotStyle(player.teamId)} />
+                              <span className="break-words leading-snug">{player.teamName}</span>
+                            </div>
+                          )}
                         </td>
                         <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono text-gray-400">{player.gp}</td>
-                        <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono text-gray-400">{player.goals}</td>
-                        <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono text-gray-400">{player.assists}</td>
+                        <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${playerSortBy === 'goals' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
+                          {player.goals}
+                        </td>
+                        <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${playerSortBy === 'assists' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
+                          {player.assists}
+                        </td>
                         <td className="py-3 sm:py-4 px-3 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
                           {player.points}
                         </td>
@@ -235,7 +376,7 @@ export const SoccerStats: React.FC = () => {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-xs text-gray-400">
+                      <td colSpan={7} className="py-8 text-center text-xs text-gray-400">
                         {isFr ? 'Aucun joueur trouvé.' : 'No players found.'}
                       </td>
                     </tr>
@@ -246,7 +387,7 @@ export const SoccerStats: React.FC = () => {
 
             {/* Footer Notice */}
             <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
-              <span>PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points</span>
+              <span>{isFr ? '#: Rang • PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points' : '#: Rank • PJ: Games Played • B: Goals • P: Assists • PTS: Points'}</span>
               <span className="text-lime-400 font-bold">{isFr ? 'Coup d’envoi : 4 octobre 2026' : 'Season kickoff: October 4, 2026'}</span>
             </div>
           </div>

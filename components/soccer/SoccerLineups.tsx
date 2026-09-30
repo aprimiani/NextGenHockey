@@ -154,12 +154,23 @@ export const SoccerLineups: React.FC = () => {
                             <User size={15} className="hidden sm:block" />
                           </div>
                           <div className="min-w-0 flex-grow">
-                            <div className="text-xs sm:text-sm font-bold text-white group-hover:text-lime-300 transition-colors leading-snug break-words whitespace-normal">
-                              {player.name}
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="text-xs sm:text-sm font-bold text-white group-hover:text-lime-300 transition-colors leading-snug break-words">
+                                {player.name}
+                              </span>
+                              {(player.name === 'Alessandro Primiani' || player.name === 'Meagan Boutler') && (
+                                <span className="inline-block text-lime-400 font-bold px-1.5 py-0.2 rounded bg-lime-500/10 border border-lime-500/20 text-[8px] sm:text-[9px] uppercase tracking-wider">
+                                  {isFr ? '2 Équipes' : 'Dual Team'}
+                                </span>
+                              )}
                             </div>
                             <div className="text-[9px] sm:text-[10px] text-zinc-500 font-semibold flex items-center gap-1 mt-0.5">
                               <CheckCircle2 size={10} className="text-lime-400 shrink-0" />
-                              <span className="truncate">{isFr ? 'Inscrit officiel' : 'Official Roster'}</span>
+                              <span className="truncate">
+                                {(player.name === 'Alessandro Primiani' || player.name === 'Meagan Boutler')
+                                  ? (isFr ? 'Inscrit officiel • Faah & Blackjacks' : 'Official Roster • Faah & Blackjacks')
+                                  : (isFr ? 'Inscrit officiel' : 'Official Roster')}
+                              </span>
                             </div>
                           </div>
                         </div>

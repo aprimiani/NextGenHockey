@@ -102,9 +102,18 @@ export interface GameEvent {
   penaltyMinutes?: number;
 }
 
+export interface ShootoutAttempt {
+  round: number;
+  homePlayer: string;
+  homeResult: 'goal' | 'miss';
+  awayPlayer: string;
+  awayResult: 'goal' | 'miss';
+}
+
 export interface GameRecapData {
   gameId: string;
   events: GameEvent[];
+  shootout?: ShootoutAttempt[];
   goalieStats?: {
     homeGoalie?: { 
       playerId: string; 

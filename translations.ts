@@ -1341,3 +1341,32 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
 
   return capitalize(result);
 };
+
+export const translateGoalDetails = (details: string | undefined, lang: Language): string => {
+  if (!details || details.trim() === '') return '';
+  const trimLower = details.trim().toLowerCase();
+
+  if (trimLower.includes('shootout deciding') || trimLower.includes('shootout winning') || trimLower.includes('shootout winner')) {
+    return lang === 'fr' ? 'But décisif en tirs de barrage' : 'Shootout Deciding Goal';
+  }
+  if (trimLower.includes('shootout goal')) {
+    return lang === 'fr' ? 'But en tirs de barrage' : 'Shootout Goal';
+  }
+  if (trimLower.includes('empty net')) {
+    return lang === 'fr' ? 'Filet désert' : 'Empty Net';
+  }
+  if (trimLower.includes('overtime winner') || trimLower.includes('overtime winning')) {
+    return lang === 'fr' ? 'But vainqueur en prolongation' : 'Overtime Winning Goal';
+  }
+  if (trimLower.includes('power play') || trimLower === 'ppg') {
+    return lang === 'fr' ? 'Avantage numérique' : 'Power Play Goal';
+  }
+  if (trimLower.includes('shorthanded') || trimLower === 'shg') {
+    return lang === 'fr' ? 'Désavantage numérique' : 'Shorthanded Goal';
+  }
+  if (trimLower.includes('penalty shot')) {
+    return lang === 'fr' ? 'Tir de punition' : 'Penalty Shot';
+  }
+
+  return details;
+};

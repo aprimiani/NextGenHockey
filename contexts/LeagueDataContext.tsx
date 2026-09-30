@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v123_update_timbits_goal');
+    const hasReset = localStorage.getItem('ng_force_reset_v131_ethan_black_so_deciding_goal');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v123_update_timbits_goal', 'true');
+      localStorage.setItem('ng_force_reset_v131_ethan_black_so_deciding_goal', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');
@@ -82,6 +82,11 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
     if (savedSchedule) {
       const parsed: Game[] = JSON.parse(savedSchedule);
       const updatedSchedule = parsed.map(g => {
+        // If official schedule in constants.ts has updated status (e.g. played or cancelled), respect official status
+        const official = SCHEDULE.find(os => os.id === g.id);
+        if (official && official.status !== 'scheduled' && g.status === 'scheduled') {
+          return { ...g, ...official };
+        }
         if (g.homeTeamId?.startsWith('w_') || g.awayTeamId?.startsWith('w_') || g.id?.startsWith('g_w_')) {
           return { ...g, location: 'Centre Sportif Delson' };
         }
@@ -144,7 +149,15 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       setGoaliesState(GOALIE_STATS);
     }
 
-    if (savedRecaps) setGameRecapsState(JSON.parse(savedRecaps));
+    if (savedRecaps) {
+      setGameRecapsState({
+        ...GAME_RECAPS,
+        ...JSON.parse(savedRecaps),
+        ...(GAME_RECAPS['g_w_8'] ? { g_w_8: GAME_RECAPS['g_w_8'] } : {})
+      });
+    } else {
+      setGameRecapsState(GAME_RECAPS);
+    }
     if (savedGallery) setGalleryState(JSON.parse(savedGallery));
     if (savedPOM) setPlayerOfMonthState(JSON.parse(savedPOM));
     

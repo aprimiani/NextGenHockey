@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { translatePenalty } from '../translations';
+import { translatePenalty, translateGoalDetails } from '../translations';
 import { SEO } from './SEO';
 
 const Schedule: React.FC = () => {
@@ -336,9 +336,7 @@ const Schedule: React.FC = () => {
                                                 <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest leading-none">{t.schedule.scorer}</span>
                                                 {event.details && (
                                                     <span className="bg-amber-500/15 border border-amber-500/30 text-amber-400 text-[9px] font-bold px-1.5 py-0.5 rounded leading-none uppercase tracking-wider">
-                                                        {event.details.toLowerCase().includes('empty net') 
-                                                            ? (language === 'fr' ? 'Filet désert' : 'Empty Net') 
-                                                            : event.details}
+                                                        {translateGoalDetails(event.details, language)}
                                                     </span>
                                                 )}
                                             </div>

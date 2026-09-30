@@ -934,7 +934,11 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 5,
+    "ending": "so",
+    "isShootout": true
   },
   {
     "id": "g_w_9",
@@ -12417,6 +12421,224 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "w_p_raphael_rivet",
         "p_1771962941457",
         "p1"
+      ]
+    }
+  },
+  "g_w_8": {
+    "gameId": "g_w_8",
+    "events": [
+      {
+        "id": "e_g_w_8_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "02:35",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "w_p_noah_goyens",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "07:08",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p_1775579857302",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:04",
+        "teamId": "w_seamen",
+        "player": "w_p_william_goyens",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g4",
+        "type": "goal",
+        "period": 1,
+        "time": "14:07",
+        "teamId": "w_seamen",
+        "player": "p_ethan_black_sub",
+        "assist": "w_p_alexandre_derome",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_p1",
+        "type": "penalty",
+        "period": 2,
+        "time": "04:15",
+        "teamId": "w_bots",
+        "player": "p3",
+        "details": "Hooking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_8_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "12:08",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1775579857302",
+        "assist2": "p2",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "15:20",
+        "teamId": "w_bots",
+        "player": "p2",
+        "assist": "p_1775579857302",
+        "assist2": "p_1767082317648",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "02:54",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_goyens",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "07:45",
+        "teamId": "w_seamen",
+        "player": "p_ethan_black_sub",
+        "assist": "w_p_alexandre_derome",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "12:35",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1775579857302",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "15:25",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p2",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_8_g11",
+        "type": "goal",
+        "period": 4,
+        "time": "SO",
+        "teamId": "w_seamen",
+        "player": "p_ethan_black_sub",
+        "assist": "",
+        "assist2": "",
+        "details": "Shootout Deciding Goal"
+      }
+    ],
+    "shootout": [
+      {
+        "round": 1,
+        "homePlayer": "w_p_owen_dunn",
+        "homeResult": "miss",
+        "awayPlayer": "p_1775579857302",
+        "awayResult": "miss"
+      },
+      {
+        "round": 2,
+        "homePlayer": "p_dylan_molinaro_sub",
+        "homeResult": "miss",
+        "awayPlayer": "p_1767082323831",
+        "awayResult": "miss"
+      },
+      {
+        "round": 3,
+        "homePlayer": "w_p_alexandre_derome",
+        "homeResult": "miss",
+        "awayPlayer": "p1",
+        "awayResult": "miss"
+      },
+      {
+        "round": 4,
+        "homePlayer": "w_p_brendan_walsh",
+        "homeResult": "miss",
+        "awayPlayer": "p_1767082317648",
+        "awayResult": "miss"
+      },
+      {
+        "round": 5,
+        "homePlayer": "p_ethan_black_sub",
+        "homeResult": "goal",
+        "awayPlayer": "p2",
+        "awayResult": "miss"
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 43,
+        "goalsAgainst": 5,
+        "saves": 38
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 36,
+        "goalsAgainst": 5,
+        "saves": 31
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_alexandre_derome",
+        "w_p_devin_menary",
+        "w_p_owen_dunn",
+        "p_liam_john_mckelvey_sub"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p4",
+        "p_1767082302464",
+        "p2",
+        "p_1767082323831",
+        "p_1767082317648",
+        "p1",
+        "p_1775580097968",
+        "p_1778425131558",
+        "p_1775582149892"
       ]
     }
   }
