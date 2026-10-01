@@ -919,15 +919,6 @@ export const SCHEDULE: Game[] = [
     "awayScore": 1
   },
   {
-    "id": "g_w_7",
-    "date": "2026-09-28",
-    "time": "22:00",
-    "homeTeamId": "w_kraken",
-    "awayTeamId": "w_timbits",
-    "location": "Centre Sportif Delson",
-    "status": "cancelled"
-  },
-  {
     "id": "g_w_8",
     "date": "2026-09-29",
     "time": "21:30",
@@ -955,6 +946,15 @@ export const SCHEDULE: Game[] = [
     "time": "21:30",
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_7",
+    "date": "2026-10-07",
+    "time": "22:00",
+    "homeTeamId": "w_kraken",
+    "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
     "status": "scheduled"
   },
