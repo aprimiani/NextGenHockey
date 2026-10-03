@@ -399,6 +399,17 @@ export const SOCCER_RULES: SoccerRuleCategory[] = [
         detailFr: 'Tout contact **imprudent, téméraire ou jugé excessif** peut donner lieu à un coup franc ou à une sanction disciplinaire selon la décision de l\'arbitre.'
       },
       {
+        subheadingEn: 'Slide Tackling (Zero Tolerance)',
+        subheadingFr: 'Tacles glissés (Tolérance zéro)',
+        badgeEn: 'Strictly Prohibited — Immediate Ejection',
+        badgeFr: 'Strictement interdit — Expulsion immédiate',
+        badgeType: 'red',
+        en: '**Slide tackling is strictly prohibited.** Any player who performs a slide tackle will be **immediately ejected (expulsed)** from the match.',
+        fr: '**Les tacles glissés sont strictement interdits.** Tout joueur qui effectue un tacle glissé sera **immédiatement expulsé** du match.',
+        detailEn: 'The league enforces a **zero-tolerance policy for intentional slide tackles** to protect player safety on the synthetic turf. Any intentional slide tackle results in an **automatic ejection (red card)** and may lead to further disciplinary suspension.',
+        detailFr: 'La ligue applique une politique de **tolérance zéro pour les tacles glissés intentionnels** afin de protéger la sécurité des joueurs sur le gazon synthétique. Tout tacle glissé intentionnel entraîne une **expulsion automatique (carton rouge)** et peut mener à des suspensions supplémentaires.'
+      },
+      {
         subheadingEn: 'Offside',
         subheadingFr: 'Hors-jeu',
         badgeEn: 'No Offside',
