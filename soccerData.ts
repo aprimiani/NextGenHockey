@@ -149,7 +149,6 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'fu_9', firstName: 'Simon', lastName: 'Berthiaume', name: 'Simon Berthiaume', teamId: 's_faahh_united' },
     { id: 'fu_10', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_faahh_united' },
     { id: 'fu_11', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_faahh_united' },
-    { id: 'fu_12', firstName: 'Calvin', lastName: 'Watt', name: 'Calvin Watt', teamId: 's_faahh_united' },
   ],
   s_blackjacks: [
     { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks' },
@@ -179,6 +178,12 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
   ],
   s_team_4: [
     { id: 't4_1', firstName: 'Alexandre', lastName: 'Stefanson', name: 'Alexandre Stefanson', teamId: 's_team_4' },
+    { id: 't4_2', firstName: 'Calvin', lastName: 'Watt', name: 'Calvin Watt', teamId: 's_team_4' },
+    { id: 't4_3', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_team_4' },
+    { id: 't4_4', firstName: 'Simon', lastName: 'Yelle', name: 'Simon Yelle', teamId: 's_team_4' },
+    { id: 't4_5', firstName: 'Michael-Joseph', lastName: 'Primiani', name: 'Michael-Joseph Primiani', teamId: 's_team_4' },
+    { id: 't4_6', firstName: 'Alexis', lastName: 'Watt', name: 'Alexis Watt', teamId: 's_team_4' },
+    { id: 't4_7', firstName: 'Pierre-Luc', lastName: 'Tremblay', name: 'Pierre-Luc Tremblay', teamId: 's_team_4' },
   ]
 };
 

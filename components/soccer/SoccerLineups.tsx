@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Users, Search, User, CheckCircle2, Trophy, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { SOCCER_TEAMS, SOCCER_ROSTERS } from '../../soccerData';
+import { SOCCER_TEAMS, SOCCER_ROSTERS, SOCCER_PLAYER_STATS } from '../../soccerData';
 import { SEO } from '../SEO';
 
 export const SoccerLineups: React.FC = () => {
@@ -144,37 +144,45 @@ export const SoccerLineups: React.FC = () => {
                 <div className="p-4 sm:p-5 flex-grow">
                   {filteredRoster.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {filteredRoster.map((player) => (
-                        <div
-                          key={player.id}
-                          className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/80 hover:border-lime-500/40 hover:bg-zinc-800/50 transition-all group min-w-0"
-                        >
-                          <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-gray-400 group-hover:text-lime-400 transition-colors shrink-0">
-                            <User size={14} className="sm:hidden" />
-                            <User size={15} className="hidden sm:block" />
-                          </div>
-                          <div className="min-w-0 flex-grow">
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              <span className="text-xs sm:text-sm font-bold text-white group-hover:text-lime-300 transition-colors leading-snug break-words">
-                                {player.name}
-                              </span>
-                              {(player.name === 'Alessandro Primiani' || player.name === 'Meagan Boutler') && (
-                                <span className="inline-block text-lime-400 font-bold px-1.5 py-0.2 rounded bg-lime-500/10 border border-lime-500/20 text-[8px] sm:text-[9px] uppercase tracking-wider">
-                                  {isFr ? '2 Équipes' : 'Dual Team'}
+                      {filteredRoster.map((player) => {
+                        const playerStat = SOCCER_PLAYER_STATS.find(
+                          p => p.name.trim().toLowerCase() === player.name.trim().toLowerCase()
+                        );
+                        const isDualTeam = (playerStat?.teamIds?.length || 0) > 1;
+                        const dualTeamsText = playerStat?.teamNames?.join(' & ') || '';
+
+                        return (
+                          <div
+                            key={player.id}
+                            className="flex items-center gap-2.5 p-2.5 sm:p-3 rounded-xl bg-zinc-950/60 border border-zinc-800/80 hover:border-lime-500/40 hover:bg-zinc-800/50 transition-all group min-w-0"
+                          >
+                            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-gray-400 group-hover:text-lime-400 transition-colors shrink-0">
+                              <User size={14} className="sm:hidden" />
+                              <User size={15} className="hidden sm:block" />
+                            </div>
+                            <div className="min-w-0 flex-grow">
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                <span className="text-xs sm:text-sm font-bold text-white group-hover:text-lime-300 transition-colors leading-snug break-words">
+                                  {player.name}
                                 </span>
-                              )}
-                            </div>
-                            <div className="text-[9px] sm:text-[10px] text-zinc-500 font-semibold flex items-center gap-1 mt-0.5">
-                              <CheckCircle2 size={10} className="text-lime-400 shrink-0" />
-                              <span className="truncate">
-                                {(player.name === 'Alessandro Primiani' || player.name === 'Meagan Boutler')
-                                  ? (isFr ? 'Inscrit officiel • Faah & Blackjacks' : 'Official Roster • Faah & Blackjacks')
-                                  : (isFr ? 'Inscrit officiel' : 'Official Roster')}
-                              </span>
+                                {isDualTeam && (
+                                  <span className="inline-block text-lime-400 font-bold px-1.5 py-0.2 rounded bg-lime-500/10 border border-lime-500/20 text-[8px] sm:text-[9px] uppercase tracking-wider">
+                                    {isFr ? '2 Équipes' : 'Dual Team'}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[9px] sm:text-[10px] text-zinc-500 font-semibold flex items-center gap-1 mt-0.5">
+                                <CheckCircle2 size={10} className="text-lime-400 shrink-0" />
+                                <span className="truncate">
+                                  {isDualTeam
+                                    ? (isFr ? `Inscrit officiel • ${dualTeamsText}` : `Official Roster • ${dualTeamsText}`)
+                                    : (isFr ? 'Inscrit officiel' : 'Official Roster')}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   ) : (
                     <div className="p-6 text-center text-gray-400">
