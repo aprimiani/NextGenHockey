@@ -122,8 +122,8 @@ export const SOCCER_TEAMS: SoccerTeam[] = [
   },
   {
     id: 's_team_4',
-    name: 'Team 4',
-    shortName: 'T4',
+    name: 'Mumford & Sons',
+    shortName: 'M&S',
     color: '#ffffff',
     division: '7v7 Open'
   }
@@ -133,7 +133,7 @@ export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
   { teamId: 's_faahh_united', teamName: 'Faah United', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
   { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
   { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
-  { teamId: 's_team_4', teamName: 'Team 4', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 }
+  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 }
 ];
 
 export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
@@ -257,7 +257,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     homeTeamId: 's_blackjacks',
     awayTeamId: 's_team_4',
     homeTeamName: 'BlackJacks',
-    awayTeamName: 'Team 4',
+    awayTeamName: 'Mumford & Sons',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
     status: 'upcoming',
@@ -272,7 +272,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     homeTeamId: 's_blackjacks',
     awayTeamId: 's_team_4',
     homeTeamName: 'BlackJacks',
-    awayTeamName: 'Team 4',
+    awayTeamName: 'Mumford & Sons',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
     status: 'upcoming',
