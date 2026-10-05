@@ -212,7 +212,7 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 't4_8', firstName: 'Gabriel', lastName: 'Savard', name: 'Gabriel Savard', teamId: 's_team_4' },
     { id: 't4_9', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_team_4' },
     { id: 't4_10', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_team_4' },
-    { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman', name: 'Nolan Snowman', teamId: 's_team_4' },
+    { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman-Brooks', name: 'Nolan Snowman-Brooks', teamId: 's_team_4' },
   ]
 };
 
@@ -222,7 +222,7 @@ const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists
   // Game 1 (Oct 4, 8:00 PM: Turf Terrors 2 - 7 Faah United) & Game 2 (Oct 4, 9:00 PM: Mumford & Sons 12 - 3 BlackJacks)
   'ismaele rusconi': { gp: 2, goals: 5, assists: 0 },
   'alexandre stefanson': { gp: 1, goals: 4, assists: 0 },
-  'nolan snowman': { gp: 1, goals: 4, assists: 0 },
+  'nolan snowman-brooks': { gp: 1, goals: 4, assists: 0 },
   'michael-joseph primiani': { gp: 2, goals: 3, assists: 0 },
   'moustapha amar': { gp: 1, goals: 1, assists: 2 },
   'meagan boutler': { gp: 2, goals: 1, assists: 2 },
@@ -386,8 +386,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayScore: 12,
     division: '7v7 Open',
     recap: {
-      summaryEn: 'Mumford & Sons powered past BlackJacks 12–3 in a high-scoring Week 1 showdown. Alexandre Stefanson (4 goals) and Nolan Snowman (4 goals) led the offensive surge alongside a hat trick from Ismaele Rusconi (3 goals) and a brace from Michael-Joseph Primiani (2 goals). For BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar, and Nathan Essono found the back of the net, with Amar and Meagan Boutler each recording 2 assists.',
-      summaryFr: 'Mumford & Sons s\'est imposé 12–3 face aux BlackJacks lors d\'un duel offensif de la Semaine 1. Alexandre Stefanson (4 buts) et Nolan Snowman (4 buts) ont mené l\'attaque, appuyés par un tour du chapeau d\'Ismaele Rusconi (3 buts) et un doublé de Michael-Joseph Primiani (2 buts). Du côté des BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar et Nathan Essono ont trouvé le fond du filet, avec 2 passes décisives chacun pour Amar et Meagan Boutler.',
+      summaryEn: 'Mumford & Sons powered past BlackJacks 12–3 in a high-scoring Week 1 showdown. Alexandre Stefanson (4 goals) and Nolan Snowman-Brooks (4 goals) led the offensive surge alongside a hat trick from Ismaele Rusconi (3 goals) and a brace from Michael-Joseph Primiani (2 goals). For BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar, and Nathan Essono found the back of the net, with Amar and Meagan Boutler each recording 2 assists.',
+      summaryFr: 'Mumford & Sons s\'est imposé 12–3 face aux BlackJacks lors d\'un duel offensif de la Semaine 1. Alexandre Stefanson (4 buts) et Nolan Snowman-Brooks (4 buts) ont mené l\'attaque, appuyés par un tour du chapeau d\'Ismaele Rusconi (3 buts) et un doublé de Michael-Joseph Primiani (2 buts). Du côté des BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar et Nathan Essono ont trouvé le fond du filet, avec 2 passes décisives chacun pour Amar et Meagan Boutler.',
       goals: [
         { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
         { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
@@ -398,10 +398,10 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
         { teamId: 's_team_4', scorer: 'Michael-Joseph Primiani', number: 13 },
         { teamId: 's_team_4', scorer: 'Ismaele Rusconi', number: 17 },
         { teamId: 's_team_4', scorer: 'Ismaele Rusconi', number: 17 },
-        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
-        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
-        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
-        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman-Brooks', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman-Brooks', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman-Brooks', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman-Brooks', number: 32 },
         { teamId: 's_blackjacks', scorer: 'Brenden Thomas-Bynoe', number: 9, assists: ['Moustapha Amar', 'Meagan Boutler'] },
         { teamId: 's_blackjacks', scorer: 'Moustapha Amar', number: 2, assists: ['Nicolas Primiani'] },
         { teamId: 's_blackjacks', scorer: 'Nathan Essono', number: 3, assists: ['Moustapha Amar', 'Meagan Boutler'] },
@@ -430,7 +430,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
         { number: 8, name: 'Gabriel Savard' },
         { number: 9, name: 'Éliane Martel' },
         { number: 17, name: 'Ismaele Rusconi' },
-        { number: 32, name: 'Nolan Snowman' },
+        { number: 32, name: 'Nolan Snowman-Brooks' },
       ]
     }
   },
