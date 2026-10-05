@@ -8,6 +8,29 @@ export interface SoccerTeam {
   division: string;
 }
 
+export interface SoccerGoalEvent {
+  teamId: string;
+  scorer: string;
+  number?: number;
+  assists?: string[];
+}
+
+export interface SoccerCardEvent {
+  teamId: string;
+  player: string;
+  number?: number;
+  type: 'yellow' | 'red';
+}
+
+export interface SoccerMatchRecap {
+  summaryEn: string;
+  summaryFr: string;
+  goals: SoccerGoalEvent[];
+  cards: SoccerCardEvent[];
+  homeRoster: { number?: number; name: string; isGoalie?: boolean; isSub?: boolean }[];
+  awayRoster: { number?: number; name: string; isGoalie?: boolean; isSub?: boolean }[];
+}
+
 export interface SoccerMatch {
   id: string;
   date: string;
@@ -23,6 +46,7 @@ export interface SoccerMatch {
   awayScore?: number;
   division: string;
   week: number;
+  recap?: SoccerMatchRecap;
 }
 
 export interface SoccerRosterPlayer {
@@ -130,10 +154,10 @@ export const SOCCER_TEAMS: SoccerTeam[] = [
 ];
 
 export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
-  { teamId: 's_faahh_united', teamName: 'Faah United', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
-  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
-  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 },
-  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, gd: 0, pts: 0 }
+  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 1, wins: 1, draws: 0, losses: 0, gf: 12, ga: 3, gd: 9, pts: 3 },
+  { teamId: 's_faahh_united', teamName: 'Faah United', gp: 1, wins: 1, draws: 0, losses: 0, gf: 7, ga: 2, gd: 5, pts: 3 },
+  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 1, wins: 0, draws: 0, losses: 1, gf: 2, ga: 7, gd: -5, pts: 0 },
+  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 1, wins: 0, draws: 0, losses: 1, gf: 3, ga: 12, gd: -9, pts: 0 }
 ];
 
 export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
@@ -149,6 +173,7 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'fu_9', firstName: 'Simon', lastName: 'Berthiaume', name: 'Simon Berthiaume', teamId: 's_faahh_united' },
     { id: 'fu_10', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_faahh_united' },
     { id: 'fu_11', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_faahh_united' },
+    { id: 'fu_12', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_faahh_united' },
   ],
   s_blackjacks: [
     { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks' },
@@ -184,10 +209,57 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 't4_5', firstName: 'Michael-Joseph', lastName: 'Primiani', name: 'Michael-Joseph Primiani', teamId: 's_team_4' },
     { id: 't4_6', firstName: 'Alexis', lastName: 'Watt', name: 'Alexis Watt', teamId: 's_team_4' },
     { id: 't4_7', firstName: 'Pierre-Luc', lastName: 'Tremblay', name: 'Pierre-Luc Tremblay', teamId: 's_team_4' },
+    { id: 't4_8', firstName: 'Gabriel', lastName: 'Savard', name: 'Gabriel Savard', teamId: 's_team_4' },
+    { id: 't4_9', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_team_4' },
+    { id: 't4_10', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_team_4' },
+    { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman', name: 'Nolan Snowman', teamId: 's_team_4' },
   ]
 };
 
 export const ALL_SOCCER_PLAYERS: SoccerRosterPlayer[] = Object.values(SOCCER_ROSTERS).flat();
+
+const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists: number; yellowCards?: number; redCards?: number }> = {
+  // Game 1 (Oct 4, 8:00 PM: Turf Terrors 2 - 7 Faah United) & Game 2 (Oct 4, 9:00 PM: Mumford & Sons 12 - 3 BlackJacks)
+  'ismaele rusconi': { gp: 2, goals: 5, assists: 0 },
+  'alexandre stefanson': { gp: 1, goals: 4, assists: 0 },
+  'nolan snowman': { gp: 1, goals: 4, assists: 0 },
+  'michael-joseph primiani': { gp: 2, goals: 3, assists: 0 },
+  'moustapha amar': { gp: 1, goals: 1, assists: 2 },
+  'meagan boutler': { gp: 2, goals: 1, assists: 2 },
+  'simon berthiaume': { gp: 1, goals: 2, assists: 0 },
+  'simon yelle': { gp: 2, goals: 1, assists: 0 },
+  'benjamin morton': { gp: 1, goals: 1, assists: 0 },
+  'timothy gilmore': { gp: 1, goals: 1, assists: 0 },
+  'brenden thomas-bynoe': { gp: 1, goals: 1, assists: 0 },
+  'nathan essono': { gp: 1, goals: 1, assists: 0 },
+  'nicolas primiani': { gp: 1, goals: 0, assists: 1 },
+  // 2 GP players with 0 points
+  'gabriel savard': { gp: 2, goals: 0, assists: 0 },
+  'éliane martel': { gp: 2, goals: 0, assists: 0 },
+  'todd mumford': { gp: 2, goals: 0, assists: 0 },
+  'alessandro primiani': { gp: 2, goals: 0, assists: 0 },
+  // 1 GP players with 0 points
+  'benjamin st-cyr': { gp: 1, goals: 0, assists: 0 },
+  'meagan st-cyr': { gp: 1, goals: 0, assists: 0 },
+  'thomas yelle': { gp: 1, goals: 0, assists: 0 },
+  'evan sinclair': { gp: 1, goals: 0, assists: 0 },
+  'zachary bailey': { gp: 1, goals: 0, assists: 0 },
+  'joshua bubis': { gp: 1, goals: 0, assists: 0, yellowCards: 1 },
+  'jean luc feliciano': { gp: 1, goals: 0, assists: 0 },
+  'phenix mangerpan': { gp: 1, goals: 0, assists: 0 },
+  'tristan snowden': { gp: 1, goals: 0, assists: 0 },
+  'abigael o\'rourke': { gp: 1, goals: 0, assists: 0 },
+  'ciera macdavid': { gp: 1, goals: 0, assists: 0 },
+  'shawn chiniah': { gp: 1, goals: 0, assists: 0 },
+  'lydia côté': { gp: 1, goals: 0, assists: 0 },
+  'calvin watt': { gp: 1, goals: 0, assists: 0 },
+  'alexis watt': { gp: 1, goals: 0, assists: 0 },
+  'pierre-luc tremblay': { gp: 1, goals: 0, assists: 0 },
+  'amelia benabid': { gp: 1, goals: 0, assists: 0 },
+  'émy larivière': { gp: 1, goals: 0, assists: 0 },
+  'brandon de sousa': { gp: 1, goals: 0, assists: 0 },
+  'charlotte soucy': { gp: 1, goals: 0, assists: 0 },
+};
 
 export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
   const map = new Map<string, SoccerPlayerStat>();
@@ -196,6 +268,7 @@ export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
     const key = p.name.trim().toLowerCase();
     const team = SOCCER_TEAMS.find(t => t.id === p.teamId);
     const teamName = team?.name || '';
+    const stats = RECORDED_PLAYER_STATS[key] || { gp: 0, goals: 0, assists: 0 };
 
     if (!map.has(key)) {
       map.set(key, {
@@ -205,12 +278,12 @@ export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
         teamName: teamName,
         teamIds: [p.teamId],
         teamNames: [teamName],
-        gp: 0,
-        goals: 0,
-        assists: 0,
-        points: 0,
-        yellowCards: 0,
-        redCards: 0
+        gp: stats.gp,
+        goals: stats.goals,
+        assists: stats.assists,
+        points: stats.goals + stats.assists,
+        yellowCards: stats.yellowCards || 0,
+        redCards: stats.redCards || 0
       });
     } else {
       const existing = map.get(key)!;
@@ -246,8 +319,56 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamName: 'Turf Terrors',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
-    status: 'upcoming',
-    division: '7v7 Open'
+    status: 'completed',
+    homeScore: 7,
+    awayScore: 2,
+    division: '7v7 Open',
+    recap: {
+      summaryEn: 'Faah United opened the Fall 2026 season with a decisive 7–2 victory over Turf Terrors. Simon Berthiaume and Ismaele Rusconi each netted a brace (2 goals), while Simon Yelle, Michael-Joseph Primiani, and Meagan Boutler added single tallies. Timothy Gilmore and Benjamin Morton scored for Turf Terrors.',
+      summaryFr: 'Faah United a lancé la saison Automne 2026 avec une victoire convaincante de 7–2 contre Turf Terrors. Simon Berthiaume et Ismaele Rusconi ont chacun inscrit un doublé (2 buts), tandis que Simon Yelle, Michael-Joseph Primiani et Meagan Boutler ont ajouté un but chacun. Timothy Gilmore et Benjamin Morton ont marqué pour Turf Terrors.',
+      goals: [
+        { teamId: 's_faahh_united', scorer: 'Simon Yelle', number: 9 },
+        { teamId: 's_faahh_united', scorer: 'Simon Berthiaume', number: 12 },
+        { teamId: 's_faahh_united', scorer: 'Michael-Joseph Primiani', number: 6 },
+        { teamId: 's_faahh_united', scorer: 'Ismaele Rusconi', number: 11 },
+        { teamId: 's_faahh_united', scorer: 'Ismaele Rusconi', number: 11 },
+        { teamId: 's_faahh_united', scorer: 'Meagan Boutler', number: 4 },
+        { teamId: 's_faahh_united', scorer: 'Simon Berthiaume', number: 12 },
+        { teamId: 's_turf_terrors', scorer: 'Timothy Gilmore', number: 5 },
+        { teamId: 's_turf_terrors', scorer: 'Benjamin Morton', number: 4 },
+      ],
+      cards: [
+        { teamId: 's_turf_terrors', player: 'Joshua Bubis', number: 3, type: 'yellow' }
+      ],
+      homeRoster: [
+        { number: 6, name: 'Michael-Joseph Primiani' },
+        { number: 8, name: 'Gabriel Savard' },
+        { number: 3, name: 'Éliane Martel' },
+        { number: 2, name: 'Benjamin St-Cyr' },
+        { number: 73, name: 'Todd Mumford', isGoalie: true },
+        { number: 9, name: 'Simon Yelle' },
+        { number: 10, name: 'Meagan St-Cyr' },
+        { number: 7, name: 'Thomas Yelle' },
+        { number: 12, name: 'Simon Berthiaume' },
+        { number: 5, name: 'Alessandro Primiani' },
+        { number: 4, name: 'Meagan Boutler' },
+        { number: 11, name: 'Ismaele Rusconi', isSub: true },
+      ],
+      awayRoster: [
+        { number: 1, name: 'Evan Sinclair' },
+        { number: 2, name: 'Zachary Bailey' },
+        { number: 3, name: 'Joshua Bubis' },
+        { number: 4, name: 'Benjamin Morton' },
+        { number: 5, name: 'Timothy Gilmore' },
+        { number: 6, name: 'Jean Luc Feliciano' },
+        { number: 7, name: 'Phenix Mangerpan' },
+        { number: 8, name: 'Tristan Snowden' },
+        { number: 9, name: 'Abigael O\'Rourke' },
+        { number: 10, name: 'Ciera MacDavid' },
+        { number: 11, name: 'Shawn Chiniah' },
+        { number: 12, name: 'Lydia Côté' },
+      ]
+    }
   },
   {
     id: 's_m_w1_2',
@@ -260,8 +381,58 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamName: 'Mumford & Sons',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
-    status: 'upcoming',
-    division: '7v7 Open'
+    status: 'completed',
+    homeScore: 3,
+    awayScore: 12,
+    division: '7v7 Open',
+    recap: {
+      summaryEn: 'Mumford & Sons powered past BlackJacks 12–3 in a high-scoring Week 1 showdown. Alexandre Stefanson (4 goals) and Nolan Snowman (4 goals) led the offensive surge alongside a hat trick from Ismaele Rusconi (3 goals) and a brace from Michael-Joseph Primiani (2 goals). For BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar, and Nathan Essono found the back of the net, with Amar and Meagan Boutler each recording 2 assists.',
+      summaryFr: 'Mumford & Sons s\'est imposé 12–3 face aux BlackJacks lors d\'un duel offensif de la Semaine 1. Alexandre Stefanson (4 buts) et Nolan Snowman (4 buts) ont mené l\'attaque, appuyés par un tour du chapeau d\'Ismaele Rusconi (3 buts) et un doublé de Michael-Joseph Primiani (2 buts). Du côté des BlackJacks, Brenden Thomas-Bynoe, Moustapha Amar et Nathan Essono ont trouvé le fond du filet, avec 2 passes décisives chacun pour Amar et Meagan Boutler.',
+      goals: [
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
+        { teamId: 's_team_4', scorer: 'Ismaele Rusconi', number: 17 },
+        { teamId: 's_team_4', scorer: 'Michael-Joseph Primiani', number: 13 },
+        { teamId: 's_team_4', scorer: 'Michael-Joseph Primiani', number: 13 },
+        { teamId: 's_team_4', scorer: 'Ismaele Rusconi', number: 17 },
+        { teamId: 's_team_4', scorer: 'Ismaele Rusconi', number: 17 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman', number: 32 },
+        { teamId: 's_blackjacks', scorer: 'Brenden Thomas-Bynoe', number: 9, assists: ['Moustapha Amar', 'Meagan Boutler'] },
+        { teamId: 's_blackjacks', scorer: 'Moustapha Amar', number: 2, assists: ['Nicolas Primiani'] },
+        { teamId: 's_blackjacks', scorer: 'Nathan Essono', number: 3, assists: ['Moustapha Amar', 'Meagan Boutler'] },
+      ],
+      cards: [],
+      homeRoster: [
+        { number: 1, name: 'Nicolas Primiani' },
+        { number: 2, name: 'Moustapha Amar' },
+        { number: 3, name: 'Nathan Essono' },
+        { number: 4, name: 'Amelia Benabid' },
+        { number: 5, name: 'Émy Larivière' },
+        { number: 6, name: 'Meagan Boutler' },
+        { number: 7, name: 'Brandon De Sousa' },
+        { number: 8, name: 'Charlotte Soucy' },
+        { number: 9, name: 'Brenden Thomas-Bynoe' },
+        { number: 10, name: 'Alessandro Primiani' },
+      ],
+      awayRoster: [
+        { number: 37, name: 'Alexandre Stefanson' },
+        { number: 2, name: 'Calvin Watt' },
+        { number: 3, name: 'Todd Mumford' },
+        { number: 4, name: 'Simon Yelle' },
+        { number: 13, name: 'Michael-Joseph Primiani' },
+        { number: 6, name: 'Alexis Watt' },
+        { number: 7, name: 'Pierre-Luc Tremblay' },
+        { number: 8, name: 'Gabriel Savard' },
+        { number: 9, name: 'Éliane Martel' },
+        { number: 17, name: 'Ismaele Rusconi' },
+        { number: 32, name: 'Nolan Snowman' },
+      ]
+    }
   },
   // Week 2 - Sunday, October 11, 2026
   {

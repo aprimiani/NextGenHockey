@@ -313,6 +313,9 @@ export const SoccerStats: React.FC = () => {
                         {playerSortBy === 'points' && <span className="text-[9px] text-lime-400">▼</span>}
                       </div>
                     </th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center text-amber-400" title={isFr ? 'Cartons Jaunes' : 'Yellow Cards'}>
+                      {isFr ? 'CJ' : 'YC'}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
@@ -372,11 +375,20 @@ export const SoccerStats: React.FC = () => {
                         <td className="py-3 sm:py-4 px-3 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
                           {player.points}
                         </td>
+                        <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono">
+                          {player.yellowCards > 0 ? (
+                            <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-black text-xs">
+                              {player.yellowCards}
+                            </span>
+                          ) : (
+                            <span className="text-gray-600">0</span>
+                          )}
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={7} className="py-8 text-center text-xs text-gray-400">
+                      <td colSpan={8} className="py-8 text-center text-xs text-gray-400">
                         {isFr ? 'Aucun joueur trouvé.' : 'No players found.'}
                       </td>
                     </tr>
@@ -387,7 +399,7 @@ export const SoccerStats: React.FC = () => {
 
             {/* Footer Notice */}
             <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
-              <span>{isFr ? '#: Rang • PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points' : '#: Rank • PJ: Games Played • B: Goals • P: Assists • PTS: Points'}</span>
+              <span>{isFr ? '#: Rang • PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points • CJ: Cartons Jaunes' : '#: Rank • PJ: Games Played • B: Goals • P: Assists • PTS: Points • YC: Yellow Cards'}</span>
               <span className="text-lime-400 font-bold">{isFr ? 'Coup d’envoi : 4 octobre 2026' : 'Season kickoff: October 4, 2026'}</span>
             </div>
           </div>
