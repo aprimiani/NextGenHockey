@@ -319,9 +319,9 @@ export const SoccerHome: React.FC = () => {
             </Link>
           </div>
 
-          {SOCCER_SCHEDULE.length > 0 ? (
+          {SOCCER_SCHEDULE.filter(m => m.status !== 'completed').length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {SOCCER_SCHEDULE.slice(0, 3).map((match) => (
+              {SOCCER_SCHEDULE.filter(m => m.status !== 'completed').slice(0, 3).map((match) => (
                 <div
                   key={match.id}
                   className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/40 transition-colors flex flex-col justify-between"

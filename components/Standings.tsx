@@ -416,7 +416,7 @@ const Standings: React.FC = () => {
   // Sorting State
   type PoolSortKey = 'seed' | 'name' | 'regWinPct' | 'gp' | 'wins' | 'losses' | 'ties' | 'points' | 'winPct' | 'goalsFor' | 'goalsAgainst' | 'diff';
 
-  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank' | 'winPct' | 'diff'; dir: 'asc' | 'desc' }>({ key: 'winPct', dir: 'desc' });
+  const [teamSort, setTeamSort] = useState<{ key: keyof Team | 'rank' | 'winPct' | 'diff'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [playerSort, setPlayerSort] = useState<{ key: keyof PlayerStats | 'rank'; dir: 'asc' | 'desc' }>({ key: 'points', dir: 'desc' });
   const [goalieSort, setGoalieSort] = useState<{ key: keyof GoalieStats | 'gaa' | 'svPct' | 'rank'; dir: 'asc' | 'desc' }>({ key: 'svPct', dir: 'desc' });
 
@@ -858,7 +858,15 @@ const Standings: React.FC = () => {
         <div className="relative self-start lg:self-auto min-w-[220px]">
           <select
             value={selectedSeason}
-            onChange={(e) => setSelectedSeason(e.target.value as any)}
+            onChange={(e) => {
+              const newSeason = e.target.value as any;
+              setSelectedSeason(newSeason);
+              if (newSeason === 'winter_2026_2027') {
+                setTeamSort({ key: 'points', dir: 'desc' });
+              } else {
+                setTeamSort({ key: 'winPct', dir: 'desc' });
+              }
+            }}
             className="appearance-none bg-zinc-900/90 text-white font-black uppercase tracking-wider text-xs sm:text-sm pl-4 pr-10 py-3 rounded-xl border border-zinc-800 hover:border-sky-500/50 focus:outline-none focus:border-sky-400 cursor-pointer transition-all shadow-xl w-full"
           >
             {seasonsList.map((s) => (
@@ -1686,10 +1694,10 @@ const Standings: React.FC = () => {
               <div className="flex-1 flex flex-col items-center sm:items-start">
                 {playerOfMonth.playerId ? (
                   (() => {
-                    const p = players.find(x => x.id === playerOfMonth.playerId);
-                    const g = goalies.find(x => x.id === playerOfMonth.playerId);
+                    const p = activePlayersList.find(x => x.id === playerOfMonth.playerId) || players.find(x => x.id === playerOfMonth.playerId);
+                    const g = activeGoaliesList.find(x => x.id === playerOfMonth.playerId) || goalies.find(x => x.id === playerOfMonth.playerId);
                     const name = p ? p.name : (g ? g.name : 'N/A');
-                    const teamId = p ? p.teamId : (g ? g.teamId : '');
+                    const teamId = p ? (p.seasonTeamIds?.[selectedSeason] || p.teamId) : (g ? (g.seasonTeamIds?.[selectedSeason] || g.teamId) : '');
                     return (
                       <>
                         <button 

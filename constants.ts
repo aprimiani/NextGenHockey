@@ -3,15 +3,15 @@ import { Team, Game, PlayerStats, GoalieStats, GameRecapData, PlayerOfMonth } fr
 export const EMAILJS_CONFIG = { SERVICE_ID: 'service_o7zd8ri', PUBLIC_KEY: 'HViFUqA9NIBXgSDaO', CONTACT_TEMPLATE_ID: 'template_ysbjhgn', REGISTRATION_TEMPLATE_ID: 'template_efmg0t4' };
 
 export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
-  "playerId": "p_1771962869757",
-  "month": 7,
+  "playerId": "p_1767082323831",
+  "month": 8,
   "year": 2026,
-  "gp": 3,
-  "goals": 6,
+  "gp": 4,
+  "goals": 9,
   "assists": 3,
-  "points": 9,
-  "prizeEn": "Free 6 inch trio from Subway Delson + Howies Hockey Towel!",
-  "prizeFr": "Trio sandwich 6 pouces de Subway Delson + serviette Howies Hockey !",
+  "points": 12,
+  "prizeEn": "Free 6 inch trio from Subway Delson!",
+  "prizeFr": "Trio sandwich 6 pouces gratuit de Subway Delson !",
   "isGoalie": false
 };
 

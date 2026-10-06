@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v133_oct5_timbits_bots_rosters');
+    const hasReset = localStorage.getItem('ng_force_reset_v135_pom_subway_prize');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v133_oct5_timbits_bots_rosters', 'true');
+      localStorage.setItem('ng_force_reset_v135_pom_subway_prize', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');

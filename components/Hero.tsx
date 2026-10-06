@@ -22,7 +22,8 @@ export const Hero: React.FC = () => {
 
   // Player of the Month details
   const pomPlayer = players.find(p => p.id === playerOfMonth.playerId);
-  const pomTeam = teams.find(t => t.id === pomPlayer?.teamId);
+  const pomTeamId = pomPlayer?.seasonTeamIds?.['winter_2026_2027'] || pomPlayer?.teamId;
+  const pomTeam = teams.find(t => t.id === pomTeamId);
 
   return (
     <div className="min-h-screen bg-[#07090e] text-white">
