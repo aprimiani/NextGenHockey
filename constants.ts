@@ -938,7 +938,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 7,
+    "awayScore": 5
   },
   {
     "id": "g_w_10",
@@ -1266,6 +1268,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1773774485424",
     "name": "Alexis Janvier-Jetté",
     "teamId": "4",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
     "gp": 11,
     "goals": 6,
     "assists": 5,
@@ -1284,6 +1294,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1773774486160",
     "name": "Alexis Poirier",
     "teamId": "4",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
     "gp": 8,
     "goals": 2,
     "assists": 4,
@@ -1325,7 +1343,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "assists": 1,
     "points": 5,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_timbits"
+      "winter_2026_2027": "w_bots"
     }
   },
   {
@@ -1655,7 +1673,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "assists": 9,
     "points": 11,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_timbits"
+      "winter_2026_2027": "w_bots"
     }
   },
   {
@@ -1895,7 +1913,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "assists": 4,
     "points": 14,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_bots"
+      "winter_2026_2027": "w_timbits"
     }
   },
   {
@@ -1987,7 +2005,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "assists": 0,
     "points": 0,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_bots"
+      "winter_2026_2027": "w_timbits"
     }
   },
   {
@@ -3068,6 +3086,18 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0
   },
   {
+    "id": "w_p_vincent_robert",
+    "name": "Vincent Robert",
+    "teamId": "w_timbits",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_timbits"
+    },
+    "gp": 0,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
     "id": "w_p_thomas_burton",
     "name": "Thomas Burton",
     "teamId": "w_kraken",
@@ -3332,6 +3362,23 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_laurent_loiselle_sub",
+    "name": "Laurent Loiselle",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -3402,7 +3449,7 @@ export const GOALIE_STATS: GoalieStats[] = [
     "shotsAgainst": 217,
     "goalsAgainst": 36,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_bots"
+      "winter_2026_2027": "w_timbits"
     }
   },
   {
@@ -3460,7 +3507,7 @@ export const GOALIE_STATS: GoalieStats[] = [
     "shotsAgainst": 312,
     "goalsAgainst": 68,
     "seasonTeamIds": {
-      "winter_2026_2027": "w_timbits"
+      "winter_2026_2027": "w_bots"
     }
   },
   {
@@ -12639,6 +12686,206 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1775580097968",
         "p_1778425131558",
         "p_1775582149892"
+      ]
+    }
+  },
+  "g_w_9": {
+    "gameId": "g_w_9",
+    "events": [
+      {
+        "id": "e_g_w_9_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "03:55",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "assist": "p_1767082310061",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "05:30",
+        "teamId": "w_bots",
+        "player": "p2",
+        "details": "Roughing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_9_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "12:15",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p2",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:45",
+        "teamId": "w_timbits",
+        "player": "p_1773774485424",
+        "assist": "w_p_antoine_perreault",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "03:35",
+        "teamId": "w_timbits",
+        "player": "w_p_francois_fontaine",
+        "assist": "p_1773774486160",
+        "assist2": "w_p_antoine_perreault",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_p2",
+        "type": "penalty",
+        "period": 2,
+        "time": "10:00",
+        "teamId": "w_timbits",
+        "player": "p_1773774486160",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_9_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "10:15",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "01:55",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "assist": "p_1767082323831",
+        "assist2": "p_1773774485424",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "04:15",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "assist": "p_1767082317648",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "05:45",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "08:25",
+        "teamId": "w_timbits",
+        "player": "w_p_francois_fontaine",
+        "assist": "p_1773774486160",
+        "assist2": "p_1773774485424",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "08:55",
+        "teamId": "w_bots",
+        "player": "p_1775579857302",
+        "assist": "p2",
+        "assist2": "p_1767082317648",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "12:45",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "p_1778475181683",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_9_g12",
+        "type": "goal",
+        "period": 3,
+        "time": "15:15",
+        "teamId": "w_bots",
+        "player": "p_1778425131558",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 33,
+        "goalsAgainst": 5,
+        "saves": 28
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 33,
+        "goalsAgainst": 7,
+        "saves": 26
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1767082104234",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1767082323831",
+        "p_1778475181683",
+        "w_p_vincent_robert",
+        "p_laurent_loiselle_sub",
+        "p_1773774486160",
+        "p_1773774485424"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p4",
+        "p_1767082302464",
+        "p2",
+        "p_1775580097968",
+        "p_1767082317648",
+        "p1",
+        "p_1778425131558"
       ]
     }
   }
