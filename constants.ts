@@ -949,7 +949,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 4,
+    "awayScore": 1
   },
   {
     "id": "g_w_7",
@@ -1203,7 +1205,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
-        "w_timbits"
+        "w_timbits",
+        "w_kraken"
       ]
     }
   },
@@ -3592,6 +3595,26 @@ export const GOALIE_STATS: GoalieStats[] = [
     "shotsAgainst": 0,
     "goalsAgainst": 0,
     "saves": 0
+  },
+  {
+    "id": "goalie_elliot_lavoie_sub",
+    "name": "Elliot Lavoie",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "wins": 0,
+    "losses": 1,
+    "draws": 0,
+    "shotsAgainst": 36,
+    "goalsAgainst": 4,
+    "saves": 32
   }
 ];
 
@@ -12886,6 +12909,108 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_1767082317648",
         "p1",
         "p_1778425131558"
+      ]
+    }
+  },
+  "g_w_10": {
+    "gameId": "g_w_10",
+    "events": [
+      {
+        "id": "e_g_w_10_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "13:41",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "assist": "w_p_noah_goyens",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_10_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "14:37",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "assist": "w_p_olivier_sylvain",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_10_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "04:35",
+        "teamId": "w_kraken",
+        "player": "p_joshua_sylvain",
+        "assist": "p4",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_10_g4",
+        "type": "goal",
+        "period": 3,
+        "time": "02:45",
+        "teamId": "w_seamen",
+        "player": "w_p_devin_menary",
+        "assist": "p_ethan_black_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_10_g5",
+        "type": "goal",
+        "period": 3,
+        "time": "05:15",
+        "teamId": "w_seamen",
+        "player": "w_p_olivier_sylvain",
+        "assist": "w_p_alexandre_derome",
+        "assist2": "w_p_noah_bonspille",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 26,
+        "goalsAgainst": 1,
+        "saves": 25
+      },
+      "awayGoalie": {
+        "playerId": "goalie_elliot_lavoie_sub",
+        "shotsFaced": 36,
+        "goalsAgainst": 4,
+        "saves": 32
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_alexandre_derome",
+        "w_p_devin_menary",
+        "w_p_owen_dunn"
+      ],
+      "awayPlayers": [
+        "goalie_elliot_lavoie_sub",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p4",
+        "p_nathan_lapointe_sub",
+        "p_ben_carr_sub",
+        "p1"
       ]
     }
   }
