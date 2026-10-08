@@ -960,7 +960,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 9,
+    "awayScore": 2
   },
   {
     "id": "g_w_11",
@@ -1710,6 +1712,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "id": "p_1773774486881",
     "name": "Maxime Gagné",
     "teamId": "4",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
     "gp": 10,
     "goals": 4,
     "assists": 8,
@@ -3341,7 +3351,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
-        "w_kraken"
+        "w_kraken",
+        "w_timbits"
       ]
     },
     "gp": 1,
@@ -3382,6 +3393,40 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_zackary_thorne_sub",
+    "name": "Zackary Thorne",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_guillaume_cote_sub",
+    "name": "Guillaume Côté",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 1,
+    "points": 1
   }
 ];
 
@@ -3511,6 +3556,11 @@ export const GOALIE_STATS: GoalieStats[] = [
     "goalsAgainst": 68,
     "seasonTeamIds": {
       "winter_2026_2027": "w_bots"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_timbits"
+      ]
     }
   },
   {
@@ -13011,6 +13061,184 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
         "p_nathan_lapointe_sub",
         "p_ben_carr_sub",
         "p1"
+      ]
+    }
+  },
+  "g_w_7": {
+    "gameId": "g_w_7",
+    "events": [
+      {
+        "id": "e_g_w_7_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "08:00",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_thomas_burton",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "09:10",
+        "teamId": "w_kraken",
+        "player": "p_joshua_sylvain",
+        "details": "Tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_7_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "13:30",
+        "teamId": "w_kraken",
+        "player": "p3",
+        "assist": "w_p_joshua_laekas",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "02:45",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_burton",
+        "assist": "p_joshua_sylvain",
+        "assist2": "w_p_joshua_laekas",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "08:55",
+        "teamId": "w_kraken",
+        "player": "w_p_joshua_laekas",
+        "assist": "w_p_ben_siegl",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "13:30",
+        "teamId": "w_kraken",
+        "player": "p_joshua_sylvain",
+        "assist": "p_guillaume_cote_sub",
+        "assist2": "w_p_ben_siegl",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "15:55",
+        "teamId": "w_kraken",
+        "player": "p4",
+        "assist": "w_p_thomas_desveaux",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "01:00",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_desveaux",
+        "assist": "w_p_joshua_laekas",
+        "assist2": "p4",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "03:45",
+        "teamId": "w_timbits",
+        "player": "p_1773774486881",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "06:20",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "p_1773774486881",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "13:52",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_joshua_laekas",
+        "assist2": "p3",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_7_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "15:30",
+        "teamId": "w_kraken",
+        "player": "p4",
+        "assist": "w_p_arjun_srivastava",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 15,
+        "goalsAgainst": 2,
+        "saves": 13
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 33,
+        "goalsAgainst": 9,
+        "saves": 24
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_thomas_desveaux",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p4",
+        "w_p_joshua_laekas",
+        "p_guillaume_cote_sub"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1767082323831",
+        "w_p_vincent_robert",
+        "p_1773774486881",
+        "p_zackary_thorne_sub",
+        "p_ben_carr_sub"
       ]
     }
   }
