@@ -46,6 +46,7 @@ export interface SoccerMatch {
   awayScore?: number;
   division: string;
   week: number;
+  stage?: string;
   recap?: SoccerMatchRecap;
 }
 
@@ -123,7 +124,7 @@ export const SOCCER_CURRENT_SEASON = {
 export const SOCCER_TEAMS: SoccerTeam[] = [
   {
     id: 's_faahh_united',
-    name: 'Faah United',
+    name: 'Faahh United',
     shortName: 'FU',
     color: '#6b7280',
     secondaryColor: '#22c55e',
@@ -154,10 +155,10 @@ export const SOCCER_TEAMS: SoccerTeam[] = [
 ];
 
 export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
-  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 1, wins: 1, draws: 0, losses: 0, gf: 12, ga: 3, gd: 9, pts: 3 },
-  { teamId: 's_faahh_united', teamName: 'Faah United', gp: 1, wins: 1, draws: 0, losses: 0, gf: 7, ga: 2, gd: 5, pts: 3 },
-  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 1, wins: 0, draws: 0, losses: 1, gf: 2, ga: 7, gd: -5, pts: 0 },
-  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 1, wins: 0, draws: 0, losses: 1, gf: 3, ga: 12, gd: -9, pts: 0 }
+  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 2, wins: 2, draws: 0, losses: 0, gf: 17, ga: 7, gd: 10, pts: 6 },
+  { teamId: 's_faahh_united', teamName: 'Faahh United', gp: 2, wins: 1, draws: 0, losses: 1, gf: 11, ga: 7, gd: 4, pts: 3 },
+  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 2, wins: 1, draws: 0, losses: 1, gf: 5, ga: 7, gd: -2, pts: 3 },
+  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 2, wins: 0, draws: 0, losses: 2, gf: 3, ga: 15, gd: -12, pts: 0 }
 ];
 
 export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
@@ -174,6 +175,7 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'fu_10', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_faahh_united' },
     { id: 'fu_11', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_faahh_united' },
     { id: 'fu_12', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_faahh_united' },
+    { id: 'fu_sub_1', firstName: 'Guillaume', lastName: 'St-Pierre', name: 'Guillaume St-Pierre', teamId: 's_faahh_united' },
   ],
   s_blackjacks: [
     { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks' },
@@ -186,6 +188,8 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'bj_8', firstName: 'Brandon', lastName: 'De Sousa', name: 'Brandon De Sousa', teamId: 's_blackjacks' },
     { id: 'bj_9', firstName: 'Charlotte', lastName: 'Soucy', name: 'Charlotte Soucy', teamId: 's_blackjacks' },
     { id: 'bj_10', firstName: 'Brenden', lastName: 'Thomas-Bynoe', name: 'Brenden Thomas-Bynoe', teamId: 's_blackjacks' },
+    { id: 'bj_sub_1', firstName: 'Alexander', lastName: 'Lowden', name: 'Alexander Lowden', teamId: 's_blackjacks' },
+    { id: 'bj_sub_2', firstName: 'Emma', lastName: 'Fernandes', name: 'Emma Fernandes', teamId: 's_blackjacks' },
   ],
   s_turf_terrors: [
     { id: 'tt_1', firstName: 'Evan', lastName: 'Sinclair', name: 'Evan Sinclair', teamId: 's_turf_terrors' },
@@ -200,6 +204,10 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'tt_10', firstName: 'Ciera', lastName: 'MacDavid', name: 'Ciera MacDavid', teamId: 's_turf_terrors' },
     { id: 'tt_11', firstName: 'Shawn', lastName: 'Chiniah', name: 'Shawn Chiniah', teamId: 's_turf_terrors' },
     { id: 'tt_12', firstName: 'Lydia', lastName: 'Côté', name: 'Lydia Côté', teamId: 's_turf_terrors' },
+    { id: 'tt_sub_1', firstName: 'Melanie', lastName: 'Drapeau', name: 'Melanie Drapeau', teamId: 's_turf_terrors' },
+    { id: 'tt_sub_2', firstName: 'Ilya', lastName: 'Naumkin', name: 'Ilya Naumkin', teamId: 's_turf_terrors' },
+    { id: 'tt_sub_3', firstName: 'Luna', lastName: 'Gendron', name: 'Luna Gendron', teamId: 's_turf_terrors' },
+    { id: 'tt_sub_4', firstName: 'Antoine', lastName: 'Cyr', name: 'Antoine Cyr', teamId: 's_turf_terrors' },
   ],
   s_team_4: [
     { id: 't4_1', firstName: 'Alexandre', lastName: 'Stefanson', name: 'Alexandre Stefanson', teamId: 's_team_4' },
@@ -213,52 +221,65 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 't4_9', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_team_4' },
     { id: 't4_10', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_team_4' },
     { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman-Brooks', name: 'Nolan Snowman-Brooks', teamId: 's_team_4' },
+    { id: 't4_12', firstName: 'Brandon', lastName: 'Garcia', name: 'Brandon Garcia', teamId: 's_team_4' },
+    { id: 't4_sub_1', firstName: 'Matthew', lastName: 'Vasquez', name: 'Matthew Vasquez', teamId: 's_team_4' },
+    { id: 't4_sub_2', firstName: 'Sean', lastName: 'Nicolie', name: 'Sean Nicolie', teamId: 's_team_4' },
   ]
 };
 
 export const ALL_SOCCER_PLAYERS: SoccerRosterPlayer[] = Object.values(SOCCER_ROSTERS).flat();
 
 const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists: number; yellowCards?: number; redCards?: number }> = {
-  // Game 1 (Oct 4, 8:00 PM: Turf Terrors 2 - 7 Faah United) & Game 2 (Oct 4, 9:00 PM: Mumford & Sons 12 - 3 BlackJacks)
+  // Goals leaders & contributors
+  'alexandre stefanson': { gp: 2, goals: 5, assists: 0 },
   'ismaele rusconi': { gp: 2, goals: 5, assists: 0 },
-  'alexandre stefanson': { gp: 1, goals: 4, assists: 0 },
+  'matthew vasquez': { gp: 1, goals: 4, assists: 0 },
   'nolan snowman-brooks': { gp: 1, goals: 4, assists: 0 },
   'michael-joseph primiani': { gp: 2, goals: 3, assists: 0 },
-  'moustapha amar': { gp: 1, goals: 1, assists: 2 },
-  'meagan boutler': { gp: 2, goals: 1, assists: 2 },
+  'gabriel savard': { gp: 3, goals: 2, assists: 0 },
+  'antoine cyr': { gp: 1, goals: 2, assists: 0 },
   'simon berthiaume': { gp: 1, goals: 2, assists: 0 },
-  'simon yelle': { gp: 2, goals: 1, assists: 0 },
+  'moustapha amar': { gp: 2, goals: 1, assists: 2 },
+  'meagan boutler': { gp: 3, goals: 2, assists: 2 },
+  'simon yelle': { gp: 3, goals: 1, assists: 0 },
+  'alessandro primiani': { gp: 3, goals: 1, assists: 0 },
+  'meagan st-cyr': { gp: 1, goals: 0, assists: 0 },
+  'guillaume st-pierre': { gp: 1, goals: 1, assists: 0 },
+  'benjamin st-cyr': { gp: 2, goals: 0, assists: 0 },
+  'ilya naumkin': { gp: 1, goals: 1, assists: 0 },
   'benjamin morton': { gp: 1, goals: 1, assists: 0 },
-  'timothy gilmore': { gp: 1, goals: 1, assists: 0 },
-  'brenden thomas-bynoe': { gp: 1, goals: 1, assists: 0 },
+  'timothy gilmore': { gp: 2, goals: 1, assists: 0 },
+  'brenden thomas-bynoe': { gp: 2, goals: 1, assists: 0 },
   'nathan essono': { gp: 1, goals: 1, assists: 0 },
   'nicolas primiani': { gp: 1, goals: 0, assists: 1 },
-  // 2 GP players with 0 points
-  'gabriel savard': { gp: 2, goals: 0, assists: 0 },
-  'éliane martel': { gp: 2, goals: 0, assists: 0 },
-  'todd mumford': { gp: 2, goals: 0, assists: 0 },
-  'alessandro primiani': { gp: 2, goals: 0, assists: 0 },
+  // Players with 0 points
+  'éliane martel': { gp: 3, goals: 0, assists: 0 },
+  'todd mumford': { gp: 3, goals: 0, assists: 0 },
+  'thomas yelle': { gp: 2, goals: 0, assists: 0 },
+  'joshua bubis': { gp: 2, goals: 0, assists: 0, yellowCards: 1 },
+  'jean luc feliciano': { gp: 2, goals: 0, assists: 0 },
+  'phenix mangerpan': { gp: 2, goals: 0, assists: 0 },
+  'tristan snowden': { gp: 2, goals: 0, assists: 0 },
+  'ciera macdavid': { gp: 2, goals: 0, assists: 0 },
+  'amelia benabid': { gp: 2, goals: 0, assists: 0 },
+  'émy larivière': { gp: 2, goals: 0, assists: 0 },
+  'brandon de sousa': { gp: 2, goals: 0, assists: 0 },
+  'charlotte soucy': { gp: 2, goals: 0, assists: 0 },
   // 1 GP players with 0 points
-  'benjamin st-cyr': { gp: 1, goals: 0, assists: 0 },
-  'meagan st-cyr': { gp: 1, goals: 0, assists: 0 },
-  'thomas yelle': { gp: 1, goals: 0, assists: 0 },
+  'brandon garcia': { gp: 1, goals: 0, assists: 0 },
+  'sean nicolie': { gp: 1, goals: 0, assists: 0 },
+  'melanie drapeau': { gp: 1, goals: 0, assists: 0 },
+  'luna gendron': { gp: 1, goals: 0, assists: 0 },
+  'alexander lowden': { gp: 1, goals: 0, assists: 0 },
+  'emma fernandes': { gp: 1, goals: 0, assists: 0 },
   'evan sinclair': { gp: 1, goals: 0, assists: 0 },
   'zachary bailey': { gp: 1, goals: 0, assists: 0 },
-  'joshua bubis': { gp: 1, goals: 0, assists: 0, yellowCards: 1 },
-  'jean luc feliciano': { gp: 1, goals: 0, assists: 0 },
-  'phenix mangerpan': { gp: 1, goals: 0, assists: 0 },
-  'tristan snowden': { gp: 1, goals: 0, assists: 0 },
   'abigael o\'rourke': { gp: 1, goals: 0, assists: 0 },
-  'ciera macdavid': { gp: 1, goals: 0, assists: 0 },
   'shawn chiniah': { gp: 1, goals: 0, assists: 0 },
   'lydia côté': { gp: 1, goals: 0, assists: 0 },
   'calvin watt': { gp: 1, goals: 0, assists: 0 },
   'alexis watt': { gp: 1, goals: 0, assists: 0 },
   'pierre-luc tremblay': { gp: 1, goals: 0, assists: 0 },
-  'amelia benabid': { gp: 1, goals: 0, assists: 0 },
-  'émy larivière': { gp: 1, goals: 0, assists: 0 },
-  'brandon de sousa': { gp: 1, goals: 0, assists: 0 },
-  'charlotte soucy': { gp: 1, goals: 0, assists: 0 },
 };
 
 export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
@@ -307,6 +328,106 @@ export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
 })();
 
 export const SOCCER_SCHEDULE: SoccerMatch[] = [
+  // Week 2 - Sunday, October 11, 2026
+  {
+    id: 's_m_w2_1',
+    week: 2,
+    date: '2026-10-11',
+    time: '20:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Faah United',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'completed',
+    homeScore: 4,
+    awayScore: 5,
+    division: '7v7 Open',
+    recap: {
+      summaryEn: 'Mumford & Sons edged Faah United 5–4 in an electric Week 2 encounter. Matthew Vasquez led Mumford & Sons with 4 goals alongside a goal from Alexandre Stefanson. Faah United countered with tallies from Guillaume St-Pierre, Alessandro Primiani, Gabriel Savard, and Meagan Boutler in a tightly contested match.',
+      summaryFr: 'Mumford & Sons s\'est imposé 5–4 face à Faah United lors d\'un duel très disputé de la Semaine 2. Matthew Vasquez a mené Mumford & Sons avec 4 buts aux côtés d\'un but d\'Alexandre Stefanson. Faah United a répliqué avec des réussites de Guillaume St-Pierre, Alessandro Primiani, Gabriel Savard et Meagan Boutler.',
+      goals: [
+        { teamId: 's_faahh_united', scorer: 'Guillaume St-Pierre', number: 2 },
+        { teamId: 's_faahh_united', scorer: 'Alessandro Primiani', number: 5 },
+        { teamId: 's_faahh_united', scorer: 'Gabriel Savard', number: 8 },
+        { teamId: 's_faahh_united', scorer: 'Meagan Boutler', number: 4 },
+        { teamId: 's_team_4', scorer: 'Matthew Vasquez', number: 3 },
+        { teamId: 's_team_4', scorer: 'Matthew Vasquez', number: 3 },
+        { teamId: 's_team_4', scorer: 'Matthew Vasquez', number: 3 },
+        { teamId: 's_team_4', scorer: 'Matthew Vasquez', number: 3 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 37 },
+      ],
+      cards: [],
+      homeRoster: [
+        { number: 5, name: 'Alessandro Primiani' },
+        { number: 8, name: 'Gabriel Savard' },
+        { number: 4, name: 'Meagan Boutler' },
+        { number: 9, name: 'Éliane Martel' },
+        { number: 3, name: 'Benjamin St-Cyr' },
+        { number: 2, name: 'Guillaume St-Pierre', isSub: true },
+      ],
+      awayRoster: [
+        { number: 73, name: 'Todd Mumford', isGoalie: true },
+        { number: 4, name: 'Simon Yelle' },
+        { number: 5, name: 'Brandon Garcia' },
+        { number: 37, name: 'Alexandre Stefanson' },
+        { number: 3, name: 'Matthew Vasquez', isSub: true },
+        { number: 11, name: 'Thomas Yelle', isSub: true },
+        { number: 8, name: 'Sean Nicolie', isSub: true },
+      ]
+    }
+  },
+  {
+    id: 's_m_w2_2',
+    week: 2,
+    date: '2026-10-11',
+    time: '21:00',
+    homeTeamId: 's_blackjacks',
+    awayTeamId: 's_turf_terrors',
+    homeTeamName: 'BlackJacks',
+    awayTeamName: 'Turf Terrors',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'completed',
+    homeScore: 0,
+    awayScore: 3,
+    division: '7v7 Open',
+    recap: {
+      summaryEn: 'Turf Terrors secured their first win of the season with a 3–0 shutout over BlackJacks. After a defensive battle in the opening half, Turf Terrors erupted in the second period with a brace from Antoine Cyr and a clinical finish from Ilya Naumkin to capture all three points.',
+      summaryFr: 'Turf Terrors a signé sa première victoire de la saison en blanchissant les BlackJacks 3–0. Après une première demie défensive et serrée, Turf Terrors a débloqué en deuxième période grâce à un doublé d\'Antoine Cyr et un but opportun d\'Ilya Naumkin pour empocher les trois points.',
+      goals: [
+        { teamId: 's_turf_terrors', scorer: 'Ilya Naumkin', number: 6 },
+        { teamId: 's_turf_terrors', scorer: 'Antoine Cyr', number: 5 },
+        { teamId: 's_turf_terrors', scorer: 'Antoine Cyr', number: 5 },
+      ],
+      cards: [],
+      homeRoster: [
+        { number: 2, name: 'Moustapha Amar' },
+        { number: 3, name: 'Amelia Benabid' },
+        { number: 11, name: 'Émy Larivière' },
+        { number: 4, name: 'Meagan Boutler' },
+        { number: 10, name: 'Brandon De Sousa' },
+        { number: 9, name: 'Charlotte Soucy' },
+        { number: 6, name: 'Brenden Thomas-Bynoe' },
+        { number: 5, name: 'Alessandro Primiani' },
+        { number: 12, name: 'Alexander Lowden', isSub: true },
+        { number: 1, name: 'Emma Fernandes', isGoalie: true, isSub: true },
+      ],
+      awayRoster: [
+        { number: 3, name: 'Joshua Bubis' },
+        { number: 10, name: 'Timothy Gilmore' },
+        { number: 12, name: 'Jean Luc Feliciano' },
+        { number: 11, name: 'Phenix Mangerpan' },
+        { number: 9, name: 'Tristan Snowden' },
+        { number: 8, name: 'Ciera MacDavid' },
+        { number: 2, name: 'Melanie Drapeau', isSub: true },
+        { number: 6, name: 'Ilya Naumkin', isSub: true },
+        { number: 4, name: 'Luna Gendron', isSub: true },
+        { number: 5, name: 'Antoine Cyr', isSub: true },
+      ]
+    }
+  },
   // Week 1 - Sunday, October 4, 2026
   {
     id: 's_m_w1_1',
@@ -434,34 +555,315 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
       ]
     }
   },
-  // Week 2 - Sunday, October 11, 2026
+  // Week 3 - Sunday, October 25, 2026
   {
-    id: 's_m_w2_1',
-    week: 2,
-    date: '2026-10-11',
+    id: 's_m_w3_1',
+    week: 3,
+    date: '2026-10-25',
     time: '20:00',
     homeTeamId: 's_faahh_united',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w3_2',
+    week: 3,
+    date: '2026-10-25',
+    time: '21:00',
+    homeTeamId: 's_turf_terrors',
     awayTeamId: 's_team_4',
-    homeTeamName: 'Faah United',
+    homeTeamName: 'Turf Terrors',
     awayTeamName: 'Mumford & Sons',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
     status: 'upcoming',
-    division: '7v7 Open'
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 4 - Sunday, November 1, 2026
+  {
+    id: 's_m_w4_1',
+    week: 4,
+    date: '2026-11-01',
+    time: '20:00',
+    homeTeamId: 's_turf_terrors',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Turf Terrors',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
   },
   {
-    id: 's_m_w2_2',
-    week: 2,
-    date: '2026-10-11',
+    id: 's_m_w4_2',
+    week: 4,
+    date: '2026-11-01',
     time: '21:00',
-    homeTeamId: 's_blackjacks',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 5 - Sunday, November 8, 2026
+  {
+    id: 's_m_w5_1',
+    week: 5,
+    date: '2026-11-08',
+    time: '20:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w5_2',
+    week: 5,
+    date: '2026-11-08',
+    time: '21:00',
+    homeTeamId: 's_turf_terrors',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Turf Terrors',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 6 - Sunday, November 15, 2026
+  {
+    id: 's_m_w6_1',
+    week: 6,
+    date: '2026-11-15',
+    time: '20:00',
+    homeTeamId: 's_turf_terrors',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Turf Terrors',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w6_2',
+    week: 6,
+    date: '2026-11-15',
+    time: '21:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 7 - Sunday, November 22, 2026
+  {
+    id: 's_m_w7_1',
+    week: 7,
+    date: '2026-11-22',
+    time: '20:00',
+    homeTeamId: 's_faahh_united',
     awayTeamId: 's_turf_terrors',
-    homeTeamName: 'BlackJacks',
+    homeTeamName: 'Faahh United',
     awayTeamName: 'Turf Terrors',
     pitch: 'Terrain Synthétique',
     location: 'Complexe Sportif Delson',
     status: 'upcoming',
-    division: '7v7 Open'
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w7_2',
+    week: 7,
+    date: '2026-11-22',
+    time: '21:00',
+    homeTeamId: 's_blackjacks',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'BlackJacks',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 8 - Sunday, November 29, 2026
+  {
+    id: 's_m_w8_1',
+    week: 8,
+    date: '2026-11-29',
+    time: '20:00',
+    homeTeamId: 's_blackjacks',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'BlackJacks',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w8_2',
+    week: 8,
+    date: '2026-11-29',
+    time: '21:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_turf_terrors',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'Turf Terrors',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 9 - Sunday, December 6, 2026
+  {
+    id: 's_m_w9_1',
+    week: 9,
+    date: '2026-12-06',
+    time: '20:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w9_2',
+    week: 9,
+    date: '2026-12-06',
+    time: '21:00',
+    homeTeamId: 's_turf_terrors',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Turf Terrors',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 10 - Sunday, December 13, 2026
+  {
+    id: 's_m_w10_1',
+    week: 10,
+    date: '2026-12-13',
+    time: '20:00',
+    homeTeamId: 's_turf_terrors',
+    awayTeamId: 's_team_4',
+    homeTeamName: 'Turf Terrors',
+    awayTeamName: 'Mumford & Sons',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  {
+    id: 's_m_w10_2',
+    week: 10,
+    date: '2026-12-13',
+    time: '21:00',
+    homeTeamId: 's_faahh_united',
+    awayTeamId: 's_blackjacks',
+    homeTeamName: 'Faahh United',
+    awayTeamName: 'BlackJacks',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Regular Season'
+  },
+  // Week 11 - Sunday, December 20, 2026 (Semifinals)
+  {
+    id: 's_m_w11_1',
+    week: 11,
+    date: '2026-12-20',
+    time: '20:00',
+    homeTeamId: 's_seed_1',
+    awayTeamId: 's_seed_4',
+    homeTeamName: '1st Seed',
+    awayTeamName: '4th Seed',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Semifinal'
+  },
+  {
+    id: 's_m_w11_2',
+    week: 11,
+    date: '2026-12-20',
+    time: '21:00',
+    homeTeamId: 's_seed_2',
+    awayTeamId: 's_seed_3',
+    homeTeamName: '2nd Seed',
+    awayTeamName: '3rd Seed',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Semifinal'
+  },
+  // Week 12 - Sunday, December 27, 2026 (Bronze Match & Final)
+  {
+    id: 's_m_w12_1',
+    week: 12,
+    date: '2026-12-27',
+    time: '20:00',
+    homeTeamId: 's_semi_loser_1',
+    awayTeamId: 's_semi_loser_2',
+    homeTeamName: 'Semifinal Loser 1',
+    awayTeamName: 'Semifinal Loser 2',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Bronze'
+  },
+  {
+    id: 's_m_w12_2',
+    week: 12,
+    date: '2026-12-27',
+    time: '21:00',
+    homeTeamId: 's_semi_winner_1',
+    awayTeamId: 's_semi_winner_2',
+    homeTeamName: 'Semifinal Winner 1',
+    awayTeamName: 'Semifinal Winner 2',
+    pitch: 'Terrain Synthétique',
+    location: 'Complexe Sportif Delson',
+    status: 'upcoming',
+    division: '7v7 Open',
+    stage: 'Final'
   }
 ];
 

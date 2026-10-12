@@ -57,10 +57,26 @@ export const SoccerSchedule: React.FC = () => {
   };
 
   const filteredMatches = React.useMemo(() => {
-    return SOCCER_SCHEDULE.filter(m => {
+    const list = SOCCER_SCHEDULE.filter(m => {
       const matchTab = activeTab === 'upcoming' ? m.status === 'upcoming' : m.status === 'completed';
       const matchTeam = selectedTeam === 'all' || m.homeTeamId === selectedTeam || m.awayTeamId === selectedTeam;
       return matchTab && matchTeam;
+    });
+
+    if (activeTab === 'completed') {
+      // Sort most recent first (e.g. week 2 before week 1, latest date/time first)
+      return [...list].sort((a, b) => {
+        if (b.week !== a.week) return b.week - a.week;
+        if (b.date !== a.date) return b.date.localeCompare(a.date);
+        return b.time.localeCompare(a.time);
+      });
+    }
+
+    // Sort upcoming matches chronologically (earliest first: week 3, then week 4, etc.)
+    return [...list].sort((a, b) => {
+      if (a.week !== b.week) return a.week - b.week;
+      if (a.date !== b.date) return a.date.localeCompare(b.date);
+      return a.time.localeCompare(b.time);
     });
   }, [activeTab, selectedTeam]);
 
@@ -159,7 +175,7 @@ export const SoccerSchedule: React.FC = () => {
             {/* Scoreboard Header */}
             <div className="bg-gradient-to-b from-zinc-950 via-zinc-900/95 to-zinc-950 p-6 sm:p-8 border-b border-zinc-800 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-widest bg-lime-500/10 text-lime-400 border border-lime-500/30 mb-4">
-                <span>{isFr ? `Semaine ${selectedMatch.week} • Résumé Officiel` : `Week ${selectedMatch.week} • Official Match Recap`}</span>
+                <span>{selectedMatch.stage ? `${selectedMatch.stage} • ${isFr ? 'Résumé Officiel' : 'Official Match Recap'}` : (isFr ? `Semaine ${selectedMatch.week} • Résumé Officiel` : `Week ${selectedMatch.week} • Official Match Recap`)}</span>
               </div>
 
               <div className="text-xs sm:text-sm text-gray-400 font-semibold flex flex-wrap items-center justify-center gap-3 mb-6">
@@ -666,7 +682,7 @@ export const SoccerSchedule: React.FC = () => {
                         </div>
                         <div>
                           <div className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-lime-400">
-                            {isFr ? `Semaine ${match.week}` : `Week ${match.week}`}
+                            {match.stage ? match.stage : (isFr ? `Semaine ${match.week}` : `Week ${match.week}`)}
                           </div>
                           <div className="text-sm sm:text-base font-black text-white">{formatDate(match.date)}</div>
                           <div className="text-xs font-semibold text-gray-400 flex items-center gap-1 mt-0.5">
