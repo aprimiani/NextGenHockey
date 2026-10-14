@@ -730,6 +730,9 @@ const Standings: React.FC = () => {
     if (id === 'winner_semi_1' || id === 'winner_semi_2' || id === 'winner' || id.toLowerCase() === 'winner') {
       return language === 'fr' ? 'Gagnant' : 'Winner';
     }
+    if (id === 'sub' || id.toLowerCase() === 'sub') {
+      return 'SUB';
+    }
     return teams.find(t => t.id === id)?.name || 'Unknown';
   };
   const renderTeamName = (id: string) => {
@@ -745,6 +748,7 @@ const Standings: React.FC = () => {
   };
   const getTeamColor = (id: string) => {
     if (!id || id.toLowerCase() === 'tbd') return '#6b7280';
+    if (id === 'sub' || id.toLowerCase() === 'sub') return '#0284c7';
     if (id.startsWith('pool_') || id.startsWith('winner') || id.toLowerCase().includes('pool') || id.toLowerCase().includes('winner')) {
       return '#f59e0b';
     }
@@ -752,6 +756,7 @@ const Standings: React.FC = () => {
   };
   const getTeamInitial = (id: string) => {
     if (!id || id.toLowerCase() === 'tbd') return '?';
+    if (id === 'sub' || id.toLowerCase() === 'sub') return 'SUB';
     if (id === 'pool_a_1st' || id.toLowerCase() === 'pool a 1st') return '1A';
     if (id === 'pool_a_2nd' || id.toLowerCase() === 'pool a 2nd') return '2A';
     if (id === 'pool_b_1st' || id.toLowerCase() === 'pool b 1st') return '1B';

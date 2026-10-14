@@ -132,6 +132,16 @@ export interface GameRecapData {
     homePlayers?: string[];
     awayPlayers?: string[];
   };
+  referees?: string[];
+  shots?: {
+    home?: number;
+    away?: number;
+  };
+  absentPlayers?: {
+    homePlayers?: string[];
+    awayPlayers?: string[];
+  };
+  playerNumbers?: Record<string, string | number>;
 }
 
 export interface GalleryImage {
