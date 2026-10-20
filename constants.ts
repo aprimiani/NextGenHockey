@@ -993,7 +993,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 3,
+    "awayScore": 9
   },
   {
     "id": "g_w_14",
@@ -3455,6 +3457,23 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 3,
     "assists": 1,
     "points": 4
+  },
+  {
+    "id": "p_kenshin_fontaine_sub",
+    "name": "Kenshin Fontaine",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
   }
 ];
 
@@ -3472,7 +3491,8 @@ export const GOALIE_STATS: GoalieStats[] = [
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
         "w_bots",
-        "w_kraken"
+        "w_kraken",
+        "w_timbits"
       ]
     },
     "gp": 15,
@@ -3713,6 +3733,26 @@ export const GOALIE_STATS: GoalieStats[] = [
     "shotsAgainst": 14,
     "goalsAgainst": 2,
     "saves": 12
+  },
+  {
+    "id": "goalie_maxime_dupre_sub",
+    "name": "Maxime Dupré",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "wins": 0,
+    "losses": 1,
+    "draws": 0,
+    "shotsAgainst": 23,
+    "goalsAgainst": 9,
+    "saves": 14
   }
 ];
 
@@ -13708,6 +13748,275 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_1767082302464": "3",
       "p2": "73",
       "w_p_arjun_srivastava": "29"
+    }
+  },
+  "g_w_13": {
+    "gameId": "g_w_13",
+    "events": [
+      {
+        "id": "e_g_w_13_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "08:15",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "09:10",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "w_p_etienne_routhier",
+        "assist2": "p_1767082323831",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "10:45",
+        "teamId": "w_kraken",
+        "player": "w_p_arjun_srivastava",
+        "assist": "w_p_ben_siegl",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g4",
+        "type": "goal",
+        "period": 1,
+        "time": "12:35",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "03:05",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_p1",
+        "type": "penalty",
+        "period": 2,
+        "time": "05:35",
+        "teamId": "w_timbits",
+        "player": "w_p_benjamin_sasseville",
+        "details": "rudess",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_13_p2",
+        "type": "penalty",
+        "period": 2,
+        "time": "09:55",
+        "teamId": "w_kraken",
+        "player": "p_kenshin_fontaine_sub",
+        "details": "cross-check",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_13_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "14:45",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_burton",
+        "assist": "w_p_ben_siegl",
+        "assist2": "w_p_evan_getty",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_p3",
+        "type": "penalty",
+        "period": 3,
+        "time": "03:00",
+        "teamId": "w_timbits",
+        "player": "w_p_antoine_perreault",
+        "details": "checking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_13_p4",
+        "type": "penalty",
+        "period": 3,
+        "time": "03:00",
+        "teamId": "w_kraken",
+        "player": "w_p_giustino_porco",
+        "details": "checking",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_13_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "05:30",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "07:45",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_thomas_burton",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "08:45",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "09:10",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "11:45",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "w_p_benjamin_sasseville",
+        "assist2": "p_1767082323831",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_13_g12",
+        "type": "goal",
+        "period": 3,
+        "time": "12:25",
+        "teamId": "w_timbits",
+        "player": "w_p_vincent_robert",
+        "assist": "w_p_antoine_perreault",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_maxime_dupre_sub",
+        "shotsFaced": 23,
+        "goalsAgainst": 9,
+        "saves": 14
+      },
+      "awayGoalie": {
+        "playerId": "g1",
+        "shotsFaced": 32,
+        "goalsAgainst": 3,
+        "saves": 29
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_maxime_dupre_sub",
+        "p3",
+        "w_p_ben_siegl",
+        "w_p_thomas_burton",
+        "w_p_evan_getty",
+        "w_p_thomas_desveaux",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p4",
+        "p_kenshin_fontaine_sub"
+      ],
+      "awayPlayers": [
+        "g1",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_benjamin_sasseville",
+        "p_1767082323831",
+        "p_1778475181683",
+        "w_p_vincent_robert",
+        "p1"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "goalie_ephram_labonville_177914",
+        "p_joshua_sylvain",
+        "p_nicholas_giacalone_178004"
+      ],
+      "awayPlayers": [
+        "goalie_1767082104234",
+        "w_p_jacob_fournier",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet"
+      ]
+    },
+    "shots": {
+      "home": 32,
+      "away": 23
+    },
+    "referees": [
+      "Nathan Auclair",
+      "Shawn Gourde"
+    ],
+    "playerNumbers": {
+      "goalie_maxime_dupre_sub": "67",
+      "p3": "43",
+      "w_p_ben_siegl": "11",
+      "w_p_thomas_burton": "2",
+      "w_p_evan_getty": "8",
+      "w_p_thomas_desveaux": "17",
+      "w_p_jacob_lacombe": "19",
+      "w_p_arjun_srivastava": "29",
+      "w_p_giustino_porco": "0",
+      "p4": "23",
+      "p_kenshin_fontaine_sub": "46",
+      "goalie_ephram_labonville_177914": "30",
+      "p_joshua_sylvain": "4",
+      "p_nicholas_giacalone_178004": "77",
+      "g1": "30",
+      "w_p_etienne_routhier": "0",
+      "w_p_antoine_perreault": "44",
+      "w_p_benjamin_sasseville": "3",
+      "p_1767082323831": "4",
+      "p_1778475181683": "13",
+      "w_p_vincent_robert": "37",
+      "p1": "88",
+      "goalie_1767082104234": "30",
+      "w_p_jacob_fournier": "66",
+      "w_p_jean_christophe_malo_pepin": "7",
+      "w_p_francois_fontaine": "6",
+      "w_p_antoine_bertrand": "2",
+      "w_p_raphael_rivet": "55"
     }
   }
 };
