@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v142_oct19_timbits_kraken');
+    const hasReset = localStorage.getItem('ng_force_reset_v146_oct26_mathis_lecourtois_40');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v142_oct19_timbits_kraken', 'true');
+      localStorage.setItem('ng_force_reset_v146_oct26_mathis_lecourtois_40', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');
@@ -159,7 +159,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
         ...(GAME_RECAPS['g_w_7'] ? { g_w_7: GAME_RECAPS['g_w_7'] } : {}),
         ...(GAME_RECAPS['g_w_11'] ? { g_w_11: GAME_RECAPS['g_w_11'] } : {}),
         ...(GAME_RECAPS['g_w_12'] ? { g_w_12: GAME_RECAPS['g_w_12'] } : {}),
-        ...(GAME_RECAPS['g_w_13'] ? { g_w_13: GAME_RECAPS['g_w_13'] } : {})
+        ...(GAME_RECAPS['g_w_13'] ? { g_w_13: GAME_RECAPS['g_w_13'] } : {}),
+        ...(GAME_RECAPS['g_w_14'] ? { g_w_14: GAME_RECAPS['g_w_14'] } : {}),
+        ...(GAME_RECAPS['g_w_15'] ? { g_w_15: GAME_RECAPS['g_w_15'] } : {})
       });
     } else {
       setGameRecapsState(GAME_RECAPS);
