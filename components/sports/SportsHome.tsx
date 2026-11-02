@@ -22,6 +22,7 @@ import { sportsTranslations } from '../../sportsTranslations';
 import { SCHEDULE, TEAMS } from '../../constants';
 import { SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
+import { PurpleRibbonIcon } from '../icons/PurpleRibbonIcon';
 
 interface SportsGameEvent {
   id: string;
@@ -450,22 +451,43 @@ export const SportsHome: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {combinedEvents.map((evt) => {
                 const isHockey = evt.sport === 'hockey';
+                const isCancerAwarenessGame = 
+                  (evt.sport === 'soccer' && evt.date === '2026-11-22') ||
+                  (evt.sport === 'hockey' && (evt.date === '2026-11-23' || evt.date === '2026-11-24'));
+
                 return (
                   <div
                     key={evt.id}
-                    className={`rounded-2xl border bg-zinc-900/70 p-6 flex flex-col justify-between transition-all hover:-translate-y-0.5 ${
-                      isHockey
-                        ? 'border-sky-500/30 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10'
-                        : 'border-lime-500/30 hover:border-lime-400 hover:shadow-lg hover:shadow-lime-500/10'
+                    className={`rounded-2xl border p-6 flex flex-col justify-between transition-all hover:-translate-y-0.5 ${
+                      isCancerAwarenessGame
+                        ? 'border-purple-600/40 hover:border-purple-400/70 bg-gradient-to-r from-purple-950/20 via-zinc-900/70 to-zinc-900/70 shadow-purple-950/20'
+                        : isHockey
+                        ? 'bg-zinc-900/70 border-sky-500/30 hover:border-sky-400 hover:shadow-lg hover:shadow-sky-500/10'
+                        : 'bg-zinc-900/70 border-lime-500/30 hover:border-lime-400 hover:shadow-lg hover:shadow-lime-500/10'
                     }`}
                   >
                     <div>
+                      {/* Cancer Awareness Header Banner */}
+                      {isCancerAwarenessGame && (
+                        <div className="flex flex-wrap items-center justify-between gap-1 pb-2.5 mb-3 border-b border-purple-500/20 text-[10px]">
+                          <div className="inline-flex items-center gap-1 text-purple-300 font-bold">
+                            <PurpleRibbonIcon className="w-3 h-3 shrink-0" />
+                            <span>{language === 'fr' ? 'Sensibilisation au Cancer' : 'Cancer Awareness'}</span>
+                          </div>
+                          <div className="text-zinc-400 font-medium">
+                            {language === 'fr' ? 'Présenté par' : 'Presented by'} <span className="text-white font-bold">Popeyes Supplements</span>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Top Bar: Sport Tag & Time */}
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                           <span
                             className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${
-                              isHockey
+                              isCancerAwarenessGame
+                                ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+                                : isHockey
                                 ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
                                 : 'bg-lime-500/20 text-lime-400 border border-lime-500/30'
                             }`}

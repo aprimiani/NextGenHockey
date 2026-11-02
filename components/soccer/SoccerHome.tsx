@@ -18,6 +18,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { sportsTranslations } from '../../sportsTranslations';
 import { SOCCER_CURRENT_SEASON, SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
+import { PurpleRibbonIcon } from '../icons/PurpleRibbonIcon';
 
 export const SoccerHome: React.FC = () => {
   const { language } = useLanguage();
@@ -321,22 +322,39 @@ export const SoccerHome: React.FC = () => {
 
           {SOCCER_SCHEDULE.filter(m => m.status !== 'completed').length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {SOCCER_SCHEDULE.filter(m => m.status !== 'completed').slice(0, 3).map((match) => (
-                <div
-                  key={match.id}
-                  className="p-6 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/40 transition-colors flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-3 border-b border-zinc-800">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={13} className="text-lime-400" />
-                        <span>{formatDate(match.date)}</span>
-                      </span>
-                      <span className="flex items-center gap-1 font-bold text-white">
-                        <Clock size={13} className="text-lime-400" />
-                        <span>{match.time}</span>
-                      </span>
-                    </div>
+              {SOCCER_SCHEDULE.filter(m => m.status !== 'completed').slice(0, 3).map((match) => {
+                const isCancerAwarenessGame = match.date === '2026-11-22';
+                return (
+                  <div
+                    key={match.id}
+                    className={`p-6 rounded-2xl transition-colors flex flex-col justify-between ${
+                      isCancerAwarenessGame
+                        ? 'bg-gradient-to-r from-purple-950/20 via-zinc-900/60 to-zinc-900/60 border border-purple-600/40 hover:border-purple-400/70 shadow-purple-950/20'
+                        : 'bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/40'
+                    }`}
+                  >
+                    <div>
+                      {isCancerAwarenessGame && (
+                        <div className="flex flex-wrap items-center justify-between gap-1 pb-2.5 mb-3 border-b border-purple-500/20 text-[10px]">
+                          <div className="inline-flex items-center gap-1 text-purple-300 font-bold">
+                            <PurpleRibbonIcon className="w-3 h-3 shrink-0" />
+                            <span>{isFr ? 'Sensibilisation au Cancer' : 'Cancer Awareness'}</span>
+                          </div>
+                          <div className="text-zinc-400 font-medium">
+                            {isFr ? 'Présenté par' : 'Presented by'} <span className="text-white font-bold">Popeyes Supplements</span>
+                          </div>
+                        </div>
+                      )}
+                      <div className="flex items-center justify-between text-xs text-gray-400 mb-4 pb-3 border-b border-zinc-800">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={13} className={isCancerAwarenessGame ? 'text-purple-400' : 'text-lime-400'} />
+                          <span>{formatDate(match.date)}</span>
+                        </span>
+                        <span className="flex items-center gap-1 font-bold text-white">
+                          <Clock size={13} className={isCancerAwarenessGame ? 'text-purple-400' : 'text-lime-400'} />
+                          <span>{match.time}</span>
+                        </span>
+                      </div>
 
                     <div className="space-y-2.5 py-2">
                       <div className="flex items-center justify-between font-black text-sm text-white uppercase italic gap-2">
@@ -402,7 +420,8 @@ export const SoccerHome: React.FC = () => {
                     <span className="text-lime-400 font-bold uppercase">{match.division}</span>
                   </div>
                 </div>
-              ))}
+              );
+            })}
             </div>
           ) : (
             <div className="rounded-3xl bg-zinc-900/40 border border-zinc-800 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8">

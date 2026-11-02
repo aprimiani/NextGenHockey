@@ -5,6 +5,7 @@ import { Calendar, MapPin, Clock, ArrowLeft, Trophy, ChevronDown, Sparkles } fro
 import { useLanguage } from '../contexts/LanguageContext';
 import { translatePenalty, translateGoalDetails } from '../translations';
 import { SEO } from './SEO';
+import { PurpleRibbonIcon } from './icons/PurpleRibbonIcon';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
@@ -606,18 +607,35 @@ const Schedule: React.FC = () => {
             );
             
             const isCancelled = game.status === 'cancelled';
+            const isCancerAwarenessGame = game.date === '2026-11-23' || game.date === '2026-11-24';
 
             return (
               <div 
                 key={game.id} 
                 className={
                   isSemiOrFinal 
-                    ? "group bg-gradient-to-r from-amber-500/10 via-zinc-900/90 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
+                    ? "group bg-gradient-to-r from-amber-500/10 via-zinc-900/90 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/50 p-4 sm:p-6 flex flex-col justify-between hover:border-amber-400 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden"
                     : isCancelled
-                    ? "group bg-red-950/20 backdrop-blur-md rounded-2xl border border-red-500/30 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-red-500/50 transition-all duration-300 shadow-lg relative overflow-hidden"
-                    : "group bg-zinc-900/60 backdrop-blur-md rounded-2xl border border-zinc-800 p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 shadow-lg"
+                    ? "group bg-red-950/20 backdrop-blur-md rounded-2xl border border-red-500/30 p-4 sm:p-6 flex flex-col justify-between hover:border-red-500/50 transition-all duration-300 shadow-lg relative overflow-hidden"
+                    : isCancerAwarenessGame
+                    ? "group bg-gradient-to-r from-purple-950/25 via-zinc-900/80 to-zinc-900/80 backdrop-blur-md rounded-2xl border border-purple-600/40 hover:border-purple-400/70 p-4 sm:p-6 flex flex-col justify-between gap-4 transition-all duration-300 shadow-lg shadow-purple-950/20 relative overflow-hidden"
+                    : "group bg-zinc-900/60 backdrop-blur-md rounded-2xl border border-zinc-800 p-4 sm:p-6 flex flex-col justify-between hover:border-sky-500/50 hover:shadow-xl hover:shadow-sky-500/10 transition-all duration-300 shadow-lg"
                 }
               >
+                {/* Cancer Awareness Header & Sponsor Banner (November 23 and 24 only) */}
+                {isCancerAwarenessGame && (
+                  <div className="w-full flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-purple-500/20">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-bold text-[11px] tracking-wide">
+                      <PurpleRibbonIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span>{language === 'fr' ? 'Match Sensibilisation au Cancer' : 'Cancer Awareness Game'}</span>
+                    </div>
+                    <div className="text-[11px] font-semibold text-purple-200/90 flex items-center gap-1.5">
+                      <span className="text-zinc-400 font-normal">{language === 'fr' ? 'Présenté par' : 'Presented by'}</span>
+                      <span className="text-white font-bold tracking-tight">Popeyes Supplements</span>
+                    </div>
+                  </div>
+                )}
+
                 {isSemiOrFinal && (
                   <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-yellow-500 via-amber-500 to-yellow-500 animate-pulse" />
                 )}
@@ -625,124 +643,146 @@ const Schedule: React.FC = () => {
                   <div className="absolute top-0 left-0 right-0 h-[2px] bg-red-500/40" />
                 )}
                 
-                <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
-                  <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
-                    <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0 ${isSemiOrFinal ? 'text-amber-400' : isCancelled ? 'text-red-400' : 'text-ng-light-blue'}`} />
-                    <span>{formatDate(game.date)}</span>
-                  </div>
-                  {isCancelled && (
-                    <div className="flex items-center pl-6 sm:pl-8">
-                      <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic bg-red-500/20 text-red-400 border-red-500/40">
-                        {t.schedule.gameCancelled || (language === 'fr' ? 'Match Annulé' : 'Game Cancelled')}
-                      </span>
-                    </div>
-                  )}
-                  {game.isPlayoff && (
-                    <div className="flex items-center pl-6 sm:pl-8">
-                      <span className={`flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic ${
+                <div className="flex flex-col md:flex-row items-center justify-between w-full">
+                  <div className="flex flex-col md:w-1/4 mb-4 md:mb-0 space-y-1 sm:space-y-2 w-full md:w-auto">
+                    <div className="flex items-center text-white font-black text-base sm:text-lg uppercase italic">
+                      <Calendar className={`w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 flex-shrink-0 ${
                         isSemiOrFinal 
-                          ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 animate-pulse' 
-                          : 'bg-ng-light-blue/20 text-ng-light-blue border-ng-light-blue/30'
-                      }`}>
-                        {isSemiOrFinal && <Trophy className="w-3.5 h-3.5 text-amber-400" />}
-                        {game.playoffRoundEn ? (language === 'fr' ? `Séries - ${game.playoffRoundFr || game.playoffRoundEn}` : `Playoffs - ${game.playoffRoundEn}`) : (language === 'fr' ? 'Séries' : 'Playoffs')}
-                      </span>
+                          ? 'text-amber-400' 
+                          : isCancelled 
+                          ? 'text-red-400' 
+                          : isCancerAwarenessGame 
+                          ? 'text-purple-400' 
+                          : 'text-ng-light-blue'
+                      }`} />
+                      <span>{formatDate(game.date)}</span>
                     </div>
-                  )}
-                  <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.time}</div>
-                  <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8"><MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" />{game.location}</div>
-                </div>
-                
-                <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center w-full px-0 sm:px-4 my-4 md:my-0">
-                  {/* Home Team */}
-                  <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
-                    <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
-                      {renderTeamName(game.homeTeamId)}
-                    </span>
-                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.homeTeamId)}>
-                      {getTeamInitial(game.homeTeamId)}
-                    </span>
-                  </div>
-                  
-                  {/* VS / Score */}
-                  <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
-                    {game.status === 'played' ? (
-                      <div className="flex flex-col items-center">
-                        <div className={`px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl text-lg sm:text-3xl font-black tracking-widest shadow-2xl group-hover:scale-110 transition-transform ${
-                          isSemiOrFinal 
-                            ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
-                            : 'bg-ng-navy text-white border border-ng-light-blue/30'
-                        }`}>
-                          {game.homeScore}-{game.awayScore}
-                        </div>
-                        {(game.ending === 'ot' || game.isOvertime) && (
-                          <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
-                            {language === 'fr' ? 'PR' : 'OT'}
-                          </span>
-                        )}
-                        {(game.ending === 'so' || game.isShootout) && (
-                          <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
-                            {language === 'fr' ? 'TB' : 'SO'}
-                          </span>
-                        )}
-                      </div>
-                    ) : isCancelled ? (
-                      <div className="flex flex-col items-center">
-                        <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest bg-red-950/80 text-red-400 border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.25)]">
-                          {t.schedule.cancelled || (language === 'fr' ? 'ANNULÉ' : 'CANCELLED')}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={`px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl text-[8px] sm:text-sm font-black uppercase tracking-widest ${
-                        isSemiOrFinal 
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] animate-pulse' 
-                          : 'bg-gray-800 text-gray-400 border border-gray-700'
-                      }`}>
-                        VS
+                    {isCancelled && (
+                      <div className="flex items-center pl-6 sm:pl-8">
+                        <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic bg-red-500/20 text-red-400 border-red-500/40">
+                          {t.schedule.gameCancelled || (language === 'fr' ? 'Match Annulé' : 'Game Cancelled')}
+                        </span>
                       </div>
                     )}
+                    {game.isPlayoff && (
+                      <div className="flex items-center pl-6 sm:pl-8">
+                        <span className={`flex items-center gap-1.5 text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded border uppercase tracking-widest italic ${
+                          isSemiOrFinal 
+                            ? 'bg-amber-500/20 text-amber-400 border-amber-500/40 animate-pulse' 
+                            : 'bg-ng-light-blue/20 text-ng-light-blue border-ng-light-blue/30'
+                        }`}>
+                          {isSemiOrFinal && <Trophy className="w-3.5 h-3.5 text-amber-400" />}
+                          {game.playoffRoundEn ? (language === 'fr' ? `Séries - ${game.playoffRoundFr || game.playoffRoundEn}` : `Playoffs - ${game.playoffRoundEn}`) : (language === 'fr' ? 'Séries' : 'Playoffs')}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8">
+                      <Clock className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2 ${isCancerAwarenessGame ? 'text-purple-400/80' : ''}`} />
+                      {game.time}
+                    </div>
+                    <div className="flex items-center text-gray-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest pl-6 sm:pl-8">
+                      <MapPin className={`w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2 ${isCancerAwarenessGame ? 'text-purple-400/80' : ''}`} />
+                      {game.location}
+                    </div>
                   </div>
                   
-                  {/* Away Team */}
-                  <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
-                    <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.awayTeamId)}>
-                      {getTeamInitial(game.awayTeamId)}
-                    </span>
-                    <div className="flex flex-col">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
-                          {renderTeamName(game.awayTeamId)}
-                        </span>
-                        {game.id === 'g_20260906_3' && (
-                          <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-black uppercase text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 rounded-full shadow-md animate-pulse shrink-0">
-                            <Trophy size={11} className="text-amber-400" />
-                            <span>{language === 'fr' ? 'Champions' : 'Champions'}</span>
+                  <div className="flex-1 grid grid-cols-[1fr_auto_1fr] items-center w-full px-0 sm:px-4 my-4 md:my-0">
+                    {/* Home Team */}
+                    <div className="flex items-center justify-end gap-2 sm:gap-3 min-w-0">
+                      <span className="text-white font-black text-right text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
+                        {renderTeamName(game.homeTeamId)}
+                      </span>
+                      <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.homeTeamId)}>
+                        {getTeamInitial(game.homeTeamId)}
+                      </span>
+                    </div>
+                    
+                    {/* VS / Score */}
+                    <div className="px-2 sm:px-6 flex flex-col items-center shrink-0">
+                      {game.status === 'played' ? (
+                        <div className="flex flex-col items-center">
+                          <div className={`px-2 sm:px-5 py-1 sm:py-2 rounded-lg sm:rounded-xl text-lg sm:text-3xl font-black tracking-widest shadow-2xl group-hover:scale-110 transition-transform ${
+                            isSemiOrFinal 
+                              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+                              : isCancerAwarenessGame
+                              ? 'bg-purple-950 text-white border border-purple-500/40'
+                              : 'bg-ng-navy text-white border border-ng-light-blue/30'
+                          }`}>
+                            {game.homeScore}-{game.awayScore}
+                          </div>
+                          {(game.ending === 'ot' || game.isOvertime) && (
+                            <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
+                              {language === 'fr' ? 'PR' : 'OT'}
+                            </span>
+                          )}
+                          {(game.ending === 'so' || game.isShootout) && (
+                            <span className="text-[9px] font-black uppercase text-amber-400 mt-0.5 tracking-wider">
+                              {language === 'fr' ? 'TB' : 'SO'}
+                            </span>
+                          )}
+                        </div>
+                      ) : isCancelled ? (
+                        <div className="flex flex-col items-center">
+                          <div className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-widest bg-red-950/80 text-red-400 border border-red-500/50 shadow-[0_0_12px_rgba(239,68,68,0.25)]">
+                            {t.schedule.cancelled || (language === 'fr' ? 'ANNULÉ' : 'CANCELLED')}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className={`px-3 sm:px-6 py-1 sm:py-2 rounded-lg sm:rounded-xl text-[8px] sm:text-sm font-black uppercase tracking-widest ${
+                          isSemiOrFinal 
+                            ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-ng-navy border border-yellow-400 shadow-[0_0_15px_rgba(245,158,11,0.2)] animate-pulse' 
+                            : isCancerAwarenessGame
+                            ? 'bg-purple-950/60 text-purple-300 border border-purple-500/40'
+                            : 'bg-gray-800 text-gray-400 border border-gray-700'
+                        }`}>
+                          VS
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Away Team */}
+                    <div className="flex items-center justify-start gap-2 sm:gap-3 min-w-0">
+                      <span className="text-sm sm:text-lg md:text-xl font-black italic shrink-0" style={getTeamLetterStyle(game.awayTeamId)}>
+                        {getTeamInitial(game.awayTeamId)}
+                      </span>
+                      <div className="flex flex-col">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-white font-black text-left text-xs sm:text-base md:text-2xl uppercase italic leading-tight truncate sm:whitespace-normal">
+                            {renderTeamName(game.awayTeamId)}
                           </span>
-                        )}
+                          {game.id === 'g_20260906_3' && (
+                            <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-black uppercase text-amber-300 bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 rounded-full shadow-md animate-pulse shrink-0">
+                              <Trophy size={11} className="text-amber-400" />
+                              <span>{language === 'fr' ? 'Champions' : 'Champions'}</span>
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="md:w-1/6 flex justify-end mt-2 md:mt-0 w-full md:w-auto">
-                    {game.status === 'played' && gameRecaps[game.id] ? (
-                      <button 
-                        onClick={() => setSelectedGameId(game.id)} 
-                        className={`text-[10px] sm:text-xs font-black uppercase tracking-widest border-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg ${
-                          isSemiOrFinal 
-                            ? 'text-amber-400 border-amber-500/30 hover:bg-amber-500 hover:text-ng-navy hover:border-amber-500' 
-                            : 'text-ng-light-blue border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue'
-                        }`}
-                      >
-                        {t.schedule.viewRecap}
-                      </button>
-                    ) : game.status === 'played' ? (
-                      <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
-                    ) : isCancelled ? (
-                      <div className="text-[9px] sm:text-[10px] font-black text-red-400 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-red-500/30 bg-red-500/10 rounded-lg italic w-full md:w-auto text-center">
-                        {language === 'fr' ? 'Partie Annulée' : 'Cancelled Game'}
-                      </div>
-                    ) : null}
+                  <div className="md:w-1/6 flex justify-end mt-2 md:mt-0 w-full md:w-auto">
+                      {game.status === 'played' && gameRecaps[game.id] ? (
+                        <button 
+                          onClick={() => setSelectedGameId(game.id)} 
+                          className={`text-[10px] sm:text-xs font-black uppercase tracking-widest border-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl transition-all duration-300 w-full md:w-auto shadow-lg ${
+                            isSemiOrFinal 
+                              ? 'text-amber-400 border-amber-500/30 hover:bg-amber-500 hover:text-ng-navy hover:border-amber-500' 
+                              : isCancerAwarenessGame
+                              ? 'text-purple-300 border-purple-500/40 hover:bg-purple-500 hover:text-white hover:border-purple-500'
+                              : 'text-ng-light-blue border-ng-light-blue/30 hover:bg-ng-light-blue hover:text-ng-navy hover:border-ng-light-blue'
+                          }`}
+                        >
+                          {t.schedule.viewRecap}
+                        </button>
+                      ) : game.status === 'played' ? (
+                        <div className="text-[9px] sm:text-[10px] font-black text-gray-500 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-gray-800 rounded-lg italic w-full md:w-auto text-center">Final Score Only</div>
+                      ) : isCancelled ? (
+                        <div className="text-[9px] sm:text-[10px] font-black text-red-400 uppercase tracking-widest px-3 sm:px-4 py-1.5 sm:py-2 border border-red-500/30 bg-red-500/10 rounded-lg italic w-full md:w-auto text-center">
+                          {language === 'fr' ? 'Partie Annulée' : 'Cancelled Game'}
+                        </div>
+                      ) : null}
+                  </div>
                 </div>
               </div>
             );

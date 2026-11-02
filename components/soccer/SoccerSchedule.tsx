@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_SCHEDULE, SOCCER_CURRENT_SEASON, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
+import { PurpleRibbonIcon } from '../icons/PurpleRibbonIcon';
 
 export const SoccerSchedule: React.FC = () => {
   const { language } = useLanguage();
@@ -661,111 +662,142 @@ export const SoccerSchedule: React.FC = () => {
                   const isHomeMatch = selectedTeam === match.homeTeamId;
                   const isAwayMatch = selectedTeam === match.awayTeamId;
                   const hasRecap = match.status === 'completed' && !!match.recap;
+                  const isCancerAwarenessGame = match.date === '2026-11-22';
 
                   return (
                     <div
                       key={match.id}
                       onClick={() => hasRecap && setSelectedMatchId(match.id)}
-                      className={`p-4 sm:p-6 rounded-2xl bg-zinc-900/70 border transition-all flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6 shadow-md ${
+                      className={`p-4 sm:p-6 rounded-2xl transition-all flex flex-col justify-between gap-4 shadow-md ${
                         hasRecap ? 'cursor-pointer hover:bg-zinc-900/95 hover:shadow-xl hover:shadow-lime-500/10' : ''
                       } ${
-                        selectedTeam !== 'all' && (isHomeMatch || isAwayMatch)
-                          ? 'border-lime-500/60 ring-1 ring-lime-500/30 bg-zinc-900/90'
-                          : 'border-zinc-800 hover:border-lime-500/40'
+                        isCancerAwarenessGame
+                          ? selectedTeam !== 'all' && (isHomeMatch || isAwayMatch)
+                            ? 'border border-purple-500/70 ring-1 ring-purple-500/30 bg-gradient-to-r from-purple-950/30 via-zinc-900/90 to-zinc-900/90 shadow-purple-950/20'
+                            : 'border border-purple-600/40 hover:border-purple-400/70 bg-gradient-to-r from-purple-950/25 via-zinc-900/80 to-zinc-900/80 shadow-purple-950/20'
+                          : selectedTeam !== 'all' && (isHomeMatch || isAwayMatch)
+                            ? 'border border-lime-500/60 ring-1 ring-lime-500/30 bg-zinc-900/90'
+                            : 'border border-zinc-800 hover:border-lime-500/40 bg-zinc-900/70'
                       }`}
                     >
-                      {/* Date / Time */}
-                      <div className="flex items-center gap-3 sm:gap-4 border-b md:border-b-0 md:border-r border-zinc-800 pb-3 md:pb-0 md:pr-6 min-w-[190px]">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-lime-500/10 border border-lime-500/30 flex items-center justify-center text-lime-400 shrink-0">
-                          <Calendar size={20} className="sm:hidden" />
-                          <Calendar size={22} className="hidden sm:block" />
-                        </div>
-                        <div>
-                          <div className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-lime-400">
-                            {match.stage ? match.stage : (isFr ? `Semaine ${match.week}` : `Week ${match.week}`)}
+                      {/* Cancer Awareness Header & Sponsor Banner (November 22 only) */}
+                      {isCancerAwarenessGame && (
+                        <div className="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-purple-500/20">
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 font-bold text-[11px] tracking-wide">
+                            <PurpleRibbonIcon className="w-3.5 h-3.5 shrink-0" />
+                            <span>{isFr ? 'Match Sensibilisation au Cancer' : 'Cancer Awareness Game'}</span>
                           </div>
-                          <div className="text-sm sm:text-base font-black text-white">{formatDate(match.date)}</div>
-                          <div className="text-xs font-semibold text-gray-400 flex items-center gap-1 mt-0.5">
-                            <Clock size={12} />
-                            <span>{match.time}</span>
+                          <div className="text-[11px] font-semibold text-purple-200/90 flex items-center gap-1.5">
+                            <span className="text-zinc-400 font-normal">{isFr ? 'Présenté par' : 'Presented by'}</span>
+                            <span className="text-white font-bold tracking-tight">Popeyes Supplements</span>
                           </div>
                         </div>
-                      </div>
+                      )}
 
-                      {/* Matchup */}
-                      <div className="flex-grow grid grid-cols-[1fr_auto_1fr] sm:grid-cols-5 items-center gap-2 sm:gap-4 text-center">
-                        <div className="col-span-1 sm:col-span-2 text-left md:text-right min-w-0">
-                          <div className="flex items-start gap-1.5 sm:gap-2 md:justify-end">
-                            <span
-                              className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
-                              style={getTeamDotStyle(match.homeTeamId)}
-                            />
-                            {renderTeamName(match.homeTeamName, isHomeMatch, 'left')}
-                            <span
-                              className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
-                              style={getTeamDotStyle(match.homeTeamId)}
-                            />
+                      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6">
+                        {/* Date / Time */}
+                        <div className="flex items-center gap-3 sm:gap-4 border-b md:border-b-0 md:border-r border-zinc-800 pb-3 md:pb-0 md:pr-6 min-w-[190px]">
+                          <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${
+                            isCancerAwarenessGame
+                              ? 'bg-purple-500/15 border border-purple-500/40 text-purple-300'
+                              : 'bg-lime-500/10 border border-lime-500/30 text-lime-400'
+                          }`}>
+                            <Calendar size={20} className="sm:hidden" />
+                            <Calendar size={22} className="hidden sm:block" />
                           </div>
-                          <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
-                            {isFr ? 'Domicile' : 'Home'}
-                          </span>
+                          <div>
+                            <div className={`text-[11px] sm:text-xs font-black uppercase tracking-wider ${
+                              isCancerAwarenessGame ? 'text-purple-400' : 'text-lime-400'
+                            }`}>
+                              {match.stage ? match.stage : (isFr ? `Semaine ${match.week}` : `Week ${match.week}`)}
+                            </div>
+                            <div className="text-sm sm:text-base font-black text-white">{formatDate(match.date)}</div>
+                            <div className="text-xs font-semibold text-gray-400 flex items-center gap-1 mt-0.5">
+                              <Clock size={12} />
+                              <span>{match.time}</span>
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="col-span-1 flex flex-col items-center justify-center shrink-0 px-1 sm:px-2">
-                          {match.status === 'completed' ? (
-                            <span className="text-base sm:text-xl font-mono font-black text-lime-400 px-3 py-1 rounded-xl bg-black/50 border border-lime-500/30">
-                              {match.homeScore} - {match.awayScore}
+                        {/* Matchup */}
+                        <div className="flex-grow grid grid-cols-[1fr_auto_1fr] sm:grid-cols-5 items-center gap-2 sm:gap-4 text-center">
+                          <div className="col-span-1 sm:col-span-2 text-left md:text-right min-w-0">
+                            <div className="flex items-start gap-1.5 sm:gap-2 md:justify-end">
+                              <span
+                                className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
+                                style={getTeamDotStyle(match.homeTeamId)}
+                              />
+                              {renderTeamName(match.homeTeamName, isHomeMatch, 'left')}
+                              <span
+                                className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
+                                style={getTeamDotStyle(match.homeTeamId)}
+                              />
+                            </div>
+                            <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
+                              {isFr ? 'Domicile' : 'Home'}
                             </span>
+                          </div>
+
+                          <div className="col-span-1 flex flex-col items-center justify-center shrink-0 px-1 sm:px-2">
+                            {match.status === 'completed' ? (
+                              <span className="text-base sm:text-xl font-mono font-black text-lime-400 px-3 py-1 rounded-xl bg-black/50 border border-lime-500/30">
+                                {match.homeScore} - {match.awayScore}
+                              </span>
+                            ) : (
+                              <span className="px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-widest bg-zinc-800 text-zinc-400">
+                                VS
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="col-span-1 sm:col-span-2 text-right md:text-left min-w-0">
+                            <div className="flex items-start gap-1.5 sm:gap-2 justify-end md:justify-start">
+                              <span
+                                className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
+                                style={getTeamDotStyle(match.awayTeamId)}
+                              />
+                              {renderTeamName(match.awayTeamName, isAwayMatch, 'right')}
+                              <span
+                                className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
+                                style={getTeamDotStyle(match.awayTeamId)}
+                              />
+                            </div>
+                            <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
+                              {isFr ? 'Visiteur' : 'Away'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Pitch info & Status / View Recap button */}
+                        <div className="border-t md:border-t-0 md:border-l border-zinc-800 pt-3 md:pt-0 md:pl-6 flex items-center justify-between md:flex-col md:items-end gap-2 text-xs min-w-[170px]">
+                          <span className="flex items-center gap-1.5 text-gray-400">
+                            <MapPin size={13} className={isCancerAwarenessGame ? 'text-purple-400' : 'text-lime-400'} />
+                            <span>{match.pitch}</span>
+                          </span>
+                          {hasRecap ? (
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedMatchId(match.id);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider bg-lime-400 hover:bg-lime-300 text-zinc-950 shadow-md shadow-lime-500/20 transition-all cursor-pointer"
+                            >
+                              <span>{isFr ? 'Voir Résumé' : 'View Recap'}</span>
+                              <ArrowRight size={13} />
+                            </button>
                           ) : (
-                            <span className="px-2.5 py-1 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase tracking-widest bg-zinc-800 text-zinc-400">
-                              VS
+                            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                              isCancerAwarenessGame
+                                ? 'bg-purple-950/40 text-purple-200 border border-purple-500/30'
+                                : 'bg-zinc-800 text-gray-300'
+                            }`}>
+                              {match.status === 'completed'
+                                ? (isFr ? 'Terminé' : 'Final')
+                                : (isFr ? 'Programmé' : 'Scheduled')}
                             </span>
                           )}
                         </div>
-
-                        <div className="col-span-1 sm:col-span-2 text-right md:text-left min-w-0">
-                          <div className="flex items-start gap-1.5 sm:gap-2 justify-end md:justify-start">
-                            <span
-                              className="w-2.5 h-2.5 rounded-full hidden md:inline-block shrink-0 md:mt-1.5"
-                              style={getTeamDotStyle(match.awayTeamId)}
-                            />
-                            {renderTeamName(match.awayTeamName, isAwayMatch, 'right')}
-                            <span
-                              className="w-2.5 h-2.5 rounded-full inline-block shrink-0 mt-1 md:hidden"
-                              style={getTeamDotStyle(match.awayTeamId)}
-                            />
-                          </div>
-                          <span className="text-[10px] sm:text-[11px] text-zinc-500 uppercase tracking-widest block mt-1">
-                            {isFr ? 'Visiteur' : 'Away'}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Pitch info & Status / View Recap button */}
-                      <div className="border-t md:border-t-0 md:border-l border-zinc-800 pt-3 md:pt-0 md:pl-6 flex items-center justify-between md:flex-col md:items-end gap-2 text-xs min-w-[170px]">
-                        <span className="flex items-center gap-1.5 text-gray-400">
-                          <MapPin size={13} className="text-lime-400" />
-                          <span>{match.pitch}</span>
-                        </span>
-                        {hasRecap ? (
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedMatchId(match.id);
-                            }}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider bg-lime-400 hover:bg-lime-300 text-zinc-950 shadow-md shadow-lime-500/20 transition-all cursor-pointer"
-                          >
-                            <span>{isFr ? 'Voir Résumé' : 'View Recap'}</span>
-                            <ArrowRight size={13} />
-                          </button>
-                        ) : (
-                          <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-zinc-800 text-gray-300">
-                            {match.status === 'completed'
-                              ? (isFr ? 'Terminé' : 'Final')
-                              : (isFr ? 'Programmé' : 'Scheduled')}
-                          </span>
-                        )}
                       </div>
                     </div>
                   );
