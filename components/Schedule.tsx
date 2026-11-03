@@ -248,6 +248,26 @@ const Schedule: React.FC = () => {
       return parseTimeToSeconds(a.time) - parseTimeToSeconds(b.time);
     };
 
+    const sortedGoalsWithScore = (() => {
+      const goals = selectedRecap.events.filter(e => e.type === 'goal').sort(compareEvents);
+      let runningHome = 0;
+      let runningAway = 0;
+      return goals.map(event => {
+        if (event.teamId === game.homeTeamId) {
+          runningHome++;
+        } else if (event.teamId === game.awayTeamId) {
+          runningAway++;
+        } else {
+          runningHome++;
+        }
+        return {
+          ...event,
+          runningHome,
+          runningAway
+        };
+      });
+    })();
+
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button onClick={() => setSelectedGameId(null)} className="flex items-center text-sky-400 hover:text-white mb-6 transition-colors font-bold uppercase tracking-widest text-xs cursor-pointer"><ArrowLeft className="mr-2" size={18} />{t.schedule.backToSchedule}</button>
@@ -287,14 +307,51 @@ const Schedule: React.FC = () => {
                 <div>
                     <h3 className="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2 flex items-center gap-2"><div className="w-1.5 h-6 bg-ng-light-blue"></div> {t.schedule.scoringSummary}</h3>
                     <div className="space-y-4">
-                        {selectedRecap.events.filter(e => e.type === 'goal').length > 0 ? selectedRecap.events.filter(e => e.type === 'goal').sort(compareEvents).map(event => (
+                        {sortedGoalsWithScore.length > 0 ? sortedGoalsWithScore.map(event => (
                             <div key={event.id} className="bg-ng-navy/50 p-4 rounded-xl border border-gray-700/50 shadow-inner">
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                                    <div className="flex items-center space-x-3 border-r border-gray-700/50 pr-4">
-                                        <span className="text-ng-light-blue font-mono font-bold text-lg">{event.time}</span>
-                                        <div className="flex flex-col">
-                                            <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period}</span>
-                                            <span className="text-white font-bold text-sm">{event.period}</span>
+                                <div className="grid grid-cols-1 md:grid-cols-[130px_100px_1fr_1fr] gap-4 items-center">
+                                    <div className="flex items-center justify-between border-b md:border-b-0 md:border-r border-gray-700/50 pb-3 md:pb-0 md:pr-4">
+                                        <div className="flex items-center space-x-3">
+                                            <span className="text-ng-light-blue font-mono font-bold text-lg">{event.time}</span>
+                                            <div className="flex flex-col">
+                                                <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest">{t.schedule.period}</span>
+                                                <span className="text-white font-bold text-sm">{event.period}</span>
+                                            </div>
+                                        </div>
+                                        {/* Mobile Tiny Scoreboard */}
+                                        <div className="md:hidden flex flex-col items-center justify-center bg-black/80 border border-zinc-700/80 px-2.5 py-1 rounded-lg font-mono shadow-inner">
+                                            <span className="text-[8px] font-black uppercase tracking-widest text-zinc-500 leading-none mb-0.5">
+                                                {language === 'fr' ? 'Pointage' : 'Score'}
+                                            </span>
+                                            <div className="flex items-center gap-1 font-mono text-xs font-black leading-none">
+                                                <span className="text-[9px] font-bold text-zinc-400 uppercase">{getTeamInitial(game.homeTeamId)}</span>
+                                                <span className={event.teamId === game.homeTeamId ? 'text-ng-light-blue' : 'text-white'}>
+                                                    {event.runningHome}
+                                                </span>
+                                                <span className="text-zinc-600 font-bold">-</span>
+                                                <span className={event.teamId === game.awayTeamId ? 'text-ng-light-blue' : 'text-white'}>
+                                                    {event.runningAway}
+                                                </span>
+                                                <span className="text-[9px] font-bold text-zinc-400 uppercase">{getTeamInitial(game.awayTeamId)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Desktop Tiny Scoreboard */}
+                                    <div className="hidden md:flex flex-col items-center justify-center border-r border-gray-700/50 pr-4">
+                                        <span className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-1">
+                                            {language === 'fr' ? 'Pointage' : 'Score'}
+                                        </span>
+                                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/80 border border-zinc-700/80 shadow-inner font-mono text-sm font-black">
+                                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">{getTeamInitial(game.homeTeamId)}</span>
+                                            <span className={event.teamId === game.homeTeamId ? 'text-ng-light-blue' : 'text-white'}>
+                                                {event.runningHome}
+                                            </span>
+                                            <span className="text-zinc-600 font-bold">-</span>
+                                            <span className={event.teamId === game.awayTeamId ? 'text-ng-light-blue' : 'text-white'}>
+                                                {event.runningAway}
+                                            </span>
+                                            <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">{getTeamInitial(game.awayTeamId)}</span>
                                         </div>
                                     </div>
                                     

@@ -1034,12 +1034,14 @@ export const SCHEDULE: Game[] = [
   },
   {
     "id": "g_w_17",
-    "date": "2026-11-02",
+    "date": "2026-11-03",
     "time": "22:00",
     "homeTeamId": "w_bots",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 5,
+    "awayScore": 2
   },
   {
     "id": "g_w_18",
@@ -1946,6 +1948,11 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 14,
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
     }
   },
   {
@@ -2038,6 +2045,11 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "points": 0,
     "seasonTeamIds": {
       "winter_2026_2027": "w_timbits"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
     }
   },
   {
@@ -3516,6 +3528,40 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_kenshin_fontaine_sub",
     "name": "Kenshin Fontaine",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_ian_gagnon_sub",
+    "name": "Ian Gagnon",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_jared_desveaux_sub",
+    "name": "Jared Desveaux",
     "teamId": "sub",
     "seasonTeamIds": {
       "winter_2026_2027": "sub"
@@ -14678,6 +14724,209 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_stephe_goedike_sub": "18",
       "p2": "66",
       "p_jordan_tanguay_sub": "9"
+    }
+  },
+  "g_w_17": {
+    "gameId": "g_w_17",
+    "events": [
+      {
+        "id": "e_g_w_17_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "02:00",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "13:30",
+        "teamId": "w_bots",
+        "player": "p2",
+        "details": "high stick",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_17_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "14:45",
+        "teamId": "w_bots",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_p2",
+        "type": "penalty",
+        "period": 1,
+        "time": "15:45",
+        "teamId": "w_kraken",
+        "player": "w_p_arjun_srivastava",
+        "details": "tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_17_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "11:45",
+        "teamId": "w_bots",
+        "player": "p_1778475181683",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_p3",
+        "type": "penalty",
+        "period": 2,
+        "time": "12:12",
+        "teamId": "w_bots",
+        "player": "p_1778475181683",
+        "details": "tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_17_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "15:18",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1775582149892",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "15:31",
+        "teamId": "w_bots",
+        "player": "p_1767082323831",
+        "assist": "p_1775582149892",
+        "assist2": "p_nicolas_primiani_sub",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "10:30",
+        "teamId": "w_kraken",
+        "player": "p3",
+        "assist": "p_joshua_sylvain",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_17_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "15:15",
+        "teamId": "w_kraken",
+        "player": "p3",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 34,
+        "goalsAgainst": 2,
+        "saves": 32
+      },
+      "awayGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 33,
+        "goalsAgainst": 5,
+        "saves": 28
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p_1767082302464",
+        "p2",
+        "p_1775580097968",
+        "p_1767082317648",
+        "p_1775582149892",
+        "p1",
+        "p_1767082323831",
+        "p_1778475181683",
+        "p_nicolas_primiani_sub"
+      ],
+      "awayPlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_thomas_desveaux",
+        "w_p_arjun_srivastava",
+        "p4",
+        "p_nicholas_giacalone_178004",
+        "p_ben_carr_sub",
+        "p_ian_gagnon_sub",
+        "p_jared_desveaux_sub"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "p_1775579857302",
+        "p3",
+        "p4"
+      ],
+      "awayPlayers": [
+        "w_p_ben_siegl",
+        "w_p_evan_getty",
+        "w_p_jacob_lacombe",
+        "w_p_giustino_porco"
+      ]
+    },
+    "shots": {
+      "home": 33,
+      "away": 34
+    },
+    "referees": [
+      "Nathan Auclair"
+    ],
+    "playerNumbers": {
+      "goalie_1775582169664": "0",
+      "p_1767082310061": "55",
+      "p_1775579857302": "76",
+      "p_1767082302464": "3",
+      "p2": "73",
+      "p_1775580097968": "40",
+      "p_1767082317648": "88",
+      "p_1775582149892": "19",
+      "p1": "94",
+      "p_1767082323831": "76",
+      "p_1778475181683": "12",
+      "p_nicolas_primiani_sub": "13",
+      "goalie_ephram_labonville_177914": "30",
+      "p3": "43",
+      "w_p_ben_siegl": "11",
+      "p_joshua_sylvain": "4",
+      "w_p_thomas_burton": "2",
+      "w_p_evan_getty": "8",
+      "w_p_thomas_desveaux": "17",
+      "w_p_jacob_lacombe": "19",
+      "w_p_arjun_srivastava": "29",
+      "w_p_giustino_porco": "0",
+      "p4": "23",
+      "p_nicholas_giacalone_178004": "8",
+      "p_ben_carr_sub": "7",
+      "p_ian_gagnon_sub": "18",
+      "p_jared_desveaux_sub": "9"
     }
   }
 };
