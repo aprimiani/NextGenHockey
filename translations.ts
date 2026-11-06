@@ -1226,10 +1226,13 @@ export const translatePenalty = (details: string | undefined, lang: Language): s
     '10 min illegal hit': { en: 'Illegal hit', fr: 'Mise en échec illégale' },
     'slash': { en: 'Slashing', fr: 'Coup de bâton' },
     'powerplay': { en: 'Powerplay', fr: 'Avantage numérique' },
-    'coup à la tête': { en: 'Head contact', fr: 'Coup à la tête' },
-    'coup a la tete': { en: 'Head contact', fr: 'Coup à la tête' },
-    'head contact': { en: 'Head contact', fr: 'Coup à la tête' },
-    'head checking': { en: 'Head contact', fr: 'Coup à la tête' },
+    'coup à la tête': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'coup a la tete': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'hit to the head': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'hit to head': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'contact to the head': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'head contact': { en: 'Hit to the head', fr: 'Coup à la tête' },
+    'head checking': { en: 'Hit to the head', fr: 'Coup à la tête' },
   };
 
   // Direct match

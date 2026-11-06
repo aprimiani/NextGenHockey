@@ -162,7 +162,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
         ...(GAME_RECAPS['g_w_13'] ? { g_w_13: GAME_RECAPS['g_w_13'] } : {}),
         ...(GAME_RECAPS['g_w_14'] ? { g_w_14: GAME_RECAPS['g_w_14'] } : {}),
         ...(GAME_RECAPS['g_w_15'] ? { g_w_15: GAME_RECAPS['g_w_15'] } : {}),
-        ...(GAME_RECAPS['g_w_16'] ? { g_w_16: GAME_RECAPS['g_w_16'] } : {})
+        ...(GAME_RECAPS['g_w_16'] ? { g_w_16: GAME_RECAPS['g_w_16'] } : {}),
+        ...(GAME_RECAPS['g_w_17'] ? { g_w_17: GAME_RECAPS['g_w_17'] } : {}),
+        ...(GAME_RECAPS['g_w_18'] ? { g_w_18: GAME_RECAPS['g_w_18'] } : {})
       });
     } else {
       setGameRecapsState(GAME_RECAPS);

@@ -1050,7 +1050,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 2
   },
   {
     "id": "g_w_19",
@@ -14927,6 +14929,202 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_ben_carr_sub": "7",
       "p_ian_gagnon_sub": "18",
       "p_jared_desveaux_sub": "9"
+    }
+  },
+  "g_w_18": {
+    "gameId": "g_w_18",
+    "events": [
+      {
+        "id": "e_g_w_18_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "00:40",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "p_dylan_molinaro_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "01:15",
+        "teamId": "w_seamen",
+        "player": "w_p_devin_menary",
+        "assist": "p_dylan_molinaro_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "08:10",
+        "teamId": "w_timbits",
+        "player": "w_p_antoine_perreault",
+        "details": "hit to the head",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_18_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "11:45",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "assist": "w_p_noah_goyens",
+        "assist2": "w_p_olivier_sylvain",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g4",
+        "type": "goal",
+        "period": 1,
+        "time": "15:59",
+        "teamId": "w_seamen",
+        "player": "w_p_olivier_sylvain",
+        "assist": "w_p_alexandre_derome",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "01:45",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "assist": "w_p_noah_bonspille",
+        "assist2": "w_p_noah_goyens",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "08:05",
+        "teamId": "w_timbits",
+        "player": "w_p_vincent_robert",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "00:40",
+        "teamId": "w_seamen",
+        "player": "w_p_alexandre_derome",
+        "assist": "",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "03:10",
+        "teamId": "w_timbits",
+        "player": "p_1767082323831",
+        "assist": "p_1778475181683",
+        "assist2": "w_p_antoine_bertrand",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_18_p2",
+        "type": "penalty",
+        "period": 3,
+        "time": "10:05",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "details": "tripping",
+        "penaltyMinutes": 2
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 28,
+        "goalsAgainst": 2,
+        "saves": 26
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 35,
+        "goalsAgainst": 6,
+        "saves": 29
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_alexandre_derome",
+        "w_p_devin_menary",
+        "w_p_owen_dunn"
+      ],
+      "awayPlayers": [
+        "goalie_1767082104234",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_jacob_fournier",
+        "w_p_benjamin_sasseville",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1767082323831",
+        "p_1778475181683",
+        "w_p_vincent_robert"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [],
+      "awayPlayers": [
+        "p_1771962941457"
+      ]
+    },
+    "shots": {
+      "home": 35,
+      "away": 28
+    },
+    "referees": [
+      "Nathan Auclair",
+      "Mathis Maurice"
+    ],
+    "playerNumbers": {
+      "goalie_adam_rizk": "30",
+      "p_dylan_molinaro_sub": "7",
+      "p_ethan_black_sub": "19",
+      "w_p_brendan_walsh": "18",
+      "w_p_noah_goyens": "20",
+      "w_p_william_goyens": "14",
+      "w_p_noah_bonspille": "5",
+      "w_p_olivier_sylvain": "8",
+      "w_p_alexandre_derome": "WHITE",
+      "w_p_devin_menary": "13",
+      "w_p_owen_dunn": "11",
+      "goalie_1767082104234": "30",
+      "w_p_etienne_routhier": "44",
+      "w_p_antoine_perreault": "44",
+      "w_p_jacob_fournier": "66",
+      "w_p_benjamin_sasseville": "3",
+      "w_p_jean_christophe_malo_pepin": "67",
+      "w_p_francois_fontaine": "6",
+      "w_p_antoine_bertrand": "2",
+      "w_p_raphael_rivet": "55",
+      "p_1767082323831": "4",
+      "p_1778475181683": "12",
+      "w_p_vincent_robert": "37",
+      "p_1771962941457": "20"
     }
   }
 };
