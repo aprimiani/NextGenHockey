@@ -170,7 +170,20 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
       setGameRecapsState(GAME_RECAPS);
     }
     if (savedGallery) setGalleryState(JSON.parse(savedGallery));
-    if (savedPOM) setPlayerOfMonthState(JSON.parse(savedPOM));
+    if (savedPOM) {
+      try {
+        const parsed = JSON.parse(savedPOM);
+        if (parsed && (parsed.year > PLAYER_OF_THE_MONTH.year || (parsed.year === PLAYER_OF_THE_MONTH.year && parsed.month > PLAYER_OF_THE_MONTH.month))) {
+          setPlayerOfMonthState(parsed);
+        } else {
+          setPlayerOfMonthState(PLAYER_OF_THE_MONTH);
+        }
+      } catch {
+        setPlayerOfMonthState(PLAYER_OF_THE_MONTH);
+      }
+    } else {
+      setPlayerOfMonthState(PLAYER_OF_THE_MONTH);
+    }
     
     setLoading(false);
   }, []);

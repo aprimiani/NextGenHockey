@@ -1702,7 +1702,7 @@ const Standings: React.FC = () => {
                     const p = activePlayersList.find(x => x.id === playerOfMonth.playerId) || players.find(x => x.id === playerOfMonth.playerId);
                     const g = activeGoaliesList.find(x => x.id === playerOfMonth.playerId) || goalies.find(x => x.id === playerOfMonth.playerId);
                     const name = p ? p.name : (g ? g.name : 'N/A');
-                    const teamId = p ? (p.seasonTeamIds?.[selectedSeason] || p.teamId) : (g ? (g.seasonTeamIds?.[selectedSeason] || g.teamId) : '');
+                    const teamId = p ? (p.seasonTeamIds?.[selectedSeason] || p.seasonTeamIds?.['winter_2026_2027'] || p.teamId) : (g ? (g.seasonTeamIds?.[selectedSeason] || g.seasonTeamIds?.['winter_2026_2027'] || g.teamId) : '');
                     return (
                       <>
                         <button 
