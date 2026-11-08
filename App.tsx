@@ -12,6 +12,7 @@ import Sponsors from './components/Sponsors';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Manager from './components/Manager';
+import MemorialProfile from './components/MemorialProfile';
 
 // Sports Parent Components
 import { SportsNavbar } from './components/sports/SportsNavbar';
@@ -104,6 +105,10 @@ function App() {
               <Route path="/sponsors" element={<Sponsors />} />
               <Route path="/hockey/manager" element={<Manager />} />
               <Route path="/manager" element={<Manager />} />
+              <Route path="/memorial/alexandre-marchand" element={<MemorialProfile />} />
+              <Route path="/hockey/memorial/alexandre-marchand" element={<MemorialProfile />} />
+              <Route path="/memorial" element={<Navigate to="/memorial/alexandre-marchand" replace />} />
+              <Route path="/hockey/memorial" element={<Navigate to="/hockey/memorial/alexandre-marchand" replace />} />
 
               {/* Old Hockey Form Route Redirects to Central Pages */}
               <Route path="/hockey/contact" element={<Navigate to="/contact" replace />} />

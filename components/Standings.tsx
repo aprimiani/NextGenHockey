@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useLeagueData } from '../contexts/LeagueDataContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles, Info } from 'lucide-react';
+import { X, Calendar, User, Trophy, LayoutList, Shield, ChevronUp, ChevronDown, Layers, Sparkles, Info, Star, ArrowRight, Heart } from 'lucide-react';
 import { Team, PlayerStats, GoalieStats } from '../types';
 import { PLAYER_OF_THE_MONTH } from '../constants';
 import { SEO } from './SEO';
 
 const Standings: React.FC = () => {
   const { t, language } = useLanguage();
+  const isFr = language === 'fr';
   const navigate = useNavigate();
   const { teams, players, goalies, schedule, gameRecaps, playerOfMonth, loading } = useLeagueData();
   const [activeTab, setActiveTab] = useState<'players' | 'goalies'>('players');
@@ -392,9 +393,12 @@ const Standings: React.FC = () => {
   }, [selectedSeason, teams, playoffStats, winterStats]);
 
   const activePlayersList = useMemo(() => {
-    if (selectedSeason === 'summer_2026_reg') return players.filter(p => !p.teamId.startsWith('w_'));
-    if (selectedSeason === 'summer_2026_playoffs') return playoffStats.players.filter(p => !p.teamId.startsWith('w_'));
-    return winterStats.players;
+    let list: PlayerStats[] = [];
+    if (selectedSeason === 'summer_2026_reg') list = players.filter(p => !p.teamId.startsWith('w_'));
+    else if (selectedSeason === 'summer_2026_playoffs') list = playoffStats.players.filter(p => !p.teamId.startsWith('w_'));
+    else list = winterStats.players;
+    // Alexandre Marchand holds permanent honorary #1 star status separately from competitive calculations
+    return list.filter(p => p.id !== 'p_1767082325178' && p.name.toLowerCase().trim() !== 'alexandre marchand');
   }, [selectedSeason, players, playoffStats, winterStats]);
 
   const activeGoaliesList = useMemo(() => {
@@ -706,7 +710,7 @@ const Standings: React.FC = () => {
     return goalieSort.dir === 'asc' ? valA - valB : valB - valA;
   });
 
-  const displayedPlayers = showAllPlayers ? sortedPlayers : sortedPlayers.slice(0, 5);
+  const displayedPlayers = showAllPlayers ? sortedPlayers : sortedPlayers.slice(0, 4);
   const displayedGoalies = sortedGoalies;
 
   const getTeamName = (id: string) => {
@@ -1880,9 +1884,77 @@ const Standings: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-700">
+                      {/* Alexandre Marchand - Permanent Honorary #1 Star */}
+                      <tr 
+                        className="bg-gradient-to-r from-amber-500/10 via-zinc-900 to-sky-950/40 border-b-2 border-amber-500/30 hover:bg-zinc-800/80 transition-colors cursor-pointer"
+                        onClick={() => navigate('/memorial/alexandre-marchand')}
+                      >
+                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] whitespace-nowrap text-center">
+                          <div className="flex flex-col items-center justify-center">
+                            <div className="flex items-center gap-1 text-amber-400 font-black">
+                              <Star size={13} className="fill-amber-400 text-amber-400" />
+                              <span className="text-sm md:text-base font-extrabold text-white">1</span>
+                            </div>
+                            <span className="text-[7.5px] uppercase tracking-wider text-amber-300/90 font-bold">
+                              {isFr ? 'HONORAIRE' : 'HONORARY'}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-1.5 md:px-4 py-2.5 text-xs sm:text-[13px] md:text-[15px] font-bold text-white whitespace-nowrap text-left">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            {/* Avatar Initials AM */}
+                            <Link
+                              to="/memorial/alexandre-marchand"
+                              className="relative flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-amber-400/30 via-zinc-800 to-sky-500/30 border border-amber-400/50 flex items-center justify-center text-amber-300 font-black text-xs md:text-sm tracking-wider shadow-sm hover:scale-105 transition-transform"
+                              title="Alexandre Marchand (AM)"
+                            >
+                              <span>AM</span>
+                              <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-400 border border-black flex items-center justify-center">
+                                <Star size={8} className="fill-zinc-950 text-zinc-950" />
+                              </div>
+                            </Link>
+
+                            <div className="flex flex-col items-start min-w-0">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <Link
+                                  to="/memorial/alexandre-marchand"
+                                  className="text-white hover:text-amber-300 font-black transition-colors outline-none text-left truncate flex items-center gap-1.5"
+                                >
+                                  <span>Alexandre Marchand</span>
+                                </Link>
+                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                                  <Star size={9} className="fill-amber-400" />
+                                  <span>{isFr ? 'POUR TOUJOURS UNE ÉTOILE NEXTGEN' : 'FOREVER A NEXTGEN STAR'}</span>
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-[10px] text-gray-400 mt-0.5">
+                                <span className="sm:hidden text-sky-400 font-bold">Jets • #67</span>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[14px] text-gray-300 whitespace-nowrap">
+                          <div className="flex items-center gap-2">
+                            <span className="text-[11px] font-black italic px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">J</span>
+                            <span className="font-semibold text-white">Jets</span>
+                            <span className="text-[10px] font-bold text-sky-400">#67</span>
+                            <span className="text-[10px] text-amber-300/80 font-bold ml-1">{isFr ? '★ Éternel #1' : '★ Forever #1'}</span>
+                          </div>
+                        </td>
+                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">8</td>
+                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">3</td>
+                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">6</td>
+                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center font-black text-amber-300 bg-amber-500/10 whitespace-nowrap">
+                          <div className="flex items-center justify-center gap-0.5">
+                            <span>9</span>
+                            <Star size={10} className="fill-amber-400 text-amber-400" />
+                          </div>
+                        </td>
+                      </tr>
+
                       {displayedPlayers.map((player, idx) => (
                         <tr key={player.id} className="hover:bg-ng-navy transition-colors">
-                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-gray-500 whitespace-nowrap text-center">{idx + 1}</td>
+                          <td className="px-1 md:px-4 py-2 text-xs md:text-[15px] text-gray-500 whitespace-nowrap text-center">{idx + 2}</td>
                           <td className="px-1.5 md:px-4 py-2 text-xs sm:text-[13px] md:text-[15px] font-bold text-white whitespace-nowrap text-left truncate">
                              <div className="flex flex-col items-start min-w-0">
                                <button onClick={() => openPlayerProfile(player)} className="hover:text-ng-light-blue transition-colors outline-none text-left truncate w-full">
@@ -1911,7 +1983,7 @@ const Standings: React.FC = () => {
                     </tbody>
                   </table>
                 </div>
-               {sortedPlayers.length > 5 && (
+               {sortedPlayers.length > 4 && (
                  <div className="mt-4 text-center">
                    <button onClick={() => setShowAllPlayers(!showAllPlayers)} className="text-ng-light-blue hover:text-white text-sm font-medium transition-colors">
                      {showAllPlayers ? t.standings.showLess : t.standings.showMore}

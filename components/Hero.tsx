@@ -67,7 +67,7 @@ export const Hero: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* Top Badges */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
               {/* Season Badge */}
               <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-[11px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest text-sky-400 max-w-full truncate">
                 <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse shrink-0" />
@@ -84,6 +84,19 @@ export const Hero: React.FC = () => {
               >
                 <Trophy size={13} className="text-amber-400 group-hover:scale-110 transition-transform shrink-0" />
                 <span className="truncate">{isFr ? '🏆 Champions Séries Été 2026 : Milf Hunters' : '🏆 Summer 2026 Champions: Milf Hunters'}</span>
+              </Link>
+            </div>
+
+            {/* Alexandre Marchand Permanent Memorial Tribute Pill */}
+            <div className="mb-6 flex justify-center">
+              <Link
+                to="/memorial/alexandre-marchand"
+                className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-2 rounded-full bg-gradient-to-r from-sky-950/40 via-slate-900/90 to-amber-950/30 border border-sky-500/30 hover:border-amber-400/50 text-[11px] sm:text-xs font-bold text-gray-300 hover:text-white transition-all shadow-md group"
+              >
+                <Star size={13} className="text-amber-400 fill-amber-400 shrink-0 group-hover:rotate-12 transition-transform" />
+                <span className="text-white font-black uppercase tracking-wider">{isFr ? 'Étoile #1 Éternelle :' : 'Forever Star #1:'}</span>
+                <span className="text-sky-300 font-bold">Alexandre Marchand</span>
+                <ChevronRight size={12} className="text-sky-400 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
 
