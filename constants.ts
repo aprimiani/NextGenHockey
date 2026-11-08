@@ -1246,7 +1246,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "gp": 8,
     "goals": 3,
     "assists": 6,
-    "points": 9
+    "points": 9,
+    "photoUrl": "/assets/aistudio/IMG_9383_108190e6.jpeg"
   },
   {
     "id": "p_alexandre_marquis_177914",

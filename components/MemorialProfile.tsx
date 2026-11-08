@@ -44,25 +44,29 @@ export const MemorialProfile: React.FC = () => {
           </div>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-10">
-            {/* Photograph / Avatar Container */}
-            <div className="flex flex-col items-center shrink-0">
-              <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-2xl bg-gradient-to-b from-slate-900 to-black border-2 border-sky-400/40 p-2 shadow-2xl shadow-sky-950/50 flex items-center justify-center group">
-                <div className="w-full h-full rounded-xl bg-gradient-to-br from-slate-800/90 via-slate-900 to-[#070d18] border border-white/10 flex flex-col items-center justify-center relative overflow-hidden">
-                  <div className="absolute -top-6 -right-6 w-20 h-20 bg-sky-400/20 rounded-full blur-xl" />
-                  
-                  {/* Initials Avatar */}
-                  <span className="text-5xl sm:text-6xl font-black font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-white via-sky-200 to-sky-400">
-                    AM
-                  </span>
-                  
-                  <span className="text-[10px] font-black uppercase tracking-widest text-sky-300/80 mt-2">
-                    #67 • JETS
-                  </span>
+            {/* Photograph Container */}
+            <div className="flex flex-col items-center shrink-0 w-full sm:w-auto">
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl bg-gradient-to-b from-slate-900 to-black border-2 border-sky-400/50 p-2 shadow-2xl shadow-sky-950/60 flex items-center justify-center group overflow-hidden">
+                <div className="w-full h-full rounded-xl overflow-hidden relative border border-white/10 bg-slate-950">
+                  <img
+                    src="/assets/aistudio/IMG_9383_108190e6.jpeg"
+                    alt="Alexandre Marchand #67 - Jets"
+                    className="w-full h-full object-cover object-[52%_18%] group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {/* Subtle vignette gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[11px] font-black uppercase tracking-widest text-white drop-shadow-md">
+                    <span className="text-sky-300">#67 • Jets</span>
+                    <span className="text-amber-300 flex items-center gap-1 font-black">
+                      <Star size={11} className="fill-amber-400 text-amber-400" />
+                      <span>#1</span>
+                    </span>
+                  </div>
                 </div>
 
                 {/* Star Accent Badge */}
-                <div className="absolute -bottom-3 -right-3 w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-zinc-950 flex items-center justify-center font-black shadow-lg border-2 border-slate-900">
-                  <Star size={18} className="fill-zinc-950" />
+                <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-zinc-950 flex items-center justify-center font-black shadow-lg border-2 border-slate-900 z-10">
+                  <Star size={20} className="fill-zinc-950" />
                 </div>
               </div>
 
@@ -108,6 +112,29 @@ export const MemorialProfile: React.FC = () => {
                     — Alessandro
                   </span>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Full Action Tribute Photo */}
+          <div className="mt-8 pt-6 border-t border-gray-800/80">
+            <div className="relative rounded-2xl overflow-hidden border border-sky-500/30 bg-black shadow-2xl group">
+              <img
+                src="/assets/aistudio/IMG_9383_108190e6.jpeg"
+                alt="Alexandre Marchand #67 sur la glace"
+                className="w-full h-auto max-h-[520px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-xs sm:text-sm text-gray-200">
+                <span className="font-bold flex items-center gap-2">
+                  <span className="text-sky-400 font-black">Alexandre Marchand #67</span>
+                  <span className="text-gray-500 hidden sm:inline">•</span>
+                  <span className="text-gray-300 hidden sm:inline">{isFr ? 'Sur la glace avec les Jets' : 'On the ice with the Jets'}</span>
+                </span>
+                <span className="text-amber-300 font-black uppercase tracking-wider text-[11px] sm:text-xs flex items-center gap-1">
+                  <Star size={12} className="fill-amber-400 text-amber-400" />
+                  <span>{isFr ? 'Étoile #1' : 'Star #1'}</span>
+                </span>
               </div>
             </div>
           </div>

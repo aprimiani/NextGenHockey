@@ -1898,13 +1898,17 @@ const Standings: React.FC = () => {
                         <td colSpan={6} className="px-2 md:px-4 py-3 text-xs sm:text-sm md:text-[15px] font-bold text-white text-left">
                           <div className="flex items-center justify-between gap-3 min-w-0 flex-wrap sm:flex-nowrap">
                             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                              {/* Avatar Initials AM */}
+                              {/* Avatar Photo */}
                               <div
-                                className="relative flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-amber-400/30 via-zinc-800 to-sky-500/30 border border-amber-400/50 flex items-center justify-center text-amber-300 font-black text-xs md:text-sm tracking-wider shadow-sm group-hover:scale-105 transition-transform"
-                                title="Alexandre Marchand (AM)"
+                                className="relative flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-amber-400/30 via-zinc-800 to-sky-500/30 border border-amber-400/60 overflow-hidden shadow-sm group-hover:scale-105 transition-transform"
+                                title="Alexandre Marchand #67"
                               >
-                                <span>AM</span>
-                                <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-400 border border-black flex items-center justify-center">
+                                <img
+                                  src="/assets/aistudio/IMG_9383_108190e6.jpeg"
+                                  alt="Alexandre Marchand"
+                                  className="w-full h-full object-cover object-[52%_15%]"
+                                />
+                                <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-400 border border-black flex items-center justify-center z-10">
                                   <Star size={8} className="fill-zinc-950 text-zinc-950" />
                                 </div>
                               </div>
