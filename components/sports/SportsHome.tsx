@@ -647,8 +647,13 @@ export const SportsHome: React.FC = () => {
           </div>
 
           {/* Local Community Sponsors Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center max-w-5xl mx-auto">
             {[
+              {
+                name: 'CutsByMigz',
+                category: language === 'fr' ? 'Barbier Officiel NextGen' : 'Official NextGen Barber',
+                perk: language === 'fr' ? '1ère coupe gratuite • 15% rabais' : '1st haircut free • 15% off',
+              },
               {
                 name: 'Subway Delson',
                 category: language === 'fr' ? 'Restauration & Partenaire Saisonnier' : 'Dining & Season Partner',

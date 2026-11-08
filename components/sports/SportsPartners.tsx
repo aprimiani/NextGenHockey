@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Trophy, Gift, MapPin, ExternalLink, ArrowRight, Star } from 'lucide-react';
+import { Heart, Trophy, Gift, MapPin, ExternalLink, ArrowRight, Star, Scissors } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SEO } from '../SEO';
 
@@ -18,6 +18,15 @@ export const SportsPartners: React.FC = () => {
       highlight: isFr ? "Partenaire officiel de la ligue" : "Official League Charity",
       isCharity: true,
       website: "https://fondationduchildren.com"
+    },
+    {
+      name: "CutsByMigz",
+      category: isFr ? "Barbier Officiel de NextGen Sports" : "Official Barber of NextGen Sports",
+      description: isFr
+        ? "Barbier officiel de NextGen Sports. Chaque athlète de la ligue bénéficie d'une coupe gratuite lors de sa première visite et de 15 % de rabais sur toutes les visites suivantes. De plus, chaque Joueur du Mois reçoit une coupe de cheveux gratuite !"
+        : "Official barber of NextGen Sports. League athletes receive 1 free haircut on their first visit, plus 15% off all subsequent visits. Additionally, the Player of the Month receives a free haircut!",
+      highlight: isFr ? "1 coupe gratuite 1ère visite • 15% rabais suivant • Coupe Joueur du Mois" : "1st haircut free • 15% off next visits • Free POM haircut",
+      address: "Delson & Rive-Sud de Montréal"
     },
     {
       name: "Subway Delson",
@@ -108,7 +117,7 @@ export const SportsPartners: React.FC = () => {
         </div>
 
         {/* Partners Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
           {partnerList.slice(1).map((p, idx) => (
             <div
               key={idx}
@@ -116,7 +125,8 @@ export const SportsPartners: React.FC = () => {
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 flex items-center gap-1">
+                    {p.name === 'CutsByMigz' && <Scissors size={12} className="text-amber-400" />}
                     {p.category}
                   </span>
                   <Star size={14} className="text-amber-400 fill-amber-400" />

@@ -10,8 +10,8 @@ export const PLAYER_OF_THE_MONTH: PlayerOfMonth = {
   "goals": 8,
   "assists": 3,
   "points": 11,
-  "prizeEn": "Free 6 inch trio from Subway Delson!",
-  "prizeFr": "Trio sandwich 6 pouces gratuit de Subway Delson !",
+  "prizeEn": "Free 6-inch trio from Subway Delson & Free Haircut from CutsByMigz!",
+  "prizeFr": "Trio sandwich 6 pouces gratuit de Subway Delson & Coupe de cheveux gratuite de CutsByMigz !",
   "isGoalie": false
 };
 
@@ -2037,10 +2037,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
   {
     "id": "p_1778475181683",
     "name": "Félix Gamache",
-    "teamId": "sub",
-    "secondaryTeamIds": [
-      "2"
-    ],
+    "teamId": "w_timbits",
+    "secondaryTeamIds": [],
     "gp": 2,
     "goals": 0,
     "assists": 0,
@@ -2049,9 +2047,7 @@ export const ALL_PLAYERS: PlayerStats[] = [
       "winter_2026_2027": "w_timbits"
     },
     "seasonSecondaryTeamIds": {
-      "winter_2026_2027": [
-        "w_bots"
-      ]
+      "winter_2026_2027": []
     }
   },
   {

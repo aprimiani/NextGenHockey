@@ -465,6 +465,72 @@ export const SoccerHome: React.FC = () => {
           )}
         </div>
       </section>
+
+      {/* -------------------------------------------------- */}
+      {/* 5. OFFICIAL COMMUNITY SPONSORS & PARTNERS          */}
+      {/* -------------------------------------------------- */}
+      <section className="py-12 sm:py-16 bg-[#060907] border-t border-zinc-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <h4 className="text-xs font-black uppercase tracking-[0.25em] text-lime-400 mb-2">
+              {isFr ? 'Commanditaires Officiels' : 'Official Sponsors'}
+            </h4>
+            <p className="text-xl font-black uppercase italic font-display text-white">
+              {isFr ? 'Partenaires de NextGen Sports' : 'NextGen Sports Partners'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center max-w-5xl mx-auto">
+            {[
+              {
+                name: 'CutsByMigz',
+                category: isFr ? 'Barbier Officiel NextGen' : 'Official NextGen Barber',
+                perk: isFr ? '1ère coupe gratuite • 15% rabais' : '1st haircut free • 15% off',
+              },
+              {
+                name: 'Subway Delson',
+                category: isFr ? 'Restauration & Partenaire' : 'Dining & Partner',
+                perk: isFr ? '20% de rabais athlètes' : '20% athlete discount',
+              },
+              {
+                name: 'Popeyes Suppléments Delson',
+                category: isFr ? 'Nutrition & Suppléments' : 'Sports Supplements & Nutrition',
+                perk: isFr ? 'Cartes-cadeaux & performance' : 'Gift cards & performance support',
+              },
+              {
+                name: 'Pasquier Delson',
+                category: isFr ? 'Alimentation & Épicerie Fraîche' : 'Fresh Grocery & Community',
+                perk: isFr ? 'Prix officiels & soutien athlètes' : 'Official prizes & athlete support',
+              },
+            ].map((p, idx) => (
+              <div
+                key={idx}
+                className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-lime-500/40 transition-colors flex flex-col justify-center items-center"
+              >
+                <span className="text-sm font-black uppercase tracking-wider text-white">
+                  {p.name}
+                </span>
+                <span className="text-[10px] text-lime-400 uppercase tracking-widest mt-1 font-semibold">
+                  {p.category}
+                </span>
+                <span className="text-xs text-zinc-400 mt-2 font-medium">
+                  {p.perk}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Link
+              to="/partners"
+              className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-lime-400 hover:text-lime-300 transition-colors"
+            >
+              <span>{isFr ? 'Découvrir tous les partenaires et privilèges' : 'Discover all partners & player perks'}</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

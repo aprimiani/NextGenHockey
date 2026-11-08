@@ -107,13 +107,16 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
         } else {
           merged[idx] = {
             ...merged[idx],
+            teamId: defaultP.id === 'p_1778475181683' ? 'w_timbits' : merged[idx].teamId,
+            secondaryTeamIds: defaultP.id === 'p_1778475181683' ? [] : (merged[idx].secondaryTeamIds || []),
             seasonTeamIds: {
               ...(defaultP.seasonTeamIds || {}),
               ...(merged[idx].seasonTeamIds || {})
             },
             seasonSecondaryTeamIds: {
               ...(defaultP.seasonSecondaryTeamIds || {}),
-              ...(merged[idx].seasonSecondaryTeamIds || {})
+              ...(merged[idx].seasonSecondaryTeamIds || {}),
+              ...(defaultP.id === 'p_1778475181683' ? { winter_2026_2027: [] } : {})
             }
           };
         }

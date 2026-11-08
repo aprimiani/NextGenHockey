@@ -45,6 +45,13 @@ export const translations = {
       ctaSubtitle: "Join us in supporting the Montreal Children's Hospital while growing your business. Become a Next Gen Hockey partner today.",
       partners: [
         {
+          name: 'CutsByMigz',
+          description: 'Official barber of NextGen Sports. Premier styling, grooming and cuts tailored for our athletes.',
+          perk: '1 Free haircut on your 1st visit + 15% discount on all subsequent visits! Player of the Month also receives a free haircut.',
+          category: 'Official Barber',
+          address: 'Delson & Montreal South Shore'
+        },
+        {
           name: 'Subway Delson',
           description: 'Proud local partner of Next Gen Hockey. Fuel up with fresh ingredients before or after your game at the Delson location.',
           perk: 'Exclusive Season Discount Card: Get 20% off your order! Plus, visit with a friend and present a second card to get 6 cookies for only $1.',
@@ -576,6 +583,13 @@ export const translations = {
       ctaTitle: 'Vous voulez rejoindre notre communauté locale ?',
       ctaSubtitle: "Joignez-vous à nous pour soutenir l'Hôpital de Montréal pour enfants tout en développant votre entreprise. Devenez partenaire de Next Gen Hockey dès aujourd'hui.",
       partners: [
+        {
+          name: 'CutsByMigz',
+          description: 'Barbier officiel de NextGen Sports. Service de coiffure et soins de premier ordre pour nos athlètes.',
+          perk: '1 coupe gratuite lors de votre 1ère visite + 15 % de rabais sur toutes les visites suivantes ! Le Joueur du Mois obtient également une coupe gratuite.',
+          category: 'Barbier Officiel',
+          address: 'Delson & Rive-Sud de Montréal'
+        },
         {
           name: 'Subway Delson',
           description: 'Fier partenaire local de Next Gen Hockey. Faites le plein d\'énergie avec des ingrédients frais avant ou après votre match à la succursale de Delson.',
