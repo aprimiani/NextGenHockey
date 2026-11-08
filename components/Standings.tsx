@@ -1886,10 +1886,10 @@ const Standings: React.FC = () => {
                     <tbody className="divide-y divide-gray-700">
                       {/* Alexandre Marchand - Permanent Honorary #1 Star */}
                       <tr 
-                        className="bg-gradient-to-r from-amber-500/10 via-zinc-900 to-sky-950/40 border-b-2 border-amber-500/30 hover:bg-zinc-800/80 transition-colors cursor-pointer"
+                        className="bg-gradient-to-r from-amber-500/15 via-zinc-900 to-sky-950/50 border-b-2 border-amber-500/40 hover:bg-zinc-800/90 transition-all cursor-pointer group"
                         onClick={() => navigate('/memorial/alexandre-marchand')}
                       >
-                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] whitespace-nowrap text-center">
+                        <td className="px-1 md:px-4 py-3 text-xs md:text-[15px] whitespace-nowrap text-center">
                           <div className="flex flex-col items-center justify-center">
                             <div className="flex items-center gap-1 text-amber-400 font-black">
                               <Star size={13} className="fill-amber-400 text-amber-400" />
@@ -1900,54 +1900,41 @@ const Standings: React.FC = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="px-1.5 md:px-4 py-2.5 text-xs sm:text-[13px] md:text-[15px] font-bold text-white whitespace-nowrap text-left">
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            {/* Avatar Initials AM */}
-                            <Link
-                              to="/memorial/alexandre-marchand"
-                              className="relative flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-amber-400/30 via-zinc-800 to-sky-500/30 border border-amber-400/50 flex items-center justify-center text-amber-300 font-black text-xs md:text-sm tracking-wider shadow-sm hover:scale-105 transition-transform"
-                              title="Alexandre Marchand (AM)"
-                            >
-                              <span>AM</span>
-                              <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-400 border border-black flex items-center justify-center">
-                                <Star size={8} className="fill-zinc-950 text-zinc-950" />
+                        <td colSpan={6} className="px-2 md:px-4 py-3 text-xs sm:text-sm md:text-[15px] font-bold text-white text-left">
+                          <div className="flex items-center justify-between gap-3 min-w-0 flex-wrap sm:flex-nowrap">
+                            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                              {/* Avatar Initials AM */}
+                              <div
+                                className="relative flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-gradient-to-br from-amber-400/30 via-zinc-800 to-sky-500/30 border border-amber-400/50 flex items-center justify-center text-amber-300 font-black text-xs md:text-sm tracking-wider shadow-sm group-hover:scale-105 transition-transform"
+                                title="Alexandre Marchand (AM)"
+                              >
+                                <span>AM</span>
+                                <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-400 border border-black flex items-center justify-center">
+                                  <Star size={8} className="fill-zinc-950 text-zinc-950" />
+                                </div>
                               </div>
-                            </Link>
 
-                            <div className="flex flex-col items-start min-w-0">
-                              <div className="flex items-center gap-1.5 flex-wrap">
-                                <Link
-                                  to="/memorial/alexandre-marchand"
-                                  className="text-white hover:text-amber-300 font-black transition-colors outline-none text-left truncate flex items-center gap-1.5"
-                                >
-                                  <span>Alexandre Marchand</span>
-                                </Link>
-                                <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-black uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
-                                  <Star size={9} className="fill-amber-400" />
-                                  <span>{isFr ? 'POUR TOUJOURS UNE ÉTOILE NEXTGEN' : 'FOREVER A NEXTGEN STAR'}</span>
+                              {/* Name & Team */}
+                              <div className="flex items-center gap-2 flex-wrap min-w-0">
+                                <span className="text-white group-hover:text-amber-300 font-black transition-colors text-sm sm:text-base whitespace-nowrap">
+                                  Alexandre Marchand
+                                </span>
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] sm:text-xs font-black uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-400/30 whitespace-nowrap">
+                                  Jets • #67
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 text-[10px] text-gray-400 mt-0.5">
-                                <span className="sm:hidden text-sky-400 font-bold">Jets • #67</span>
-                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="hidden sm:table-cell px-3 md:px-4 py-2.5 text-xs md:text-[14px] text-gray-300 whitespace-nowrap">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[11px] font-black italic px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-400/30">J</span>
-                            <span className="font-semibold text-white">Jets</span>
-                            <span className="text-[10px] font-bold text-sky-400">#67</span>
-                            <span className="text-[10px] text-amber-300/80 font-bold ml-1">{isFr ? '★ Éternel #1' : '★ Forever #1'}</span>
-                          </div>
-                        </td>
-                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">8</td>
-                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">3</td>
-                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center text-gray-300 font-medium whitespace-nowrap">6</td>
-                        <td className="px-1 md:px-4 py-2.5 text-xs md:text-[15px] text-center font-black text-amber-300 bg-amber-500/10 whitespace-nowrap">
-                          <div className="flex items-center justify-center gap-0.5">
-                            <span>9</span>
-                            <Star size={10} className="fill-amber-400 text-amber-400" />
+
+                            {/* Forever A Star Message extending across */}
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-widest bg-gradient-to-r from-amber-400/20 via-amber-400/10 to-sky-400/20 text-amber-300 border border-amber-400/40 shadow-sm">
+                                <Star size={11} className="fill-amber-400 text-amber-400" />
+                                <span>{isFr ? 'POUR TOUJOURS UNE ÉTOILE NEXTGEN' : 'FOREVER A NEXTGEN STAR'}</span>
+                              </span>
+                              <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-gray-400 group-hover:text-amber-200 transition-colors">
+                                <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform text-amber-400" />
+                              </span>
+                            </div>
                           </div>
                         </td>
                       </tr>
