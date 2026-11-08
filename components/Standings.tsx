@@ -1890,14 +1890,9 @@ const Standings: React.FC = () => {
                         onClick={() => navigate('/memorial/alexandre-marchand')}
                       >
                         <td className="px-1 md:px-4 py-3 text-xs md:text-[15px] whitespace-nowrap text-center">
-                          <div className="flex flex-col items-center justify-center">
-                            <div className="flex items-center gap-1 text-amber-400 font-black">
-                              <Star size={13} className="fill-amber-400 text-amber-400" />
-                              <span className="text-sm md:text-base font-extrabold text-white">1</span>
-                            </div>
-                            <span className="text-[7.5px] uppercase tracking-wider text-amber-300/90 font-bold">
-                              {isFr ? 'HONORAIRE' : 'HONORARY'}
-                            </span>
+                          <div className="flex items-center justify-center gap-1 text-amber-400 font-black">
+                            <Star size={13} className="fill-amber-400 text-amber-400" />
+                            <span className="text-sm md:text-base font-extrabold text-white">1</span>
                           </div>
                         </td>
                         <td colSpan={6} className="px-2 md:px-4 py-3 text-xs sm:text-sm md:text-[15px] font-bold text-white text-left">
