@@ -131,49 +131,49 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_timbits",
     "name": "Les Timbits",
-    "gp": 3,
-    "wins": 0,
-    "losses": 3,
-    "ties": 0,
-    "points": 0,
-    "goalsFor": 7,
-    "goalsAgainst": 19,
-    "logoColor": "#ef4444"
-  },
-  {
-    "id": "w_bots",
-    "name": "Bots",
-    "gp": 4,
-    "wins": 3,
-    "losses": 1,
-    "ties": 0,
-    "points": 6,
-    "goalsFor": 26,
-    "goalsAgainst": 14,
-    "logoColor": "#3b82f6"
-  },
-  {
-    "id": "w_kraken",
-    "name": "Kraken Beers",
     "gp": 4,
     "wins": 1,
     "losses": 3,
     "ties": 0,
     "points": 2,
-    "goalsFor": 9,
-    "goalsAgainst": 21,
-    "logoColor": "#111827"
+    "goalsFor": 15,
+    "goalsAgainst": 25,
+    "logoColor": "#ef4444"
   },
   {
-    "id": "w_seamen",
-    "name": "The Seamen",
+    "id": "w_bots",
+    "name": "Bots",
     "gp": 5,
     "wins": 4,
     "losses": 1,
     "ties": 0,
     "points": 8,
-    "goalsFor": 29,
-    "goalsAgainst": 17,
+    "goalsFor": 33,
+    "goalsAgainst": 20,
+    "logoColor": "#3b82f6"
+  },
+  {
+    "id": "w_kraken",
+    "name": "Kraken Beers",
+    "gp": 5,
+    "wins": 1,
+    "losses": 4,
+    "ties": 0,
+    "points": 2,
+    "goalsFor": 15,
+    "goalsAgainst": 29,
+    "logoColor": "#111827"
+  },
+  {
+    "id": "w_seamen",
+    "name": "The Seamen",
+    "gp": 6,
+    "wins": 4,
+    "losses": 2,
+    "ties": 0,
+    "points": 8,
+    "goalsFor": 35,
+    "goalsAgainst": 24,
     "logoColor": "#ebdcb9",
     "secondaryColor": "#15803d"
   }
@@ -1061,7 +1061,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_kraken",
     "awayTeamId": "w_timbits",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 8
   },
   {
     "id": "g_w_20",
@@ -1070,7 +1072,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 6,
+    "awayScore": 7
   },
   {
     "id": "g_w_21",
@@ -1991,7 +1995,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
-        "w_bots"
+        "w_bots",
+        "w_kraken"
       ]
     },
     "gp": 2,
@@ -2332,6 +2337,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "secondaryTeamIds": [
       "1"
     ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_seamen"
+      ]
+    },
     "gp": 1,
     "goals": 0,
     "assists": 1,
@@ -15122,6 +15135,505 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_1778475181683": "12",
       "w_p_vincent_robert": "37",
       "p_1771962941457": "20"
+    }
+  },
+  "g_w_19": {
+    "gameId": "g_w_19",
+    "events": [
+      {
+        "id": "e_g_w_19_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "09:00",
+        "teamId": "w_kraken",
+        "player": "p3",
+        "assist": "w_p_jacob_lacombe",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "00:15",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "w_p_etienne_routhier",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "00:55",
+        "teamId": "w_timbits",
+        "player": "w_p_etienne_routhier",
+        "assist": "w_p_vincent_robert",
+        "assist2": "p_1778475181683",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "05:25",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "w_p_vincent_robert",
+        "assist2": "w_p_jacob_fournier",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "08:55",
+        "teamId": "w_timbits",
+        "player": "w_p_jacob_fournier",
+        "assist": "w_p_vincent_robert",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "10:50",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_19_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "02:25",
+        "teamId": "w_kraken",
+        "player": "p_joshua_sylvain",
+        "assist": "w_p_thomas_desveaux",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "05:28",
+        "teamId": "w_timbits",
+        "player": "w_p_jacob_fournier",
+        "assist": "w_p_raphael_rivet",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_p1",
+        "type": "penalty",
+        "period": 3,
+        "time": "07:15",
+        "teamId": "w_timbits",
+        "player": "w_p_antoine_perreault",
+        "details": "roughing",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_19_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "10:40",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_jacob_lacombe",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "12:15",
+        "teamId": "w_kraken",
+        "player": "w_p_arjun_srivastava",
+        "assist": "p_1778425131558",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "13:00",
+        "teamId": "w_kraken",
+        "player": "p3",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_19_p2",
+        "type": "penalty",
+        "period": 3,
+        "time": "13:35",
+        "teamId": "w_timbits",
+        "player": "w_p_raphael_rivet",
+        "details": "tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_19_g12",
+        "type": "goal",
+        "period": 3,
+        "time": "14:20",
+        "teamId": "w_kraken",
+        "player": "w_p_thomas_desveaux",
+        "assist": "w_p_jacob_lacombe",
+        "assist2": "w_p_ben_siegl",
+        "details": "Power Play"
+      },
+      {
+        "id": "e_g_w_19_g13",
+        "type": "goal",
+        "period": 3,
+        "time": "15:26",
+        "teamId": "w_timbits",
+        "player": "w_p_raphael_rivet",
+        "assist": "p_1767082323831",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_19_g14",
+        "type": "goal",
+        "period": 3,
+        "time": "15:56",
+        "teamId": "w_timbits",
+        "player": "p_1778475181683",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 34,
+        "goalsAgainst": 8,
+        "saves": 26
+      },
+      "awayGoalie": {
+        "playerId": "",
+        "shotsFaced": 29,
+        "goalsAgainst": 6,
+        "saves": 23
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_thomas_desveaux",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "p_1778425131558"
+      ],
+      "awayPlayers": [
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_jacob_fournier",
+        "w_p_benjamin_sasseville",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1767082323831",
+        "p_1778475181683",
+        "w_p_vincent_robert"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "w_p_evan_getty",
+        "w_p_giustino_porco",
+        "p4",
+        "p_nicholas_giacalone_178004"
+      ],
+      "awayPlayers": [
+        "goalie_1767082104234"
+      ]
+    },
+    "shots": {
+      "home": 29,
+      "away": 34
+    },
+    "referees": [
+      "Nathan Auclair",
+      "Mathis Maurice"
+    ],
+    "playerNumbers": {
+      "goalie_ephram_labonville_177914": "0",
+      "p3": "43",
+      "w_p_ben_siegl": "18",
+      "p_joshua_sylvain": "4",
+      "w_p_thomas_burton": "2",
+      "w_p_thomas_desveaux": "17",
+      "w_p_jacob_lacombe": "19",
+      "w_p_arjun_srivastava": "29",
+      "p_1778425131558": "88",
+      "w_p_etienne_routhier": "44",
+      "w_p_antoine_perreault": "43",
+      "w_p_jacob_fournier": "66",
+      "w_p_benjamin_sasseville": "13",
+      "w_p_jean_christophe_malo_pepin": "67",
+      "w_p_francois_fontaine": "6",
+      "w_p_antoine_bertrand": "2",
+      "w_p_raphael_rivet": "55",
+      "p_1767082323831": "4",
+      "p_1778475181683": "3",
+      "w_p_vincent_robert": "37"
+    }
+  },
+  "g_w_20": {
+    "gameId": "g_w_20",
+    "events": [
+      {
+        "id": "e_g_w_20_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "02:30",
+        "teamId": "w_seamen",
+        "player": "p_ethan_black_sub",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_20_p1",
+        "type": "penalty",
+        "period": 1,
+        "time": "05:00",
+        "teamId": "w_seamen",
+        "player": "w_p_devin_menary",
+        "details": "tripping",
+        "penaltyMinutes": 2
+      },
+      {
+        "id": "e_g_w_20_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "07:45",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "p_ethan_black_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "08:25",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "w_p_william_goyens",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g4",
+        "type": "goal",
+        "period": 1,
+        "time": "13:20",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p2",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g5",
+        "type": "goal",
+        "period": 1,
+        "time": "14:18",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p2",
+        "assist2": "p_1775582149892",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "06:25",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "p_leighton_geraghty_sub_178009",
+        "assist2": "",
+        "details": "Hat Trick"
+      },
+      {
+        "id": "e_g_w_20_g7",
+        "type": "goal",
+        "period": 2,
+        "time": "10:05",
+        "teamId": "w_bots",
+        "player": "p4",
+        "assist": "p2",
+        "assist2": "p_1767082317648",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g8",
+        "type": "goal",
+        "period": 2,
+        "time": "15:59",
+        "teamId": "w_bots",
+        "player": "p_1778425131558",
+        "assist": "p1",
+        "assist2": "p_1767082302464",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "03:08",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p2",
+        "assist2": "p4",
+        "details": "Hat Trick"
+      },
+      {
+        "id": "e_g_w_20_g10",
+        "type": "goal",
+        "period": 3,
+        "time": "07:05",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "p_1778425131558",
+        "assist2": "p3",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g11",
+        "type": "goal",
+        "period": 3,
+        "time": "11:35",
+        "teamId": "w_bots",
+        "player": "p4",
+        "assist": "p1",
+        "assist2": "p2",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g12",
+        "type": "goal",
+        "period": 3,
+        "time": "12:45",
+        "teamId": "w_seamen",
+        "player": "w_p_olivier_sylvain",
+        "assist": "p_ethan_black_sub",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_20_g13",
+        "type": "goal",
+        "period": 3,
+        "time": "15:43",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "w_p_noah_bonspille",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 29,
+        "goalsAgainst": 7,
+        "saves": 22
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 36,
+        "goalsAgainst": 6,
+        "saves": 30
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_devin_menary",
+        "w_p_owen_dunn",
+        "p_leighton_geraghty_sub_178009"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p3",
+        "p4",
+        "p_1767082302464",
+        "p2",
+        "p_1775580097968",
+        "p_1767082317648",
+        "p_1775582149892",
+        "p1",
+        "p_1778425131558"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "w_p_alexandre_derome"
+      ],
+      "awayPlayers": [
+        "p_1775579857302"
+      ]
+    },
+    "shots": {
+      "home": 36,
+      "away": 29
+    },
+    "referees": [
+      "Nathan Auclair"
+    ],
+    "playerNumbers": {
+      "goalie_adam_rizk": "30",
+      "p_dylan_molinaro_sub": "7",
+      "p_ethan_black_sub": "19",
+      "w_p_brendan_walsh": "18",
+      "w_p_noah_goyens": "20",
+      "w_p_william_goyens": "14",
+      "w_p_noah_bonspille": "5",
+      "w_p_olivier_sylvain": "8",
+      "w_p_devin_menary": "13",
+      "w_p_owen_dunn": "11",
+      "p_leighton_geraghty_sub_178009": "29",
+      "goalie_1775582169664": "0",
+      "p_1767082310061": "55",
+      "p3": "43",
+      "p4": "13",
+      "p_1767082302464": "3",
+      "p2": "73",
+      "p_1775580097968": "40",
+      "p_1767082317648": "88",
+      "p_1775582149892": "19",
+      "p1": "94",
+      "p_1778425131558": "76"
     }
   }
 };
