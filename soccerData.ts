@@ -56,6 +56,24 @@ export interface SoccerRosterPlayer {
   lastName: string;
   name: string;
   teamId: string;
+  isGoalie?: boolean;
+  isSub?: boolean;
+}
+
+export interface SoccerGoalieStat {
+  id: string;
+  name: string;
+  teamName: string;
+  teamId: string;
+  teamIds: string[];
+  teamNames: string[];
+  gp: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  goalsAgainst: number;
+  gaa: number;
+  cleanSheets: number;
 }
 
 export interface SoccerPlayerStat {
@@ -155,10 +173,10 @@ export const SOCCER_TEAMS: SoccerTeam[] = [
 ];
 
 export const SOCCER_STANDINGS: SoccerTeamStanding[] = [
-  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 4, wins: 3, draws: 0, losses: 1, gf: 25, ga: 15, gd: 10, pts: 9 },
-  { teamId: 's_faahh_united', teamName: 'Faahh United', gp: 4, wins: 2, draws: 0, losses: 2, gf: 18, ga: 13, gd: 5, pts: 6 },
-  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 4, wins: 2, draws: 0, losses: 2, gf: 12, ga: 18, gd: -6, pts: 6 },
-  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 4, wins: 1, draws: 0, losses: 3, gf: 10, ga: 19, gd: -9, pts: 3 }
+  { teamId: 's_team_4', teamName: 'Mumford & Sons', gp: 5, wins: 3, draws: 1, losses: 1, gf: 28, ga: 18, gd: 10, pts: 10 },
+  { teamId: 's_blackjacks', teamName: 'BlackJacks', gp: 5, wins: 3, draws: 0, losses: 2, gf: 20, ga: 20, gd: 0, pts: 9 },
+  { teamId: 's_faahh_united', teamName: 'Faahh United', gp: 5, wins: 2, draws: 1, losses: 2, gf: 21, ga: 16, gd: 5, pts: 7 },
+  { teamId: 's_turf_terrors', teamName: 'Turf Terrors', gp: 5, wins: 1, draws: 0, losses: 4, gf: 12, ga: 27, gd: -15, pts: 3 }
 ];
 
 export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
@@ -167,22 +185,22 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'fu_2', firstName: 'Gabriel', lastName: 'Savard', name: 'Gabriel Savard', teamId: 's_faahh_united' },
     { id: 'fu_3', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_faahh_united' },
     { id: 'fu_4', firstName: 'Benjamin', lastName: 'St-Cyr', name: 'Benjamin St-Cyr', teamId: 's_faahh_united' },
-    { id: 'fu_5', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_faahh_united' },
+    { id: 'fu_5', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_faahh_united', isGoalie: true },
     { id: 'fu_6', firstName: 'Simon', lastName: 'Yelle', name: 'Simon Yelle', teamId: 's_faahh_united' },
     { id: 'fu_7', firstName: 'Meagan', lastName: 'St-Cyr', name: 'Meagan St-Cyr', teamId: 's_faahh_united' },
     { id: 'fu_8', firstName: 'Thomas', lastName: 'Yelle', name: 'Thomas Yelle', teamId: 's_faahh_united' },
     { id: 'fu_9', firstName: 'Simon', lastName: 'Berthiaume', name: 'Simon Berthiaume', teamId: 's_faahh_united' },
     { id: 'fu_10', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_faahh_united' },
     { id: 'fu_11', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_faahh_united' },
-    { id: 'fu_12', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_faahh_united' },
-    { id: 'fu_sub_1', firstName: 'Guillaume', lastName: 'St-Pierre', name: 'Guillaume St-Pierre', teamId: 's_faahh_united' },
-    { id: 'fu_sub_2', firstName: 'Patrick', lastName: 'Savard', name: 'Patrick Savard', teamId: 's_faahh_united' },
-    { id: 'fu_sub_3', firstName: 'Lucas', lastName: 'Savard', name: 'Lucas Savard', teamId: 's_faahh_united' },
-    { id: 'fu_sub_4', firstName: 'Santiago', lastName: 'Ballan', name: 'Santiago Ballan', teamId: 's_faahh_united' },
-    { id: 'fu_sub_5', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_faahh_united' },
+    { id: 'fu_12', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_faahh_united', isSub: true },
+    { id: 'fu_sub_1', firstName: 'Guillaume', lastName: 'St-Pierre', name: 'Guillaume St-Pierre', teamId: 's_faahh_united', isSub: true },
+    { id: 'fu_sub_2', firstName: 'Patrick', lastName: 'Savard', name: 'Patrick Savard', teamId: 's_faahh_united', isSub: true },
+    { id: 'fu_sub_3', firstName: 'Lucas', lastName: 'Savard', name: 'Lucas Savard', teamId: 's_faahh_united', isSub: true },
+    { id: 'fu_sub_4', firstName: 'Santiago', lastName: 'Ballan', name: 'Santiago Ballan', teamId: 's_faahh_united', isSub: true },
+    { id: 'fu_sub_5', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_faahh_united', isSub: true },
   ],
   s_blackjacks: [
-    { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks' },
+    { id: 'bj_1', firstName: 'Nicolas', lastName: 'Primiani', name: 'Nicolas Primiani', teamId: 's_blackjacks', isGoalie: true },
     { id: 'bj_2', firstName: 'Moustapha', lastName: 'Amar', name: 'Moustapha Amar', teamId: 's_blackjacks' },
     { id: 'bj_3', firstName: 'Nathan', lastName: 'Essono', name: 'Nathan Essono', teamId: 's_blackjacks' },
     { id: 'bj_4', firstName: 'Amelia', lastName: 'Benabid', name: 'Amelia Benabid', teamId: 's_blackjacks' },
@@ -190,18 +208,17 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'bj_6', firstName: 'Alessandro', lastName: 'Primiani', name: 'Alessandro Primiani', teamId: 's_blackjacks' },
     { id: 'bj_7', firstName: 'Meagan', lastName: 'Boutler', name: 'Meagan Boutler', teamId: 's_blackjacks' },
     { id: 'bj_8', firstName: 'Brandon', lastName: 'De Sousa', name: 'Brandon De Sousa', teamId: 's_blackjacks' },
-    { id: 'bj_9', firstName: 'Charlotte', lastName: 'Soucy', name: 'Charlotte Soucy', teamId: 's_blackjacks' },
     { id: 'bj_10', firstName: 'Brenden', lastName: 'Thomas-Bynoe', name: 'Brenden Thomas-Bynoe', teamId: 's_blackjacks' },
-    { id: 'bj_sub_1', firstName: 'Alexander', lastName: 'Lowden', name: 'Alexander Lowden', teamId: 's_blackjacks' },
-    { id: 'bj_sub_2', firstName: 'Emma', lastName: 'Fernandes', name: 'Emma Fernandes', teamId: 's_blackjacks' },
     { id: 'bj_11', firstName: 'Miguel', lastName: 'Lelievre', name: 'Miguel Lelievre', teamId: 's_blackjacks' },
     { id: 'bj_12', firstName: 'Jacob', lastName: 'Deslauriers', name: 'Jacob Deslauriers', teamId: 's_blackjacks' },
-    { id: 'bj_sub_3', firstName: 'Jack', lastName: 'Barriault', name: 'Jack Barriault', teamId: 's_blackjacks' },
     { id: 'bj_sub_4', firstName: 'Jassir', lastName: '', name: 'Jassir', teamId: 's_blackjacks' },
-    { id: 'bj_sub_5', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_blackjacks' },
+    { id: 'bj_sub_1', firstName: 'Alexander', lastName: 'Lowden', name: 'Alexander Lowden', teamId: 's_blackjacks', isSub: true },
+    { id: 'bj_sub_2', firstName: 'Emma', lastName: 'Fernandes', name: 'Emma Fernandes', teamId: 's_blackjacks', isSub: true },
+    { id: 'bj_sub_3', firstName: 'Jack', lastName: 'Barriault', name: 'Jack Barriault', teamId: 's_blackjacks', isSub: true },
+    { id: 'bj_sub_5', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_blackjacks', isSub: true },
   ],
   s_turf_terrors: [
-    { id: 'tt_1', firstName: 'Evan', lastName: 'Sinclair', name: 'Evan Sinclair', teamId: 's_turf_terrors' },
+    { id: 'tt_1', firstName: 'Evan', lastName: 'Sinclair', name: 'Evan Sinclair', teamId: 's_turf_terrors', isGoalie: true },
     { id: 'tt_2', firstName: 'Zachary', lastName: 'Bailey', name: 'Zachary Bailey', teamId: 's_turf_terrors' },
     { id: 'tt_3', firstName: 'Joshua', lastName: 'Bubis', name: 'Joshua Bubis', teamId: 's_turf_terrors' },
     { id: 'tt_4', firstName: 'Benjamin', lastName: 'Morton', name: 'Benjamin Morton', teamId: 's_turf_terrors' },
@@ -213,29 +230,27 @@ export const SOCCER_ROSTERS: Record<string, SoccerRosterPlayer[]> = {
     { id: 'tt_10', firstName: 'Ciera', lastName: 'MacDavid', name: 'Ciera MacDavid', teamId: 's_turf_terrors' },
     { id: 'tt_11', firstName: 'Shawn', lastName: 'Chiniah', name: 'Shawn Chiniah', teamId: 's_turf_terrors' },
     { id: 'tt_12', firstName: 'Lydia', lastName: 'Côté', name: 'Lydia Côté', teamId: 's_turf_terrors' },
-    { id: 'tt_sub_1', firstName: 'Melanie', lastName: 'Drapeau', name: 'Melanie Drapeau', teamId: 's_turf_terrors' },
-    { id: 'tt_sub_2', firstName: 'Ilya', lastName: 'Naumkin', name: 'Ilya Naumkin', teamId: 's_turf_terrors' },
-    { id: 'tt_sub_3', firstName: 'Luna', lastName: 'Gendron', name: 'Luna Gendron', teamId: 's_turf_terrors' },
-    { id: 'tt_sub_4', firstName: 'Antoine', lastName: 'Cyr', name: 'Antoine Cyr', teamId: 's_turf_terrors' },
-    { id: 'tt_sub_5', firstName: 'Alexis', lastName: 'Rondeau', name: 'Alexis Rondeau', teamId: 's_turf_terrors' },
+    { id: 'tt_sub_1', firstName: 'Melanie', lastName: 'Drapeau', name: 'Melanie Drapeau', teamId: 's_turf_terrors', isSub: true },
+    { id: 'tt_sub_2', firstName: 'Ilya', lastName: 'Naumkin', name: 'Ilya Naumkin', teamId: 's_turf_terrors', isSub: true },
+    { id: 'tt_sub_3', firstName: 'Luna', lastName: 'Gendron', name: 'Luna Gendron', teamId: 's_turf_terrors', isSub: true },
+    { id: 'tt_sub_4', firstName: 'Antoine', lastName: 'Cyr', name: 'Antoine Cyr', teamId: 's_turf_terrors', isSub: true },
+    { id: 'tt_sub_5', firstName: 'Alexis', lastName: 'Rondeau', name: 'Alexis Rondeau', teamId: 's_turf_terrors', isSub: true },
   ],
   s_team_4: [
     { id: 't4_1', firstName: 'Alexandre', lastName: 'Stefanson', name: 'Alexandre Stefanson', teamId: 's_team_4' },
     { id: 't4_2', firstName: 'Calvin', lastName: 'Watt', name: 'Calvin Watt', teamId: 's_team_4' },
-    { id: 't4_3', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_team_4' },
+    { id: 't4_3', firstName: 'Todd', lastName: 'Mumford', name: 'Todd Mumford', teamId: 's_team_4', isGoalie: true },
     { id: 't4_4', firstName: 'Simon', lastName: 'Yelle', name: 'Simon Yelle', teamId: 's_team_4' },
     { id: 't4_5', firstName: 'Michael-Joseph', lastName: 'Primiani', name: 'Michael-Joseph Primiani', teamId: 's_team_4' },
     { id: 't4_6', firstName: 'Alexis', lastName: 'Watt', name: 'Alexis Watt', teamId: 's_team_4' },
     { id: 't4_7', firstName: 'Pierre-Luc', lastName: 'Tremblay', name: 'Pierre-Luc Tremblay', teamId: 's_team_4' },
-    { id: 't4_8', firstName: 'Gabriel', lastName: 'Savard', name: 'Gabriel Savard', teamId: 's_team_4' },
-    { id: 't4_9', firstName: 'Éliane', lastName: 'Martel', name: 'Éliane Martel', teamId: 's_team_4' },
     { id: 't4_10', firstName: 'Ismaele', lastName: 'Rusconi', name: 'Ismaele Rusconi', teamId: 's_team_4' },
-    { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman-Brooks', name: 'Nolan Snowman-Brooks', teamId: 's_team_4' },
     { id: 't4_12', firstName: 'Brandon', lastName: 'Garcia', name: 'Brandon Garcia', teamId: 's_team_4' },
-    { id: 't4_sub_1', firstName: 'Matthew', lastName: 'Vasquez', name: 'Matthew Vasquez', teamId: 's_team_4' },
-    { id: 't4_sub_2', firstName: 'Sean', lastName: 'Nicolie', name: 'Sean Nicolie', teamId: 's_team_4' },
     { id: 't4_13', firstName: 'Samuel', lastName: 'Courville', name: 'Samuel Courville', teamId: 's_team_4' },
-    { id: 't4_sub_3', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_team_4' },
+    { id: 't4_11', firstName: 'Nolan', lastName: 'Snowman-Brooks', name: 'Nolan Snowman-Brooks', teamId: 's_team_4', isSub: true },
+    { id: 't4_sub_1', firstName: 'Matthew', lastName: 'Vasquez', name: 'Matthew Vasquez', teamId: 's_team_4', isSub: true },
+    { id: 't4_sub_2', firstName: 'Sean', lastName: 'Nicolie', name: 'Sean Nicolie', teamId: 's_team_4', isSub: true },
+    { id: 't4_sub_3', firstName: 'Jonathan', lastName: 'Primiani', name: 'Jonathan Primiani', teamId: 's_team_4', isSub: true },
   ]
 };
 
@@ -243,60 +258,59 @@ export const ALL_SOCCER_PLAYERS: SoccerRosterPlayer[] = Object.values(SOCCER_ROS
 
 const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists: number; yellowCards?: number; redCards?: number }> = {
   // Goals leaders & contributors
-  'alexandre stefanson': { gp: 4, goals: 9, assists: 0 },
-  'michael-joseph primiani': { gp: 6, goals: 4, assists: 2 },
-  'jacob deslauriers': { gp: 2, goals: 4, assists: 0 },
+  'alexandre stefanson': { gp: 5, goals: 11, assists: 0 },
+  'jacob deslauriers': { gp: 3, goals: 6, assists: 1 },
+  'moustapha amar': { gp: 5, goals: 3, assists: 4 },
+  'michael-joseph primiani': { gp: 7, goals: 4, assists: 2 },
+  'alessandro primiani': { gp: 9, goals: 4, assists: 2 },
   'matthew vasquez': { gp: 2, goals: 5, assists: 0 },
   'ismaele rusconi': { gp: 2, goals: 5, assists: 0 },
-  'nolan snowman-brooks': { gp: 1, goals: 4, assists: 0 },
-  'jonathan primiani': { gp: 3, goals: 3, assists: 0 },
-  'benjamin morton': { gp: 3, goals: 3, assists: 0 },
-  'gabriel savard': { gp: 5, goals: 3, assists: 0 },
-  'alessandro primiani': { gp: 7, goals: 3, assists: 1 },
-  'simon yelle': { gp: 7, goals: 2, assists: 0 },
-  'timothy gilmore': { gp: 4, goals: 2, assists: 1 },
-  'jean luc feliciano': { gp: 4, goals: 2, assists: 0 },
-  'antoine cyr': { gp: 1, goals: 2, assists: 0 },
-  'simon berthiaume': { gp: 2, goals: 2, assists: 0 },
+  'nolan snowman-brooks': { gp: 2, goals: 5, assists: 0 },
+  'gabriel savard': { gp: 6, goals: 4, assists: 0 },
+  'benjamin morton': { gp: 4, goals: 4, assists: 0 },
+  'miguel lelievre': { gp: 2, goals: 2, assists: 2 },
+  'ilya naumkin': { gp: 3, goals: 2, assists: 2 },
   'meagan boutler': { gp: 5, goals: 2, assists: 2 },
+  'jonathan primiani': { gp: 5, goals: 3, assists: 0 },
+  'simon berthiaume': { gp: 3, goals: 3, assists: 0 },
+  'timothy gilmore': { gp: 5, goals: 2, assists: 1 },
+  'brenden thomas-bynoe': { gp: 5, goals: 2, assists: 1 },
+  'simon yelle': { gp: 9, goals: 2, assists: 0 },
+  'jean luc feliciano': { gp: 5, goals: 2, assists: 0 },
+  'antoine cyr': { gp: 1, goals: 2, assists: 0 },
   'santiago ballan': { gp: 1, goals: 1, assists: 0 },
-  'samuel courville': { gp: 2, goals: 1, assists: 0 },
-  'moustapha amar': { gp: 4, goals: 1, assists: 2 },
-  'ilya naumkin': { gp: 2, goals: 1, assists: 1 },
-  'calvin watt': { gp: 3, goals: 1, assists: 0 },
-  'brandon garcia': { gp: 3, goals: 1, assists: 0 },
-  'brandon de sousa': { gp: 4, goals: 1, assists: 0 },
+  'samuel courville': { gp: 3, goals: 1, assists: 0 },
+  'calvin watt': { gp: 4, goals: 1, assists: 0 },
+  'brandon garcia': { gp: 4, goals: 1, assists: 0 },
+  'brandon de sousa': { gp: 5, goals: 1, assists: 0 },
   'jack barriault': { gp: 1, goals: 1, assists: 0 },
   'lucas savard': { gp: 1, goals: 1, assists: 0 },
   'guillaume st-pierre': { gp: 2, goals: 1, assists: 0 },
-  'brenden thomas-bynoe': { gp: 4, goals: 1, assists: 0 },
   'nathan essono': { gp: 3, goals: 1, assists: 0 },
-  'shawn chiniah': { gp: 3, goals: 0, assists: 1 },
-  'nicolas primiani': { gp: 2, goals: 0, assists: 1 },
+  'amelia benabid': { gp: 5, goals: 1, assists: 0 },
+  'amelia banabid': { gp: 5, goals: 1, assists: 0 },
+  'shawn chiniah': { gp: 4, goals: 0, assists: 1 },
+  'nicolas primiani': { gp: 3, goals: 0, assists: 1 },
+  'evan sinclair': { gp: 4, goals: 0, assists: 1 },
   // Players with 0 points
-  'éliane martel': { gp: 5, goals: 0, assists: 0 },
-  'todd mumford': { gp: 7, goals: 0, assists: 0 },
-  'benjamin st-cyr': { gp: 4, goals: 0, assists: 0 },
-  'thomas yelle': { gp: 3, goals: 0, assists: 0 },
-  'joshua bubis': { gp: 4, goals: 0, assists: 0, yellowCards: 1 },
-  'phenix mangerpan': { gp: 4, goals: 0, assists: 0 },
-  'tristan snowden': { gp: 4, goals: 0, assists: 0 },
-  'ciera macdavid': { gp: 4, goals: 0, assists: 0 },
-  'evan sinclair': { gp: 3, goals: 0, assists: 0 },
-  'lydia côté': { gp: 3, goals: 0, assists: 0 },
-  'zachary bailey': { gp: 2, goals: 0, assists: 0 },
-  'abigael o\'rourke': { gp: 2, goals: 0, assists: 0 },
+  'todd mumford': { gp: 9, goals: 0, assists: 0 },
+  'éliane martel': { gp: 6, goals: 0, assists: 0 },
+  'benjamin st-cyr': { gp: 5, goals: 0, assists: 0 },
+  'thomas yelle': { gp: 5, goals: 0, assists: 0 },
+  'joshua bubis': { gp: 5, goals: 0, assists: 0, yellowCards: 1 },
+  'phenix mangerpan': { gp: 5, goals: 0, assists: 0 },
+  'tristan snowden': { gp: 5, goals: 0, assists: 0 },
+  'ciera macdavid': { gp: 5, goals: 0, assists: 0 },
+  'lydia côté': { gp: 4, goals: 0, assists: 0 },
+  'zachary bailey': { gp: 3, goals: 0, assists: 0 },
+  'abigael o\'rourke': { gp: 3, goals: 0, assists: 0 },
   'alexis rondeau': { gp: 1, goals: 0, assists: 0 },
-  'amelia benabid': { gp: 4, goals: 0, assists: 0 },
-  'amelia banabid': { gp: 4, goals: 0, assists: 0 },
-  'meagan st-cyr': { gp: 2, goals: 0, assists: 0 },
-  'alexis watt': { gp: 3, goals: 0, assists: 0 },
-  'pierre-luc tremblay': { gp: 3, goals: 0, assists: 0 },
+  'meagan st-cyr': { gp: 3, goals: 0, assists: 0 },
+  'alexis watt': { gp: 4, goals: 0, assists: 0 },
+  'pierre-luc tremblay': { gp: 4, goals: 0, assists: 0 },
   'patrick savard': { gp: 1, goals: 0, assists: 0 },
-  'miguel lelievre': { gp: 1, goals: 0, assists: 0 },
   'jassir': { gp: 1, goals: 0, assists: 0 },
   'émy larivière': { gp: 3, goals: 0, assists: 0 },
-  'charlotte soucy': { gp: 2, goals: 0, assists: 0 },
   'sean nicolie': { gp: 1, goals: 0, assists: 0 },
   'melanie drapeau': { gp: 1, goals: 0, assists: 0 },
   'luna gendron': { gp: 1, goals: 0, assists: 0 },
@@ -305,48 +319,62 @@ const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists
 };
 
 export const SOCCER_PLAYER_STATS: SoccerPlayerStat[] = (() => {
-  const map = new Map<string, SoccerPlayerStat>();
+  const grouped = new Map<string, { fullTime: SoccerRosterPlayer[]; subs: SoccerRosterPlayer[] }>();
 
   ALL_SOCCER_PLAYERS.forEach(p => {
     const key = p.name.trim().toLowerCase();
-    const team = SOCCER_TEAMS.find(t => t.id === p.teamId);
-    const teamName = team?.name || '';
-    const stats = RECORDED_PLAYER_STATS[key] || { gp: 0, goals: 0, assists: 0 };
-
-    if (!map.has(key)) {
-      map.set(key, {
-        id: p.id,
-        name: p.name,
-        teamId: p.teamId,
-        teamName: teamName,
-        teamIds: [p.teamId],
-        teamNames: [teamName],
-        gp: stats.gp,
-        goals: stats.goals,
-        assists: stats.assists,
-        points: stats.goals + stats.assists,
-        yellowCards: stats.yellowCards || 0,
-        redCards: stats.redCards || 0
-      });
+    if (!grouped.has(key)) {
+      grouped.set(key, { fullTime: [], subs: [] });
+    }
+    const bucket = grouped.get(key)!;
+    if (p.isSub) {
+      bucket.subs.push(p);
     } else {
-      const existing = map.get(key)!;
-      if (!existing.teamIds) {
-        existing.teamIds = [existing.teamId];
-        existing.teamNames = [existing.teamName];
-      }
-      if (!existing.teamIds.includes(p.teamId)) {
-        existing.teamIds.push(p.teamId);
-        if (teamName && !existing.teamNames?.includes(teamName)) {
-          existing.teamNames?.push(teamName);
-        }
-        existing.secondaryTeamId = p.teamId;
-        existing.secondaryTeamName = teamName;
-        existing.teamName = existing.teamNames?.join(' / ') || `${existing.teamName} / ${teamName}`;
-      }
+      bucket.fullTime.push(p);
     }
   });
 
-  return Array.from(map.values());
+  const result: SoccerPlayerStat[] = [];
+
+  grouped.forEach(({ fullTime, subs }, key) => {
+    // Prefer full-time teams if the player belongs to any; only use sub teams if player is exclusively a sub
+    const primaryEntries = fullTime.length > 0 ? fullTime : subs;
+    const first = primaryEntries[0];
+    if (!first) return;
+
+    const stats = RECORDED_PLAYER_STATS[key] || { gp: 0, goals: 0, assists: 0 };
+    const teamIds: string[] = [];
+    const teamNames: string[] = [];
+
+    primaryEntries.forEach(entry => {
+      if (!teamIds.includes(entry.teamId)) {
+        teamIds.push(entry.teamId);
+        const tName = SOCCER_TEAMS.find(t => t.id === entry.teamId)?.name || '';
+        if (tName && !teamNames.includes(tName)) {
+          teamNames.push(tName);
+        }
+      }
+    });
+
+    result.push({
+      id: first.id,
+      name: first.name,
+      teamId: teamIds[0] || first.teamId,
+      teamName: teamNames.join(' / '),
+      teamIds,
+      teamNames,
+      secondaryTeamId: teamIds[1],
+      secondaryTeamName: teamNames[1],
+      gp: stats.gp,
+      goals: stats.goals,
+      assists: stats.assists,
+      points: stats.goals + stats.assists,
+      yellowCards: stats.yellowCards || 0,
+      redCards: stats.redCards || 0
+    });
+  });
+
+  return result;
 })();
 
 export const SOCCER_SCHEDULE: SoccerMatch[] = [
@@ -360,8 +388,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Faah United',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 4,
     awayScore: 5,
@@ -409,8 +437,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 0,
     awayScore: 3,
@@ -460,8 +488,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'Faah United',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 7,
     awayScore: 2,
@@ -498,7 +526,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
         { number: 11, name: 'Ismaele Rusconi', isSub: true },
       ],
       awayRoster: [
-        { number: 1, name: 'Evan Sinclair' },
+        { number: 1, name: 'Evan Sinclair', isGoalie: true },
         { number: 2, name: 'Zachary Bailey' },
         { number: 3, name: 'Joshua Bubis' },
         { number: 4, name: 'Benjamin Morton' },
@@ -522,8 +550,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 3,
     awayScore: 12,
@@ -551,7 +579,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
       ],
       cards: [],
       homeRoster: [
-        { number: 1, name: 'Nicolas Primiani' },
+        { number: 1, name: 'Nicolas Primiani', isGoalie: true },
         { number: 2, name: 'Moustapha Amar' },
         { number: 3, name: 'Nathan Essono' },
         { number: 4, name: 'Amelia Benabid' },
@@ -565,7 +593,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
       awayRoster: [
         { number: 37, name: 'Alexandre Stefanson' },
         { number: 2, name: 'Calvin Watt' },
-        { number: 3, name: 'Todd Mumford' },
+        { number: 3, name: 'Todd Mumford', isGoalie: true },
         { number: 4, name: 'Simon Yelle' },
         { number: 13, name: 'Michael-Joseph Primiani' },
         { number: 6, name: 'Alexis Watt' },
@@ -587,8 +615,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_blackjacks',
     homeTeamName: 'Faahh United',
     awayTeamName: 'BlackJacks',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 1,
     awayScore: 5,
@@ -644,8 +672,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Turf Terrors',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 4,
     awayScore: 6,
@@ -668,7 +696,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
       ],
       cards: [],
       homeRoster: [
-        { number: 13, name: 'Evan Sinclair' },
+        { number: 13, name: 'Evan Sinclair', isGoalie: true },
         { number: 3, name: 'Joshua Bubis' },
         { number: 4, name: 'Benjamin Morton' },
         { number: 2, name: 'Timothy Gilmore' },
@@ -705,8 +733,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'Faahh United',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 6,
     awayScore: 1,
@@ -762,8 +790,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'completed',
     homeScore: 4,
     awayScore: 2,
@@ -818,11 +846,51 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Faahh United',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
-    status: 'upcoming',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
+    status: 'completed',
+    homeScore: 3,
+    awayScore: 3,
     division: '7v7 Open',
-    stage: 'Regular Season'
+    stage: 'Regular Season',
+    recap: {
+      summaryEn: 'Faahh United and Mumford & Sons battled to a thrilling 3–3 draw in Week 5. Gabriel Savard, Simon Berthiaume, and Alessandro Primiani scored for Faahh United, while Alexandre Stefanson struck twice alongside a goal from Nolan Snowman-Brooks for Mumford & Sons.',
+      summaryFr: 'Faahh United et Mumford & Sons se sont livré un duel serré qui s\'est soldé par un match nul de 3–3 lors de la Semaine 5. Gabriel Savard, Simon Berthiaume et Alessandro Primiani ont marqué pour Faahh United, tandis qu\'Alexandre Stefanson a inscrit un doublé accompagné d\'un but de Nolan Snowman-Brooks pour Mumford & Sons.',
+      goals: [
+        { teamId: 's_faahh_united', scorer: 'Gabriel Savard', number: 8 },
+        { teamId: 's_faahh_united', scorer: 'Simon Berthiaume', number: 61 },
+        { teamId: 's_faahh_united', scorer: 'Alessandro Primiani', number: 94 },
+        { teamId: 's_team_4', scorer: 'Nolan Snowman-Brooks', number: 8 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 10 },
+        { teamId: 's_team_4', scorer: 'Alexandre Stefanson', number: 10 },
+      ],
+      cards: [],
+      homeRoster: [
+        { name: 'Todd Mumford', isGoalie: true },
+        { number: 8, name: 'Gabriel Savard' },
+        { number: 21, name: 'Éliane Martel' },
+        { number: 66, name: 'Benjamin St-Cyr' },
+        { number: 17, name: 'Simon Yelle' },
+        { number: 15, name: 'Meagan St-Cyr' },
+        { number: 26, name: 'Thomas Yelle' },
+        { number: 61, name: 'Simon Berthiaume' },
+        { number: 94, name: 'Alessandro Primiani' },
+      ],
+      awayRoster: [
+        { number: 73, name: 'Todd Mumford', isGoalie: true },
+        { number: 1, name: 'Calvin Watt' },
+        { number: 10, name: 'Alexandre Stefanson' },
+        { number: 7, name: 'Simon Yelle' },
+        { number: 8, name: 'Michael-Joseph Primiani' },
+        { number: 2, name: 'Alexis Watt' },
+        { number: 6, name: 'Pierre-Luc Tremblay' },
+        { number: 5, name: 'Brandon Garcia' },
+        { number: 3, name: 'Samuel Courville' },
+        { name: 'Thomas Yelle' },
+        { number: 8, name: 'Nolan Snowman-Brooks', isSub: true },
+        { name: 'Jonathan Primiani', isSub: true },
+      ]
+    }
   },
   {
     id: 's_m_w5_2',
@@ -833,11 +901,56 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
-    status: 'upcoming',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
+    status: 'completed',
+    homeScore: 8,
+    awayScore: 2,
     division: '7v7 Open',
-    stage: 'Regular Season'
+    stage: 'Regular Season',
+    recap: {
+      summaryEn: 'BlackJacks put on a dominant display in Week 5 with an 8–2 victory over Turf Terrors. Moustapha Amar and Miguel Lelievre each erupted for 2 goals and 2 assists, supported by a brace from Jacob Deslauriers (2G, 1A), 1 goal and 1 assist from Brenden Thomas-Bynoe, a tally from Amelia Benabid, and an assist from Alessandro Primiani. Ilya Naumkin (1G, 1A) and Benjamin Morton (1G) replied for Turf Terrors, with goalkeeper Evan Sinclair adding an assist.',
+      summaryFr: 'Les BlackJacks ont offert une démonstration offensive lors de la Semaine 5 en l\'emportant 8–2 face aux Turf Terrors. Moustapha Amar et Miguel Lelievre ont chacun explosé avec 2 buts et 2 passes décisives, appuyés par un doublé de Jacob Deslauriers (2B, 1P), un but et une passe de Brenden Thomas-Bynoe, un filet d\'Amelia Benabid et une aide d\'Alessandro Primiani. Ilya Naumkin (1B, 1P) et Benjamin Morton (1B) ont répliqué pour Turf Terrors, avec une mention d\'aide pour le gardien Evan Sinclair.',
+      goals: [
+        { teamId: 's_blackjacks', scorer: 'Miguel Lelievre', number: 0, assists: ['Alessandro Primiani', 'Moustapha Amar'] },
+        { teamId: 's_blackjacks', scorer: 'Moustapha Amar', number: 8, assists: ['Miguel Lelievre'] },
+        { teamId: 's_blackjacks', scorer: 'Moustapha Amar', number: 8, assists: ['Miguel Lelievre'] },
+        { teamId: 's_blackjacks', scorer: 'Miguel Lelievre', number: 0, assists: ['Moustapha Amar'] },
+        { teamId: 's_blackjacks', scorer: 'Jacob Deslauriers', number: 24 },
+        { teamId: 's_blackjacks', scorer: 'Jacob Deslauriers', number: 24 },
+        { teamId: 's_blackjacks', scorer: 'Brenden Thomas-Bynoe', number: 15, assists: ['Jacob Deslauriers'] },
+        { teamId: 's_blackjacks', scorer: 'Amelia Benabid', number: 6, assists: ['Brenden Thomas-Bynoe'] },
+        { teamId: 's_turf_terrors', scorer: 'Ilya Naumkin', number: 6, assists: ['Evan Sinclair'] },
+        { teamId: 's_turf_terrors', scorer: 'Benjamin Morton', number: 4, assists: ['Ilya Naumkin'] },
+      ],
+      cards: [],
+      homeRoster: [
+        { number: 99, name: 'Nicolas Primiani', isGoalie: true },
+        { number: 8, name: 'Moustapha Amar' },
+        { number: 6, name: 'Amelia Benabid' },
+        { number: 5, name: 'Brandon De Sousa' },
+        { number: 0, name: 'Miguel Lelievre' },
+        { number: 15, name: 'Brenden Thomas-Bynoe' },
+        { number: 94, name: 'Alessandro Primiani' },
+        { number: 24, name: 'Jacob Deslauriers' },
+        { number: 12, name: 'Jonathan Primiani', isSub: true },
+      ],
+      awayRoster: [
+        { number: 13, name: 'Evan Sinclair', isGoalie: true },
+        { number: 8, name: 'Zachary Bailey' },
+        { number: 3, name: 'Joshua Bubis' },
+        { number: 4, name: 'Benjamin Morton' },
+        { number: 2, name: 'Timothy Gilmore' },
+        { number: 11, name: 'Jean Luc Feliciano' },
+        { number: 16, name: 'Phenix Mangerpan' },
+        { number: 9, name: 'Tristan Snowden' },
+        { number: 20, name: 'Abigael O\'Rourke' },
+        { number: 97, name: 'Ciera MacDavid' },
+        { number: 21, name: 'Shawn Chiniah' },
+        { number: 69, name: 'Lydia Côté' },
+        { number: 6, name: 'Ilya Naumkin', isSub: true },
+      ]
+    }
   },
   // Week 6 - Sunday, November 15, 2026
   {
@@ -849,8 +962,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_blackjacks',
     homeTeamName: 'Faahh United',
     awayTeamName: 'BlackJacks',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -864,8 +977,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Turf Terrors',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -880,8 +993,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -895,8 +1008,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Faahh United',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -911,8 +1024,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'BlackJacks',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -926,8 +1039,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_turf_terrors',
     homeTeamName: 'Faahh United',
     awayTeamName: 'Turf Terrors',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -942,8 +1055,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Turf Terrors',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -957,8 +1070,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_blackjacks',
     homeTeamName: 'Faahh United',
     awayTeamName: 'BlackJacks',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -973,8 +1086,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_blackjacks',
     homeTeamName: 'Turf Terrors',
     awayTeamName: 'BlackJacks',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -988,8 +1101,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_team_4',
     homeTeamName: 'Faahh United',
     awayTeamName: 'Mumford & Sons',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Regular Season'
@@ -1004,8 +1117,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_seed_4',
     homeTeamName: '1st Seed',
     awayTeamName: '4th Seed',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Semifinal'
@@ -1019,8 +1132,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_seed_3',
     homeTeamName: '2nd Seed',
     awayTeamName: '3rd Seed',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Semifinal'
@@ -1035,8 +1148,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_semi_loser_2',
     homeTeamName: 'Semifinal Loser 1',
     awayTeamName: 'Semifinal Loser 2',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Bronze'
@@ -1050,13 +1163,84 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     awayTeamId: 's_semi_winner_2',
     homeTeamName: 'Semifinal Winner 1',
     awayTeamName: 'Semifinal Winner 2',
-    pitch: 'Terrain Synthétique',
-    location: 'Complexe Sportif Delson',
+    pitch: 'Complexe Sportif Delson | Sainte-Catherine',
+    location: 'Complexe Sportif Delson | Sainte-Catherine',
     status: 'upcoming',
     division: '7v7 Open',
     stage: 'Final'
   }
 ];
+
+export const SOCCER_GOALIE_STATS: SoccerGoalieStat[] = (() => {
+  const goalieMap = new Map<string, SoccerGoalieStat>();
+
+  ALL_SOCCER_PLAYERS.filter(p => p.isGoalie && !p.isSub).forEach(p => {
+    const key = p.name.trim().toLowerCase();
+    const tName = SOCCER_TEAMS.find(t => t.id === p.teamId)?.name || '';
+    if (!goalieMap.has(key)) {
+      goalieMap.set(key, {
+        id: p.id,
+        name: p.name,
+        teamId: p.teamId,
+        teamName: tName,
+        teamIds: [p.teamId],
+        teamNames: tName ? [tName] : [],
+        gp: 0,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+        goalsAgainst: 0,
+        gaa: 0,
+        cleanSheets: 0,
+      });
+    } else {
+      const existing = goalieMap.get(key)!;
+      if (!existing.teamIds.includes(p.teamId)) {
+        existing.teamIds.push(p.teamId);
+        if (tName && !existing.teamNames.includes(tName)) {
+          existing.teamNames.push(tName);
+        }
+        existing.teamName = existing.teamNames.join(' / ');
+      }
+    }
+  });
+
+  SOCCER_SCHEDULE.forEach(match => {
+    if (match.status !== 'completed' || !match.recap) return;
+    const homeScore = match.homeScore ?? 0;
+    const awayScore = match.awayScore ?? 0;
+
+    match.recap.homeRoster.forEach(entry => {
+      if (!entry.isGoalie) return;
+      const g = goalieMap.get(entry.name.trim().toLowerCase());
+      if (!g) return;
+      g.gp += 1;
+      g.goalsAgainst += awayScore;
+      if (awayScore === 0) g.cleanSheets += 1;
+      if (homeScore > awayScore) g.wins += 1;
+      else if (homeScore < awayScore) g.losses += 1;
+      else g.draws += 1;
+    });
+
+    match.recap.awayRoster.forEach(entry => {
+      if (!entry.isGoalie) return;
+      const g = goalieMap.get(entry.name.trim().toLowerCase());
+      if (!g) return;
+      g.gp += 1;
+      g.goalsAgainst += homeScore;
+      if (homeScore === 0) g.cleanSheets += 1;
+      if (awayScore > homeScore) g.wins += 1;
+      else if (awayScore < homeScore) g.losses += 1;
+      else g.draws += 1;
+    });
+  });
+
+  goalieMap.forEach(g => {
+    g.gaa = g.gp > 0 ? Number((g.goalsAgainst / g.gp).toFixed(2)) : 0;
+  });
+
+  return Array.from(goalieMap.values());
+})();
 
 export const SOCCER_RULES: SoccerRuleCategory[] = [
   {

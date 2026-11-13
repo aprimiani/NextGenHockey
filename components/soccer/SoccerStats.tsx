@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Trophy, Award, Search, Users, ArrowRight } from 'lucide-react';
+import { Trophy, Award, Shield, Search, Users, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { SOCCER_STANDINGS, SOCCER_PLAYER_STATS, SOCCER_TEAMS } from '../../soccerData';
+import { SOCCER_STANDINGS, SOCCER_PLAYER_STATS, SOCCER_GOALIE_STATS, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
 
 export const SoccerStats: React.FC = () => {
   const { language } = useLanguage();
   const isFr = language === 'fr';
 
-  // Exactly ONE tab control for Standings & Player Statistics
-  const [activeTab, setActiveTab] = useState<'standings' | 'players'>('standings');
+  // Exactly ONE tab control for Standings, Player Statistics & Goalie Statistics
+  const [activeTab, setActiveTab] = useState<'standings' | 'players' | 'goalies'>('standings');
   const [playerSearch, setPlayerSearch] = useState<string>('');
   const [playerSortBy, setPlayerSortBy] = useState<'points' | 'goals' | 'assists'>('points');
+  const [goalieSortBy, setGoalieSortBy] = useState<'wins' | 'gaa' | 'gp'>('wins');
 
   // Sorted Standings
   const sortedStandings = React.useMemo(() => {
@@ -76,6 +77,29 @@ export const SoccerStats: React.FC = () => {
     );
   }, [rankedPlayers, playerSearch]);
 
+  // Ranked goalie stats according to active sort criteria
+  const rankedGoalies = React.useMemo(() => {
+    const list = [...SOCCER_GOALIE_STATS].sort((a, b) => {
+      if (goalieSortBy === 'gaa') {
+        if (a.gaa !== b.gaa) return a.gaa - b.gaa;
+        if (b.wins !== a.wins) return b.wins - a.wins;
+      } else if (goalieSortBy === 'gp') {
+        if (b.gp !== a.gp) return b.gp - a.gp;
+        if (b.wins !== a.wins) return b.wins - a.wins;
+      } else {
+        // default: wins
+        if (b.wins !== a.wins) return b.wins - a.wins;
+        if (a.gaa !== b.gaa) return a.gaa - b.gaa;
+      }
+      return a.name.localeCompare(b.name);
+    });
+
+    return list.map((g, idx) => ({
+      ...g,
+      rank: idx + 1
+    }));
+  }, [goalieSortBy]);
+
   return (
     <div className="min-h-screen bg-[#070b08] text-white py-10 sm:py-12 overflow-x-hidden max-w-full w-full">
       <SEO
@@ -119,14 +143,26 @@ export const SoccerStats: React.FC = () => {
             <button
               type="button"
               onClick={() => setActiveTab('players')}
-              className={`flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
                 activeTab === 'players'
                   ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
               <Award size={15} />
-              <span>{isFr ? 'Statistiques des Joueurs' : 'Player Statistics'}</span>
+              <span>{isFr ? 'Joueurs' : 'Players'}</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('goalies')}
+              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                activeTab === 'goalies'
+                  ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <Shield size={15} />
+              <span>{isFr ? 'Gardiens' : 'Goalies'}</span>
             </button>
           </div>
 
@@ -182,6 +218,47 @@ export const SoccerStats: React.FC = () => {
                   className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-lime-400"
                 />
               </div>
+            </div>
+          )}
+
+          {activeTab === 'goalies' && (
+            <div className="inline-flex items-center gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs self-start sm:self-auto">
+              <span className="text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider">
+                {isFr ? 'Trier par :' : 'Rank by:'}
+              </span>
+              <button
+                type="button"
+                onClick={() => setGoalieSortBy('wins')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  goalieSortBy === 'wins'
+                    ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {isFr ? 'Victoires (V)' : 'Wins (W)'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setGoalieSortBy('gaa')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  goalieSortBy === 'gaa'
+                    ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {isFr ? 'MOY (GAA)' : 'GAA'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setGoalieSortBy('gp')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  goalieSortBy === 'gp'
+                    ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
+                    : 'text-gray-400 hover:text-white'
+                }`}
+              >
+                {isFr ? 'PJ' : 'GP'}
+              </button>
             </div>
           )}
         </div>
@@ -400,6 +477,126 @@ export const SoccerStats: React.FC = () => {
             {/* Footer Notice */}
             <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
               <span>{isFr ? '#: Rang • PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points • CJ: Cartons Jaunes' : '#: Rank • PJ: Games Played • B: Goals • P: Assists • PTS: Points • YC: Yellow Cards'}</span>
+              <span className="text-lime-400 font-bold">{isFr ? 'Coup d’envoi : 4 octobre 2026' : 'Season kickoff: October 4, 2026'}</span>
+            </div>
+          </div>
+        )}
+
+        {/* ---------------------------------------------------- */}
+        {/* VIEW 3: GOALIE STATISTICS                           */}
+        {/* ---------------------------------------------------- */}
+        {activeTab === 'goalies' && (
+          <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-full">
+            <div className="overflow-x-auto w-full max-w-full scrollbar-thin">
+              <table className="w-full text-left border-collapse min-w-[340px] sm:min-w-[560px]">
+                <thead>
+                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[11px] font-black uppercase tracking-wider text-lime-400">
+                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center w-12 sm:w-16">#</th>
+                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Gardien' : 'Goalie'}</th>
+                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
+                    <th
+                      onClick={() => setGoalieSortBy('gp')}
+                      className={`py-3 sm:py-4 px-2 sm:px-3 text-center cursor-pointer transition-colors select-none ${
+                        goalieSortBy === 'gp' ? 'text-white bg-lime-500/15' : 'hover:text-white'
+                      }`}
+                    >
+                      {isFr ? 'PJ' : 'GP'}
+                    </th>
+                    <th
+                      onClick={() => setGoalieSortBy('wins')}
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-black cursor-pointer transition-colors select-none ${
+                        goalieSortBy === 'wins' ? 'text-white bg-lime-500/25' : 'text-white bg-lime-500/10 hover:bg-lime-500/20'
+                      }`}
+                    >
+                      {isFr ? 'V' : 'W'}
+                    </th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">{isFr ? 'N' : 'D'}</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">{isFr ? 'D' : 'L'}</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">{isFr ? 'BC' : 'GA'}</th>
+                    <th
+                      onClick={() => setGoalieSortBy('gaa')}
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                        goalieSortBy === 'gaa' ? 'text-white bg-lime-500/15' : 'hover:text-white'
+                      }`}
+                    >
+                      {isFr ? 'MOY' : 'GAA'}
+                    </th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden md:table-cell">{isFr ? 'BL' : 'CS'}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
+                  {rankedGoalies.map((goalie) => (
+                    <tr key={goalie.id} className="hover:bg-white/5 transition-colors">
+                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
+                        {goalie.rank === 1 ? (
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
+                            1
+                          </span>
+                        ) : goalie.rank === 2 ? (
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-xs font-bold">
+                            2
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-xs font-bold">
+                            3
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 sm:py-4 px-3 sm:px-6 font-bold text-white leading-snug break-words whitespace-normal">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span>{goalie.name}</span>
+                          <span className="inline-block text-sky-300 font-black px-1.5 py-0.5 rounded bg-sky-500/20 border border-sky-500/30 text-[9px] uppercase tracking-wider">
+                            G
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300">
+                        {goalie.teamIds.length > 1 ? (
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                            {goalie.teamIds.map((tid, tIdx) => {
+                              const tName = goalie.teamNames[tIdx] || SOCCER_TEAMS.find(t => t.id === tid)?.name || tid;
+                              return (
+                                <div key={tid} className="flex items-center gap-1.5 shrink-0">
+                                  <span className="w-2 h-2 rounded-full shrink-0" style={getTeamDotStyle(tid)} />
+                                  <span className="break-words leading-snug">{tName}</span>
+                                  {tIdx < goalie.teamIds.length - 1 && (
+                                    <span className="text-gray-500 font-bold text-xs ml-0.5">/</span>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1.5 sm:gap-2">
+                            <span className="w-2 h-2 rounded-full shrink-0" style={getTeamDotStyle(goalie.teamId)} />
+                            <span className="break-words leading-snug">{goalie.teamName}</span>
+                          </div>
+                        )}
+                      </td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300">{goalie.gp}</td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
+                        {goalie.wins}
+                      </td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400">{goalie.draws}</td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400">{goalie.losses}</td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden sm:table-cell">{goalie.goalsAgainst}</td>
+                      <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${goalieSortBy === 'gaa' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-300'}`}>
+                        {goalie.gaa.toFixed(2)}
+                      </td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden md:table-cell">{goalie.cleanSheets}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Footer Notice */}
+            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
+              <span>
+                {isFr
+                  ? 'PJ: Parties Jouées • V: Victoires • N: Nuls • D: Défaites • BC: Buts Contre • MOY: Moyenne de buts alloués • BL: Blanchissages'
+                  : 'GP: Games Played • W: Wins • D: Draws • L: Losses • GA: Goals Against • GAA: Goals Against Average • CS: Clean Sheets'}
+              </span>
               <span className="text-lime-400 font-bold">{isFr ? 'Coup d’envoi : 4 octobre 2026' : 'Season kickoff: October 4, 2026'}</span>
             </div>
           </div>

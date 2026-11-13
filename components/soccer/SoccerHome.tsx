@@ -416,7 +416,7 @@ export const SoccerHome: React.FC = () => {
                   </div>
 
                   <div className="pt-4 border-t border-zinc-800 mt-4 text-[11px] text-gray-400 flex items-center justify-between">
-                    <span className="truncate">{match.pitch}</span>
+                    <span className="truncate">{match.location}</span>
                     <span className="text-lime-400 font-bold uppercase">{match.division}</span>
                   </div>
                 </div>

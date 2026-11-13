@@ -192,7 +192,7 @@ export const SoccerSchedule: React.FC = () => {
                 <span className="text-zinc-700">•</span>
                 <span className="flex items-center gap-1.5">
                   <MapPin size={14} className="text-lime-400" />
-                  <span>{selectedMatch.pitch} ({selectedMatch.location})</span>
+                  <span>{selectedMatch.location}</span>
                 </span>
               </div>
 
@@ -772,7 +772,7 @@ export const SoccerSchedule: React.FC = () => {
                         <div className="border-t md:border-t-0 md:border-l border-zinc-800 pt-3 md:pt-0 md:pl-6 flex items-center justify-between md:flex-col md:items-end gap-2 text-xs min-w-[170px]">
                           <span className="flex items-center gap-1.5 text-gray-400">
                             <MapPin size={13} className={isCancerAwarenessGame ? 'text-purple-400' : 'text-lime-400'} />
-                            <span>{match.pitch}</span>
+                            <span>{match.location}</span>
                           </span>
                           {hasRecap ? (
                             <button

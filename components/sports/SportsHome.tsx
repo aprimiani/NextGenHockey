@@ -108,7 +108,7 @@ export const SportsHome: React.FC = () => {
         homeSecondaryColor: soccerTeamsMap[m.homeTeamId]?.secondaryColor,
         awayColor: soccerTeamsMap[m.awayTeamId]?.color || '#84cc16',
         awaySecondaryColor: soccerTeamsMap[m.awayTeamId]?.secondaryColor,
-        location: `${m.location} (${m.pitch})`,
+        location: m.location,
         link: '/soccer/calendrier'
       }));
   }, [soccerTeamsMap]);
