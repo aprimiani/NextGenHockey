@@ -101,7 +101,7 @@ export const SoccerStats: React.FC = () => {
   }, [goalieSortBy]);
 
   return (
-    <div className="min-h-screen bg-[#070b08] text-white py-10 sm:py-12 overflow-x-hidden max-w-full w-full">
+    <div className="min-h-screen bg-[#070b08] text-white py-6 sm:py-12 overflow-x-hidden max-w-full w-full">
       <SEO
         title={isFr ? 'Classement & Statistiques des Joueurs | Next Gen Soccer Rive-Sud' : 'Standings & Player Statistics | Next Gen Soccer South Shore'}
         description={isFr ? 'Classement officiel de la ligue de soccer 7v7, fiche des équipes et statistiques individuelles des joueurs au Complexe Sportif Delson.' : 'Official 7v7 soccer league standings, team records, and individual player statistics leaderboards at Complexe Sportif Delson.'}
@@ -109,13 +109,13 @@ export const SoccerStats: React.FC = () => {
         ogType="website"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 w-full">
         {/* Header */}
-        <div className="mb-8 sm:mb-10">
-          <div className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-lime-500/10 text-lime-400 border border-lime-500/30 mb-3">
+        <div className="mb-6 sm:mb-10">
+          <div className="inline-block px-3 py-1 rounded-full text-[11px] sm:text-xs font-black uppercase tracking-widest bg-lime-500/10 text-lime-400 border border-lime-500/30 mb-2.5 sm:mb-3">
             {isFr ? 'Ligue 7v7 Synthétique' : '7v7 Turf League'}
           </div>
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase italic tracking-tight font-display mb-3">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase italic tracking-tight font-display mb-2 sm:mb-3">
             {isFr ? 'CLASSEMENT & STATISTIQUES' : 'STANDINGS & PLAYER STATISTICS'}
           </h1>
           <p className="text-gray-400 text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed">
@@ -125,58 +125,58 @@ export const SoccerStats: React.FC = () => {
           </p>
         </div>
 
-        {/* SINGLE TAB / NAVIGATION CONTROL (STANDINGS <-> PLAYER STATISTICS) */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6">
-          <div className="inline-flex items-center gap-1.5 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 w-full sm:w-auto">
+        {/* SINGLE TAB / NAVIGATION CONTROL (STANDINGS <-> PLAYER STATISTICS <-> GOALIES) */}
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-6">
+          <div className="grid grid-cols-3 sm:inline-flex items-center gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 w-full lg:w-auto">
             <button
               type="button"
               onClick={() => setActiveTab('standings')}
-              className={`flex-1 sm:flex-none px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-black uppercase tracking-wide sm:tracking-wider transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap ${
                 activeTab === 'standings'
                   ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <Trophy size={15} />
+              <Trophy size={14} className="shrink-0" />
               <span>{isFr ? 'Classement' : 'Standings'}</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('players')}
-              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-black uppercase tracking-wide sm:tracking-wider transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap ${
                 activeTab === 'players'
                   ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <Award size={15} />
+              <Award size={14} className="shrink-0" />
               <span>{isFr ? 'Joueurs' : 'Players'}</span>
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('goalies')}
-              className={`flex-1 sm:flex-none px-4 sm:px-5 py-2.5 rounded-lg text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-2 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-black uppercase tracking-wide sm:tracking-wider transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer whitespace-nowrap ${
                 activeTab === 'goalies'
                   ? 'bg-lime-400 text-zinc-950 shadow-md shadow-lime-500/20'
                   : 'text-gray-400 hover:text-white'
               }`}
             >
-              <Shield size={15} />
+              <Shield size={14} className="shrink-0" />
               <span>{isFr ? 'Gardiens' : 'Goalies'}</span>
             </button>
           </div>
 
-          {/* Quick Notice / Search & Sort Controls */}
+          {/* Search & Sort Controls */}
           {activeTab === 'players' && (
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
-              <div className="inline-flex items-center gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs">
-                <span className="text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full lg:w-auto">
+              <div className="flex items-center w-full sm:w-auto gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs">
+                <span className="hidden sm:inline text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider whitespace-nowrap">
                   {isFr ? 'Trier par :' : 'Rank by:'}
                 </span>
                 <button
                   type="button"
                   onClick={() => setPlayerSortBy('points')}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                     playerSortBy === 'points'
                       ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                       : 'text-gray-400 hover:text-white'
@@ -187,7 +187,7 @@ export const SoccerStats: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setPlayerSortBy('goals')}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                     playerSortBy === 'goals'
                       ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                       : 'text-gray-400 hover:text-white'
@@ -198,7 +198,7 @@ export const SoccerStats: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setPlayerSortBy('assists')}
-                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                     playerSortBy === 'assists'
                       ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                       : 'text-gray-400 hover:text-white'
@@ -215,21 +215,21 @@ export const SoccerStats: React.FC = () => {
                   value={playerSearch}
                   onChange={(e) => setPlayerSearch(e.target.value)}
                   placeholder={isFr ? 'Rechercher un joueur...' : 'Search player or team...'}
-                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-lime-400"
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-xl pl-9 pr-3 py-2 sm:py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-lime-400"
                 />
               </div>
             </div>
           )}
 
           {activeTab === 'goalies' && (
-            <div className="inline-flex items-center gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs self-start sm:self-auto">
-              <span className="text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider">
+            <div className="flex items-center w-full sm:w-auto gap-1 p-1 bg-zinc-900/90 rounded-xl border border-zinc-800 text-xs sm:self-start lg:self-auto">
+              <span className="hidden sm:inline text-[10px] font-black uppercase text-gray-500 px-2 tracking-wider whitespace-nowrap">
                 {isFr ? 'Trier par :' : 'Rank by:'}
               </span>
               <button
                 type="button"
                 onClick={() => setGoalieSortBy('wins')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                   goalieSortBy === 'wins'
                     ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                     : 'text-gray-400 hover:text-white'
@@ -240,7 +240,7 @@ export const SoccerStats: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setGoalieSortBy('gaa')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                   goalieSortBy === 'gaa'
                     ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                     : 'text-gray-400 hover:text-white'
@@ -251,7 +251,7 @@ export const SoccerStats: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setGoalieSortBy('gp')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                className={`flex-1 sm:flex-none px-2.5 py-1.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-bold transition-all cursor-pointer text-center whitespace-nowrap ${
                   goalieSortBy === 'gp'
                     ? 'bg-lime-400 text-zinc-950 font-black shadow-sm'
                     : 'text-gray-400 hover:text-white'
@@ -269,22 +269,22 @@ export const SoccerStats: React.FC = () => {
         {activeTab === 'standings' && (
           <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-full">
             <div className="overflow-x-auto w-full max-w-full scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[320px] sm:min-w-[560px]">
+              <table className="w-full text-left border-collapse sm:min-w-[560px]">
                 <thead>
-                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[11px] font-black uppercase tracking-wider text-lime-400">
-                    <th className="py-3 sm:py-4 px-2.5 sm:px-4 text-center w-10">#</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">PJ</th>
+                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-lime-400">
+                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center w-8 sm:w-12">#</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-3 text-center whitespace-nowrap">PJ</th>
                     {/* Full columns on tablet/desktop */}
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">V</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">N</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">D</th>
                     {/* Compact W-D-L on mobile */}
-                    <th className="py-3 sm:py-4 px-2 text-center sm:hidden">V-N-D</th>
+                    <th className="py-3 sm:py-4 px-1.5 text-center sm:hidden whitespace-nowrap">V-N-D</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden md:table-cell">BP</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden md:table-cell">BC</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">DIFF</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-5 text-center font-black text-white bg-lime-500/10">PTS</th>
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-3 text-center whitespace-nowrap">DIFF</th>
+                    <th className="py-3 sm:py-4 px-2.5 sm:px-5 text-center font-black text-white bg-lime-500/10 whitespace-nowrap">PTS</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
@@ -293,35 +293,35 @@ export const SoccerStats: React.FC = () => {
                       key={team.teamId}
                       className="hover:bg-white/5 transition-colors group"
                     >
-                      <td className="py-3 sm:py-4 px-2.5 sm:px-4 text-center font-mono font-bold text-gray-400">
+                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-bold text-gray-400">
                         {idx + 1}
                       </td>
-                      <td className="py-3 sm:py-4 px-3 sm:px-6">
+                      <td className="py-3 sm:py-4 px-2 sm:px-6">
                         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                           <span
                             className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full shrink-0"
                             style={getTeamDotStyle(team.teamId)}
                           />
-                          <span className="font-black uppercase italic text-white group-hover:text-lime-300 transition-colors break-words leading-tight">
+                          <span className="font-black uppercase italic text-white group-hover:text-lime-300 transition-colors leading-tight">
                             {team.teamName}
                           </span>
                         </div>
                       </td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300">{team.gp}</td>
+                      <td className="py-3 sm:py-4 px-1.5 sm:px-3 text-center font-mono text-gray-300 whitespace-nowrap">{team.gp}</td>
                       {/* Full columns on tablet/desktop */}
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300 hidden sm:table-cell">{team.wins}</td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300 hidden sm:table-cell">{team.draws}</td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300 hidden sm:table-cell">{team.losses}</td>
                       {/* Compact V-N-D on mobile */}
-                      <td className="py-3 sm:py-4 px-2 text-center font-mono text-gray-300 sm:hidden">
+                      <td className="py-3 sm:py-4 px-1.5 text-center font-mono text-gray-300 sm:hidden whitespace-nowrap">
                         {team.wins}-{team.draws}-{team.losses}
                       </td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300 hidden md:table-cell">{team.gf}</td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300 hidden md:table-cell">{team.ga}</td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300">
+                      <td className="py-3 sm:py-4 px-1.5 sm:px-3 text-center font-mono text-gray-300 whitespace-nowrap">
                         {team.gd > 0 ? `+${team.gd}` : team.gd}
                       </td>
-                      <td className="py-3 sm:py-4 px-3 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
+                      <td className="py-3 sm:py-4 px-2.5 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base whitespace-nowrap">
                         {team.pts}
                       </td>
                     </tr>
@@ -331,7 +331,7 @@ export const SoccerStats: React.FC = () => {
             </div>
 
             {/* Legend */}
-            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-center">
+            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-x-4 gap-y-1.5 sm:gap-6 justify-center">
               <span>PJ: Parties Jouées</span>
               <span>V: Victoires (3 pts)</span>
               <span>N: Matchs Nuls (1 pt)</span>
@@ -347,50 +347,50 @@ export const SoccerStats: React.FC = () => {
         {activeTab === 'players' && (
           <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-full">
             <div className="overflow-x-auto w-full max-w-full scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[340px] sm:min-w-[560px]">
+              <table className="w-full text-left border-collapse sm:min-w-[560px]">
                 <thead>
-                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[11px] font-black uppercase tracking-wider text-lime-400">
-                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center w-12 sm:w-16">#</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Joueur' : 'Player'}</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center">PJ</th>
+                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-lime-400">
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-4 text-center w-8 sm:w-14">#</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-6">{isFr ? 'Joueur' : 'Player'}</th>
+                    <th className="py-3 sm:py-4 px-3 sm:px-6 hidden sm:table-cell">{isFr ? 'Équipe' : 'Team'}</th>
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-4 text-center whitespace-nowrap">PJ</th>
                     <th 
                       onClick={() => setPlayerSortBy('goals')}
-                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                      className={`py-3 sm:py-4 px-1.5 sm:px-4 text-center cursor-pointer transition-colors select-none whitespace-nowrap ${
                         playerSortBy === 'goals' ? 'text-white bg-lime-500/15' : 'hover:text-white'
                       }`}
                       title={isFr ? 'Trier par Buts' : 'Sort by Goals'}
                     >
-                      <div className="flex items-center justify-center gap-1">
+                      <div className="flex items-center justify-center gap-0.5 sm:gap-1">
                         <span>B</span>
                         {playerSortBy === 'goals' && <span className="text-[9px] text-lime-400">▼</span>}
                       </div>
                     </th>
                     <th 
                       onClick={() => setPlayerSortBy('assists')}
-                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                      className={`py-3 sm:py-4 px-1.5 sm:px-4 text-center cursor-pointer transition-colors select-none whitespace-nowrap ${
                         playerSortBy === 'assists' ? 'text-white bg-lime-500/15' : 'hover:text-white'
                       }`}
                       title={isFr ? 'Trier par Passes Décisives' : 'Sort by Assists'}
                     >
-                      <div className="flex items-center justify-center gap-1">
+                      <div className="flex items-center justify-center gap-0.5 sm:gap-1">
                         <span>P</span>
                         {playerSortBy === 'assists' && <span className="text-[9px] text-lime-400">▼</span>}
                       </div>
                     </th>
                     <th 
                       onClick={() => setPlayerSortBy('points')}
-                      className={`py-3 sm:py-4 px-3 sm:px-5 text-center font-black cursor-pointer transition-colors select-none ${
+                      className={`py-3 sm:py-4 px-2 sm:px-5 text-center font-black cursor-pointer transition-colors select-none whitespace-nowrap ${
                         playerSortBy === 'points' ? 'text-white bg-lime-500/25' : 'text-white bg-lime-500/10 hover:bg-lime-500/20'
                       }`}
                       title={isFr ? 'Trier par Points' : 'Sort by Points'}
                     >
-                      <div className="flex items-center justify-center gap-1">
+                      <div className="flex items-center justify-center gap-0.5 sm:gap-1">
                         <span>PTS</span>
                         {playerSortBy === 'points' && <span className="text-[9px] text-lime-400">▼</span>}
                       </div>
                     </th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center text-amber-400" title={isFr ? 'Cartons Jaunes' : 'Yellow Cards'}>
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-3 text-center text-amber-400 whitespace-nowrap" title={isFr ? 'Cartons Jaunes' : 'Yellow Cards'}>
                       {isFr ? 'CJ' : 'YC'}
                     </th>
                   </tr>
@@ -399,27 +399,49 @@ export const SoccerStats: React.FC = () => {
                   {filteredPlayers.length > 0 ? (
                     filteredPlayers.map((player) => (
                       <tr key={player.id} className="hover:bg-white/5 transition-colors">
-                        <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
+                        <td className="py-3 sm:py-4 px-1.5 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
                           {player.rank === 1 ? (
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
+                            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] sm:text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
                               1
                             </span>
                           ) : player.rank === 2 ? (
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-xs font-bold">
+                            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-[11px] sm:text-xs font-bold">
                               2
                             </span>
                           ) : player.rank === 3 ? (
-                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-xs font-bold">
+                            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-[11px] sm:text-xs font-bold">
                               3
                             </span>
                           ) : (
                             <span className="text-gray-400">{player.rank}</span>
                           )}
                         </td>
-                        <td className="py-3 sm:py-4 px-3 sm:px-6 font-bold text-white leading-snug break-words whitespace-normal">
-                          {player.name}
+                        <td className="py-3 sm:py-4 px-2 sm:px-6 font-bold text-white leading-snug">
+                          <div className="leading-snug">{player.name}</div>
+                          {/* Inline Team Subtitle on Mobile (<sm) */}
+                          <div className="sm:hidden flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-1 text-[10px] font-medium text-gray-400">
+                            {player.teamIds && player.teamIds.length > 1 ? (
+                              player.teamIds.map((tid, tIdx) => {
+                                const tName = player.teamNames?.[tIdx] || SOCCER_TEAMS.find(t => t.id === tid)?.name || tid;
+                                return (
+                                  <span key={tid} className="inline-flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full shrink-0" style={getTeamDotStyle(tid)} />
+                                    <span>{tName}</span>
+                                    {tIdx < (player.teamIds?.length || 0) - 1 && (
+                                      <span className="text-gray-600">/</span>
+                                    )}
+                                  </span>
+                                );
+                              })
+                            ) : (
+                              <span className="inline-flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full shrink-0" style={getTeamDotStyle(player.teamId)} />
+                                <span>{player.teamName}</span>
+                              </span>
+                            )}
+                          </div>
                         </td>
-                        <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300">
+                        <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300 hidden sm:table-cell">
                           {player.teamIds && player.teamIds.length > 1 ? (
                             <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                               {player.teamIds.map((tid, tIdx) => {
@@ -442,19 +464,19 @@ export const SoccerStats: React.FC = () => {
                             </div>
                           )}
                         </td>
-                        <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono text-gray-400">{player.gp}</td>
-                        <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${playerSortBy === 'goals' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
+                        <td className="py-3 sm:py-4 px-1.5 sm:px-4 text-center font-mono text-gray-400 whitespace-nowrap">{player.gp}</td>
+                        <td className={`py-3 sm:py-4 px-1.5 sm:px-4 text-center font-mono whitespace-nowrap ${playerSortBy === 'goals' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
                           {player.goals}
                         </td>
-                        <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${playerSortBy === 'assists' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
+                        <td className={`py-3 sm:py-4 px-1.5 sm:px-4 text-center font-mono whitespace-nowrap ${playerSortBy === 'assists' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-400'}`}>
                           {player.assists}
                         </td>
-                        <td className="py-3 sm:py-4 px-3 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
+                        <td className="py-3 sm:py-4 px-2 sm:px-5 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base whitespace-nowrap">
                           {player.points}
                         </td>
-                        <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono">
+                        <td className="py-3 sm:py-4 px-1.5 sm:px-3 text-center font-mono whitespace-nowrap">
                           {player.yellowCards > 0 ? (
-                            <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-black text-xs">
+                            <span className="inline-flex items-center justify-center px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 font-black text-[11px] sm:text-xs">
                               {player.yellowCards}
                             </span>
                           ) : (
@@ -475,7 +497,7 @@ export const SoccerStats: React.FC = () => {
             </div>
 
             {/* Footer Notice */}
-            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
+            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-6 justify-between items-start sm:items-center">
               <span>{isFr ? '#: Rang • PJ: Parties Jouées • B: Buts • P: Passes Décisives • PTS: Points • CJ: Cartons Jaunes' : '#: Rank • PJ: Games Played • B: Goals • P: Assists • PTS: Points • YC: Yellow Cards'}</span>
               <span className="text-lime-400 font-bold">{isFr ? 'Coup d’envoi : 4 octobre 2026' : 'Season kickoff: October 4, 2026'}</span>
             </div>
@@ -488,34 +510,44 @@ export const SoccerStats: React.FC = () => {
         {activeTab === 'goalies' && (
           <div className="bg-zinc-900/70 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl w-full max-w-full">
             <div className="overflow-x-auto w-full max-w-full scrollbar-thin">
-              <table className="w-full text-left border-collapse min-w-[340px] sm:min-w-[560px]">
+              <table className="w-full text-left border-collapse sm:min-w-[560px]">
                 <thead>
-                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[11px] font-black uppercase tracking-wider text-lime-400">
-                    <th className="py-3 sm:py-4 px-2 sm:px-4 text-center w-12 sm:w-16">#</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Gardien' : 'Goalie'}</th>
-                    <th className="py-3 sm:py-4 px-3 sm:px-6">{isFr ? 'Équipe' : 'Team'}</th>
+                  <tr className="border-b border-zinc-800 bg-[#090f0a] text-[10px] sm:text-[11px] font-black uppercase tracking-wider text-lime-400">
+                    <th className="py-3 sm:py-4 px-1.5 sm:px-4 text-center w-8 sm:w-14">#</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-6">{isFr ? 'Gardien' : 'Goalie'}</th>
+                    <th className="py-3 sm:py-4 px-3 sm:px-6 hidden sm:table-cell">{isFr ? 'Équipe' : 'Team'}</th>
                     <th
                       onClick={() => setGoalieSortBy('gp')}
-                      className={`py-3 sm:py-4 px-2 sm:px-3 text-center cursor-pointer transition-colors select-none ${
+                      className={`py-3 sm:py-4 px-1.5 sm:px-3 text-center cursor-pointer transition-colors select-none whitespace-nowrap ${
                         goalieSortBy === 'gp' ? 'text-white bg-lime-500/15' : 'hover:text-white'
                       }`}
                     >
                       {isFr ? 'PJ' : 'GP'}
                     </th>
+                    {/* Compact W-D-L on mobile */}
                     <th
                       onClick={() => setGoalieSortBy('wins')}
-                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-black cursor-pointer transition-colors select-none ${
+                      className={`py-3 px-1.5 text-center font-black cursor-pointer transition-colors select-none sm:hidden whitespace-nowrap ${
+                        goalieSortBy === 'wins' ? 'text-white bg-lime-500/25' : 'text-white bg-lime-500/10'
+                      }`}
+                    >
+                      {isFr ? 'V-N-D' : 'W-D-L'}
+                    </th>
+                    {/* Separate W / D / L on tablet+ */}
+                    <th
+                      onClick={() => setGoalieSortBy('wins')}
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-black cursor-pointer transition-colors select-none hidden sm:table-cell ${
                         goalieSortBy === 'wins' ? 'text-white bg-lime-500/25' : 'text-white bg-lime-500/10 hover:bg-lime-500/20'
                       }`}
                     >
                       {isFr ? 'V' : 'W'}
                     </th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">{isFr ? 'N' : 'D'}</th>
-                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center">{isFr ? 'D' : 'L'}</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">{isFr ? 'N' : 'D'}</th>
+                    <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">{isFr ? 'D' : 'L'}</th>
                     <th className="py-3 sm:py-4 px-2 sm:px-3 text-center hidden sm:table-cell">{isFr ? 'BC' : 'GA'}</th>
                     <th
                       onClick={() => setGoalieSortBy('gaa')}
-                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none ${
+                      className={`py-3 sm:py-4 px-2 sm:px-4 text-center cursor-pointer transition-colors select-none whitespace-nowrap ${
                         goalieSortBy === 'gaa' ? 'text-white bg-lime-500/15' : 'hover:text-white'
                       }`}
                     >
@@ -527,30 +559,52 @@ export const SoccerStats: React.FC = () => {
                 <tbody className="divide-y divide-zinc-800/80 text-xs sm:text-sm">
                   {rankedGoalies.map((goalie) => (
                     <tr key={goalie.id} className="hover:bg-white/5 transition-colors">
-                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
+                      <td className="py-3 sm:py-4 px-1.5 sm:px-4 text-center font-mono font-bold text-xs sm:text-sm">
                         {goalie.rank === 1 ? (
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
+                          <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] sm:text-xs font-black shadow-[0_0_8px_rgba(251,191,36,0.25)]">
                             1
                           </span>
                         ) : goalie.rank === 2 ? (
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-xs font-bold">
+                          <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-300/20 text-slate-200 border border-slate-300/40 text-[11px] sm:text-xs font-bold">
                             2
                           </span>
                         ) : (
-                          <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-xs font-bold">
+                          <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-amber-600/20 text-amber-500 border border-amber-600/40 text-[11px] sm:text-xs font-bold">
                             3
                           </span>
                         )}
                       </td>
-                      <td className="py-3 sm:py-4 px-3 sm:px-6 font-bold text-white leading-snug break-words whitespace-normal">
-                        <div className="flex items-center gap-2 flex-wrap">
+                      <td className="py-3 sm:py-4 px-2 sm:px-6 font-bold text-white leading-snug">
+                        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                           <span>{goalie.name}</span>
                           <span className="inline-block text-sky-300 font-black px-1.5 py-0.5 rounded bg-sky-500/20 border border-sky-500/30 text-[9px] uppercase tracking-wider">
                             G
                           </span>
                         </div>
+                        {/* Inline Team Subtitle on Mobile (<sm) */}
+                        <div className="sm:hidden flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-1 text-[10px] font-medium text-gray-400">
+                          {goalie.teamIds.length > 1 ? (
+                            goalie.teamIds.map((tid, tIdx) => {
+                              const tName = goalie.teamNames[tIdx] || SOCCER_TEAMS.find(t => t.id === tid)?.name || tid;
+                              return (
+                                <span key={tid} className="inline-flex items-center gap-1">
+                                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={getTeamDotStyle(tid)} />
+                                  <span>{tName}</span>
+                                  {tIdx < goalie.teamIds.length - 1 && (
+                                    <span className="text-gray-600">/</span>
+                                  )}
+                                </span>
+                              );
+                            })
+                          ) : (
+                            <span className="inline-flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={getTeamDotStyle(goalie.teamId)} />
+                              <span>{goalie.teamName}</span>
+                            </span>
+                          )}
+                        </div>
                       </td>
-                      <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300">
+                      <td className="py-3 sm:py-4 px-3 sm:px-6 text-gray-300 hidden sm:table-cell">
                         {goalie.teamIds.length > 1 ? (
                           <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                             {goalie.teamIds.map((tid, tIdx) => {
@@ -573,14 +627,20 @@ export const SoccerStats: React.FC = () => {
                           </div>
                         )}
                       </td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-300">{goalie.gp}</td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base">
+                      <td className="py-3 sm:py-4 px-1.5 sm:px-3 text-center font-mono text-gray-300 whitespace-nowrap">{goalie.gp}</td>
+                      {/* Compact W-D-L on mobile */}
+                      <td className="py-3 px-1.5 text-center font-mono sm:hidden whitespace-nowrap">
+                        <span className="font-black text-lime-400">{goalie.wins}</span>
+                        <span className="text-gray-500">-{goalie.draws}-{goalie.losses}</span>
+                      </td>
+                      {/* Separate W / D / L on tablet+ */}
+                      <td className="py-3 sm:py-4 px-2 sm:px-4 text-center font-mono font-black text-lime-400 bg-lime-500/5 text-sm sm:text-base hidden sm:table-cell">
                         {goalie.wins}
                       </td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400">{goalie.draws}</td>
-                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400">{goalie.losses}</td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden sm:table-cell">{goalie.draws}</td>
+                      <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden sm:table-cell">{goalie.losses}</td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden sm:table-cell">{goalie.goalsAgainst}</td>
-                      <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono ${goalieSortBy === 'gaa' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-300'}`}>
+                      <td className={`py-3 sm:py-4 px-2 sm:px-4 text-center font-mono whitespace-nowrap ${goalieSortBy === 'gaa' ? 'font-bold text-white bg-lime-500/5' : 'text-gray-300'}`}>
                         {goalie.gaa.toFixed(2)}
                       </td>
                       <td className="py-3 sm:py-4 px-2 sm:px-3 text-center font-mono text-gray-400 hidden md:table-cell">{goalie.cleanSheets}</td>
@@ -591,7 +651,7 @@ export const SoccerStats: React.FC = () => {
             </div>
 
             {/* Footer Notice */}
-            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-wrap gap-3 sm:gap-6 justify-between items-center">
+            <div className="p-3 sm:p-4 bg-zinc-950/60 border-t border-zinc-800/80 text-[10px] sm:text-[11px] text-gray-400 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-6 justify-between items-start sm:items-center">
               <span>
                 {isFr
                   ? 'PJ: Parties Jouées • V: Victoires • N: Nuls • D: Défaites • BC: Buts Contre • MOY: Moyenne de buts alloués • BL: Blanchissages'
@@ -603,7 +663,7 @@ export const SoccerStats: React.FC = () => {
         )}
 
         {/* Bottom Navigation Link to Team Lineups */}
-        <div className="mt-10 sm:mt-12 p-5 sm:p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full max-w-full">
+        <div className="mt-8 sm:mt-12 p-4 sm:p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full max-w-full">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-lime-500/10 border border-lime-500/20 text-lime-400 flex items-center justify-center shrink-0">
               <Users size={20} />
@@ -612,7 +672,7 @@ export const SoccerStats: React.FC = () => {
               <h3 className="text-sm sm:text-base font-black uppercase italic text-white">
                 {isFr ? 'Alignements Officiels des Équipes' : 'Official Team Lineups'}
               </h3>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-400 leading-relaxed">
                 {isFr
                   ? 'Consultez la composition complète des effectifs de chaque équipe pour la saison 7v7.'
                   : 'Check the complete registered player rosters for each team in the 7v7 league.'}
@@ -622,7 +682,7 @@ export const SoccerStats: React.FC = () => {
 
           <Link
             to="/soccer/alignements"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-lime-400 hover:bg-lime-300 text-zinc-950 shadow-md shadow-lime-500/20 transition-all shrink-0"
+            className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-5 py-3 sm:py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-lime-400 hover:bg-lime-300 text-zinc-950 shadow-md shadow-lime-500/20 transition-all shrink-0"
           >
             <span>{isFr ? 'Voir les Alignements' : 'View Team Lineups'}</span>
             <ArrowRight size={14} />
