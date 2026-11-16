@@ -11,13 +11,13 @@ export const SportsPartners: React.FC = () => {
   const partnerList = [
     {
       name: isFr ? "Fondation de l'Hôpital de Montréal pour enfants" : "Montreal Children's Hospital Foundation",
-      category: isFr ? 'Partenaire Caritatif Majeur' : 'Major Charity Partner',
+      category: isFr ? 'Fier Donateur Officiel' : 'Proud Official Donor',
       description: isFr
         ? "NextGen Sports remet une portion de ses bénéfices et organise des collectes caritatives lors de ses tournois et événements pour appuyer les soins de pointe destinés aux enfants malades du Québec."
         : "NextGen Sports donates proceeds and organizes charity drives during league tournaments and showcases to fund cutting-edge pediatric care for children across Quebec.",
-      highlight: isFr ? "Partenaire officiel de la ligue" : "Official League Charity",
+      highlight: isFr ? "Fier Donateur Officiel de la ligue" : "Proud Official League Donor",
       isCharity: true,
-      website: "https://fondationduchildren.com"
+      website: "https://secure.fondationduchildren.com/site/TR/Fundraisingpages/DIY2026?pg=personal&px=1215092&fr_id=1360"
     },
     {
       name: "CutsByMigz",
@@ -61,7 +61,7 @@ export const SportsPartners: React.FC = () => {
     <div className="min-h-screen bg-[#07080b] text-white py-12 sm:py-16">
       <SEO
         title={isFr ? 'Partenaires officiels & Enfants malades | Next Gen Sports' : 'Official Partners & Charity | Next Gen Sports Montreal'}
-        description={isFr ? 'Next Gen Sports s\'associe à la Fondation du Children de Montréal et aux commerces de la Rive-Sud pour soutenir les soins pédiatriques et nos athlètes.' : 'Next Gen Sports partners with the Montreal Children\'s Hospital Foundation and South Shore businesses to support pediatric health and local community athletes.'}
+        description={isFr ? 'Next Gen Sports est fier donateur officiel de la Fondation du Children de Montréal et s\'associe aux commerces de la Rive-Sud pour soutenir les soins pédiatriques et nos athlètes.' : 'Next Gen Sports is a proud official donor to the Montreal Children\'s Hospital Foundation and partners with South Shore businesses to support pediatric health and local community athletes.'}
         canonical="https://nxtgnsports.ca/partners"
         ogType="website"
       />
@@ -90,7 +90,7 @@ export const SportsPartners: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-red-500/20 text-red-300 border border-red-500/40 inline-block">
-                  {isFr ? 'Partenaire Philanthropique Officiel' : 'Official Philanthropic Partner'}
+                  {isFr ? 'Fier Donateur Officiel' : 'Proud Official Donor'}
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-black uppercase italic text-white font-display">
                   {isFr ? "Fondation de l'Hôpital de Montréal pour enfants" : "Montreal Children's Hospital Foundation"}
@@ -109,7 +109,7 @@ export const SportsPartners: React.FC = () => {
                 rel="noopener noreferrer"
                 className="shrink-0 px-6 py-3.5 rounded-xl font-black text-xs uppercase tracking-widest bg-red-600 hover:bg-red-500 text-white transition-all flex items-center gap-2 shadow-lg shadow-red-600/30"
               >
-                <span>{isFr ? 'Visiter la fondation' : 'Visit foundation'}</span>
+                <span>{isFr ? 'Pour contribuer' : 'To Contribute'}</span>
                 <ExternalLink size={14} />
               </a>
             )}

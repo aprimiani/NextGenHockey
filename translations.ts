@@ -23,7 +23,7 @@ export const translations = {
       lowerCost: 'Lower Cost',
       lowerCostDesc: 'Affordable fees so everyone can enjoy the game.',
       community: 'Community First',
-      communityDesc: "Proud partners with the Montreal Children's Hospital.",
+      communityDesc: "Proud official donor to the Montreal Children's Hospital.",
       missionTitle: 'Our Charity Mission',
       missionText: '30% of all league profits are donated directly to the Montreal Children\'s Hospital. Your play helps kids in our community.',
       earlyBird: 'Follow us on Instagram for updates!'
@@ -562,7 +562,7 @@ export const translations = {
       lowerCost: 'Moindre Coût',
       lowerCostDesc: 'Frais abordables pour que tout le monde puisse jouer.',
       community: 'Communauté',
-      communityDesc: "Fiers partenaires de l'Hôpital de Montréal pour enfants.",
+      communityDesc: "Fier donateur officiel de l'Hôpital de Montréal pour enfants.",
       missionTitle: 'Notre Mission Caritative',
       missionText: '30 % de tous les profits de la ligue sont versés directement à l\'Hôpital de Montréal pour enfants. Votre jeu aide les enfants de notre communauté.',
       earlyBird: 'Suivez-nous sur Instagram pour les nouvelles !'

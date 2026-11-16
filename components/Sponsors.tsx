@@ -101,7 +101,7 @@ const Sponsors: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <SEO
         title={language === 'fr' ? 'Commanditaires & Privilèges | Next Gen Hockey Rive-Sud' : 'Hockey Sponsors & Discounts | Next Gen Hockey South Shore'}
-        description={language === 'fr' ? 'Découvrez les commanditaires officiels et rabais exclusifs pour les joueurs de Next Gen Hockey à Delson sur la Rive-Sud, et notre engagement caritatif.' : 'Explore official sponsors and exclusive player discounts for Next Gen Hockey in Delson and Montreal\'s South Shore, plus our Children\'s Hospital partnership.'}
+        description={language === 'fr' ? 'Découvrez les commanditaires officiels et rabais exclusifs pour les joueurs de Next Gen Hockey à Delson sur la Rive-Sud, et notre engagement comme fier donateur officiel.' : 'Explore official sponsors and exclusive player discounts for Next Gen Hockey in Delson and Montreal\'s South Shore, plus our commitment as a Proud Official Donor to the Montreal Children\'s Hospital.'}
         canonical="https://nxtgnsports.ca/hockey/sponsors"
         ogType="website"
       />

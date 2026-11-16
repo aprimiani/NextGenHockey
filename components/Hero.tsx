@@ -317,7 +317,7 @@ export const Hero: React.FC = () => {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="inline-block px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-black uppercase tracking-widest bg-red-500/20 text-red-300 border border-red-500/40 mb-1.5 sm:mb-2">
-                  {isFr ? 'Partenaire Caritatif Officiel' : 'Official Charity Partner'}
+                  {isFr ? 'Fier Donateur Officiel' : 'Proud Official Donor'}
                 </div>
                 <h3 className="text-lg sm:text-2xl font-black uppercase italic text-white font-display leading-tight">
                   {isFr ? "Fondation de l'Hôpital de Montréal pour enfants" : "Montreal Children's Hospital Foundation"}

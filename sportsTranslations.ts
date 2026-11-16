@@ -41,7 +41,7 @@ export const sportsTranslations = {
       nextGenTitle: 'LA NOUVELLE GÉNÉRATION',
       nextGenDesc: 'Conçu pour les joueurs, par les joueurs. Plateforme technologique moderne avec feuilles de match et statistiques en direct.',
       impactTitle: 'IMPACT POSITIF',
-      impactDesc: 'Fier partenaire de la Fondation de l\'Hôpital de Montréal pour enfants. Chaque saison soutient directement les soins pédiatriques.',
+      impactDesc: 'Fier donateur officiel de la Fondation de l\'Hôpital de Montréal pour enfants. Chaque saison soutient directement les soins pédiatriques.',
     },
     sportsEvents: {
       title: 'Matchs & Événements à Venir',
@@ -58,7 +58,7 @@ export const sportsTranslations = {
       title: 'Nos Partenaires Officiels',
       subtitle: 'Des organisations de premier plan qui soutiennent nos athlètes et notre communauté.',
       childrenHospitalTitle: 'Fondation du Children de Montréal',
-      childrenHospitalDesc: 'Partenaire caritatif officiel. NextGen Sports est fier de redonner et d\'appuyer la mission vitale de l\'Hôpital de Montréal pour enfants.',
+      childrenHospitalDesc: 'Fier donateur officiel. NextGen Sports est fier de redonner et d\'appuyer la mission vitale de l\'Hôpital de Montréal pour enfants.',
       viewAllPartners: 'Découvrir tous les partenaires & privilèges',
     },
     sportsFinalCta: {
@@ -133,7 +133,7 @@ export const sportsTranslations = {
       nextGenTitle: 'THE NEXT GENERATION',
       nextGenDesc: 'Built for players, by players. Modern digital platform with live box scores and comprehensive stat tracking.',
       impactTitle: 'POSITIVE IMPACT',
-      impactDesc: 'Proud partner of the Montreal Children\'s Hospital Foundation. Every season directly supports pediatric healthcare.',
+      impactDesc: 'Proud official donor of the Montreal Children\'s Hospital Foundation. Every season directly supports pediatric healthcare.',
     },
     sportsEvents: {
       title: 'Upcoming Games & Events',
@@ -150,7 +150,7 @@ export const sportsTranslations = {
       title: 'Our Official Partners',
       subtitle: 'Leading community organizations and sponsors supporting our athletes.',
       childrenHospitalTitle: 'Montreal Children\'s Hospital Foundation',
-      childrenHospitalDesc: 'Official Charity Partner. NextGen Sports is proud to give back and support the vital mission of the Montreal Children\'s Hospital.',
+      childrenHospitalDesc: 'Proud Official Donor. NextGen Sports is proud to give back and support the vital mission of the Montreal Children\'s Hospital.',
       viewAllPartners: 'Discover all partners & exclusive perks',
     },
     sportsFinalCta: {

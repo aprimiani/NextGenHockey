@@ -625,7 +625,7 @@ export const SportsHome: React.FC = () => {
                 </div>
                 <div>
                   <div className="inline-block px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-red-500/20 text-red-300 border border-red-500/40 mb-2">
-                    {language === 'fr' ? 'Partenaire Caritatif Officiel' : 'Official Charity Partner'}
+                    {language === 'fr' ? 'Fier Donateur Officiel' : 'Proud Official Donor'}
                   </div>
                   <h3 className="text-xl sm:text-2xl font-black uppercase italic text-white font-display">
                     {t.sportsPartners.childrenHospitalTitle}

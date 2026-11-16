@@ -26,8 +26,8 @@ export const SportsFooter: React.FC = () => {
               </p>
               <p className="text-gray-400 text-xs">
                 {language === 'fr'
-                  ? 'Fier partenaire officiel. Le sport au service des jeunes et des familles.'
-                  : 'Proud official partner. Sport empowering young athletes and families.'}
+                  ? 'Fier donateur officiel. Le sport au service des jeunes et des familles.'
+                  : 'Proud official donor. Sport empowering young athletes and families.'}
               </p>
             </div>
           </div>
