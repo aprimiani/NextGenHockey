@@ -294,12 +294,12 @@ const RECORDED_PLAYER_STATS: Record<string, { gp: number; goals: number; assists
   'nicolas primiani': { gp: 3, goals: 0, assists: 1 },
   'evan sinclair': { gp: 6, goals: 0, assists: 1 },
   'ciera macdavid': { gp: 6, goals: 0, assists: 1 },
+  'joshua bubis': { gp: 6, goals: 0, assists: 1, yellowCards: 1 },
   // Players with 0 points
   'todd mumford': { gp: 11, goals: 0, assists: 0 },
   'éliane martel': { gp: 7, goals: 0, assists: 0 },
   'thomas yelle': { gp: 7, goals: 0, assists: 0 },
   'benjamin st-cyr': { gp: 6, goals: 0, assists: 0 },
-  'joshua bubis': { gp: 6, goals: 0, assists: 0, yellowCards: 1 },
   'phenix mangerpan': { gp: 6, goals: 0, assists: 0 },
   'tristan snowden': { gp: 5, goals: 0, assists: 0 },
   'lydia côté': { gp: 5, goals: 0, assists: 0 },
@@ -1026,8 +1026,8 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
     division: '7v7 Open',
     stage: 'Regular Season',
     recap: {
-      summaryEn: 'Mumford & Sons pulled away for a 7–3 win over Turf Terrors in the 9:00 PM Week 6 matchup. Brandon Garcia powered the offense with a hat trick (3 goals), Alexandre Stefanson added a brace (2 goals), and Michael-Joseph Primiani plus substitute Jassir Chaibi rounded out the scoring. Turf Terrors replied through Ilya Naumkin, Timothy Gilmore, and Benjamin Morton, assisted by Ciera MacDavid.',
-      summaryFr: 'Mumford & Sons s\'est imposé 7–3 face aux Turf Terrors lors du match de 21h00 de la Semaine 6. Brandon Garcia a mené l\'attaque avec un tour du chapeau (3 buts), Alexandre Stefanson a ajouté un doublé (2 buts), et Michael-Joseph Primiani ainsi que le substitut Jassir Chaibi ont complété la marque. Turf Terrors a répliqué grâce à Ilya Naumkin, Timothy Gilmore et Benjamin Morton, sur une passe de Ciera MacDavid.',
+      summaryEn: 'Mumford & Sons pulled away for a 7–3 win over Turf Terrors in the 9:00 PM Week 6 matchup. Brandon Garcia powered the offense with a hat trick (3 goals), Alexandre Stefanson added a brace (2 goals), and Michael-Joseph Primiani plus substitute Jassir Chaibi rounded out the scoring. Turf Terrors replied through Ilya Naumkin, Timothy Gilmore (assisted by Joshua Bubis), and Benjamin Morton (assisted by Ciera MacDavid).',
+      summaryFr: 'Mumford & Sons s\'est imposé 7–3 face aux Turf Terrors lors du match de 21h00 de la Semaine 6. Brandon Garcia a mené l\'attaque avec un tour du chapeau (3 buts), Alexandre Stefanson a ajouté un doublé (2 buts), et Michael-Joseph Primiani ainsi que le substitut Jassir Chaibi ont complété la marque. Turf Terrors a répliqué grâce à Ilya Naumkin, Timothy Gilmore (sur une passe de Joshua Bubis) et Benjamin Morton (sur une passe de Ciera MacDavid).',
       goals: [
         { teamId: 's_team_4', scorer: 'Brandon Garcia', number: 5 },
         { teamId: 's_team_4', scorer: 'Brandon Garcia', number: 5 },
@@ -1037,7 +1037,7 @@ export const SOCCER_SCHEDULE: SoccerMatch[] = [
         { teamId: 's_team_4', scorer: 'Jassir Chaibi', number: 12 },
         { teamId: 's_team_4', scorer: 'Michael-Joseph Primiani', number: 8 },
         { teamId: 's_turf_terrors', scorer: 'Ilya Naumkin', number: 0 },
-        { teamId: 's_turf_terrors', scorer: 'Timothy Gilmore', number: 2 },
+        { teamId: 's_turf_terrors', scorer: 'Timothy Gilmore', number: 2, assists: ['Joshua Bubis'] },
         { teamId: 's_turf_terrors', scorer: 'Benjamin Morton', number: 4, assists: ['Ciera MacDavid'] },
       ],
       cards: [],
