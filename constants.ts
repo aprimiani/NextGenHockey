@@ -1083,7 +1083,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_timbits",
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 3,
+    "awayScore": 1
   },
   {
     "id": "g_w_23",
@@ -15634,6 +15636,138 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_1775582149892": "19",
       "p1": "94",
       "p_1778425131558": "76"
+    }
+  },
+  "g_w_21": {
+    "gameId": "g_w_21",
+    "events": [
+      {
+        "id": "e_g_w_21_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "03:18",
+        "teamId": "w_timbits",
+        "player": "w_p_benjamin_sasseville",
+        "assist": "w_p_raphael_rivet",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_21_g2",
+        "type": "goal",
+        "period": 2,
+        "time": "03:15",
+        "teamId": "w_timbits",
+        "player": "w_p_benjamin_sasseville",
+        "assist": "w_p_vincent_robert",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_21_g3",
+        "type": "goal",
+        "period": 2,
+        "time": "08:45",
+        "teamId": "w_timbits",
+        "player": "w_p_benjamin_sasseville",
+        "assist": "w_p_antoine_bertrand",
+        "assist2": "",
+        "details": "Hat Trick"
+      },
+      {
+        "id": "e_g_w_21_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "09:22",
+        "teamId": "w_bots",
+        "player": "p2",
+        "assist": "p_1775579857302",
+        "assist2": "p_1767082317648",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1767082104234",
+        "shotsFaced": 36,
+        "goalsAgainst": 1,
+        "saves": 35
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 21,
+        "goalsAgainst": 3,
+        "saves": 18
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1767082104234",
+        "w_p_etienne_routhier",
+        "w_p_antoine_perreault",
+        "w_p_jacob_fournier",
+        "w_p_benjamin_sasseville",
+        "w_p_jean_christophe_malo_pepin",
+        "w_p_francois_fontaine",
+        "w_p_antoine_bertrand",
+        "w_p_raphael_rivet",
+        "p_1767082323831",
+        "p_1778475181683",
+        "w_p_vincent_robert"
+      ],
+      "awayPlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p_1775579857302",
+        "p3",
+        "p4",
+        "p_1767082302464",
+        "p2",
+        "p_1775580097968",
+        "p_1767082317648",
+        "p1",
+        "p_nicolas_primiani_sub"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "p_1771962941457"
+      ],
+      "awayPlayers": [
+        "p_1775582149892"
+      ]
+    },
+    "shots": {
+      "home": 21,
+      "away": 36
+    },
+    "referees": [
+      "Thomas Burton"
+    ],
+    "playerNumbers": {
+      "goalie_1775582169664": "29",
+      "p_1767082310061": "55",
+      "p_1775579857302": "76",
+      "p3": "43",
+      "p4": "13",
+      "p_1767082302464": "3",
+      "p2": "73",
+      "p_1775580097968": "40",
+      "p_1767082317648": "88",
+      "p1": "94",
+      "p_nicolas_primiani_sub": "19",
+      "goalie_1767082104234": "30",
+      "w_p_etienne_routhier": "44",
+      "w_p_antoine_perreault": "44",
+      "w_p_jacob_fournier": "66",
+      "w_p_benjamin_sasseville": "13",
+      "w_p_jean_christophe_malo_pepin": "67",
+      "w_p_francois_fontaine": "6",
+      "w_p_antoine_bertrand": "2",
+      "w_p_raphael_rivet": "55",
+      "p_1767082323831": "4",
+      "p_1778475181683": "3",
+      "w_p_vincent_robert": "37"
     }
   }
 };
