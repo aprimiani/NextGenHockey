@@ -3868,6 +3868,21 @@ export const GOALIE_STATS: GoalieStats[] = [
     "shotsAgainst": 23,
     "goalsAgainst": 9,
     "saves": 14
+  },
+  {
+    "id": "goalie_alexandre_derome",
+    "name": "Alexandre Derome",
+    "teamId": "w_seamen",
+    "seasonTeamIds": {
+      "winter_2026_2027": "w_seamen"
+    },
+    "gp": 0,
+    "wins": 0,
+    "losses": 0,
+    "draws": 0,
+    "shotsAgainst": 0,
+    "goalsAgainst": 0,
+    "saves": 0
   }
 ];
 
@@ -15558,7 +15573,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
     ],
     "goalieStats": {
       "homeGoalie": {
-        "playerId": "goalie_adam_rizk",
+        "playerId": "goalie_alexandre_derome",
         "shotsFaced": 29,
         "goalsAgainst": 7,
         "saves": 22
@@ -15572,7 +15587,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
     },
     "roster": {
       "homePlayers": [
-        "goalie_adam_rizk",
+        "goalie_alexandre_derome",
         "p_dylan_molinaro_sub",
         "p_ethan_black_sub",
         "w_p_brendan_walsh",
@@ -15600,7 +15615,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
     },
     "absentPlayers": {
       "homePlayers": [
-        "w_p_alexandre_derome"
+        "goalie_adam_rizk"
       ],
       "awayPlayers": [
         "p_1775579857302"
@@ -15614,6 +15629,7 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "Nathan Auclair"
     ],
     "playerNumbers": {
+      "goalie_alexandre_derome": "12",
       "goalie_adam_rizk": "30",
       "p_dylan_molinaro_sub": "7",
       "p_ethan_black_sub": "19",

@@ -2553,14 +2553,18 @@ const Standings: React.FC = () => {
         });
 
         // 1. Skater game logs
+        const skaterIdList = matchedPlayer?.id && matchedGoalie?.id && matchedPlayer.id !== matchedGoalie.id
+          ? [matchedPlayer.id]
+          : playerIdList;
+
         const playerGames = activeScheduleList.filter(g => {
           if (g.status !== "played") return false;
           const recap = gameRecaps[g.id];
           if (recap?.roster) {
-            const inRoster = recap.roster.homePlayers?.some(pid => playerIdList.includes(pid)) ||
-                             recap.roster.awayPlayers?.some(pid => playerIdList.includes(pid));
+            const inRoster = recap.roster.homePlayers?.some(pid => skaterIdList.includes(pid)) ||
+                             recap.roster.awayPlayers?.some(pid => skaterIdList.includes(pid));
             if (inRoster) return true;
-            if (recap.events?.some(e => playerIdList.includes(e.player) || (e.assist && playerIdList.includes(e.assist)) || (e.assist2 && playerIdList.includes(e.assist2)))) {
+            if (recap.events?.some(e => skaterIdList.includes(e.player) || (e.assist && skaterIdList.includes(e.assist)) || (e.assist2 && skaterIdList.includes(e.assist2)))) {
               return true;
             }
             return false;
@@ -2570,9 +2574,9 @@ const Standings: React.FC = () => {
           if (isOnHomeTeam || isOnAwayTeam) return true;
           if (recap?.events) {
             return recap.events.some(e => 
-              playerIdList.includes(e.player) || 
-              (e.assist && playerIdList.includes(e.assist)) || 
-              (e.assist2 && playerIdList.includes(e.assist2))
+              skaterIdList.includes(e.player) || 
+              (e.assist && skaterIdList.includes(e.assist)) || 
+              (e.assist2 && skaterIdList.includes(e.assist2))
             );
           }
           return false;
@@ -3153,6 +3157,8 @@ const Standings: React.FC = () => {
                                   const winterG = winterStats.goalies.find(x => x.id === rawPerson.id || x.name.toLowerCase().trim() === normalizedName);
                                   const winterTeamId = winterG ? winterG.teamId : (rawPerson.seasonTeamIds?.['winter_2026_2027'] || (rawPerson.teamId.startsWith('w_') ? rawPerson.teamId : undefined));
                                   const winterTeamName = winterTeamId ? getTeamName(winterTeamId) : '-';
+                                  const wSv = winterG && winterG.shotsAgainst > 0 ? ((winterG.saves / winterG.shotsAgainst)).toFixed(3).replace(/^0+/, '') : '.000';
+                                  const wGaa = winterG && winterG.gp > 0 ? (winterG.goalsAgainst / winterG.gp).toFixed(2) : '0.00';
                                   return (
                                     <tr className="hover:bg-white/5 transition-colors">
                                       <td className="py-3 px-3.5">
@@ -3167,8 +3173,8 @@ const Standings: React.FC = () => {
                                       <td className="py-3 px-2 text-center font-mono text-gray-200">{winterG ? `${winterG.wins}-${winterG.losses}-${winterG.draws}` : '0-0-0'}</td>
                                       <td className="py-3 px-2 text-center font-mono text-gray-200">{winterG ? winterG.shotsAgainst : 0}</td>
                                       <td className="py-3 px-2 text-center font-mono text-red-400">{winterG ? winterG.goalsAgainst : 0}</td>
-                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">.000</td>
-                                      <td className="py-3 px-2 text-center font-mono text-gray-200">0.00</td>
+                                      <td className="py-3 px-2 text-center font-mono font-black text-orange-400">{wSv}</td>
+                                      <td className="py-3 px-2 text-center font-mono text-gray-200">{wGaa}</td>
                                     </tr>
                                   );
                                 })()}
