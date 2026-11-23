@@ -23,6 +23,7 @@ import { SCHEDULE, TEAMS } from '../../constants';
 import { SOCCER_SCHEDULE, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
 import { PurpleRibbonIcon } from '../icons/PurpleRibbonIcon';
+import { CancerDonationCounter } from '../CancerDonationCounter';
 
 interface SportsGameEvent {
   id: string;
@@ -445,6 +446,9 @@ export const SportsHome: React.FC = () => {
               </button>
             </div>
           </div>
+
+          {/* Cancer Awareness Goal Donation Counter */}
+          <CancerDonationCounter className="mb-8" />
 
           {/* Events Grid */}
           {combinedEvents.length > 0 ? (

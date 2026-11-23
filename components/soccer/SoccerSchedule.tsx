@@ -5,6 +5,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { SOCCER_SCHEDULE, SOCCER_CURRENT_SEASON, SOCCER_TEAMS } from '../../soccerData';
 import { SEO } from '../SEO';
 import { PurpleRibbonIcon } from '../icons/PurpleRibbonIcon';
+import { CancerDonationCounter } from '../CancerDonationCounter';
 
 export const SoccerSchedule: React.FC = () => {
   const { language } = useLanguage();
@@ -654,6 +655,9 @@ export const SoccerSchedule: React.FC = () => {
                 </div>
               )}
             </div>
+
+            {/* Cancer Awareness Goal Donation Counter */}
+            <CancerDonationCounter className="mb-6" />
 
             {/* Schedule List */}
             {filteredMatches.length > 0 ? (

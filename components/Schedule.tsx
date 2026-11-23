@@ -6,6 +6,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { translatePenalty, translateGoalDetails } from '../translations';
 import { SEO } from './SEO';
 import { PurpleRibbonIcon } from './icons/PurpleRibbonIcon';
+import { CancerDonationCounter } from './CancerDonationCounter';
 
 const Schedule: React.FC = () => {
   const { t, language } = useLanguage();
@@ -654,6 +655,11 @@ const Schedule: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Cancer Awareness Goal Donation Counter (Winter 2026-2027) */}
+      {selectedSeason === 'winter_2026_2027' && (
+        <CancerDonationCounter className="mb-6" />
+      )}
 
       <div className="grid gap-4 sm:gap-6 animate-in fade-in slide-in-from-bottom duration-500">
         {filteredGames.length > 0 ? (

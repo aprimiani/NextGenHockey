@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Heart, Trophy, Gift, MapPin, ExternalLink, ArrowRight, Star, Scissors } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { SEO } from '../SEO';
+import { CancerDonationCounter } from '../CancerDonationCounter';
 
 export const SportsPartners: React.FC = () => {
   const { language, t } = useLanguage();
@@ -115,6 +116,9 @@ export const SportsPartners: React.FC = () => {
             )}
           </div>
         </div>
+
+        {/* Cancer Awareness Goal Donation Counter */}
+        <CancerDonationCounter className="mb-12" />
 
         {/* Partners Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-16">
