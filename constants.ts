@@ -143,25 +143,25 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_bots",
     "name": "Bots",
-    "gp": 5,
-    "wins": 4,
+    "gp": 6,
+    "wins": 5,
     "losses": 1,
     "ties": 0,
-    "points": 8,
-    "goalsFor": 33,
-    "goalsAgainst": 20,
+    "points": 10,
+    "goalsFor": 40,
+    "goalsAgainst": 22,
     "logoColor": "#3b82f6"
   },
   {
     "id": "w_kraken",
     "name": "Kraken Beers",
-    "gp": 5,
+    "gp": 6,
     "wins": 1,
-    "losses": 4,
+    "losses": 5,
     "ties": 0,
     "points": 2,
-    "goalsFor": 15,
-    "goalsAgainst": 29,
+    "goalsFor": 17,
+    "goalsAgainst": 36,
     "logoColor": "#111827"
   },
   {
@@ -1094,7 +1094,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_bots",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 7,
+    "awayScore": 2
   },
   {
     "id": "g_w_24",
@@ -1303,7 +1305,8 @@ export const ALL_PLAYERS: PlayerStats[] = [
     },
     "seasonSecondaryTeamIds": {
       "winter_2026_2027": [
-        "w_timbits"
+        "w_timbits",
+        "w_bots"
       ]
     },
     "gp": 11,
@@ -1933,6 +1936,14 @@ export const ALL_PLAYERS: PlayerStats[] = [
       "6",
       "t_1775579415800"
     ],
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
+    },
     "gp": 12,
     "goals": 4,
     "assists": 7,
@@ -3589,6 +3600,74 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 0,
     "assists": 0,
     "points": 0
+  },
+  {
+    "id": "p_dylan_barberie_sub",
+    "name": "Dylan Barberie",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_bots"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_marco_cote_sub",
+    "name": "Marco Cote",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_jeremie_robert_sub",
+    "name": "Jeremie Robert",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 1,
+    "points": 1
+  },
+  {
+    "id": "p_vincent_morneau_sub",
+    "name": "Vincent Morneau",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
+    "gp": 1,
+    "goals": 1,
+    "assists": 0,
+    "points": 1
   }
 ];
 
@@ -15784,6 +15863,195 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_1767082323831": "4",
       "p_1778475181683": "3",
       "w_p_vincent_robert": "37"
+    }
+  },
+  "g_w_23": {
+    "gameId": "g_w_23",
+    "events": [
+      {
+        "id": "e_g_w_23_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "05:05",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p1",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_23_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "11:02",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_23_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:35",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_23_g4",
+        "type": "goal",
+        "period": 1,
+        "time": "14:14",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "p_jeremie_robert_sub",
+        "assist2": "p4",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_23_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "15:09",
+        "teamId": "w_kraken",
+        "player": "p_vincent_morneau_sub",
+        "assist": "w_p_thomas_desveaux",
+        "assist2": "w_p_jacob_lacombe",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_23_g6",
+        "type": "goal",
+        "period": 3,
+        "time": "05:45",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p_1773774609841",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_23_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "06:55",
+        "teamId": "w_bots",
+        "player": "p_1773774485424",
+        "assist": "p_1767082317648",
+        "assist2": "p1",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_23_g8",
+        "type": "goal",
+        "period": 3,
+        "time": "14:05",
+        "teamId": "w_bots",
+        "player": "p_1767082317648",
+        "assist": "p_1773774609841",
+        "assist2": "p1",
+        "details": "Hat Trick"
+      },
+      {
+        "id": "e_g_w_23_g9",
+        "type": "goal",
+        "period": 3,
+        "time": "14:42",
+        "teamId": "w_bots",
+        "player": "p1",
+        "assist": "p_1767082317648",
+        "assist2": "",
+        "details": "Hat Trick"
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_1775582169664",
+        "shotsFaced": 30,
+        "goalsAgainst": 2,
+        "saves": 28
+      },
+      "awayGoalie": {
+        "playerId": "goalie_ephram_labonville_177914",
+        "shotsFaced": 32,
+        "goalsAgainst": 7,
+        "saves": 25
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_1775582169664",
+        "p_1767082310061",
+        "p_1775580097968",
+        "p_1767082317648",
+        "p_1775582149892",
+        "p1",
+        "p_dylan_barberie_sub",
+        "p_1773774609841",
+        "p_1773774485424",
+        "p_1778425131558"
+      ],
+      "awayPlayers": [
+        "goalie_ephram_labonville_177914",
+        "p3",
+        "w_p_ben_siegl",
+        "w_p_thomas_burton",
+        "w_p_thomas_desveaux",
+        "w_p_jacob_lacombe",
+        "p4",
+        "p_nicholas_giacalone_178004",
+        "p_marco_cote_sub",
+        "p_jeremie_robert_sub",
+        "p_vincent_morneau_sub"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "p_1775579857302",
+        "p3",
+        "p4",
+        "p_1767082302464",
+        "p2"
+      ],
+      "awayPlayers": [
+        "p_joshua_sylvain",
+        "w_p_evan_getty",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco"
+      ]
+    },
+    "shots": {
+      "home": 32,
+      "away": 30
+    },
+    "referees": [
+      "Nathan Auclair"
+    ],
+    "playerNumbers": {
+      "goalie_1775582169664": "29",
+      "p_1767082310061": "55",
+      "p_1775580097968": "40",
+      "p_1767082317648": "88",
+      "p_1775582149892": "19",
+      "p1": "94",
+      "p_1773774609841": "11",
+      "p_1773774485424": "1",
+      "p_1778425131558": "76",
+      "goalie_ephram_labonville_177914": "0",
+      "p3": "43",
+      "w_p_ben_siegl": "11",
+      "w_p_thomas_burton": "2",
+      "w_p_thomas_desveaux": "17",
+      "w_p_jacob_lacombe": "19",
+      "p4": "23",
+      "p_nicholas_giacalone_178004": "8",
+      "p_marco_cote_sub": "392",
+      "p_jeremie_robert_sub": "362",
+      "p_vincent_morneau_sub": "0"
     }
   }
 };
