@@ -1191,24 +1191,6 @@ export const SCHEDULE: Game[] = [
     "status": "scheduled"
   },
   {
-    "id": "g_w_33",
-    "date": "2026-12-28",
-    "time": "22:00",
-    "homeTeamId": "w_timbits",
-    "awayTeamId": "w_bots",
-    "location": "Centre Sportif Delson",
-    "status": "cancelled"
-  },
-  {
-    "id": "g_w_34",
-    "date": "2026-12-29",
-    "time": "21:30",
-    "homeTeamId": "w_seamen",
-    "awayTeamId": "w_kraken",
-    "location": "Centre Sportif Delson",
-    "status": "cancelled"
-  },
-  {
     "id": "g_w_35",
     "date": "2027-01-04",
     "time": "22:00",
