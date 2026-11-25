@@ -1135,6 +1135,150 @@ export const SCHEDULE: Game[] = [
     "awayTeamId": "w_bots",
     "location": "Centre Sportif Delson",
     "status": "scheduled"
+  },
+  {
+    "id": "g_w_27",
+    "date": "2026-12-07",
+    "time": "22:00",
+    "homeTeamId": "w_timbits",
+    "awayTeamId": "w_bots",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_28",
+    "date": "2026-12-08",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_29",
+    "date": "2026-12-14",
+    "time": "22:00",
+    "homeTeamId": "w_bots",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_30",
+    "date": "2026-12-15",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_timbits",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_31",
+    "date": "2026-12-21",
+    "time": "22:00",
+    "homeTeamId": "w_kraken",
+    "awayTeamId": "w_timbits",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_32",
+    "date": "2026-12-22",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_bots",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_33",
+    "date": "2026-12-28",
+    "time": "22:00",
+    "homeTeamId": "w_timbits",
+    "awayTeamId": "w_bots",
+    "location": "Centre Sportif Delson",
+    "status": "cancelled"
+  },
+  {
+    "id": "g_w_34",
+    "date": "2026-12-29",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "cancelled"
+  },
+  {
+    "id": "g_w_35",
+    "date": "2027-01-04",
+    "time": "22:00",
+    "homeTeamId": "w_bots",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_36",
+    "date": "2027-01-05",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_timbits",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_37",
+    "date": "2027-01-11",
+    "time": "22:00",
+    "homeTeamId": "w_kraken",
+    "awayTeamId": "w_timbits",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_38",
+    "date": "2027-01-12",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_bots",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_39",
+    "date": "2027-01-18",
+    "time": "22:00",
+    "homeTeamId": "w_timbits",
+    "awayTeamId": "w_bots",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_40",
+    "date": "2027-01-19",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_41",
+    "date": "2027-01-25",
+    "time": "22:00",
+    "homeTeamId": "w_bots",
+    "awayTeamId": "w_kraken",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
+  },
+  {
+    "id": "g_w_42",
+    "date": "2027-01-26",
+    "time": "21:30",
+    "homeTeamId": "w_seamen",
+    "awayTeamId": "w_timbits",
+    "location": "Centre Sportif Delson",
+    "status": "scheduled"
   }
 ];
 
