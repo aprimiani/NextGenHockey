@@ -44,9 +44,9 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
 
   useEffect(() => {
     // Prevent automatic clearing of local storage to protect user edits
-    const hasReset = localStorage.getItem('ng_force_reset_v156_remove_dec_cancelled');
+    const hasReset = localStorage.getItem('ng_force_reset_v157_nov25_seamen_kraken');
     if (!hasReset) {
-      localStorage.setItem('ng_force_reset_v156_remove_dec_cancelled', 'true');
+      localStorage.setItem('ng_force_reset_v157_nov25_seamen_kraken', 'true');
       // Clear key storage items to force re-initialize with current constants.ts values
       localStorage.removeItem('ng_teams');
       localStorage.removeItem('ng_schedule');
@@ -171,6 +171,7 @@ export const LeagueDataProvider: React.FC<{ children: ReactNode }> = ({ children
         ...(GAME_RECAPS['g_w_19'] ? { g_w_19: GAME_RECAPS['g_w_19'] } : {}),
         ...(GAME_RECAPS['g_w_20'] ? { g_w_20: GAME_RECAPS['g_w_20'] } : {}),
         ...(GAME_RECAPS['g_w_21'] ? { g_w_21: GAME_RECAPS['g_w_21'] } : {}),
+        ...(GAME_RECAPS['g_w_22'] ? { g_w_22: GAME_RECAPS['g_w_22'] } : {}),
         ...(GAME_RECAPS['g_w_23'] ? { g_w_23: GAME_RECAPS['g_w_23'] } : {}),
         ...(GAME_RECAPS['g_w_24'] ? { g_w_24: GAME_RECAPS['g_w_24'] } : {})
       });

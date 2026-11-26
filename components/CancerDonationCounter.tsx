@@ -103,7 +103,7 @@ export const CancerDonationCounter: React.FC<CancerDonationCounterProps> = ({ cl
               {formatAmount(stats.totalAmount)}
             </div>
             <div className="text-[10px] font-semibold text-gray-400 mt-0.5">
-              {isFr ? 'Amassés pour la cause' : 'Raised for the cause'}
+              {isFr ? 'Total final amassé' : 'Final total raised'}
             </div>
           </div>
         </div>

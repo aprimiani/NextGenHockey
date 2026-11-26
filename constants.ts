@@ -155,25 +155,25 @@ export const TEAMS: Team[] = [{
   {
     "id": "w_kraken",
     "name": "Kraken Beers",
-    "gp": 6,
+    "gp": 7,
     "wins": 1,
-    "losses": 5,
+    "losses": 6,
     "ties": 0,
     "points": 2,
-    "goalsFor": 17,
-    "goalsAgainst": 36,
+    "goalsFor": 20,
+    "goalsAgainst": 40,
     "logoColor": "#111827"
   },
   {
     "id": "w_seamen",
     "name": "The Seamen",
-    "gp": 7,
-    "wins": 5,
+    "gp": 8,
+    "wins": 6,
     "losses": 2,
     "ties": 0,
-    "points": 10,
-    "goalsFor": 43,
-    "goalsAgainst": 27,
+    "points": 12,
+    "goalsFor": 47,
+    "goalsAgainst": 30,
     "logoColor": "#ebdcb9",
     "secondaryColor": "#15803d"
   }
@@ -1116,7 +1116,9 @@ export const SCHEDULE: Game[] = [
     "homeTeamId": "w_seamen",
     "awayTeamId": "w_kraken",
     "location": "Centre Sportif Delson",
-    "status": "scheduled"
+    "status": "played",
+    "homeScore": 4,
+    "awayScore": 3
   },
   {
     "id": "g_w_25",
@@ -3815,6 +3817,40 @@ export const ALL_PLAYERS: PlayerStats[] = [
     "goals": 4,
     "assists": 0,
     "points": 4
+  },
+  {
+    "id": "p_liborio_ciccarello_sub",
+    "name": "Liborio Ciccarello",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_seamen"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 0,
+    "points": 0
+  },
+  {
+    "id": "p_alexandre_routhier_sub",
+    "name": "Alexandre Routhier",
+    "teamId": "sub",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_seamen"
+      ]
+    },
+    "gp": 1,
+    "goals": 0,
+    "assists": 1,
+    "points": 1
   }
 ];
 
@@ -3905,6 +3941,14 @@ export const GOALIE_STATS: GoalieStats[] = [
     "id": "goalie_1773774693729",
     "name": "Alexandre Langlais",
     "teamId": "4",
+    "seasonTeamIds": {
+      "winter_2026_2027": "sub"
+    },
+    "seasonSecondaryTeamIds": {
+      "winter_2026_2027": [
+        "w_kraken"
+      ]
+    },
     "gp": 12,
     "wins": 8,
     "losses": 1,
@@ -16419,6 +16463,174 @@ export const GAME_RECAPS: Record<string, GameRecapData> = {
       "p_1767082323831": "4",
       "p_1778475181683": "3",
       "w_p_vincent_robert": "37"
+    }
+  },
+  "g_w_22": {
+    "gameId": "g_w_22",
+    "events": [
+      {
+        "id": "e_g_w_22_g1",
+        "type": "goal",
+        "period": 1,
+        "time": "04:45",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "w_p_owen_dunn",
+        "assist2": "p_alexandre_routhier_sub",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_22_g2",
+        "type": "goal",
+        "period": 1,
+        "time": "11:05",
+        "teamId": "w_kraken",
+        "player": "p_stephe_goedike_sub",
+        "assist": "p3",
+        "assist2": "w_p_thomas_burton",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_22_g3",
+        "type": "goal",
+        "period": 1,
+        "time": "13:36",
+        "teamId": "w_seamen",
+        "player": "w_p_noah_bonspille",
+        "assist": "w_p_noah_goyens",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_22_g4",
+        "type": "goal",
+        "period": 2,
+        "time": "01:33",
+        "teamId": "w_kraken",
+        "player": "w_p_ben_siegl",
+        "assist": "w_p_thomas_burton",
+        "assist2": "p_jeremie_robert_sub",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_22_g5",
+        "type": "goal",
+        "period": 2,
+        "time": "09:02",
+        "teamId": "w_seamen",
+        "player": "p_dylan_molinaro_sub",
+        "assist": "",
+        "assist2": "",
+        "details": "Unassisted"
+      },
+      {
+        "id": "e_g_w_22_g6",
+        "type": "goal",
+        "period": 2,
+        "time": "13:15",
+        "teamId": "w_kraken",
+        "player": "p_joshua_sylvain",
+        "assist": "w_p_thomas_desveaux",
+        "assist2": "",
+        "details": ""
+      },
+      {
+        "id": "e_g_w_22_g7",
+        "type": "goal",
+        "period": 3,
+        "time": "10:03",
+        "teamId": "w_seamen",
+        "player": "w_p_brendan_walsh",
+        "assist": "w_p_noah_goyens",
+        "assist2": "",
+        "details": ""
+      }
+    ],
+    "goalieStats": {
+      "homeGoalie": {
+        "playerId": "goalie_adam_rizk",
+        "shotsFaced": 25,
+        "goalsAgainst": 3,
+        "saves": 22
+      },
+      "awayGoalie": {
+        "playerId": "goalie_1773774693729",
+        "shotsFaced": 27,
+        "goalsAgainst": 4,
+        "saves": 23
+      }
+    },
+    "roster": {
+      "homePlayers": [
+        "goalie_adam_rizk",
+        "p_dylan_molinaro_sub",
+        "p_ethan_black_sub",
+        "w_p_brendan_walsh",
+        "w_p_noah_goyens",
+        "w_p_william_goyens",
+        "w_p_noah_bonspille",
+        "w_p_olivier_sylvain",
+        "w_p_owen_dunn",
+        "p_liborio_ciccarello_sub",
+        "p_alexandre_routhier_sub"
+      ],
+      "awayPlayers": [
+        "goalie_1773774693729",
+        "p3",
+        "w_p_ben_siegl",
+        "p_joshua_sylvain",
+        "w_p_thomas_burton",
+        "w_p_thomas_desveaux",
+        "p4",
+        "p_jeremie_robert_sub",
+        "p_vincent_morneau_sub",
+        "p_stephe_goedike_sub"
+      ]
+    },
+    "absentPlayers": {
+      "homePlayers": [
+        "w_p_alexandre_derome",
+        "w_p_devin_menary"
+      ],
+      "awayPlayers": [
+        "goalie_ephram_labonville_177914",
+        "w_p_evan_getty",
+        "w_p_jacob_lacombe",
+        "w_p_arjun_srivastava",
+        "w_p_giustino_porco",
+        "p_nicholas_giacalone_178004",
+        "p_marco_cote_sub"
+      ]
+    },
+    "shots": {
+      "home": 27,
+      "away": 25
+    },
+    "referees": [
+      "Nathan Auclair"
+    ],
+    "playerNumbers": {
+      "goalie_adam_rizk": "30",
+      "p_dylan_molinaro_sub": "7",
+      "p_ethan_black_sub": "19",
+      "w_p_brendan_walsh": "18",
+      "w_p_noah_goyens": "20",
+      "w_p_william_goyens": "14",
+      "w_p_noah_bonspille": "5",
+      "w_p_olivier_sylvain": "8",
+      "w_p_owen_dunn": "11",
+      "p_liborio_ciccarello_sub": "29",
+      "p_alexandre_routhier_sub": "9",
+      "goalie_1773774693729": "31",
+      "p3": "43",
+      "w_p_ben_siegl": "11",
+      "p_joshua_sylvain": "4",
+      "w_p_thomas_burton": "2",
+      "w_p_thomas_desveaux": "17",
+      "p4": "23",
+      "p_jeremie_robert_sub": "362",
+      "p_vincent_morneau_sub": "0",
+      "p_stephe_goedike_sub": "3"
     }
   }
 };
